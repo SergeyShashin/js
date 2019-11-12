@@ -1,7 +1,7 @@
 
 const settings = {
-    rowsCount: 7,
-    cellCount: 7,
+    rowsCount: 5,
+    cellCount: 5,
     startPlayerX: 2,
     startPlayerY: 2,
 }

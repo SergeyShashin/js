@@ -12,7 +12,7 @@ generatorChessBoard();
 
 function generatorChessBoard() {
     let tr, td;
-    let letters=['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', '',];
+    let letters=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', '',];
     letters.reverse();
     document.body.style.backgroundColor = 'gray';
     document.body.style.color = 'gray';
