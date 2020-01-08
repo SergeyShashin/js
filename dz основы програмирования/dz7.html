@@ -1,0 +1,17 @@
+<meta charset="UTF-8">
+
+<title>Dz7. Загадки и отгадки</title>
+<script>
+  var quantityTrueAnswers = 0;
+  var correctAnswers = [4, 9, 16];
+  var questions = ['2*2=?', '3*3=?', '4*4=?'];
+  var answer;
+  
+  for (var i =0; i<questions.length; i++){
+    answer = prompt(questions[i]);
+    correctAnswers[i]==answer ? quantityTrueAnswers++ : alert('Неверно');
+  }
+  
+  alert(`Количество верных ответов =  ${quantityTrueAnswers}`);
+  
+</script>

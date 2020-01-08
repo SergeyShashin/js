@@ -1,0 +1,54 @@
+<meta charset="UTF-8">
+
+<title>Dz12. Black Jack. Раздача карт дилеру и игроку. Подсчет очков. </title>
+
+<script>
+  var dealer;
+  var player;
+
+  function getRandomIntNumber(min, max) {
+    return Math.floor(Math.random() * max - min + 1) + min;
+  }
+
+  function getCard() {
+    var cards = [6, 7, 8, 9, 10, 'валет', 'дама', 'король', 'туз'];
+    return cards[getRandomIntNumber(0, cards.length - 1)]
+  }
+
+  function getSum(arr) {
+    var sum = 0;
+
+    for (var i = 0; i < arr.length; i++) {
+
+      switch (arr[i]) {
+        case 'валет':
+        case 'дама':
+        case 'король':
+          sum += 10;
+          break;
+        case 'туз':
+          sum > 10 ? sum += 1 : sum += 11;
+          break;
+        default:
+          sum += arr[i];
+      }
+
+    }
+
+    return sum;
+
+  }
+
+  function getStatus(){
+    return alert(`Карты дилера: ${dealer}. Cчет дилера: ${getSum(dealer)} \nКарты игрока: ${player}. Счет игрока: ${getSum(player)}`);
+  }
+
+
+  
+  dealer = [getCard()];
+  player = [getCard(), getCard()];
+
+  getStatus();
+
+
+</script>

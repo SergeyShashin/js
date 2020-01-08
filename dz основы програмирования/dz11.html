@@ -1,0 +1,40 @@
+<meta charset="UTF-8">
+
+<title>Dz11. Рулетка. 1 000 000 раундов Выводить результаты выпадения red, black, zero. Вывести максимальную
+  последовательность выпадания красного</title>
+
+<script>
+  var result = [];
+  var red = 0;
+  var maxRed = 0;
+
+  for (var i = 0; i < 1000000; i++) {
+
+    var temp = Math.round(Math.random() * 36);
+
+    if (temp != 0) {
+      switch (temp % 2) {
+        case 0:
+          result[i] = 'black';
+          break;
+        case 1:
+          result[i] = 'red';
+          if (result[i - 1] == 'red') {
+            red++;
+            if (red > maxRed) {
+              maxRed = red;
+            }
+          } else {
+            red = 1;
+          }
+          break;
+      }
+    } else {
+      result[i] = 'zero';
+    }
+
+  }
+
+  alert(result);
+  alert(`Максимальная последовательность выпадания красного = ${maxRed}`);
+</script>

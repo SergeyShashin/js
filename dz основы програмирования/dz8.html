@@ -1,0 +1,19 @@
+<meta charset="UTF-8">
+
+<title>Dz8. Проверка на попадание существующие диапазоны</title>
+<script>
+ var diapason1 = [0, 30];
+ var diapason2 = [60, 90];
+ var countHit = 0;
+
+  var input = +prompt('Введите диапазон');
+
+  if(input>diapason1[0]&&input<diapason1[1]){
+    countHit++;
+  }else if (input>diapason2[0]&&input<diapason2[1]){
+    countHit++;
+  }  
+  
+  alert(`Количество попаданий =  ${countHit}`);
+  
+</script>

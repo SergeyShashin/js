@@ -1,0 +1,14 @@
+<meta charset="UTF-8">
+
+<title>Dz10. Расчет процентов с капитализацией вклада </title>
+<script>
+  var deposit = +prompt('Размер вклада', 100000);
+  var time = +prompt('Срок вклада', 10);;
+  var procent = +prompt('Процентная ставка', 10);
+
+  for (var i = 1; i <= time; i++) {
+    deposit += deposit / 100 * procent;
+    alert(`Размер вклада = ${parseInt(deposit)} через ${i} лет `);
+  }
+
+</script>

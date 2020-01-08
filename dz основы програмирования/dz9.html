@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+
+<title>Dz9. Русская рулетка 1 из 6</title>
+<script>
+  var countRounds = 1;
+  var exit;
+  var play;
+
+
+  while (exit !== 'y') {
+    exit = prompt('Играем. Для выхода введи y');
+    if (Math.random() * 6 < 1) {
+
+      alert('Убит');
+      play = prompt('Играем? y/n');
+
+      if (play === 'n') {
+        break;
+      }
+
+    }
+
+    countRounds++;
+  }
+
+  alert(`Количество раундов =  ${countRounds}`);
+</script>
