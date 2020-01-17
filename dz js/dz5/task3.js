@@ -158,6 +158,8 @@ const form = {
 
   setValid(inputEl) {
     if (inputEl.parentNode.querySelector('.hint')) {
+      console.log(inputEl.parentNode.querySelector('.hint'));
+      
       inputEl.parentNode.querySelector('.hint').remove();
     }
 
