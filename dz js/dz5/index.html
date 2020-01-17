@@ -7,7 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dz5</title>
     <style>
-        input, button, span {
+        input,
+        button,
+        span {
             display: block;
             margin: 1%;
         }
@@ -28,10 +30,18 @@
     <!-- <script src='task2.js'></script> -->
     <div>
         <form id="form" action="">
-            <input type="text" name="name" id="name" placeholder="Имя">
-            <input type="text" name="phone" id="phone" placeholder="Телефон">
-            <input type="password" name="password" id="password" placeholder="Пароль">
-            <input type="password" name="repeat_password" id="repeat_password" placeholder="Повтор пароля">
+            <div class="name">
+                <input type="text" name="name" id="name" placeholder="Имя">
+            </div>
+            <div class="phone">
+                <input type="text" name="phone" id="phone" placeholder="Телефон">
+            </div>
+            <div class="password">
+                <input type="password" name="password" id="password" placeholder="Пароль">
+            </div>
+            <div class="repeat_password">
+                <input type="password" name="repeat_password" id="repeat_password" placeholder="Повтор пароля">
+            </div>
             <button type="submit">Отправить</button>
         </form>
     </div>

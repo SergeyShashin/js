@@ -139,19 +139,30 @@ const form = {
 
   setInvalid(inputEl, errorMessage) {
     let cl = inputEl.classList;
+
     cl.remove('ok');
     cl.add('error');
 
-    let hint = document.createElement('div');
-    hint.classList.add('hint');
-    inputEl.after(hint);
+    let hint = inputEl.parentNode.querySelector('.hint');
+
+    if (!hint) {
+      hint = document.createElement('div');
+      hint.classList.add('hint');
+      inputEl.parentNode.appendChild(hint);
+      console.log(hint);
+    }
 
     hint.textContent = errorMessage;
 
   },
 
   setValid(inputEl) {
+    if (inputEl.parentNode.querySelector('.hint')) {
+      inputEl.parentNode.querySelector('.hint').remove();
+    }
+
     let cl = inputEl.classList;
+
     cl.remove('error');
     cl.add('ok');
 
