@@ -15,11 +15,10 @@ function guessTheNumber() {
   while (randomNumber !== userInputNumber) {
     if (randomNumber < userInputNumber) {
       console.log(`${userInputNumber} больше загаданного`);
-      userInputNumber = inputNumber();
     } else {
       console.log(`${userInputNumber} меньше загаданного`);
-      userInputNumber = inputNumber();
     }
+    userInputNumber = inputNumber();
   }
 
   alert('Отгадали!');
@@ -34,6 +33,7 @@ function guessTheNumber() {
 function inputNumber() {
   let userInputNumber = +prompt('Введите число от 0 до 100', 50);
   while (!validationOfNumber(userInputNumber)) {
+    console.log('Ввели не то, что просили');
     userInputNumber = inputNumber();
   }
   return userInputNumber
