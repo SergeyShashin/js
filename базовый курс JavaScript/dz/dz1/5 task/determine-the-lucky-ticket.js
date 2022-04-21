@@ -17,13 +17,13 @@ console.log('Две переменные a и b равны.');
 ```
  */
 
-let ticketNumber = +prompt('Введите номер билета из 6 цифр', 797797);
-let sumLeftNumbers = parseInt(ticketNumber / 100000) + parseInt(ticketNumber / 10000 % 10) + parseInt(ticketNumber / 1000 % 10);
-let sumRightNumbers = parseInt(ticketNumber / 100 % 10) + parseInt(ticketNumber / 10 % 10) + parseInt(ticketNumber % 10);
+let ticketNumber = +prompt('Введите номер билета из 6 цифр', 797797),
+  sumLeftNumbers = parseInt(ticketNumber / 100000) + parseInt(ticketNumber / 10000 % 10) + parseInt(ticketNumber / 1000 % 10),
+  sumRightNumbers = parseInt(ticketNumber / 100 % 10) + parseInt(ticketNumber / 10 % 10) + parseInt(ticketNumber % 10);
 
 if (sumLeftNumbers === sumRightNumbers) {
   console.log(`Билет ${ticketNumber} счастливый!`);
-}else{
+} else {
   console.log(`Билет ${ticketNumber} несчастливый!`);
 }
 
