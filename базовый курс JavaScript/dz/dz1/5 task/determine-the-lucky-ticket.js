@@ -24,7 +24,7 @@ let sumRightNumbers = parseInt(ticketNumber / 100 % 10) + parseInt(ticketNumber 
 if (sumLeftNumbers === sumRightNumbers) {
   console.log(`Билет ${ticketNumber} счастливый!`);
 }else{
-  console.log(`Билет ${ticketNumber} не счастливый!`);
+  console.log(`Билет ${ticketNumber} несчастливый!`);
 }
 
 
