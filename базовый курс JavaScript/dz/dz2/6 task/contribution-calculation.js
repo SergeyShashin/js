@@ -13,21 +13,27 @@
 числом) вам необходимо создать функцию.
 */
 
-// let contribution = +prompt('Какое количество денег хотите положить?', 100);
-for (let i = 0; i < 1200; i++, answer(i, 'рубл')) { }
-// answer(contribution, 'рубл');
+let contribution = +prompt('Какое количество денег хотите положить?', 1111);
+// for (let i = 0; i < 1200; i++ , answer(i, 'рубл')) { }
+answer(contribution, 'рубл');
+// answer(contribution, 'яблок');
 
 
 function answer(number, root) {
 
-  if ((number < 100 && number % 10 === 1 && number !== 11) || (number > 100 && number % 10 === 1 && parseInt(number % 100) !== 11)) {
+  if (number % 10 === 1 && parseInt(number % 100) !== 11) {
     return console.log(`Ваша сумма в ${number} ${root + 'ь'} успешно зачислена.`);
+    // return console.log(`Ваша сумма в ${number} ${root + 'о'} успешно зачислена.`);
   }
 
-  if ((number % 10 === 2 || number % 10 === 3 || number % 10 === 4) && number !== 12 && number !== 13 && number !== 14) {
+  if (
+    (number % 10 === 2 || number % 10 === 3 || number % 10 === 4)
+    && parseInt(number % 100) !== 12 && parseInt(number % 100) !== 13 && parseInt(number % 100) !== 14) {
     return console.log(`Ваша сумма в ${number} ${root + 'я'} успешно зачислена.`);
+    // return console.log(`Ваша сумма в ${number} ${root + 'а'} успешно зачислена.`);
   }
 
   return console.log(`Ваша сумма в ${number} ${root + 'ей'} успешно зачислена.`);
+  // return console.log(`Ваша сумма в ${number} ${root + ''} успешно зачислена.`);
 
 }
