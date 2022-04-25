@@ -10,22 +10,16 @@ bullsAndCows();
 function bullsAndCows() {
 
   setStartSettings();
-  alert(`Загаданный номер ${number}`);
 
-  while (true) {
+
+  while (true) {    
     let result = [0, 0], userNumber = enterNumber().split('');
-    console.log(`Число пользователя ${typeof(userNumber[0])}`);
-    console.log(`Число пользователя ${typeof(number[0])}`);
 
     for (let i = 0; i < userNumber.length; i++) {
-      console.log(`Предполагаемый номер ${userNumber}`);
 
-      if (userNumber[i] === number[i]) {
-        console.log('Как-то зашли');
-        console.log(`Загаданное число ${number[i]}`);
-        console.log(`Число пользователя ${userNumber[i]}`);
+      if (parseInt(userNumber[i]) === number[i]) {
         result[0]++;
-      } else if (number.includes(userNumber[i])) {
+      } else if (number.includes(parseInt(userNumber[i]))) {
         result[1]++;
       }
     }
@@ -33,12 +27,13 @@ function bullsAndCows() {
     attemps++;
 
     console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
+
     if (result[0] === 4) {
-      alert('Поздравляем. Вы отгадали!')
+      alert('Поздравляем. Вы отгадали!');
+      confirm('Ещё?') ? bullsAndCows() : console.log('До свидания)'); return;
     }
 
   }
-
 
 }
 
