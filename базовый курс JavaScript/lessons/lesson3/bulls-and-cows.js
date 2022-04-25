@@ -10,10 +10,35 @@ bullsAndCows();
 function bullsAndCows() {
 
   setStartSettings();
-  // console.log(attemps);
-  console.log(number);
+  alert(`Загаданный номер ${number}`);
 
-  result(enterNumber());
+  while (true) {
+    let result = [0, 0], userNumber = enterNumber().split('');
+    console.log(`Число пользователя ${typeof(userNumber[0])}`);
+    console.log(`Число пользователя ${typeof(number[0])}`);
+
+    for (let i = 0; i < userNumber.length; i++) {
+      console.log(`Предполагаемый номер ${userNumber}`);
+
+      if (userNumber[i] === number[i]) {
+        console.log('Как-то зашли');
+        console.log(`Загаданное число ${number[i]}`);
+        console.log(`Число пользователя ${userNumber[i]}`);
+        result[0]++;
+      } else if (number.includes(userNumber[i])) {
+        result[1]++;
+      }
+    }
+
+    attemps++;
+
+    console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
+    if (result[0] === 4) {
+      alert('Поздравляем. Вы отгадали!')
+    }
+
+  }
+
 
 }
 
@@ -54,18 +79,3 @@ function enterNumber() {
   }
 }
 
-function result(userNumber) {
-  attemps++;
-  let result = [0, 0];
-  let userNumberArr = userNumber.split(',');
-
-  alert(userNumberArr);
-
-  for (let i = 0; i <= userNumber.length; i++) {
-    userNumber[i] === number[i] ? result[0]++ : '';
-    number.includes(userNumber[i]) ? result[1]++ : '';
-  }
-
-  console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
-
-}
