@@ -26,6 +26,8 @@ function bullsAndCows() {
 
     attemps++;
 
+    alert(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
+    console.log(`Предположение ${userNumber}`);
     console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
 
     if (result[0] === 4) {
