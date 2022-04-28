@@ -40,12 +40,13 @@ const game = {
 
   run() {
     this.player.init(this.settings.playerPositionX, this.settings.playerPositionY);
-    this.render();
 
     while (true) {
-
+      
+      this.render();
       let direction = this.getDirection();
-      console.log(direction);
+
+      console.log(direction);      
       if (direction === -1) {
         console.log('До встречи!');
         return
@@ -53,7 +54,6 @@ const game = {
 
       this.player.makeStep(direction);
 
-      this.render();
     }
 
   },
@@ -62,7 +62,7 @@ const game = {
     let map = '';
     for (let row = 0; row <= this.settings.rowscount; row++) {
       for (let col = 0; col <= this.settings.rowscount; col++) {
-        row === this.player.y && col === this.player.x ? map += 'o' : map += 'x';
+        row === this.player.y && col === this.player.x ? map += 'o ' : map += 'x ';
       }
       map += '\n';
     }
@@ -72,10 +72,9 @@ const game = {
 
   getDirection() {
     let possibleDirections = [2, 4, 8, 6, -1];
-    let direction;
-
+    
     while (true) {
-      direction = parseInt(prompt(`Введите одно из возможных направлений ${possibleDirections.join(', ')} для выхода`));
+      let direction = parseInt(prompt(`Введите одно из возможных направлений ${possibleDirections.join(', ')} для выхода`));
 
       if (!possibleDirections.includes(direction)) {
         continue;
