@@ -46,7 +46,6 @@ const game = {
       this.render();
       let direction = this.getDirection();
 
-      console.log(direction);      
       if (direction === -1) {
         console.log('До встречи!');
         return
