@@ -68,18 +68,20 @@ const game = {
     while (true) {
       this.render();
 
+      // let curentLoactionPlayerX = this.player.x;
+      // let curentLoactionPlayerY = this.player.y;
+
       let direction = this.getDirection();
 
       if (direction === -1) {
         console.log('До встречи!');
         return
       }
-
-      if (this.canMakeStep(direction)) {
+      
+      if(this.canMakeStep(direction)){
         this.player.makeStep(direction);
       }
-
-
+      
     }
 
   },
@@ -115,28 +117,19 @@ const game = {
       case 2:
         return this.player.y + 1 <= this.settings.rowscount;
       case 1:
-        return this.palyer.x - 1 >= 0 || this.player.y + 1 <= this.settings.rowscount;
-      // case 4:
-      //   this.x--;
-      //   break;
-      // case 7:
-      //   this.x--;
-      //   this.y--;
-      //   break;
-      // case 8:
-      //   this.y--;
-      //   break;
-      // case 9:
-      //   this.y--;
-      //   this.x++;
-      //   break;
-      // case 6:
-      //   this.x++;
-      //   break;
-      // case 3:
-      //   this.x++;
-      //   this.y++;
-      //   break;
+        return this.player.x - 1 >= 0 && this.player.y + 1 <= this.settings.rowscount;
+      case 4:
+        return this.player.x - 1 >= 0;
+      case 7:
+        return this.player.x - 1 >= 0 && this.player.y - 1 >= 0;
+      case 8:
+        return this.player.y - 1 >= 0;
+      case 9:
+        return this.player.x + 1 <= this.settings.colscount && this.player.y - 1 >= 0;
+      case 6:
+        return this.player.x + 1 <= this.settings.colscount;
+      case 3:
+        return this.player.x + 1 <= this.settings.colscount && this.player.y + 1 <= this.settings.rowscount;
     }
 
   }
