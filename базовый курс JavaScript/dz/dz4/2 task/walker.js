@@ -8,6 +8,13 @@
 игрок оставался на том же месте где стоял.
 */
 
+/**
+ * @type {object} settings Объект настроек
+ * @property {int} 'rowscount' Количество строк
+ * @property {int} 'rowscount' Количество колонок
+ * @property {int} 'playerPositionX' Номер колонки в которой находится игрок
+ * @property {int} 'playerPositionY' Номер строки в которой находится игрок
+ */
 const settings = {
   rowscount: 10,
   colscount: 10,
@@ -15,6 +22,13 @@ const settings = {
   playerPositionY: 0
 };
 
+/**
+ * @type {object} player Объект игрока
+ * @property {int} 'x' Номер колонки в которой находится игрок
+ * @property {int} 'y' Номер строки в которой находится игрок
+ * @method init Устанавливает первоначальное положение игрока
+ * @method makeStep Ходы игрока
+ */
 const player = {
   x: null,
   y: null,
@@ -58,6 +72,14 @@ const player = {
   }
 };
 
+/**
+ * @type {object} Объект Игры
+ * @method run Запуск игры
+ * @method makeStep Ходы игрока
+ * @method render Отображение игрового поля и игрока
+ * @method getDirection Получение направления для перемещения игрока
+ * @method canMakeStep Контроль за выходом за пределы игрового поля
+ */
 const game = {
   settings,
   player,
@@ -67,9 +89,6 @@ const game = {
 
     while (true) {
       this.render();
-
-      // let curentLoactionPlayerX = this.player.x;
-      // let curentLoactionPlayerY = this.player.y;
 
       let direction = this.getDirection();
 

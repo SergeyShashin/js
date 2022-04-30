@@ -18,6 +18,10 @@ d. Куда я попал?
 Также должна быть возможность выхода из игры заранее, если пользователю надоело играть.
 */
 
+/**
+ * @type {object} Объект с вопросами
+ * @property {string} Номера вопросов
+ */
 const questions = {
   question1: 'Вопрос №1. Какой номер вопроса? \n',
   question2: 'Вопрос №2. Какой номер вопроса? \n',
@@ -26,6 +30,10 @@ const questions = {
   question5: 'Вопрос №5. Какой номер вопроса? \n',
 };
 
+/**
+ * @type {object} Объект с правильными ответами
+ * @property {int} Правильные ответы
+ */
 const corectAnswers = {
   question1: 1,
   question2: 2,
@@ -34,6 +42,12 @@ const corectAnswers = {
   question5: 5,
 };
 
+/**
+ * @type {object} Объект игры
+ * @property {questions} Объект с вопросами
+ * @property {corectAnswers} Объект с правильными ответами
+ * @property {int} 'quantityCorrectAnswers Количество правильных ответов'
+ */
 const game = {
   questions,
   corectAnswers,
@@ -59,10 +73,8 @@ const game = {
 
         if (answerUser === corectAnswers[key]) {
           this.quantityCorrectAnswers++;
-          console.log(this.quantityCorrectAnswers);
         }
       }
-
 
       if (confirm(`Вы ответили правильно ${this.quantityCorrectAnswers} раз(а). Играем еще?`)) {
         continue;
@@ -75,4 +87,5 @@ const game = {
   }
 };
 
+//Запуск игры
 game.run();
