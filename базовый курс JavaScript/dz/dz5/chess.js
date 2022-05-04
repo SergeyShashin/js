@@ -30,9 +30,16 @@ function chessDesk() {
 
       //заполняем цифры
       if (col === 0 && row != 0 && row != 9 || col === 9 && row != 0 && row != 9) {
-        td.textContent = 9-row;
+        td.textContent = 9 - row;
       }
 
+      //красим ячейки в чёрный
+      if (
+        col % 2 != 0 && row < 9 && row > 0 && col < 9 && row % 2 === 0 ||
+        col % 2 === 0 && row < 9 && row > 0 && col > 0 && row % 2 != 0
+      ) {
+        td.classList.add('black');
+      }
 
       tr.appendChild(td);
     }
