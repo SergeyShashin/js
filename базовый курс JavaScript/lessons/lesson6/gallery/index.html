@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    body {
+      position: relative;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .gallery {
+      text-align: center;
+    }
+
+    .gallery-wrap {
+      position: absolute;
+      top: 0;
+      height: 100vh;
+      width: 100%;
+      background: darkcyan;      
+      opacity: 0.5;
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      margin-left: 10px;
+    }
+
+    .btn-close img {
+      width: 30px;
+    }
+
+    .img-btn-wrap {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 25px;
+    }
+
+    .img-max {
+      width: 60%;
+    }
+
+  </style>
+  <title>Gallery</title>
+</head>
+
+<body>
+  <div class="gallery">
+    <img src="img/min/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" alt="img/min/4.jpg">
+    <!-- <div class="gallery-wrap"></div>
+    <div class="img-btn-wrap">
+      <img class="img-max" src="img/max/1.jpg" alt="img/max/1.jpg">
+      <button class="btn-close" type="button">
+        <img src="img/gallery/close.png" alt="img/gallery/close.png">
+      </button>
+    </div> -->
+  </div>
+
+  <script src="gallery.js"></script>
+</body>
+
+</html>
