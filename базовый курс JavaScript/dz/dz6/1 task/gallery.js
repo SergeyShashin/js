@@ -1,5 +1,11 @@
 'use strict';
 
+/*
+1. Доработать функцию замены картинки в галерее таким образом, чтобы она проверяла наличие большой
+картинки по указанному в src адресу. Если такой картинки не существует или она не доступна, то должна
+ставиться картинка-заглушка сообщающая об ошибке.
+*/
+
 /**
  * @type {Object} gallery Галерея.
  * @property {Object} settings Настройки.
@@ -12,7 +18,7 @@ const gallery = {
    * @property {string} classImgBtnWrap Класс блока с большим изображением и кнопкой закрыть.
    * @property {string} classImgMax Класс для изображения большого размера.
    * @property {string} classBtnClose Класс для кнопки закрыть.
-   * @property {string} ImgBtnClosePath Путь к файлу с изображением кнопки закрыть.
+   * @property {string} imgBtnClosePath Путь к файлу с изображением кнопки закрыть.
    */
   settings: {
     idGallery: 'gallery',
@@ -20,12 +26,14 @@ const gallery = {
     classImgBtnWrap: 'img-btn-wrap',
     classImgMax: 'img-max',
     classBtnClose: 'btn-close',
-    ImgBtnClosePath: 'img/gallery/close.png',
+    imgBtnClosePath: 'img/gallery/close.png',
+    imgNotLoadingPath: 'img/gallery/nothing.png',
   },
   elementGallery: null,
   pathToImgBigSize: null,
   galleryWrapElement: null,
   imgBtnWrapElement: null,
+  imgMax: null,
 
   /**
    * Инициализация объекта галереи
@@ -84,17 +92,26 @@ const gallery = {
     this.imgBtnWrapElement.appendChild(btnClosecElement);
 
     let imgBtnClose = document.createElement('img');
-    imgBtnClose.src = this.settings.ImgBtnClosePath;
+    imgBtnClose.src = this.settings.imgBtnClosePath;
     btnClosecElement.appendChild(imgBtnClose);
+
+    imgBtnClose.addEventListener('click', () => this.close());
   },
 
   //*Создает и добавляет изображение большого размера в imgBtnWrap
   addImgMax() {
-    let imgMax = document.createElement('img');
-    imgMax.classList.add(this.settings.classImgMax);
-    imgMax.src = this.pathToImgBigSize;
-    this.imgBtnWrapElement.appendChild(imgMax);
+    this.imgMax = document.createElement('img');
+    this.imgMax.classList.add(this.settings.classImgMax);    
+    this.imgMax.src = this.pathToImgBigSize;
+    this.imgMax.onerror = ()=>this.imgMax.src = this.settings.imgNotLoadingPath;
+    this.imgBtnWrapElement.appendChild(this.imgMax);
+  },
+
+  close() {
+    this.imgBtnWrapElement.remove();
+    this.galleryWrapElement.remove();
   }
+
 
 }
 
