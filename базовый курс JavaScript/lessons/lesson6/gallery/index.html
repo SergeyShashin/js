@@ -23,7 +23,7 @@
       top: 0;
       height: 100vh;
       width: 100%;
-      background: darkcyan;      
+      background: darkcyan;
       opacity: 0.5;
     }
 
@@ -38,35 +38,34 @@
     }
 
     .img-btn-wrap {
+      width: 100%;
       position: absolute;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 25px;
     }
 
     .img-max {
-      width: 60%;
+      width: 500px;
     }
-
   </style>
   <title>Gallery</title>
 </head>
 
 <body>
-  <div class="gallery">
-    <img src="img/min/1.jpg" alt="img/min/1.jpg">
-    <img src="img/min/2.jpg" alt="img/min/2.jpg">
-    <img src="img/min/3.jpg" alt="img/min/3.jpg">
-    <img src="img/min/4.jpg" alt="img/min/4.jpg">
-    <!-- <div class="gallery-wrap"></div>
+  <div id='gallery' class="gallery">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
+  </div>
+  <!-- <div class="gallery-wrap"></div>
     <div class="img-btn-wrap">
       <img class="img-max" src="img/max/1.jpg" alt="img/max/1.jpg">
       <button class="btn-close" type="button">
         <img src="img/gallery/close.png" alt="img/gallery/close.png">
       </button>
     </div> -->
-  </div>
 
   <script src="gallery.js"></script>
 </body>
