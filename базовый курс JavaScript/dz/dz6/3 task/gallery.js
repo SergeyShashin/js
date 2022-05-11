@@ -35,6 +35,8 @@ const gallery = {
   imgBtnWrapElement: null,
   imgMax: null,
 
+  curentOpenImgId: null,
+
   /**
    * Инициализация объекта галереи
    */
@@ -52,6 +54,8 @@ const gallery = {
     if (event.target.tagName !== 'IMG') {
       return
     }
+
+    this.curentOpenImgId = event.target.id;
 
     this.pathToImgBigSize = event.target.dataset.fullImageUrl;
 
@@ -129,7 +133,7 @@ const gallery = {
     arrowLeft.classList.add('arrow-left');
     arrowLeft.textContent = '<';
     this.imgBtnWrapElement.appendChild(arrowLeft);
-    arrowLeft.addEventListener('click', (e)=> this.clickLeft(e));
+    arrowLeft.addEventListener('click', (e) => this.clickLeft(e));
 
   },
 
@@ -141,20 +145,32 @@ const gallery = {
     arrowRight.classList.add('arrow-right');
     arrowRight.textContent = '>';
     this.imgBtnWrapElement.appendChild(arrowRight);
-    arrowRight.addEventListener('click', ()=> this.clickRight());
+    arrowRight.addEventListener('click', () => this.clickRight());
   },
 
   /**
    * Обрабатывает клик влево
    */
   clickLeft() {
-    
+    console.log('Клик влево');
+    console.log(this.curentOpenImgId);
+    console.dir(document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl);
+    if(document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl){
+      this.imgMax.src = document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl;
+    }else {
+      console.log('Последний');
+    }
+
+    // this.imgMax.src = 'img/max/1.jpg';
+
   },
 
   /**
    * Обрабатывает клик вправо
    */
   clickRight() {
+    console.log('Клик вправо');
+    // this.imgMax.src = 'img/max/3.jpg';
   },
 
 
