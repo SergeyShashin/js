@@ -1,12 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Dz6 task2</title>
+  <style>
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      justify-content: center;
+      grid-gap: 20px;
+    }
+
+    .product {
+      position: relative;
+
+    }
+
+    img {
+      display: block;
+      width: 250px;
+      height: 250px;
+      border-radius: 10px;
+    }
+
+    button {
+      display: block;
+      height: 0;
+      position: absolute;
+      z-index: -1;
+      padding: 10px;
+      background: lightseagreen;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      bottom: 0;
+      color: white;
+      border-radius: 10px;
+      transition: all 1s;
+    }
+
+    .product:hover button {
+      z-index: 0;
+      height: 30%;
+    }
+
+    .cart {
+      color: lightseagreen;
+    }
+  </style>
+
 </head>
+
 <body>
+  <div id='cart' class="cart">
+    <h3>Итого: <span id="total-sum"></span></h3>
+  </div>
+  <div class="products">
+    <a href="#" class='product' data-price='1'>
+      <img src="img/coal.jpg" alt="img/coal.jpg">
+      <button id='btn-buy' type="button">Купить 1 руб</button>
+    </a>
+    <a href="#" class='product' data-price='2'>
+      <img src="img/chalk.jpg" alt="img/chalk.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+    <a href="#" class='product' data-price='3'>
+      <img src="img/pen.jpg" alt="img/pen.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+    <a href="#" class='product' data-price='4'>
+      <img src="img/pencil.jpg" alt="img/pencil.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+    <a href="#" class='product' data-price='5'>
+      <img src="img/mouse.jpg" alt="img/mouse.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+    <a href="#" class='product' data-price='6'>
+      <img src="img/pen2.jpg" alt="img/pen2.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+    <a href="#" class='product' data-price='7'>
+      <img src="img/pen3.jpg" alt="img/pen3.jpg">
+      <button id='btn-buy' type="button"></button>
+    </a>
+  </div>
   <script src="cart.js"></script>
 </body>
+
 </html>
