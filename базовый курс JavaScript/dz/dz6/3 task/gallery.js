@@ -152,25 +152,26 @@ const gallery = {
    * Обрабатывает клик влево
    */
   clickLeft() {
-    console.log('Клик влево');
-    console.log(this.curentOpenImgId);
-    console.dir(document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl);
-    if(document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl){
+    if (document.getElementById(this.curentOpenImgId).previousElementSibling) {
       this.imgMax.src = document.getElementById(this.curentOpenImgId).previousElementSibling.dataset.fullImageUrl;
-    }else {
-      console.log('Последний');
+      this.curentOpenImgId = document.getElementById(this.curentOpenImgId).previousElementSibling.id;
+    } else {
+      this.imgMax.src = document.getElementById(this.curentOpenImgId).parentElement.lastElementChild.dataset.fullImageUrl;
+      this.curentOpenImgId = document.getElementById(this.curentOpenImgId).parentElement.lastElementChild.id;
     }
-
-    // this.imgMax.src = 'img/max/1.jpg';
-
   },
 
   /**
    * Обрабатывает клик вправо
    */
   clickRight() {
-    console.log('Клик вправо');
-    // this.imgMax.src = 'img/max/3.jpg';
+    if (document.getElementById(this.curentOpenImgId).nextElementSibling) {
+      this.imgMax.src = document.getElementById(this.curentOpenImgId).nextElementSibling.dataset.fullImageUrl;
+      this.curentOpenImgId = document.getElementById(this.curentOpenImgId).nextElementSibling.id;
+    } else {
+      this.imgMax.src = document.getElementById(this.curentOpenImgId).parentElement.firstElementChild.dataset.fullImageUrl;
+      this.curentOpenImgId = document.getElementById(this.curentOpenImgId).parentElement.firstElementChild.id;
+    }
   },
 
 
