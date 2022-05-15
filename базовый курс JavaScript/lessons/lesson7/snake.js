@@ -31,7 +31,7 @@ const config = {
   },
 
   getColsCount() {
-    return this.settings.colssCount;
+    return this.settings.colsCount;
   },
 
   getSpeed() {
@@ -77,13 +77,58 @@ const config = {
  *@property {string} condition. Состояние игры.
  */
 const status = {
-  condition: null
+  condition: null,
+
+  init() {
+    this.condition = 'play';
+  },
+
+  setPlay() {
+    this.condition = 'play';
+  },
+
+  setStop() {
+    this.condition = 'stop';
+  },
+
+  setFinish() {
+    this.condition = 'finish';
+  },
+
+  IsPlay() {
+    return this.condition === 'play';
+  },
+
+  IsStop() {
+    return this.condition === 'stop';
+  },
 };
 
 /**
  * @type {Object} map. Игровое поле.
  */
 const map = {
+  cels: null,
+  usedCels: null,
+
+  init(rowsCount, colsCount) {
+    this.cels = {};
+    this.usedCels = [];
+
+    let gameElement = document.getElementById('snake-game');
+    gameElement.innerHTML = '';
+
+    for (let row = 0; row < rowsCount; row++) {
+      let tr = document.createElement('tr');
+      gameElement.appendChild(tr);
+      for (let col = 0; col < colsCount; col++) {
+        let td = document.createElement('td');
+        this.cels[`x${col}_y${row}`] = td;
+        tr.appendChild(td);
+      }
+    }
+  },
+
 
 };
 
@@ -91,6 +136,15 @@ const map = {
  * @type {Object} snake. Змейка.
  */
 const snake = {
+  x: null,
+  y: null,
+  body: null,
+
+  init(startPositionX, startPositionY) {
+    this.x = startPositionX;
+    this.y = startPositionY;
+    this.body = [];
+  }
 
 };
 
@@ -98,6 +152,8 @@ const snake = {
  * @type {Object} food. Еда.
  */
 const food = {
+  x: null,
+  y: null
 
 };
 
@@ -110,19 +166,26 @@ const game = {
   status,
   snake,
   food,
+  gameElement: null,
 
   init(userSettings) {
     this.config.init(userSettings);
-    
+
     let validation = this.config.validation();
-    // console.log(validation);
-    
+
     if (!validation.isValid) {
       for (let error of validation.errors) {
         console.error(error);
       }
       return;
-    }    
+    }
+
+    this.map.init(this.config.getColsCount(), this.config.getRowsCount());
+
+    // this.status.init();
+
+    // this.snake.init(this.config.getColsCount() / 2, this.config.getRowsCount() / 2);
+
 
 
   },
