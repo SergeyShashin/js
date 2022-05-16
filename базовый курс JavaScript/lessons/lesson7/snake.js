@@ -144,6 +144,10 @@ const snake = {
     this.body = startBody;
     this.direction = direction;
     this.lastStepDirection = direction;
+  },
+
+  getBody() {
+    return this.body;
   }
 
 };
@@ -153,8 +157,20 @@ const snake = {
  */
 const food = {
   x: null,
-  y: null
+  y: null,
 
+
+  setCoordinates(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
+
+  getCoordinates() {
+    return {
+      x: this.x,
+      y: this.y,
+    }
+  },
 };
 
 /**
@@ -182,6 +198,8 @@ const game = {
 
     this.map.init(this.config.getColsCount(), this.config.getRowsCount());
 
+    this.setEventHandlers();
+
     this.reset();
 
   },
@@ -189,12 +207,29 @@ const game = {
   reset() {
     this.stop();
     this.snake.init(this.getStartSnakeBody(), 'up');
-    console.log(this.snake);
+    this.food.setCoordinates(this.getRandomFreeCoordinates());
+    console.log(this.food.getCoordinates());
+
     this.gameStatus.init();
   },
 
-  getStartSnakeBody(){
-    return [{x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2)}];
+  getStartSnakeBody() {
+    return [{ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }];
+  },
+
+  getRandomFreeCoordinates() {
+    let exclude = [this.food.getCoordinates(), ...this.snake.getBody(),];
+
+    while (true) {
+      let rndPoint = {
+        x: Math.floor(Math.random() * this.config.getColsCount()),
+        y: Math.floor(Math.random() * this.config.getRowsCount()),
+      };
+
+      if (!exclude.some(point => rndPoint.x === point.x && rndPoint.y === point.y)) {
+        return rndPoint;
+      }
+    }
   },
 
   play() {
@@ -207,6 +242,10 @@ const game = {
   },
 
   finish() {
+
+  },
+
+  setEventHandlers() {
 
   }
 
