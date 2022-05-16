@@ -8,8 +8,8 @@
  * @property {number} winFoodCount. Количество еды для победы.
  */
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
+  rowsCount: 20,
+  colsCount: 20,
   speed: 5,
   winFoodCount: 50,
 };
@@ -129,6 +129,24 @@ const map = {
     }
   },
 
+  render(snakePointsArray, foodPoint) {
+    this.usedCels.forEach(cell => {
+      cell.className = '';
+    });
+
+    this.usedCels = [];
+
+    snakePointsArray.forEach((snakePoint, idx) => {
+      let snakeCell = this.cels[`x${snakePoint.x}_y${snakePoint.y}`];
+      snakeCell.className = idx === 0 ? 'snake-head' : 'snake-body';
+      this.usedCels.push(snakeCell);
+    });
+
+    let foodCell = this.cels[`x${foodPoint.x}_y${foodPoint.y}`];
+    this.usedCels.push(foodCell);
+    foodCell.className = 'food';
+  }
+
 
 };
 
@@ -208,7 +226,7 @@ const game = {
     this.stop();
     this.snake.init(this.getStartSnakeBody(), 'up');
     this.food.setCoordinates(this.getRandomFreeCoordinates());
-    console.log(this.food.getCoordinates());
+    this.render();
 
     this.gameStatus.init();
   },
@@ -230,6 +248,11 @@ const game = {
         return rndPoint;
       }
     }
+  },
+
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getCoordinates());
+
   },
 
   play() {
