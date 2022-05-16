@@ -73,10 +73,10 @@ const config = {
 };
 
 /**
- *@type {Object} status. Статус игры.
+ *@type {Object} gameStatus. Статус игры.
  *@property {string} condition. Состояние игры.
  */
-const status = {
+const gameStatus = {
   condition: null,
 
   init() {
@@ -136,14 +136,14 @@ const map = {
  * @type {Object} snake. Змейка.
  */
 const snake = {
-  x: null,
-  y: null,
   body: null,
+  direction: null,
+  lastStepDirection: null,
 
-  init(startPositionX, startPositionY) {
-    this.x = startPositionX;
-    this.y = startPositionY;
-    this.body = [];
+  init(startBody, direction) {
+    this.body = startBody;
+    this.direction = direction;
+    this.lastStepDirection = direction;
   }
 
 };
@@ -163,7 +163,7 @@ const food = {
 const game = {
   config,
   map,
-  status,
+  gameStatus,
   snake,
   food,
   gameElement: null,
@@ -182,14 +182,33 @@ const game = {
 
     this.map.init(this.config.getColsCount(), this.config.getRowsCount());
 
-    // this.status.init();
-
-    // this.snake.init(this.config.getColsCount() / 2, this.config.getRowsCount() / 2);
-
-
+    this.reset();
 
   },
 
+  reset() {
+    this.stop();
+    this.snake.init(this.getStartSnakeBody(), 'up');
+    console.log(this.snake);
+    this.gameStatus.init();
+  },
+
+  getStartSnakeBody(){
+    return [{x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2)}];
+  },
+
+  play() {
+
+  },
+
+  stop() {
+    this.gameStatus.setStop();
+
+  },
+
+  finish() {
+
+  }
 
 
 };
