@@ -201,6 +201,7 @@ const game = {
   snake,
   food,
   gameElement: null,
+  newgameElement: null,
 
   init(userSettings) {
     this.config.init(userSettings);
@@ -231,6 +232,9 @@ const game = {
     this.gameStatus.init();
   },
 
+  setEventHandlers() {
+  },
+
   getStartSnakeBody() {
     return [{ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }];
   },
@@ -253,6 +257,11 @@ const game = {
   render() {
     this.map.render(this.snake.getBody(), this.food.getCoordinates());
 
+  },
+
+  startNewGame() {
+    console.log('Клик есть.')
+    this.reset();
   },
 
   play() {
