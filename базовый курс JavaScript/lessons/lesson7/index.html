@@ -46,6 +46,7 @@
 
     .button-play-or-stop {
       flex: 1;
+      background: lightseagreen;
       border: none;
       font-size: 20px;
       padding: 5px 10px;
@@ -68,12 +69,8 @@
       cursor: pointer;
       color: white;
     }
-
-    .play {
-      background: lightseagreen;
-    }
-
-    .stop {
+    
+    .finish{
       background: gray;
       cursor: none;
     }
@@ -84,8 +81,8 @@
   <table id='snake-game' class="snake-game">    
   </table>
   <div class="buttons">
-    <button id = "playOrStop" class="button-play-or-stop play" type="button">Play</button>
-    <button id="newGame" class="button-new-game" type="button">New Game</button>
+    <button id = "playOrStopButton" class="button-play-or-stop play" type="button">Play</button>
+    <button id="newGameButton" class="button-new-game" type="button">New Game</button>
   </div>
   <script src="snake.js"></script>
 </body>

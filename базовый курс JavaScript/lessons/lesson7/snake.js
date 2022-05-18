@@ -79,28 +79,24 @@ const config = {
 const gameStatus = {
   condition: null,
 
-  init() {
-    this.condition = 'play';
+  setPlaying() {
+    this.condition = 'playing';
   },
 
-  setPlay() {
-    this.condition = 'play';
+  setStopped() {
+    this.condition = 'stopped';
   },
 
-  setStop() {
-    this.condition = 'stop';
+  setFinished() {
+    this.condition = 'finished';
   },
 
-  setFinish() {
-    this.condition = 'finish';
+  isPlaying() {
+    return this.condition === 'playing';
   },
 
-  IsPlay() {
-    return this.condition === 'play';
-  },
-
-  IsStop() {
-    return this.condition === 'stop';
+  isStopped() {
+    return this.condition === 'stopped';
   },
 };
 
@@ -201,7 +197,7 @@ const game = {
   snake,
   food,
   gameElement: null,
-  newgameElement: null,
+  tickInterval: null,
 
   init(userSettings) {
     this.config.init(userSettings);
@@ -228,11 +224,6 @@ const game = {
     this.snake.init(this.getStartSnakeBody(), 'up');
     this.food.setCoordinates(this.getRandomFreeCoordinates());
     this.render();
-
-    this.gameStatus.init();
-  },
-
-  setEventHandlers() {
   },
 
   getStartSnakeBody() {
@@ -265,21 +256,56 @@ const game = {
   },
 
   play() {
-
+    this.gameStatus.setPlaying();
+    this.tickInterval = setInterval(() => console.log(123), 1000 / this.config.getSpeed());
+    this.setPlayButton('Stop');
   },
 
   stop() {
-    this.gameStatus.setStop();
-
+    this.gameStatus.setStopped();
+    clearInterval(this.tickInterval);
+    this.setPlayButton('Play');
   },
 
   finish() {
+    this.gameStatus.setFinished();
+    this.setPlayButton('Game Over', true);
+    clearInterval(this.tickInterval);
 
   },
 
   setEventHandlers() {
+    document.getElementById('playOrStopButton').addEventListener('click', () => this.playOrStopHandler());
+    document.getElementById('newGameButton').addEventListener('click', () => this.newGameHandler());
+    document.addEventListener('keydown', (event) => this.keydownHandler(event));
+  },
 
+  playOrStopHandler() {
+    if (this.gameStatus.isPlaying()) {
+      this.stop();
+    } else if (this.gameStatus.isStopped()) {
+      this.play();
+    }
+    console.log(this.gameStatus.condition);
+  },
+
+  newGameHandler() {
+    this.reset();
+  },
+
+  keydownHandler(event) {
+
+  },
+
+  setPlayButton(text, isDisabled = false) {
+    let playOrStopButtonElement = document.getElementById('playOrStopButton');
+    playOrStopButtonElement.textContent = text;
+    isDisabled ? playOrStopButtonElement.classList.add('finish') : playOrStopButtonElement.classList.remove('finish');
   }
+
+
+
+
 
 
 };
