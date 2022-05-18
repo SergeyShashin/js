@@ -162,6 +162,25 @@ const snake = {
 
   getBody() {
     return this.body;
+  },
+
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
+    switch (this.direction) {
+      case 'up':
+        return { x: headPoint.x, y: headPoint.y - 1 };
+      case 'right':
+        return { x: headPoint.x + 1, y: headPoint.y };
+      case 'down':
+        return { x: headpoint.x, y: headPoint.y + 1 };
+      case 'left':
+        return { x: headPoint.x - 1, y: headPoint.y };
+    }
+  },
+
+  makeStep() {
+    this.body.unshift(this.getNextHeadPoint());
+    this.body.pop();
   }
 
 };
@@ -257,7 +276,7 @@ const game = {
 
   play() {
     this.gameStatus.setPlaying();
-    this.tickInterval = setInterval(() => console.log(123), 1000 / this.config.getSpeed());
+    this.tickInterval = setInterval(() => this.tickHandler(), 1000 / this.config.getSpeed());
     this.setPlayButton('Stop');
   },
 
@@ -301,6 +320,24 @@ const game = {
     let playOrStopButtonElement = document.getElementById('playOrStopButton');
     playOrStopButtonElement.textContent = text;
     isDisabled ? playOrStopButtonElement.classList.add('finish') : playOrStopButtonElement.classList.remove('finish');
+  },
+
+  tickHandler() {
+    if (!this.canMakeStep()) {
+      return this.finish();
+    }
+    this.snake.makeStep();
+    this.render();
+  },
+
+  canMakeStep() {
+    let nextHeadPoint = this.snake.getNextHeadPoint();
+    console.log(nextHeadPoint);
+    return nextHeadPoint.x >= 0 &&
+      nextHeadPoint.y >= 0 &&
+      nextHeadPoint.x < this.config.getColsCount() &&
+      nextHeadPoint.y < this.config.getRowsCount();
+
   }
 
 
