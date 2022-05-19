@@ -194,6 +194,11 @@ const snake = {
 
   getLasStepDirection() {
     return this.lastStepDirection;
+  },
+
+  growUp() {
+    console.log('Змейка вырасти!');
+    this.body.unshift(this.getNextHeadPoint());
   }
 
 };
@@ -204,7 +209,6 @@ const snake = {
 const food = {
   x: null,
   y: null,
-
 
   setCoordinates(point) {
     this.x = point.x;
@@ -217,6 +221,10 @@ const food = {
       y: this.y,
     }
   },
+
+  isOnPoint(point) {
+    return this.x === point.x && this.y === point.y;
+  }
 };
 
 /**
@@ -279,7 +287,6 @@ const game = {
 
   render() {
     this.map.render(this.snake.getBody(), this.food.getCoordinates());
-
   },
 
   startNewGame() {
@@ -302,7 +309,6 @@ const game = {
     this.gameStatus.setFinished();
     this.setPlayButton('Game Over', true);
     clearInterval(this.tickInterval);
-
   },
 
   setEventHandlers() {
@@ -368,7 +374,12 @@ const game = {
       return this.finish();
     }
     this.snake.makeStep();
+
+    if (this.food.isOnPoint(this.snake.getNextHeadPoint())) {
+      this.snake.growUp();
+    }
     this.render();
+
   },
 
   canMakeStep() {
@@ -379,12 +390,6 @@ const game = {
       nextHeadPoint.x < this.config.getColsCount() &&
       nextHeadPoint.y < this.config.getRowsCount();
   },
-
-
-
-
-
-
 
 };
 
