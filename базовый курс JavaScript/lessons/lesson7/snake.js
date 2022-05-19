@@ -190,6 +190,10 @@ const snake = {
 
   setDirection(direction) {
     this.direction = direction;
+  },
+
+  getLasStepDirection() {
+    return this.lastStepDirection;
   }
 
 };
@@ -327,26 +331,26 @@ const game = {
       case 38:
       case 104:
       case 87:
-        if (this.snake.lastStepDirection != 'down') {
+        if (this.snake.getLasStepDirection() != 'down') {
           return this.snake.setDirection('up');
         }
         break;
       case 39:
       case 102:
       case 68:
-        if (this.snake.lastStepDirection != 'left') {
+        if (this.snake.getLasStepDirection() != 'left') {
           return this.snake.setDirection('right');
         }
       case 40:
       case 98:
       case 83:
-        if (this.snake.lastStepDirection != 'up') {
+        if (this.snake.getLasStepDirection() != 'up') {
           return this.snake.setDirection('down');
         }
       case 37:
       case 100:
       case 65:
-        if (this.snake.lastStepDirection != 'right') {
+        if (this.snake.getLasStepDirection() != 'right') {
           return this.snake.setDirection('left');
         }
     }
