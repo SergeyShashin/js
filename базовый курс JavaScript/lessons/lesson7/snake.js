@@ -172,19 +172,24 @@ const snake = {
       case 'right':
         return { x: headPoint.x + 1, y: headPoint.y };
       case 'down':
-        return { x: headpoint.x, y: headPoint.y + 1 };
+        return { x: headPoint.x, y: headPoint.y + 1 };
       case 'left':
         return { x: headPoint.x - 1, y: headPoint.y };
     }
   },
 
   makeStep() {
+    this.lastStepDirection = this.direction;
     this.body.unshift(this.getNextHeadPoint());
     this.body.pop();
   },
 
   isOnPoint(point) {
     return this.body.some(snakePoint => point.x === snakePoint.x && point.y === snakePoint.y);
+  },
+
+  setDirection(direction) {
+    this.direction = direction;
   }
 
 };
@@ -315,6 +320,36 @@ const game = {
   },
 
   keydownHandler(event) {
+    if (!this.gameStatus.isPlaying()) {
+      return;
+    }
+    switch (event.keyCode) {
+      case 38:
+      case 104:
+      case 87:
+        if (this.snake.lastStepDirection != 'down') {
+          return this.snake.setDirection('up');
+        }
+        break;
+      case 39:
+      case 102:
+      case 68:
+        if (this.snake.lastStepDirection != 'left') {
+          return this.snake.setDirection('right');
+        }
+      case 40:
+      case 98:
+      case 83:
+        if (this.snake.lastStepDirection != 'up') {
+          return this.snake.setDirection('down');
+        }
+      case 37:
+      case 100:
+      case 65:
+        if (this.snake.lastStepDirection != 'right') {
+          return this.snake.setDirection('left');
+        }
+    }
 
   },
 
@@ -341,7 +376,7 @@ const game = {
       nextHeadPoint.y < this.config.getRowsCount();
   },
 
- 
+
 
 
 
