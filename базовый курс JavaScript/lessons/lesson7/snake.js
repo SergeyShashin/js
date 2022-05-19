@@ -181,6 +181,10 @@ const snake = {
   makeStep() {
     this.body.unshift(this.getNextHeadPoint());
     this.body.pop();
+  },
+
+  isOnPoint(point) {
+    return this.body.some(snakePoint => point.x === snakePoint.x && point.y === snakePoint.y);
   }
 
 };
@@ -270,7 +274,6 @@ const game = {
   },
 
   startNewGame() {
-    console.log('Клик есть.')
     this.reset();
   },
 
@@ -305,7 +308,6 @@ const game = {
     } else if (this.gameStatus.isStopped()) {
       this.play();
     }
-    console.log(this.gameStatus.condition);
   },
 
   newGameHandler() {
@@ -332,14 +334,14 @@ const game = {
 
   canMakeStep() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
-    console.log(nextHeadPoint);
-    return nextHeadPoint.x >= 0 &&
+    return !this.snake.isOnPoint(nextHeadPoint) &&
+      nextHeadPoint.x >= 0 &&
       nextHeadPoint.y >= 0 &&
       nextHeadPoint.x < this.config.getColsCount() &&
       nextHeadPoint.y < this.config.getRowsCount();
+  },
 
-  }
-
+ 
 
 
 
