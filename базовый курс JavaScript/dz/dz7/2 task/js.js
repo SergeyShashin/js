@@ -1,8 +1,6 @@
 "use strict";
 
-// Исправить ошибку. В коде что вам скинул допущена ошибка. При нажатии на кнопку
-// "Новая игра" еды становится больше на поле. Необходимо обнаружить эту ошибку и
-// исправить ее.
+// Выводить счёт игры в режиме реального времени.
 
 /**
  * Объект DTO с настройками игры по умолчанию, которые можно будет поменять при инициализации игры.
@@ -166,9 +164,6 @@ const map = {
     });
     // Получаем элемент ячейки с едой по точке foodPoint.
     const foodCell = this.cells[`x${foodPoint.x}_y${foodPoint.y}`];
-    
-    console.log(foodPoint);
-    console.log(foodCell);
     // Отображаем еду.
     foodCell.classList.add('food');
     // Добавляем элемент ячейки еды в массив занятых точек на карте.
@@ -259,13 +254,13 @@ const snake = {
     // Возвращаем точку, где окажется голова змейки в зависимости от направления.
     switch (this.direction) {
       case 'up':
-        return {x: firstPoint.x, y: firstPoint.y - 1};
+        return { x: firstPoint.x, y: firstPoint.y - 1 };
       case 'right':
-        return {x: firstPoint.x + 1, y: firstPoint.y};
+        return { x: firstPoint.x + 1, y: firstPoint.y };
       case 'down':
-        return {x: firstPoint.x, y: firstPoint.y + 1};
+        return { x: firstPoint.x, y: firstPoint.y + 1 };
       case 'left':
-        return {x: firstPoint.x - 1, y: firstPoint.y};
+        return { x: firstPoint.x - 1, y: firstPoint.y };
     }
   },
 
@@ -363,6 +358,30 @@ const status = {
 };
 
 /**
+ * Счёт игры
+ * @property {HTML Element} countElement
+ * @property {number} curentCount
+ */
+const count = {
+  countElement: null,
+  curentCount: null,
+  //инициализирует счёт
+  init() {
+    this.countElement = document.getElementById('count');
+    this.curentCount = 0;
+    this.countElement.textContent = this.curentCount;
+  },
+  //увеличивает счёт
+  growUp() {
+    this.curentCount++;
+  },
+  //обновляет счёт
+  render() {
+    this.countElement.textContent = this.curentCount;
+  }
+};
+
+/**
  * Объект игры.
  * @property {settings} settings Настройки игры.
  * @property {map} map Объект отображения.
@@ -377,6 +396,7 @@ const game = {
   snake,
   food,
   status,
+  count,
   tickInterval: null,
 
   /**
@@ -413,6 +433,8 @@ const game = {
     this.snake.init(this.getStartSnakeBody(), 'up');
     // Ставим еду на карту в случайную пустую ячейку.
     this.food.setCoordinates(this.getRandomFreeCoordinates());
+    //Инициализируем счёт игры
+    this.count.init();
     // Отображаем все что нужно для игры.
     this.render();
   },
@@ -465,6 +487,8 @@ const game = {
     if (this.food.isOnPoint(this.snake.getNextStepHeadPoint())) {
       // Прибавляем к змейке ячейку.
       this.snake.growUp();
+      //Увеличиваем счёт игры
+      this.count.growUp();
       // Ставим еду в свободную ячейку.
       this.food.setCoordinates(this.getRandomFreeCoordinates());
       // Если выиграли, завершаем игру.
@@ -520,6 +544,7 @@ const game = {
    */
   render() {
     this.map.render(this.snake.getBody(), this.food.getCoordinates());
+    this.count.render();
   },
 
   /**
@@ -644,4 +669,4 @@ const game = {
 };
 
 // При загрузке страницы инициализируем игру.
-window.onload = game.init({speed: 5});
+window.onload = game.init({ speed: 5 });
