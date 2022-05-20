@@ -198,7 +198,6 @@ const snake = {
   },
 
   growUp() {
-    console.log('Змейка вырасти!');
     this.body.unshift(this.getNextHeadPoint());
   }
 
