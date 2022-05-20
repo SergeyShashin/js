@@ -37,6 +37,7 @@ const config = {
   getSpeed() {
     return this.settings.speed;
   },
+
   getWinFoodCount() {
     return this.settings.winFoodCount;
   },
@@ -377,6 +378,10 @@ const game = {
 
     if (this.food.isOnPoint(this.snake.getNextHeadPoint())) {
       this.snake.growUp();
+      this.food.setCoordinates(this.getRandomFreeCoordinates());
+      if (this.isGameWon()) {
+        this.finish();
+      }
     }
     this.render();
 
@@ -391,6 +396,10 @@ const game = {
       nextHeadPoint.y < this.config.getRowsCount();
   },
 
+  isGameWon() {
+    return this.snake.getBody().length > this.config.getWinFoodCount();
+  }
+
 };
 
-window.onload = () => game.init();
+window.onload = () => game.init({ winFoodCount: 5 });
