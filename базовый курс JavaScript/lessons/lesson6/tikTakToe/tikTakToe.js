@@ -13,10 +13,10 @@ const map = {
       this.gameElement.appendChild(tr);
       for (let col = 0; col < 3; col++) {
         let td = document.createElement('td');
-        td.setAttribute('data-coordiantes', `x${row}_y${col}`);
-        // td.dataset.x = row
-        // td.dataset.y = col;
-        this.gridElements[`x${row}_y${col}`] = td;
+        td.setAttribute('data-coordiantes', `x${col}_y${row}`);
+        // td.dataset.x = col
+        // td.dataset.y = row;
+        this.gridElements[`x${col}_y${row}`] = td;
         tr.appendChild(td);
       }
     }
@@ -44,9 +44,11 @@ const map = {
 const tikTakToe = {
   map,
   gamePhase: null,
+  numberOfmoves: null,
   init() {
     console.log('Старт игры "Крестики нолики"');
     this.gamePhase = 'X';
+    this.numberOfmoves = 0;
     this.map.init();
     this.map.reset();
     this.setEventHandler();
@@ -59,8 +61,18 @@ const tikTakToe = {
       return
     }
     this.setInCellXor0(event.target);
+    this.numberOfmoves++;
+    if (this.isWin()) {
+      this.reset();
+      confirm(`Победили ${this.gamePhase}. Ещё?`) ? this.map.reset() : window.close();
+      return
+    }
+    if (this.isDraw()) {
+      this.reset();
+      confirm(`Победила дружба. Ещё?`) ? this.map.reset() : window.close();
+      return
+    }
     this.changeGamePhase();
-    this.winCheck();
   },
   setInCellXor0(td) {
     if (td.textContent === '') {
@@ -70,21 +82,29 @@ const tikTakToe = {
   changeGamePhase() {
     this.gamePhase = this.gamePhase === 'X' ? '0' : 'X';
   },
-  winCheck() {
-    console.log(this.map.getGridElements()['x0_y0'].textContent);
-    console.log(this.map.getGridElements()['x0_y1'].textContent);
-    console.log(this.map.getGridElements()['x0_y2'].textContent);
-    console.log(
-      this.islineWin(
-        this.map.getGridElements()['x0_y0'].textContent,
-        this.map.getGridElements()['x0_y1'].textContent,
-        this.map.getGridElements()['x0_y2'].textContent)
-    );
+  isWin() {
+    let elements = this.map.getGridElements();
+    return this.islineWin(elements['x0_y0'].textContent, elements['x1_y0'].textContent, elements['x2_y0'].textContent) ||
+      this.islineWin(elements['x0_y1'].textContent, elements['x1_y1'].textContent, elements['x2_y1'].textContent) ||
+      this.islineWin(elements['x0_y2'].textContent, elements['x1_y2'].textContent, elements['x2_y2'].textContent) ||
+      this.islineWin(elements['x0_y0'].textContent, elements['x1_y1'].textContent, elements['x2_y2'].textContent) ||
+      this.islineWin(elements['x2_y0'].textContent, elements['x1_y1'].textContent, elements['x0_y2'].textContent) ||
+      this.islineWin(elements['x0_y0'].textContent, elements['x0_y1'].textContent, elements['x0_y2'].textContent) ||
+      this.islineWin(elements['x1_y0'].textContent, elements['x1_y1'].textContent, elements['x1_y2'].textContent) ||
+      this.islineWin(elements['x2_y0'].textContent, elements['x2_y1'].textContent, elements['x2_y2'].textContent);
 
   },
   islineWin(a, b, c) {
-    return a === b && b === c;
+    if (a !== '' || b !== '' || c != '') {
+      return a === b && b === c;
+    }
   },
+  isDraw() {
+    return this.numberOfmoves === 9;
+  },
+  reset() {
+    this.numberOfmoves = 0;
+  }
 };
 
 window.onload = tikTakToe.init();
