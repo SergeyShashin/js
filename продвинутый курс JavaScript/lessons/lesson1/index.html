@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Lesson1</title>
 </head>
+
 <body>
   <script src="menu.js"></script>
+  <script>
+    window.onload = function () {
+      var menu = new Menu('idMenu', 'classMenu', [
+        new MenuItem('idItem', 'classItem', 'news', 'News'),
+        new MenuItem('idItem', 'classItem', 'page', 'Page'),
+        new MenuItem('idItem', 'classItem', 'home', 'Home')
+      ])
+      this.document.body.appendChild(menu.render());
+    }
+  </script>
 </body>
+
 </html>
