@@ -39,8 +39,26 @@ function Hamburger(size, stuffing) {
       this.price += 100;
       this.calories += 40;
       break;
+    default: new HamburgerException(`Размер ${this.size} отсутствует.`);
+  }
+
+  switch (this.stuffing) {
+    case Hamburger.STUFFING_CHEESE:
+      this.price += 10;
+      this.calories += 20;
+      break;
+    case Hamburger.STUFFING_SALAD:
+      this.price += 20;
+      this.calories += 5;
+      break;
+    case Hamburger.STUFFING_POTATO:
+      this.price += 15;
+      this.calories += 10;
+      break;
+    default: new HamburgerException(`Начинка ${this.stuffing} отсутствует.`);
   }
 }
+
 /* Размеры, виды начинок и добавок */
 Hamburger.SIZE_SMALL = 1;
 Hamburger.SIZE_LARGE = 2;
@@ -49,6 +67,7 @@ Hamburger.STUFFING_SALAD = 4;
 Hamburger.STUFFING_POTATO = 5;
 Hamburger.TOPPING_MAYO = 6;
 Hamburger.TOPPING_SPICE = 7;
+
 /**
 * Добавить добавку к гамбургеру. Можно добавить несколько
 *– при условии, что они разные.
@@ -68,6 +87,7 @@ Hamburger.prototype.addTopping = function (topping) {
         this.price += 10;
         this.calories += 0;
         break;
+      default: new HamburgerException(`Добавка ${this.topping} отсутствует.`);
     }
   }
 }
@@ -79,7 +99,14 @@ Hamburger.prototype.addTopping = function (topping) {
  * @throws {HamburgerException}  При неправильном использовании
  */
 Hamburger.prototype.removeTopping = function (topping) {
+  var removeToppingIdx;
+  this.toppings.forEach(function (element, idx) {
+    if (topping === element) {
+      removeToppingIdx = idx;
+    }
 
+  })
+  this.toppings.splice(removeToppingIdx, 1);
 
 }
 /**
@@ -109,7 +136,6 @@ Hamburger.prototype.getStuffing = function () {
  */
 Hamburger.prototype.calculatePrice = function () {
   return this.price;
-
 }
 /**
  * Узнать калорийность
@@ -117,17 +143,20 @@ Hamburger.prototype.calculatePrice = function () {
  */
 Hamburger.prototype.calculateCalories = function () {
   return this.calories;
-
 }
 /**
  * Представляет информацию об ошибке в ходе работы с гамбургером. 
  * Подробности хранятся в свойстве message.
  * @constructor 
  */
-function HamburgerException() { }
+function HamburgerException(message) {
+  return message;
+}
 
-var first = new Hamburger(Hamburger.SIZE_LARGE, 3);
+var first = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE);
+first.addTopping(6);
 first.addTopping(7);
+first.removeTopping(6);
 
 console.log('Стоимость ' + first.calculatePrice());
 console.log('Калорийность ' + first.calculateCalories());

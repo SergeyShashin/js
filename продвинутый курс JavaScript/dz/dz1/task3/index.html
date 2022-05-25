@@ -1,12 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task3</title>
 </head>
+
 <body>
+  <form action="#">
+    <h3>Форма заказа гамбургера</h3>
+    <h5>Размер гамбургера</h5>
+    <select name="Гамбургер" id="">
+      <option value="Hamburger.SIZE_SMALL">SIZE_SMALL</option>
+      <option value="Hamburger.SIZE_LARGE">SIZE_LARGE</option>
+    </select>
+    <br>
+    <h5>Начинки:</h5>
+    <label for="STUFFING_CHEESE">сыр</label>
+    <input id="STUFFING_CHEESE" type="radio" value="STUFFING_CHEESE">
+    <label for="STUFFING_SALAD">салат</label>
+    <input id="STUFFING_SALAD" type="radio" value="STUFFING_SALAD">
+    <label for="STUFFING_POTATO">картофель</label>
+    <input id="STUFFING_POTATO" type="radio" value="STUFFING_POTATO">
+    <h5>Добавки:</h5>
+    <label for="TOPPING_SPICE">
+      Приправа
+      <input id="TOPPING_SPICE" type="checkbox" value="TOPPING_SPICE">
+    </label>
+    <label for="TOPPING_MAYO">
+      Майонез
+      <input id="TOPPING_MAYO" type="checkbox" value="TOPPING_MAYO">
+    </label>
+    <h5>Отправить форму</h5>
+    <input type="submit">
+    <input type="reset">
+  </form>
   <script src="burger.js"></script>
 </body>
+
 </html>
