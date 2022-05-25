@@ -9,21 +9,24 @@
 </head>
 
 <body>
-  <form action="#">
+  <form action="#" action="GET" name = "burger">
     <h3>Форма заказа гамбургера</h3>
     <h5>Размер гамбургера</h5>
-    <select name="Гамбургер" id="">
-      <option value="Hamburger.SIZE_SMALL">SIZE_SMALL</option>
-      <option value="Hamburger.SIZE_LARGE">SIZE_LARGE</option>
+    <select name="Гамбургер" id="size">
+      <option value="1">SIZE_SMALL</option>
+      <option value="2">SIZE_LARGE</option>
     </select>
     <br>
     <h5>Начинки:</h5>
-    <label for="STUFFING_CHEESE">сыр</label>
-    <input id="STUFFING_CHEESE" type="radio" value="STUFFING_CHEESE">
-    <label for="STUFFING_SALAD">салат</label>
-    <input id="STUFFING_SALAD" type="radio" value="STUFFING_SALAD">
-    <label for="STUFFING_POTATO">картофель</label>
-    <input id="STUFFING_POTATO" type="radio" value="STUFFING_POTATO">
+    <label for="STUFFING_CHEESE">сыр
+      <input id="STUFFING_CHEESE" type="radio" name="stuffing" value="STUFFING_CHEESE">
+    </label>
+    <label for="STUFFING_SALAD">салат
+      <input id="STUFFING_SALAD" type="radio" name="stuffing" value="STUFFING_SALAD">
+    </label>
+    <label for="STUFFING_POTATO">картофель
+      <input id="STUFFING_POTATO" type="radio" name="stuffing" value="STUFFING_POTATO">
+    </label>
     <h5>Добавки:</h5>
     <label for="TOPPING_SPICE">
       Приправа
