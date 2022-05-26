@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script src="menu.js"></script>
+    <script>
+        window.onload = function () {
+            var items = [
+                new MenuItem('/', 'Home'),
+                new MenuItem('/Page1', 'Page1'),
+                new MenuItem('/Page2', 'Page2'),
+                new SuperMenu('superMenuid', 'superMenuclass', [
+                    new MenuItem('/Page1_1', 'Page1_1'),
+                    new MenuItem('/Page1_2', 'Page1_2'),
+                    new MenuItem('/Page1_3', 'Page1_3'),
+                ], '/SuperMenu', 'SuperMenu'
+                )
+            ];
+
+            var menu = new SuperMenu('menuid', 'menuclass', items);
+
+            document.body.appendChild(menu.render());
+        }
+    </script>
+
+</body>
+</html>

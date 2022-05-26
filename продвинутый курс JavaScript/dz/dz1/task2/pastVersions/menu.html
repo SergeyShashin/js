@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script src="menu.js"></script>
+    <script>
+        window.onload = function () {
+         
+            
+            var items = [
+                new MenuItem('/', 'Home'),
+                new MenuItem('/Some', 'Some'),
+                new SuperMenu('superMenuId', 'superMenuClass', [
+                    new MenuItem('/Sub1', 'Sub1'),
+                    new MenuItem('/Sub2', 'Sub2'),
+                ],
+                    '/Sub',
+                    'SubMenu'
+                )
+            ];
+
+            var menu = new SuperMenu('menu', 'menu', items);
+
+            document.body.appendChild(menu.render());
+        
+        }
+    </script>
+</body>
+</html>

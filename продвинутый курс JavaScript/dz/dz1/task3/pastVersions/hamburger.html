@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body bgcolor ='f09030'>
+    <h1>Заказ гамбургера</h1>
+    <form action="#" method="get" name="hamburgerOrder">        
+        <p>
+            <label for="size">Размер:</label>
+            <select name="size" id="size">
+                <option value="1">
+                    <img src="./img/smal.png" width="50" alt="Маленький гамбургер" title="Маленький гамбургер" />
+                    маленький (50 рублей, 20 калорий)
+                </option>
+                <option value="2">
+                    <img src="./img/big.png" width="50" alt="Большой гамбургер" title="Большой гамбургер" />
+                    большой (100 рублей, 40 калорий)
+                </option>
+            </select>
+        </p>        
+
+        <p>
+            Начинки
+        <p> <input type="radio" name="stuffing" value="3" checked /> сыр (+ 10 рублей, + 20 калорий)</p>
+        <p> <input type="radio" name="stuffing" value="4" /> салат (+ 20 рублей, + 5 калорий)</p>
+        <p> <input type="radio" name="stuffing" value="5" /> картофель (+ 15 рублей, + 10 калорий)</p>
+        </p>
+
+        <p>
+            Приправы
+        <p> <input type="checkbox" name="TOPPING_SPICE" value="7" checked /> приправа (+ 15 рублей, 0 калорий)</p>
+        <p> <input type="checkbox" name="TOPPING_MAYO" value="6" /> майонезом (+ 20 рублей, + 5 калорий)</p>
+        </p>
+
+        <button id="send" style="width: 25%;">Заказать</button>
+    </form>
+    <p id="orderPrint"> </p>
+    <script src="hamburger.js"></script>
+    
+    <script>
+        window.onload = function () {            
+            document.forms[0].onsubmit = function () {
+                try {
+                    var burger = new Hamburger(+this.size.value, +this.stuffing.value);                    
+                    if (this.TOPPING_SPICE.checked) {
+                        burger.addTopping(Hamburger.TOPPING_SPICE);
+                    }
+                    if (this.TOPPING_MAYO.checked) {
+                        burger.addTopping(Hamburger.TOPPING_MAYO);
+                    }
+
+                    var orderPrint = document.getElementById('orderPrint');
+                    orderPrint.textContent = burger.toString();
+                   
+                }
+                catch (e) {
+                    console.error(e.message);
+                    
+                }
+                return false;
+            };            
+        }
+    </script>
+</body>
+</html>

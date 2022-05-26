@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <form action="#" method="get" name="burger">
+        <p>
+            <label for="size">Размер:</label>
+            <select id="size" name="size">
+                <option value="1"> маленький (50 рублей, 20 калорий) </option>
+                <option value="2"> большой (100 рублей, 40 калорий)  </option>
+            </select>
+        </p>
+        <p>
+            <label for="stuffing">Начинка:</label>
+            <input type="radio" name="stuffing" value="3" checked> сыр (+ 10 рублей, + 20 калорий)
+            <input type="radio" name="stuffing" value="4"> салат (+ 20 рублей, + 5 калорий)
+            <input type="radio" name="stuffing" value="5"> картофель (+ 15 рублей, + 10 калорий)
+
+        </p>
+        <p>
+        <p>
+            <label for="TOPPING_MAYO">Майонез + 20 рублей + 5 калорий</label>
+            <input id="TOPPING_MAYO" type="checkbox" name="TOPPING_MAYO" value="6" checked />
+        </p>
+        <p>
+            <label for="TOPPING_SPICE">Приправа  + 15 рублей 0 калорий </label>
+            <input id="TOPPING_SPICE" type="checkbox" name="TOPPING_SPICE" value="7" />
+        </p>
+        </p>
+        <button id="order">Заказать</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script src="burger.js"></script>
+    <script>
+        window.onload = function () {
+            document.forms[0].onsubmit = function () {
+                try {
+                    var burger = new Burger(+this.size.value, +this.stuffing.value);
+                    var result = document.getElementById('result');
+
+                    if (this.TOPPING_MAYO.checked) {
+                        burger.addToppings(Burger.TOPPING_MAYO);
+                    };
+                    if (this.TOPPING_SPICE.checked) {
+                        burger.addToppings(Burger.TOPPING_SPICE);
+                    };
+
+                    result.innerHTML = 'Размер ' + burger.size + ' Начинка ' + burger.stuffing + ' Специи: ' + burger.toppings + ' Прайс ' + burger.price + ' Калории ' + burger.calories;
+                }
+                catch(e) {
+                    console.error(e.message);
+                }
+                return false;
+
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burger</title>
+</head>
+
+<body>
+  <form action="#" name="burger">
+    <label for="size">Размер:</label>
+    <select name="size" id="size">
+      <option value="1">Большой 100 рублей 40 калорий</option>
+      <option value="2">Маленький 50 рублей 20 калорий</option>
+    </select>
+    <br>
+    <label for="stuffing">Начинка:</label>
+    <br>
+    <input type="radio" name="stuffing" value="3" checked>C сыром (+ 10 рублей, + 20 калорий)
+    <br>
+    <input type="radio" name="stuffing" value="4">C салатом (+ 20 рублей, + 5 калорий)
+    <br>
+    <input type="radio" name="stuffing" value="5">C картофелем (+ 15 рублей, + 10 калорий)
+    <br>
+    <label for="TOPPING_SPICE">Посыпать приправой (+ 15 рублей, 0 калорий)</label>
+    <input type="checkbox" name="TOPPING_SPICE" value="6">
+    <br>
+    <label for="TOPPING_MAYO">Полить майонезом (+ 20 рублей, + 5 калорий)</label>
+    <input type="checkbox" name="TOPPING_MAYO" value="7">
+    <br>
+    <button id="send">Send</button>
+  </form>
+  <div id=result></div>
+  <script src="burger.js"></script>
+  <script>
+    window.onload = function () {
+      document.forms[0].onsubmit = function () {
+        try {
+          var result = document.getElementById('result');
+          var burger = new Burger(+this.size.value, +this.stuffing.value);
+          
+          if(this.TOPPING_SPICE.checked){
+            burger.addToppings(+this.TOPPING_SPICE.value);            
+          }
+          
+          if(this.TOPPING_MAYO.checked){
+            burger.addToppings(+this.TOPPING_MAYO.value);            
+          }
+          result.innerHTML = 'Размер ' + burger.size + ' Начинка ' + burger.stuffing + ' Специи: ' + burger.toppings + ' Прайс ' + burger.price + ' Калории ' + burger.calories;
+
+        }
+        catch (e) {
+          console.error(e.message);
+
+        }
+        return false;
+
+      }
+
+    }
+  </script>
+</body>
+
+</html>

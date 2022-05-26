@@ -72,7 +72,7 @@ function SuperMenu(id, className, items, href, label) {
 SuperMenu.prototype = Object.create(Menu.prototype);
 SuperMenu.prototype.render = function () {
   if (this.href && this.label) {
-    var itemMenu = new MenuItem(this.href, this.label).render();
+    var itemMenu = new MenuItem(this.id, this.className, this.href, this.label).render();
     itemMenu.appendChild(Menu.prototype.render.call(this));
     return itemMenu;
   } else {
