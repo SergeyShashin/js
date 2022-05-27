@@ -9,38 +9,81 @@
 </head>
 
 <body>
-  <form action="#" action="GET" name = "burger">
+  <form action="#" action="GET" name="burger">
     <h3>Форма заказа гамбургера</h3>
-    <h5>Размер гамбургера</h5>
+    <h5>Размер гамбургера:</h5>
     <select name="Гамбургер" id="size">
-      <option value="1">SIZE_SMALL</option>
-      <option value="2">SIZE_LARGE</option>
+      <option value="1">SIZE_SMALL (50 рублей, 20 калорий) </option>
+      <option value="2">SIZE_LARGE (100 рублей, 40 калорий)</option>
     </select>
     <br>
     <h5>Начинки:</h5>
-    <label for="STUFFING_CHEESE">сыр
-      <input id="STUFFING_CHEESE" type="radio" name="stuffing" value="STUFFING_CHEESE">
-    </label>
-    <label for="STUFFING_SALAD">салат
-      <input id="STUFFING_SALAD" type="radio" name="stuffing" value="STUFFING_SALAD">
-    </label>
-    <label for="STUFFING_POTATO">картофель
-      <input id="STUFFING_POTATO" type="radio" name="stuffing" value="STUFFING_POTATO">
-    </label>
+    <input id="STUFFING_CHEESE" type="radio" name="stuffing" value="3">
+    <label for="STUFFING_CHEESE">сыр (10 рублей, 20 калорий) </label>
+    <br>
+    <input id="STUFFING_SALAD" type="radio" name="stuffing" value="4">
+    <label for="STUFFING_SALAD">салат (20 рублей, 5 калорий) </label>
+    <br>
+    <input id="STUFFING_POTATO" type="radio" name="stuffing" value="5">
+    <label for="STUFFING_POTATO">картофель (15 рублей, 10 калорий) </label>
     <h5>Добавки:</h5>
-    <label for="TOPPING_SPICE">
-      Приправа
-      <input id="TOPPING_SPICE" type="checkbox" value="TOPPING_SPICE">
-    </label>
-    <label for="TOPPING_MAYO">
-      Майонез
-      <input id="TOPPING_MAYO" type="checkbox" value="TOPPING_MAYO">
-    </label>
+    <input id="TOPPING_SPICE" type="checkbox" value="6">
+    <label for="TOPPING_SPICE"> Приправа (15 рублей, 0 калорий) </label>
+    <br>
+    <input id="TOPPING_MAYO" type="checkbox" value="7">
+    <label for="TOPPING_MAYO"> Майонез (20 рублей, 5 калорий) </label>
     <h5>Отправить форму</h5>
     <input type="submit">
     <input type="reset">
+    <h2 id="result"></h2>
   </form>
   <script src="burger.js"></script>
+  <script>
+    document.forms[0].onsubmit = function () {
+      var resultElement = document.getElementById('result');
+      var size = document.getElementById('size');
+
+      var stuffingCheese = document.getElementById('STUFFING_CHEESE');
+      var stuffingSalad = document.getElementById('STUFFING_SALAD');
+      var stuffingPotato = document.getElementById('STUFFING_POTATO');
+      var stuffing;
+
+      var toppingSpice = document.getElementById('TOPPING_SPICE');
+      var toppingMayo = document.getElementById('TOPPING_MAYO');
+
+
+      if (stuffingCheese.checked) {
+        stuffing = 3;
+      }
+
+      if (stuffingSalad.checked) {
+        stuffing = 4;
+      }
+
+      if (stuffingPotato.checked) {
+        stuffing = 5;
+      }
+
+      try {
+        var hamburger = new Hamburger(+size.value, stuffing);
+
+        if (toppingMayo.checked) {
+          hamburger.addTopping(6);
+        }
+
+        if (toppingSpice.checked) {
+          hamburger.addTopping(7);
+        }
+
+        resultElement.textContent = 'Размер ' + hamburger.getSize() + ' Стоимость ' + hamburger.calculatePrice() + ' Калорийность ' + hamburger.calculateCalories()
+      }
+      catch (e) {
+        console.error(e.message);
+      }
+
+
+    };
+  </script>
 </body>
 
 </html>

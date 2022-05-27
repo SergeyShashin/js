@@ -39,7 +39,7 @@ function Hamburger(size, stuffing) {
       this.price += 100;
       this.calories += 40;
       break;
-    default: new HamburgerException(`Размер ${this.size} отсутствует.`);
+    default: throw new HamburgerException(`Размер отсутствует.`);
   }
 
   switch (this.stuffing) {
@@ -55,7 +55,7 @@ function Hamburger(size, stuffing) {
       this.price += 15;
       this.calories += 10;
       break;
-    default: new HamburgerException(`Начинка ${this.stuffing} отсутствует.`);
+    default: throw new HamburgerException(`Начинка отсутствует.`);
   }
 }
 
@@ -84,10 +84,10 @@ Hamburger.prototype.addTopping = function (topping) {
         this.calories += 5;
         break;
       case Hamburger.TOPPING_SPICE:
-        this.price += 10;
+        this.price += 15;
         this.calories += 0;
         break;
-      default: new HamburgerException(`Добавка ${this.topping} отсутствует.`);
+      default: throw new HamburgerException(`Добавка отсутствует.`);
     }
   }
 }
@@ -150,15 +150,6 @@ Hamburger.prototype.calculateCalories = function () {
  * @constructor 
  */
 function HamburgerException(message) {
-  return message;
+  this.message = message;
 }
 
-var first = new Hamburger(Hamburger.SIZE_LARGE, Hamburger.STUFFING_CHEESE);
-first.addTopping(6);
-first.addTopping(7);
-first.removeTopping(6);
-
-console.log('Стоимость ' + first.calculatePrice());
-console.log('Калорийность ' + first.calculateCalories());
-console.log('Начинка ' + first.getStuffing());
-console.log('Добавки ' + first.getToppings());
