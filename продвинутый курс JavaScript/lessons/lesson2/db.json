@@ -1,0 +1,22 @@
+{
+  "menu": [
+    {
+      "id": 1,
+      "class": "menuItem",
+      "label": "Home",
+      "link": "/Home"
+    },
+    {
+      "id": 2,
+      "class": "menuItem",
+      "label": "Page",
+      "link": "/Page"
+    },
+    {
+      "id": 3,
+      "class": "menuItem",
+      "label": "Page2",
+      "link": "/Page2"
+    }
+  ]
+}
