@@ -3,7 +3,6 @@
 document.getElementById('btn').addEventListener('click', function () {
 
   var xhr = new XMLHttpRequest();
-  console.dir(xhr);
   xhr.open('GET', 'http://localhost:3000/menu');
   xhr.send();
 
