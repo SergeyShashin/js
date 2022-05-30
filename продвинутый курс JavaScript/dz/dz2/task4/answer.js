@@ -23,13 +23,12 @@ window.onload = function () {
   var btnSendEl = document.getElementById('btnSend');
   btnSendEl.addEventListener('click', function () {
     handler(function (response) {
-      console.log(response.results[0].result);
-      if (response.results[0].result === 'success') {
+      if (response.result === 'success') {
         btnSendEl.className = 'success';
       }
-      // if (response.results[1].result === 'error') {
-      //   btnSendEl.className = 'error';
-      // }
+      if (response.result === 'error') {
+        btnSendEl.className = 'error';
+      }
 
     });
   });

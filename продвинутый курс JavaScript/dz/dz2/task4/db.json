@@ -1,6 +1,3 @@
 {
-  "results": [
-    {"result" : "success"},
-    {"result": "error"}
-  ]
+  "result": "success"
 }
