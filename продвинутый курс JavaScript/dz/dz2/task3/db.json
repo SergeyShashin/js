@@ -1,0 +1,20 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "path": "img/max/1.jpg"
+    },
+    {
+      "id": 2,
+      "path": "img/max/2.jpg"
+    },
+    {
+      "id": 3,
+      "path": "img/max/3.jpg"
+    },
+    {
+      "id": 4,
+      "path": "img/max/4.jpg"
+    }
+  ]
+}
