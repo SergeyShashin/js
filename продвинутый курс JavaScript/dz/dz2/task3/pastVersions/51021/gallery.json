@@ -1,0 +1,19 @@
+{
+  "images": [
+    {
+      "id": "1",
+      "name": "1.png",
+      "smallSize": "img/small/1.png",
+      "fullSize": "img/full/1.png"
+    },
+    {
+      "id": "2",
+      "name": "2.png",
+      "smallSize": "img/small/2.png",
+      "fullSize": "img/full/2.png"
+    },
+   
+  ]
+  
+
+}
