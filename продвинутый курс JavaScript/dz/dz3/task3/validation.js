@@ -22,13 +22,57 @@ var buttonSendElement = document.getElementById('button-send');
 
 
 buttonSendElement.addEventListener('click', function (event) {
-  console.log('sdfsd');
   event.preventDefault();
+  var inputsEl = document.querySelectorAll('input');
+  inputsEl.forEach(function (inputEl) {
+
+    console.log(inputEl.id);
+
+    switch (inputEl.id) {
+      case 'name':
+        var rule = new RegExp(rules.onlySymbols);
+        if (rule.test(inputEl.value)) {
+          inputEl.classList.remove('is-invalid');
+          inputEl.classList.add('is-valid');
+        } else {
+          inputEl.classList.remove('is-valid');
+          inputEl.classList.add('is-invalid');
+        }
+        break;
+      case 'phone':
+        var rulePhone = new RegExp(rules.patternForPhone);
+        console.log(rulePhone);
+        // if (rule.test(inputEl.value)) {
+        //   inputEl.classList.add('is-valid');
+        // } else {
+        //   inputEl.classList.add('is-invalid');
+        // }
+        break;
+      case 'email':
+        var ruleEmail = new RegExp(rules.email);
+        // if (rule.test(inputEl.value)) {
+        //   inputEl.classList.remove('is-invalid');
+        //   inputEl.classList.add('is-valid');
+        // } else {
+        //   inputEl.classList.remove('is-valid');
+        //   inputEl.classList.add('is-invalid');
+        // }
+        break;
+
+    }
+  })
+
+
 
 })
 
 const rules = {
-  onlySymbols: '/\w{1,}/'
-
+  onlySymbols: '^[a-zA-Zа-яА-яЁё]+$',
+  patternForPhone: '^\+\d\(\d{3}\)\d{3}\-\d{4}$',
+  email: '^\w+\-?\w*\.?\w*\@\w*\.\w{2,3}$'
 }
+
+// var rule = new RegExp(rules.onlySymbols);
+
+// console.log(rule.test('sdfds'));
 
