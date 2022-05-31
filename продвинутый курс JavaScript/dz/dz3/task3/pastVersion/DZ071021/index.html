@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    line-height: 30px;
+    width: 298px;
+  }
+  textarea{
+    margin-top: 10px;
+  }
+  .invalid{
+    color:red;
+  }
+  </style>
+</head>
+<body>
+  <form action="#" method="GET">
+    <label for="name">Имя:</label>
+    <input type="text" name="name" placeholder="имя">
+    <label for="phone">Телефон:</label>
+    <input type="text" name="phone" placeholder="телефон">
+    <label for="email">Email:</label>
+    <input type="text" name="email" placeholder="емейл">
+    <label for="text">
+    <textarea name="text" id="" cols="34" rows="10"></textarea>
+    </label>
+    <button id="send">Отправить</button>
+
+  </form>
+  <script src="form.js"></script>
+</body>
+</html>
