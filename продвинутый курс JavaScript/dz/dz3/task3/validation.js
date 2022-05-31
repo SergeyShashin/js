@@ -20,7 +20,6 @@ buttonSendElement.addEventListener('click', function (event) {
   event.preventDefault();
   var inputsEl = document.querySelectorAll('input');
   inputsEl.forEach(function (inputEl) {
-    console.log(inputEl.id);
 
     switch (inputEl.id) {
       case 'name':
@@ -30,6 +29,13 @@ buttonSendElement.addEventListener('click', function (event) {
         } else {
           inputEl.classList.remove('is-valid');
           inputEl.classList.add('is-invalid');
+          if (!document.getElementById('nameError')) {
+            var nameErrorEl = document.createElement('div');
+            nameErrorEl.id = 'nameError';
+            nameErrorEl.textContent = 'Имя может содержать только буквы';
+            nameErrorEl.className = 'invalid-feedback';
+            inputEl.parentElement.appendChild(nameErrorEl);
+          }
         }
         break;
       case 'phone':
@@ -39,6 +45,13 @@ buttonSendElement.addEventListener('click', function (event) {
         } else {
           inputEl.classList.remove('is-valid');
           inputEl.classList.add('is-invalid');
+          if (!document.getElementById('phoneError')) {
+            var phoneErrorEl = document.createElement('div');
+            phoneErrorEl.id = 'phoneError';
+            phoneErrorEl.textContent = 'Телефон подчиняется шаблону +7(000)000-0000';
+            phoneErrorEl.className = 'invalid-feedback';
+            inputEl.parentElement.appendChild(phoneErrorEl);
+          }
         }
         break;
       case 'email':
@@ -48,10 +61,17 @@ buttonSendElement.addEventListener('click', function (event) {
         } else {
           inputEl.classList.remove('is-valid');
           inputEl.classList.add('is-invalid');
+          if (!document.getElementById('emailError')) {
+            var emailErrorEl = document.createElement('div');
+            emailErrorEl.id = 'emailError';
+            emailErrorEl.textContent = 'E-mail выглядит как mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru';
+            emailErrorEl.className = 'invalid-feedback';
+            inputEl.parentElement.appendChild(emailErrorEl);
+          }
         }
         break;
     }
-    
+
   })
 
 })
