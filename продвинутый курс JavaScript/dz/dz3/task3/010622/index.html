@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>010622</title>
+  <style>
+    .is-valid {
+      border: 1px solid rgb(134, 205, 27);
+    }
+
+    .invalid {
+      border: 1px solid red;
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="get" id="formContacts">
+    <label for="name">Имя<br><input type="text" id="name" data-name="name"></label><br>
+    <label for="phone">Телефон<br><input type="text" id="phone" data-phone="phone"></label><br>
+    <label for="email">Емейл<br><input type="text" id="email" data-email="email"></label><br>
+    <label for="text">Комментарий<br>
+      <textarea name="text" id="text" cols="30" rows="10"></textarea>
+    </label>
+    <br>
+    <input id="btnSend" type="submit">
+  </form>
+
+  <script src="validation.js"></script>
+</body>
+
+</html>
