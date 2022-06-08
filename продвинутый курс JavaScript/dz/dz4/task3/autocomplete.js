@@ -82,14 +82,14 @@ function renderTowns(towns) {
   inputTown.oninput = function () {
     if (inputTown.value.length > 2) {
 
-      var filteredListofCities = towns.filter(function (town) {
+      var filteredListOfCities = towns.filter(function (town) {
         var regular = new RegExp('^' + inputTown.value, 'i');
         return regular.test(town);
       });
 
-      if (filteredListofCities.length > 0) {
+      if (filteredListOfCities.length > 0) {
         clearElement('list');
-        createListOfTowns(filteredListofCities, 'list', 'li');
+        createListOfTowns(filteredListOfCities, 'list', 'li');
       }
 
     }
