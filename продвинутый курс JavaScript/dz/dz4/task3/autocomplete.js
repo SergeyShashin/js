@@ -10,7 +10,6 @@
 window.onload = function () {
   loadTowns(function (responce) {
     if (responce) {
-      // createListOfTowns(responce, 'towns', 'option');
       renderTowns(responce);
     }
   })
