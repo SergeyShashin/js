@@ -6,6 +6,20 @@
 При клике на подходящий город ввести его полное название в текстовое поле.
 */
 
+
+window.onload = function () {
+  loadTowns(function (responce) {
+    if (responce) {
+      // createListOfTowns(responce, 'towns', 'option');
+      renderTowns(responce);
+    }
+  })
+}
+
+/**
+ * Загружает список городов c http://localhost:3000/towns
+ * @param {function} callback 
+ */
 function loadTowns(callback) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:3000/towns');
@@ -20,15 +34,67 @@ function loadTowns(callback) {
   }
 }
 
-window.onload = function () {
-  loadTowns(function (responce) {
-    responce.forEach(function (town) {
-      var townsElement = document.getElementById('towns');
-      var townElement = document.createElement('option');
-      townElement.textContent = town;
-      townElement.value = town;
-      townsElement.appendChild(townElement);
-    });
+/**
+ * 
+ * @param {array} towns Список городов
+ * @param {string} elementToInsert Название элемента в который нужно вставить список городов
+ * @param {string} element Тип создаваемого html элемента
+ */
+function createListOfTowns(towns, elementToInsert, element) {
+  var townsElement = document.getElementById(elementToInsert);
+  townsElement.classList.remove('hidden');
+  townsElement.size = towns.length;
 
+  var townElement = null;
+  towns.forEach(function (town) {
+    townElement = document.createElement(element);
+    townElement.textContent = town;
+    townElement.value = town;
+    townsElement.appendChild(townElement);
+  });
+}
+
+/**
+ * Очищает полученный элемент
+ * @param {string} element Название элемента для очистки 
+ */
+function clearElement(element) {
+  document.getElementById(element).textContent = '';
+}
+
+/**
+ * При клике на город вставляет его название в элемент с id inputTown и очищает список городов
+ * @param {string} idElement название элемента для обработки клика
+ */
+function setInputTownElementContetnClickElement(idElement) {
+  document.getElementById(idElement).addEventListener('click', function (e) {
+    document.getElementById('inputTown').value = e.target.textContent
+    clearElement('list');
   })
+}
+
+/**
+ * Отображает список городов в зависимости от того, что вводят
+ * @param {array} towns 
+ */
+function renderTowns(towns) {
+  var inputTown = document.getElementById('inputTown');
+
+  inputTown.oninput = function () {
+    if (inputTown.value.length > 2) {
+
+      var filteredListofCities = towns.filter(function (town) {
+        var regular = new RegExp('^' + inputTown.value, 'i');
+        return regular.test(town);
+      });
+
+      if (filteredListofCities.length > 0) {
+        clearElement('list');
+        createListOfTowns(filteredListofCities, 'list', 'li');
+      }
+
+    }
+  }
+
+  setInputTownElementContetnClickElement('list');
 }
