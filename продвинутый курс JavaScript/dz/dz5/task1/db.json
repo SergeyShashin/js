@@ -4,37 +4,39 @@
       "id": 1,
       "name": "Jacket",
       "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-      "ImgSrc": "assets/img/jacket_man_black_small2.png"
+      "raiting": "&#9733;",
+      "imgSrc": "assets/img/jacket_man_black_small2.png"
     },
     {
       "id": 2,
       "name": "Jacket2",
-      "price": "52$",
+      "price": "53$",
       "raiting": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-      "ImgSrc": "assets/img/jacket_man_blue_white.png"
+      "imgSrc": "assets/img/jacket_man_blue_white.png"
     },
     {
       "id": 3,
       "name": "Jacket3",
-      "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-      "ImgSrc": "assets/img/jacket_man_brown_small.png"
+      "price": "54$",
+      "raiting": "&#9733;&#9733;&#9733;&#9733;",
+      "imgSrc": "assets/img/jacket_man_brown_small.png"
     },
     {
       "id": 4,
       "name": "Jacket4",
-      "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-      "ImgSrc": "assets/img/jacket_man_brown.png"
+      "price": "55$",
+      "raiting": "&#9733;&#9733;&#9733;",
+      "imgSrc": "assets/img/jacket_man_brown.png"
     },
     {
       "id": 5,
       "name": "Jacket5",
       "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;&#9733;",
-      "ImgSrc": "assets/img/jacket_man_brown2.png"
+      "raiting": "&#9733;&#9733;&#9733;&#9733;",
+      "imgSrc": "assets/img/jacket_man_brown2.png"
     }
   ],
-  "cart": []
+  "cart": [
+    
+  ]
 }
