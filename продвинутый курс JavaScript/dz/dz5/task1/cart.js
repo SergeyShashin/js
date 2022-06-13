@@ -4,6 +4,13 @@ window.onload = function () {
   ajax('GET', 'http://localhost:3000/products', function (responce) {
     renderProducts(responce);
   });
+
+  this.document.getElementById('productsList').addEventListener('click', function (event) {
+    productsListHandler(event);
+  });
+
+
+
 }
 
 /**
@@ -56,11 +63,21 @@ function renderProducts(products) {
     productsListEl.appendChild(productEl);
     productsListEl.appendChild(raitingEl);
     productsListEl.appendChild(btnBuyEl);
-
   })
+}
 
+/**
+ * Добавляет товар в корзину
+ * @param {HTMl} event 
+ */
+function productsListHandler(event) {
+  if (event.target.tagName !== 'BUTTON') {
+    return;
+  }
+  console.log(event.target);
 
 }
+
 
 
 
