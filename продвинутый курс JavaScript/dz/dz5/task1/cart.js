@@ -53,7 +53,7 @@ function renderProducts(products) {
     raitingEl.innerHTML = product.raiting;
     btnBuyEl.textContent = 'Купить';
     btnBuyEl.type = 'button';
-    btnBuyEl.dataset.id = product.id;
+    btnBuyEl.id = product.id;
     btnBuyEl.dataset.name = product.name;
     btnBuyEl.dataset.price = product.price;
     btnBuyEl.dataset.raiting = product.raiting;
@@ -67,14 +67,38 @@ function renderProducts(products) {
 }
 
 /**
- * Добавляет товар в корзину
- * @param {HTMl} event 
+ * Обрабатывает клик по кнопке купить
+ * @param {HTMl} event Событие по которому был клик
  */
 function productsListHandler(event) {
   if (event.target.tagName !== 'BUTTON') {
     return;
   }
-  console.log(event.target);
+  renderCart(event.target);
+
+}
+
+function renderCart(btnElement) {
+  ajax('GET', 'http://localhost:3000/cart', function (responce) {
+    console.log(isElementOnResponce(+btnElement.id, responce));
+    
+    if (responce.length < 1 || isElementOnResponce(btnElement.id, responce)) {
+      // console.log(btnElement.id);
+      // console.log(responce.id);
+    }
+  });
+}
+
+function isElementOnResponce(id, responce) {
+  responce.forEach(function (element) {
+    console.log('id кнопки', id);
+    console.log(element.id);
+    if (id ===  element.id) {
+      return true;
+    }else {
+      return false
+    }
+  })
 
 }
 
