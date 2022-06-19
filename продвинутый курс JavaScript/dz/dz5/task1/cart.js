@@ -21,14 +21,19 @@ window.onload = function () {
  * @param {object} data  данные для отправки
  */
 function ajax(method, link, callback, data) {
+  console.log(data);
+
   var xhr = new XMLHttpRequest();
 
   xhr.open(method, link);
   xhr.send();
 
   if (data) {
+    xhr.setRequestHeader('application/json');
+    console.log(xhr);
     xhr.send(JSON.stringify(data));
   }
+
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
@@ -58,7 +63,7 @@ function renderProducts(products) {
     btnBuyEl.dataset.price = product.price;
     btnBuyEl.dataset.raiting = product.raiting;
     btnBuyEl.dataset.imgSrc = product.imgSrc;
-    // btnBuyEl.dataset.quantity = product.quantity;
+    btnBuyEl.dataset.quantity = product.quantity;
     productsListEl.appendChild(imgEl);
     productsListEl.appendChild(productEl);
     productsListEl.appendChild(raitingEl);
@@ -79,28 +84,55 @@ function productsListHandler(event) {
 }
 
 function renderCart(btnElement) {
+  var cartEl = document.getElementById('cart');
+  var product;
+  var productEl = document.createElement('li');
+
   ajax('GET', 'http://localhost:3000/cart', function (responce) {
-    console.log(isElementOnResponce(+btnElement.id, responce));
-    
-    if (responce.length < 1 || isElementOnResponce(btnElement.id, responce)) {
-      // console.log(btnElement.id);
-      // console.log(responce.id);
+
+    if (responce.length === 0) {
+
+
+      productEl.id = btnElement.id;
+      productEl.textContent = `${btnElement.id} ${btnElement.dataset.name} ${btnElement.dataset.price}  ${btnElement.dataset.quantity}`;
+      productEl.dataset.name = btnElement.dataset.name;
+      productEl.dataset.price = btnElement.dataset.price;
+      productEl.dataset.raiting = btnElement.dataset.raiting;
+      productEl.dataset.imgSrc = btnElement.dataset.imgSrc;
+      productEl.dataset.quantity = btnElement.dataset.quantity++;
+
+      cartEl.textContent = 'Корзина';
+      cartEl.appendChild(productEl);
+
+      product = {
+        id: btnElement.id,
+        name: btnElement.dataset.name,
+        price: btnElement.dataset.price,
+        raiting: btnElement.dataset.raiting,
+        imgSrc: btnElement.dataset.imgSrc,
+        quantity: btnElement.dataset.quantity++
+      }
+
+      ajax('POST', 'http://localhost:3000/cart', function (responce) { }, product);
+
+    } else {
+      responce.forEach(function (item) {
+        product = {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          raiting: item.raiting,
+          imgSrc: item.imgSrc,
+          quantity: item.quantity + 1
+        }
+      });
     }
+
   });
 }
 
-function isElementOnResponce(id, responce) {
-  responce.forEach(function (element) {
-    console.log('id кнопки', id);
-    console.log(element.id);
-    if (id ===  element.id) {
-      return true;
-    }else {
-      return false
-    }
-  })
 
-}
+
 
 
 

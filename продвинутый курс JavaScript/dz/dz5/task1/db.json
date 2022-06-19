@@ -43,20 +43,7 @@
   ],
   "cart": [
     {
-      "id": 1,
-      "name": "Jacket5",
-      "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;",
-      "imgSrc": "assets/img/jacket_man_brown2.png",
-      "quantity": 0
-    },
-    {
-      "id": 5,
-      "name": "Jacket5",
-      "price": "52$",
-      "raiting": "&#9733;&#9733;&#9733;&#9733;",
-      "imgSrc": "assets/img/jacket_man_brown2.png",
-      "quantity": 0
+      "id": 1
     }
   ]
 }
