@@ -65,8 +65,10 @@ MenuItem.prototype.render = function () {
 
 function SuperMenu(id, className, items, href, label) {
   Menu.call(this, id, className, items);
-  this.label = label;
-  this.href = href;
+  if (href && label) {
+    this.label = label;
+    this.href = href;
+  }
 }
 
 SuperMenu.prototype = Object.create(Menu.prototype);

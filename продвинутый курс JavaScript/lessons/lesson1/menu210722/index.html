@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu210722</title>
+</head>
+
+<body>
+  <script src="menu210722.js"></script>
+  <script>
+    window.onload = function () {
+      var menu = new Menu('someIdMenu', 'someClassMenu', [
+        new MenuItem('/Home', 'Home'),
+        new MenuItem('/Page', 'Page'),
+        new MenuItem('/Page1', 'Page1'),
+        new MenuItem('/Page12', 'Page12')
+      ]);
+
+      document.body.appendChild(menu.render())
+
+    }
+  </script>
+</body>
+
+</html>
