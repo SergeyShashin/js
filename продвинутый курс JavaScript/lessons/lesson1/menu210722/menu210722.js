@@ -63,8 +63,9 @@ SuperMenu.prototype.render = function () {
   if (this.href && this.label) {
     var menuItem = new MenuItem(this.href, this.label).render();
     menuItem.appendChild(Menu.prototype.render.call(this));
+    
     return menuItem;
   } else {
-    return Menu.prototype.render.call(this);
+    return Menu.prototype.render.call(this); 
   }
 }
