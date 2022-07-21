@@ -50,6 +50,21 @@ MenuItem.prototype.render = function () {
   li.appendChild(a);
 
   return li
-
 }
 
+function SuperMenu(myId, myClass, items, href, label) {
+  Menu.call(this, myId, myClass, items);
+  this.href = href;
+  this.label = label;
+}
+
+SuperMenu.prototype = Object.create(Menu.prototype);
+SuperMenu.prototype.render = function () {
+  if (this.href && this.label) {
+    var menuItem = new MenuItem(this.href, this.label).render();
+    menuItem.appendChild(Menu.prototype.render.call(this));
+    return menuItem;
+  } else {
+    return Menu.prototype.render.call(this);
+  }
+}
