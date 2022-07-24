@@ -99,5 +99,36 @@ function buildProductsList() {
 
     })
 
+    $('#cart').on('click', '.delete', function () {
+      var id = $(this).attr('data-id');
+      var entity = $('#cart [data-id="' + id + '"]');
+      var dataQuantity = $(this).attr('data-quantity');
+      if (entity.length && dataQuantity > 1) {
+        $.ajax({
+          url: 'http://localhost:3000/cart/' + id,
+          type: 'PATCH',
+          headers: { 'content-type': 'application/json' },
+          data: JSON.stringify({
+            quantity: +$(entity).attr('data-quantity') - 1,
+          }),
+          success: function () {
+            buildCart();
+          }
+        })
+
+      } else {
+        $.ajax({
+          url: 'http://localhost:3000/cart/' + id,
+          type: 'DELETE',
+          headers: { 'content-type': 'application/json' },          
+          success: function () {
+            buildCart();
+          }
+        })
+
+      }
+
+    })
+
   });
 })(jQuery);

@@ -41,36 +41,5 @@
       "quantity": 0
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "quantity": 15,
-      "name": "Jacket",
-      "price": "52$"
-    },
-    {
-      "id": "2",
-      "quantity": 8,
-      "name": "Jacket2",
-      "price": "53$"
-    },
-    {
-      "id": "3",
-      "quantity": 4,
-      "name": "Jacket3",
-      "price": "54$"
-    },
-    {
-      "id": "4",
-      "quantity": 2,
-      "name": "Jacket4",
-      "price": "55$"
-    },
-    {
-      "id": "5",
-      "quantity": 3,
-      "name": "Jacket5",
-      "price": "52$"
-    }
-  ]
+  "cart": []
 }
