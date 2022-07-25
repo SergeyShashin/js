@@ -1,5 +1,24 @@
 {
-  "reviews":[
-    
+  "reviews": [
+    {
+      "content": "Приятный отзыв.",
+      "class": "approved",
+      "id": 1
+    },
+    {
+      "content": "Приятный отзыв.",
+      "class": "approved",
+      "id": 2
+    },
+    {
+      "content": "Приятный отзыв.",
+      "class": "declined",
+      "id": 3
+    },
+    {
+      "content": "Приятный отзыв.",
+      "class": "declined",
+      "id": 4
+    }
   ]
 }

@@ -6,14 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Reviews</title>
+  <style>
+    .approved {
+      color: green;
+    }
+
+    .declined {
+      color: red;
+    }
+  </style>
+
 </head>
 
 <body>
-  <div id='reviews'></div>
-  <form action="#">
+  <div id='containerReviews'></div>
+  <form action="#" method="POST">
     <textarea id="review" cols="30" rows="10"></textarea>
     <br>
-    <button id="send">Send</button>
+    <button type="submit" id="send">Send</button>
   </form>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

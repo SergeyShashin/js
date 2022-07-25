@@ -40,3 +40,107 @@ e) модуль подчиняется следующим соглашениям
 | Ожидаемый ответ | {comments: [{id_comment: 123,text: ‘Текст отзыва’}]} |
 | Ответ в случае системной ошибки | {result : 0,error_message : “Сообщение об ошибке”} |
 */
+function reviewsRender() {
+  $.ajax({
+    url: 'http://localhost:3000/reviews',
+    dataType: 'json',
+    success: function (reviews) {
+      var $ul = $('<ul/>');
+
+      reviews.forEach(function (review) {
+        var $li = $('<li/>', {
+          text: review.content + ' ',
+          id: review.id,
+          class: review.class
+        })
+
+
+        if (review.class === 'undefined') {
+          var $buttonApprove = $('<button/>', {
+            text: 'Approve',
+            class: 'approve'
+
+          });
+          var $buttonDecline = $('<button/>', {
+            text: 'Decline',
+            class: 'decline'
+          });
+          $li.append($buttonApprove);
+          $li.append($buttonDecline);
+        }
+        $ul.append($li);
+
+      });
+      $('#containerReviews').empty();
+      $('#containerReviews').append($ul);
+    }
+  })
+}
+
+function addStatusApprove(event) {
+  var id = event.currentTarget.parentElement.id;
+
+  $.ajax({
+    url: 'http://localhost:3000/reviews/' + id,
+    type: 'PATCH',
+    dataType: 'json',
+    headers: { 'content-type': 'application/json' },
+    data: JSON.stringify({
+      class: 'approved'
+    }),
+    success: function () {
+      reviewsRender();
+    }
+  });
+}
+function addStatusDecline(event) {
+  var id = event.currentTarget.parentElement.id;
+  $.ajax({
+    url: 'http://localhost:3000/reviews/' + id,
+    type: 'PATCH',
+    dataType: 'json',
+    headers: { 'content-type': 'application/json' },
+    data: JSON.stringify({
+      class: 'declined'
+    }),
+    success: function () {
+      reviewsRender();
+    }
+  });
+}
+
+(function ($) {
+  $(function () {
+    reviewsRender();
+
+    document.getElementById('send').addEventListener('click', function () {
+
+      event.preventDefault();
+      var newReview = document.getElementById('review').value
+      $.ajax({
+        url: 'http://localhost:3000/reviews',
+        type: 'POST',
+        dataType: 'json',
+        headers: { 'content-type': 'application/json' },
+        data: JSON.stringify({
+          content: newReview,
+          class: 'undefined',
+        }),
+        success: function () {
+          reviewsRender();
+        }
+      });
+    });
+
+    $('#containerReviews').on('click', '.approve', function (event) {
+      addStatusApprove(event);
+    });
+    $('#containerReviews').on('click', '.decline', function (event) {
+      addStatusDecline(event);
+    });
+
+
+  })
+
+})(jQuery)
+
