@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
   <link rel="stylesheet" href="Coverflow-Style-Image-Carousel-Plugin-For-jQuery-Carousel-Evolution\style\carousel.css">
-  <title>DZ6. Jquery UI. Task3. Карусель популярных товаров</title>
+  <title>DZ6. Jquery UI. Task4. Перетаскивание товаров в корзину</title>
   <style>
     * {
       box-sizing: border-box;
@@ -155,17 +155,16 @@
 
     .price {
       font-weight: bold;
-      font-size: 16px;      
+      font-size: 16px;
       color: rgb(114, 50, 50);
     }
-    
   </style>
 </head>
 
 <body>
   <header class="carousel">
     <div class="slides">
-      <div class="product-wrap slideItem">
+      <div class="product-wrap slideItem" id='draggable1'>
         <div class="product-image">
           <a href=""><img
               src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
@@ -194,7 +193,7 @@
           <div class="price">&#8381; 1999</div>
         </div>
       </div>
-      <div class="product-wrap slideItem">
+      <div class="product-wrap slideItem" id='draggable2'>
         <div class="product-image">
           <a href=""><img
               src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
@@ -223,7 +222,7 @@
           <div class="price">&#8381; 1300</div>
         </div>
       </div>
-      <div class="product-wrap slideItem">
+      <div class="product-wrap slideItem" id='draggable3'>
         <div class="product-image">
           <a href=""><img
               src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
@@ -252,7 +251,7 @@
           <div class="price">&#8381; 1700</div>
         </div>
       </div>
-      <div class="product-wrap slideItem">
+      <div class="product-wrap slideItem" id='draggable4'>
         <div class="product-image">
           <a href=""><img
               src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
@@ -283,6 +282,7 @@
       </div>
     </div>
   </header>
+  <div id="cart" style="width: 100px; height: 100px; border: 1px dotted chocolate;">Корзина</div>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -302,6 +302,14 @@
           shadow: true,
           buttonNav: 'bullets'
         });
+
+        //По 4 заданию. C помощью jQuery UI добавить возможность перемещать товар прямо в корзину мышью.
+        $('#draggable1').draggable();
+        $('#draggable2').draggable();
+        $('#draggable3').draggable();
+        $('#draggable4').draggable();
+
+        $('#cart').droppable();
 
       })
     })(jQuery)
