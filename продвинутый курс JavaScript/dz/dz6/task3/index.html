@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="Coverflow-Style-Image-Carousel-Plugin-For-jQuery-Carousel-Evolution\style\carousel.css">
+  <title>DZ6. Jquery UI. Task3. Карусель популярных товаров</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .product-wrap {
+      /* width: 300px; */
+      text-align: center;
+      background: white;
+      margin: 0 auto;
+    }
+
+    .product-image {
+      position: relative;
+    }
+
+    .product-image a {
+      display: block;
+    }
+
+    .product-image img {
+      display: block;
+      width: 100%;
+    }
+
+    .shadow {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .1);
+      opacity: 0;
+      transition: 0.5s ease-in-out;
+    }
+
+    .product-wrap:hover .shadow {
+      opacity: 1;
+    }
+
+    .actions {
+      bottom: 15px;
+      right: 15px;
+      position: absolute;
+    }
+
+    .add-to-cart {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(0, -50px);
+      transition: 1s ease-in-out;
+    }
+
+    .actions a {
+      background: #202020;
+      color: white;
+      display: block;
+      height: 36px;
+      line-height: 36px;
+      width: 42px;
+      transition: .3s ease-in-out;
+      text-decoration: none;
+    }
+
+    .actions a:before {
+      font-family: FontAwesome;
+      font-size: 14px;
+    }
+
+    .add-to-cart-button:before {
+      content: "\f07a";
+    }
+
+    .add-to-wishlist-button:before {
+      content: "\f004";
+    }
+
+    .add-to-compare-button:before {
+      content: "\f079";
+    }
+
+    .quikview-button:before {
+      content: "\f002";
+    }
+
+    .actions a:hover {
+      background: #67BFA6;
+    }
+
+    .product-wrap:hover .add-to-cart {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+
+    .add-to-wishlist {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(0, -50px);
+      transition: .8s ease-in-out;
+      margin: 9px 0 0;
+    }
+
+    .product-wrap:hover .add-to-wishlist,
+    .product-wrap:hover .add-to-compare,
+    .product-wrap:hover .quikview {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(0, 0);
+    }
+
+    .add-to-compare {
+      opacity: 0;
+      position: relative;
+      visibility: hidden;
+      transition: .6s ease-in-out;
+      transform: translate(0, -50px);
+      margin: 9px 0 0;
+    }
+
+    .quikview {
+      opacity: 0;
+      visibility: hidden;
+      transition: .4s ease-in-out;
+      transform: translate(0, -50px);
+      margin: 9px 0 0;
+    }
+
+    .product-list {
+      /* margin-top: 20px; */
+      /* padding-bottom: 20px; */
+      /* text-align: center; */
+      font-family: 'Open Sans', serif;
+      position: absolute;
+      top: 0;
+      left: 20px;
+      /* padding-bottom: 50px; */
+    }
+
+    .product-list h3 {
+      color: #ff7659;
+      font-size: 15px;
+      font-family: 'Open Sans', serif;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 16px;      
+      color: rgb(114, 50, 50);
+    }
+  </style>
+</head>
+
+<body>
+  <header class="carousel">
+    <div class="slides">
+      <div class="product-wrap slideItem">
+        <div class="product-image">
+          <a href=""><img
+              src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
+          <div class="shadow"></div>
+          <div class="actions">
+            <div class="actions-btn">
+              <div class="add-to-cart">
+                <a class="add-to-cart-button" href="#" title="Добавить в корзину"></a>
+              </div>
+              <div class="add-to-links">
+                <div class="add-to-wishlist">
+                  <a class="add-to-wishlist-button" href="#" title="Добавить в мои желания"></a>
+                </div>
+                <div class="add-to-compare">
+                  <a class="add-to-compare-button" href="#" title="Добавить для сравнения"></a>
+                </div>
+                <div class="quikview">
+                  <a class="quikview-button" href="#" title="Быстрый просмотр"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-list">
+          <h3>Интересная книга 1</h3>
+          <div class="price">&#8381; 1999</div>
+        </div>
+      </div>
+      <div class="product-wrap slideItem">
+        <div class="product-image">
+          <a href=""><img
+              src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
+          <div class="shadow"></div>
+          <div class="actions">
+            <div class="actions-btn">
+              <div class="add-to-cart">
+                <a class="add-to-cart-button" href="#" title="Добавить в корзину"></a>
+              </div>
+              <div class="add-to-links">
+                <div class="add-to-wishlist">
+                  <a class="add-to-wishlist-button" href="#" title="Добавить в мои желания"></a>
+                </div>
+                <div class="add-to-compare">
+                  <a class="add-to-compare-button" href="#" title="Добавить для сравнения"></a>
+                </div>
+                <div class="quikview">
+                  <a class="quikview-button" href="#" title="Быстрый просмотр"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-list">
+          <h3>Интересная книга 2</h3>
+          <div class="price">&#8381; 1300</div>
+        </div>
+      </div>
+      <div class="product-wrap slideItem">
+        <div class="product-image">
+          <a href=""><img
+              src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
+          <div class="shadow"></div>
+          <div class="actions">
+            <div class="actions-btn">
+              <div class="add-to-cart">
+                <a class="add-to-cart-button" href="#" title="Добавить в корзину"></a>
+              </div>
+              <div class="add-to-links">
+                <div class="add-to-wishlist">
+                  <a class="add-to-wishlist-button" href="#" title="Добавить в мои желания"></a>
+                </div>
+                <div class="add-to-compare">
+                  <a class="add-to-compare-button" href="#" title="Добавить для сравнения"></a>
+                </div>
+                <div class="quikview">
+                  <a class="quikview-button" href="#" title="Быстрый просмотр"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-list">
+          <h3>Интересная книга 3</h3>
+          <div class="price">&#8381; 1700</div>
+        </div>
+      </div>
+      <div class="product-wrap slideItem">
+        <div class="product-image">
+          <a href=""><img
+              src="https://blog.mann-ivanov-ferber.ru/wp-content/uploads/2015/10/Kniga-sudeb-1200x763.jpg"></a>
+          <div class="shadow"></div>
+          <div class="actions">
+            <div class="actions-btn">
+              <div class="add-to-cart">
+                <a class="add-to-cart-button" href="#" title="Добавить в корзину"></a>
+              </div>
+              <div class="add-to-links">
+                <div class="add-to-wishlist">
+                  <a class="add-to-wishlist-button" href="#" title="Добавить в мои желания"></a>
+                </div>
+                <div class="add-to-compare">
+                  <a class="add-to-compare-button" href="#" title="Добавить для сравнения"></a>
+                </div>
+                <div class="quikview">
+                  <a class="quikview-button" href="#" title="Быстрый просмотр"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-list">
+          <h3>Интересная книга4</h3>
+          <div class="price">&#8381; 1500</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.11/jquery.mousewheel.min.js"></script> -->
+  <script src="jquery-mousewheel-3.1.13\jquery.mousewheel.min.js"></script>
+  <script
+    src="Coverflow-Style-Image-Carousel-Plugin-For-jQuery-Carousel-Evolution\scripts\jquery.carousel-1.1.min.js"></script>
+  <script>
+    (function ($) {
+      $(function () {
+
+        $('.carousel').carousel({
+          carouselWidth: 930,
+          carouselHeight: 330,
+          directionNav: true,
+          shadow: true,
+          buttonNav: 'bullets'
+        });
+
+      })
+    })(jQuery)
+
+  </script>
+</body>
+
+</html>
