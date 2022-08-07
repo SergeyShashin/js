@@ -1,3 +1,5 @@
-body {
+.main {
   width: 14.2857142857%;
+  height: 500px;
+  background: lightgreen;
 }
