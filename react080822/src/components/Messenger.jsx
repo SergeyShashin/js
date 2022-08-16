@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MessageForm } from 'components/MessageForm';
-import { MessageList } from 'components/MessageList';
+import { MessagesList } from 'components/MessagesList';
 
 let messages = ['Привет!', 'Как дела?', 'Как погода?', 'Как настроение?'];
 
@@ -8,7 +8,7 @@ export class Messenger extends Component {
 
   state = {
     messages: [
-      { text: 'Привет всем!', author: 'Автор' }
+      // { text: 'Привет всем!', author: 'Автор' }
     ],
   };
 
@@ -17,26 +17,27 @@ export class Messenger extends Component {
   /**
    * Добавляем в стейт рандомное сообщение из массива messages за пределами класса.
    */
-  componentDidMount() {
+  // componentDidMount() {
 
-    this.interval = setInterval(() => {
+  //   this.interval = setInterval(() => {
 
-      let randomIdx = Math.floor(Math.random() * messages.length);
-      this.setState({
-        messages: this.state.messages.concat([{ text: messages[randomIdx], author: 'Автор' }]),
-      })
+  //     let randomIdx = Math.floor(Math.random() * messages.length);
+  //     this.setState({
+  //       messages: this.state.messages.concat([{ text: messages[randomIdx], author: 'Автор' }]),
+  //     })
 
-    }, 5000);
+  //   }, 5000);
 
-  }
+  // }
 
   /**
    * Добавляет в стейт сообщение из компонента MessageForm
    */
   handleSend = (message) => {
-    this.setState({
-      messages: this.state.messages.concat([{ text: message.text, author: message.author }]),
-    })
+    this.setState(
+      ({ messages }) => ({ messages: messages.concat([message]) })
+      // { messages: this.state.messages.concat([{ text: message.text, author: message.author }]), }
+    );
   }
 
   /**
@@ -50,27 +51,27 @@ export class Messenger extends Component {
 
       if (author !== 'Бот') {
         this.setState({
-          messages: this.state.messages.concat({ text: `Привет ${author}. Это сообщение от бота.`, author: 'Бот' }),
+          messages: this.state.messages.concat({ text: `Привет, ${author}. Это сообщение от бота.`, author: 'Бот' }),
         })
       }
 
-    }, 3000);
+    }, 1000);
 
   }
 
   /**
    * Очищает интервал после удаления компонента Messenger из Dom
    */
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
+  // componentWillUnmount() {
+  //   clearInterval(this.interval);
+  // }
 
 
   render() {
     let { messages } = this.state;
     return (
       <div>
-        <MessageList messages={messages} />
+        <MessagesList items={messages} />
         <MessageForm onsend={this.handleSend} />
       </div>
     );

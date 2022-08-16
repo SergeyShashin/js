@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+export const messageType = {
+  author: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+}
 
 
 export class Message extends Component {
 
+  static propTypes = messageType;
 
   render() {
-    let { messages } = this.props;
+    let { author, text } = this.props;
     return (
-      <ul style={{ listStyleType: "none" }}>
-        {messages.map((message, idx) => <li key={idx}>{message.author}: {message.text}</li>)}
-      </ul>
+        <li>{author}: {text}</li>
     );
   }
 }

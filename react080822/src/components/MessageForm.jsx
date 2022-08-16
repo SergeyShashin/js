@@ -14,7 +14,6 @@ export class MessageForm extends Component {
   };
 
   handleChange = (event) => {
-    console.log(this.state.author + ':' + ' ' + this.state.text);
     let nameField = event.target.name;
 
     this.setState({
@@ -27,7 +26,6 @@ export class MessageForm extends Component {
   handleButtonSend = () => {
     let { onsend } = this.props;
 
-    console.log();
     if (typeof (onsend) === 'function') {
       onsend(this.state);
 
