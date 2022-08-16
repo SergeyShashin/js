@@ -1,5 +1,8 @@
+import './Message.scss';
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 
 export const messageType = {
   author: PropTypes.string.isRequired,
@@ -14,7 +17,7 @@ export class Message extends Component {
   render() {
     let { author, text } = this.props;
     return (
-        <li>{author}: {text}</li>
+        <li className='message'>{author}: {text}</li>
     );
   }
 }

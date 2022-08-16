@@ -47,7 +47,7 @@ export class Messenger extends Component {
 
     this.interval = setInterval(() => {
 
-      let author = this.state.messages[this.state.messages.length - 1].author;
+      let {author} = this.state.messages[this.state.messages.length - 1];
 
       if (author !== 'Бот') {
         this.setState({

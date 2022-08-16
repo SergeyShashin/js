@@ -16,7 +16,7 @@ export class MessagesList extends Component {
   render() {
     let { items } = this.props;
     return (
-      <ul style={{ background: "#32CD32", width: "400px", height: "300px", textAlign: "left", paddingRight: "30px", overflowY: "scroll" }}>
+      <ul style={{ background: "#32CD32", width: "90%", height: "50vh", textAlign: "left", overflowY: "scroll" }}>
         {items.map((item, idx)=> <Message key={idx} {...item} />)}
       </ul>
     );
