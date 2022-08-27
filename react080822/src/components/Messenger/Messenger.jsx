@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { MessageForm } from 'components/MessageForm';
 import { MessagesList } from 'components/MessagesList';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import {Link} from 'react-router-dom';
 
 import './Messenger.css';
 
@@ -49,7 +53,7 @@ export class Messenger extends Component {
 
     this.interval = setInterval(() => {
 
-      let {author} = this.state.messages[this.state.messages.length - 1];
+      let { author } = this.state.messages[this.state.messages.length - 1];
 
       if (author !== 'Бот') {
         this.setState({
@@ -73,6 +77,23 @@ export class Messenger extends Component {
     let { messages } = this.state;
     return (
       <div className='messenger'>
+        <List>
+          <ListItem>
+            <Link to='/chats/1'>
+              <ListItemText primary='Chat 1' />
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/chats/2'>
+              <ListItemText primary='Chat 2' />
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to='/chats/3'>
+              <ListItemText primary='Chat 3' />
+            </Link>
+          </ListItem>
+        </List>
         <MessagesList items={messages} />
         <MessageForm onsend={this.handleSend} />
       </div>
