@@ -10,12 +10,12 @@ import { routes } from './routes';
 
 ReactDom.render(
   <BrowserRouter>
-    <Routes>
+    <Routes>      
       {routes.map((route, idx )=> {
         <Route key={idx} {...route} />
       })}
     </Routes>
-    <Messenger />
+    <Messenger/>
   </BrowserRouter>,
   document.getElementById('root')
 );

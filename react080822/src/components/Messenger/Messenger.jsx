@@ -4,11 +4,12 @@ import { MessagesList } from 'components/MessagesList';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import './Messenger.css';
 
-let messages = ['Привет!', 'Как дела?', 'Как погода?', 'Как настроение?'];
+// let messages = ['Привет!', 'Как дела?', 'Как погода?', 'Как настроение?'];
+
 
 export class Messenger extends Component {
 
@@ -16,6 +17,29 @@ export class Messenger extends Component {
     messages: [
       // { text: 'Привет всем!', author: 'Автор' }
     ],
+    chats: {
+      '1': [
+        {
+          id: 1,
+          messages: [{ text: `Привет! Это чат №1`, author: `Бот` }],
+          name: 'Chat 1',
+        }
+      ],
+      '2': [
+        {
+          id: 2,
+          messages: [{ text: `Привет! Это чат №2`, author: `Бот` }],
+          name: 'Chat 2',
+        }
+      ],
+      '3': [
+        {
+          id: 1,
+          messages: [{ text: `Привет! Это чат №3`, author: `Бот` }],
+          name: 'Chat 3',
+        }
+      ],
+    }
   };
 
   interval = null;
@@ -74,27 +98,31 @@ export class Messenger extends Component {
 
 
   render() {
+    console.log(this.props.match);
+
     let { messages } = this.state;
     return (
       <div className='messenger'>
-        <List>
-          <ListItem>
-            <Link to='/chats/1'>
-              <ListItemText primary='Chat 1' />
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link to='/chats/2'>
-              <ListItemText primary='Chat 2' />
-            </Link>
-          </ListItem>
-          <ListItem>
-            <Link to='/chats/3'>
-              <ListItemText primary='Chat 3' />
-            </Link>
-          </ListItem>
-        </List>
-        <MessagesList items={messages} />
+        {/* <div className='layout'> */}
+          <List>
+            <ListItem>
+              <Link to='/chats/1'>
+                <ListItemText primary='Chat 1' />
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to='/chats/2'>
+                <ListItemText primary='Chat 2' />
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to='/chats/3'>
+                <ListItemText primary='Chat 3' />
+              </Link>
+            </ListItem>
+          </List>
+          <MessagesList items={messages} />
+        {/* </div> */}
         <MessageForm onsend={this.handleSend} />
       </div>
     );

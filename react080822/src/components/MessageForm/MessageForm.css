@@ -1,6 +1,6 @@
 .message-form{
   margin-top: 2%;
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
 }
