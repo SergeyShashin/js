@@ -30,6 +30,7 @@
     console.log(findWord(puzzle, 'FUNCTION')); //false
     console.log(findWord(puzzle, 'NULL')); //false
 
+    //Определяет наличие слова word в массиве puzzle. Возвращает true или false.
     function findWord(puzzle, word) {
       let puzzleStrInArr = puzzle.map(el => el.split(''));
       let wordInArr = [...word];
