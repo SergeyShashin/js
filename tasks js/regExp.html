@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+   
+
+    console.log(reg('Hello', 'Hello')); //true
+    console.log(reg('Hello', 'Hel.o')); //true
+    console.log(reg('Hello', '.....')); //true
+    console.log(reg('Hello', 'Helllo')); //false
+    console.log(reg('Hello', 'He.o')); //false
+    console.log(reg('Hello', 'Hell')); //false
+    console.log(reg('Hellolo', 'Hel*olo')); //true
+    console.log(reg('Hellolo', 'He.*lo')); //true
+    console.log(reg('Hellolo', 'Hel*ol*')); //false
+
+    //Проверяет строку str на соответсвие шаблону regex.
+    // '.' = символ такой же, как символ слева.
+    // '*' = любое количество символов.
+    //Возвращает true или false
+    function reg(str, regex) {
+
+      str = [...str];
+      regex = [...regex];
+
+      for (let i = 0; i < str.length; i++) {
+
+        if (str[i] === regex[i] && regex[i + 1] === '.' && regex[i + 2] === '*') {
+          let erase = str.length - regex.length + 2;
+          str.splice(i + 1, erase);
+          regex.splice(i + 1, 2);
+        }
+
+        if (str[i] === regex[i] && regex[i + 1] === '*') {
+          regex[i+1] = str[i];
+        }
+
+        if (regex[i] === '.') {
+          regex[i] = str[i];
+        }
+
+        if (str[i] !== regex[i]) {
+          return false
+        }
+
+      }
+
+      return true
+
+    }
+
+  </script>
+</body>
+
+</html>
