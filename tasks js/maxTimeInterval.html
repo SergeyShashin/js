@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    //возвращает максимальный интервал времени между звонками будильника
+    function maxTimeInterval(arr) {
+      let numberOfAlarmRings = 1;
+      let alarmDuration = 1;
+      let numberOfMinutesInAnHour = 60;
+      let numberOfDigitsInTheTimeIndication = 5;
+      let sortArr = [];
+      let defferenceArr = [];
+      let lastIdx;
+      let lastEl;
+      let firstEl;
+      let maxIntervalInMinuts;
+      let remainder;
+      let maxIntervalInHours;
+
+      if (arr.length === numberOfAlarmRings) {
+        return '23:59'
+      }
+
+      sortArr = arr.map(el =>
+        el.length === numberOfDigitsInTheTimeIndication
+          ? +(el[0] + el[1]) * numberOfMinutesInAnHour + +(el[3] + el[4])
+          : +el[0] * numberOfMinutesInAnHour + +(el[1] + el[2])
+      ).sort((a, b) => a - b);
+
+
+      lastIdx = sortArr.length - 1;
+      lastEl = sortArr[lastIdx];
+      firstEl = sortArr[0];
+      sortArr.map((el, idx, sortArr) => {
+        let nextIdx = idx + 1;
+        if (nextIdx < sortArr.length) {
+          defferenceArr.push(sortArr[nextIdx] - el);
+        }
+
+        if (idx === lastIdx) {
+          defferenceArr.push(24 * numberOfMinutesInAnHour - lastEl + firstEl);
+        }
+      }
+      )
+
+      maxIntervalInMinuts = Math.max(...defferenceArr) - 1;
+      remainder = parseInt(maxIntervalInMinuts % numberOfMinutesInAnHour);
+      maxIntervalInHours = `${(maxIntervalInMinuts - remainder) / numberOfMinutesInAnHour}:${remainder}`;
+
+      return maxIntervalInHours;
+
+    }
+
+    console.log(maxTimeInterval(['14:51'])) //23:59
+    console.log(maxTimeInterval(['23:00', '04:22', '18:05', '06:24'])) //11:40
+    console.log(maxTimeInterval(['21:14', '15:34', '14:51', '06:25', '15:30'])) //09:10
+  </script>
+</body>
+
+</html>
