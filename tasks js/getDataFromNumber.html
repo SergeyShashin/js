@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    //возвращает массив заданного уровня вложенности floor из массива arr
+    const getDataFromNumber = (arr, floor) => {
+      const results = {};
+
+      let tmpArr = arr.slice();
+
+      createObjectPropertiesByQuantityFloor();
+
+      pusheResults(tmpArr);
+
+      function pusheResults(someArr) {
+        for (let i = 0; i <= floor; i++) {
+          results[i] = someArr.filter(el => !Array.isArray(el));
+          someArr = someArr.filter(el => Array.isArray(el)).flat();
+        }
+      }
+
+      function createObjectPropertiesByQuantityFloor() {
+        for (let i = 0; i <= floor; i++) {
+          results[i] = [];
+        }
+      }
+
+      return results[floor];
+    }
+
+    const arr = [1, 2, 3, [4, 5], [6, [7]], [8, 9]];
+
+    console.log(getDataFromNumber(arr, 0)) // [1,2,3]
+    console.log(getDataFromNumber(arr, 1)) // [4,5,6,8,9]
+    console.log(getDataFromNumber(arr, 2)) // [7]
+    console.log(getDataFromNumber(arr, 3)) // []
+  </script>
+</body>
+
+</html>
