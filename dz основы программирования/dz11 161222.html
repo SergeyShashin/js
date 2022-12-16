@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+    const arr = [];
+    let counterRed = 0;
+    let counterBlack = 0;
+    let counterZero = 0;
+
+    for (let i = 0; i < 100000; i++) {
+      let randomNum = Math.round(Math.random() * 36);
+
+      if (randomNum === 0) {
+        counterZero++;
+        arr.push('zero');
+      } else if (randomNum % 2 === 0) {
+        counterBlack++;
+        arr.push('black');
+      } else if (randomNum % 2 === 1) {
+        counterRed++;
+        arr.push('red');
+      }
+    }
+
+    let lengthArr = arr.length;
+
+    console.log(
+      `Процент выпадения красного ${counterRed / lengthArr*100}%, черного ${counterBlack / lengthArr*100}%,  
+       zero ${counterZero / lengthArr*100}%.    
+    `);
+
+  </script>
+
+</body>
+
+</html>
