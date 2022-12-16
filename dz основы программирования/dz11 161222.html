@@ -17,6 +17,10 @@
     let counterRed = 0;
     let counterBlack = 0;
     let counterZero = 0;
+    let counterBlackSequence = 0;
+    let counterRedSequence = 0;
+    let maxCounterBlackSequence = 0;
+    let maxCounterRedSequence = 0;
 
     for (let i = 0; i < 100000; i++) {
       let randomNum = Math.round(Math.random() * 36);
@@ -26,19 +30,27 @@
         arr.push('zero');
       } else if (randomNum % 2 === 0) {
         counterBlack++;
+        counterBlackSequence > maxCounterBlackSequence ? maxCounterBlackSequence = counterBlackSequence : '';
         arr.push('black');
+        arr[i - 1] && arr[i - 1] === 'black' ? counterBlackSequence++ : counterBlackSequence = 1;
       } else if (randomNum % 2 === 1) {
         counterRed++;
+        counterRedSequence > maxCounterRedSequence ? maxCounterRedSequence = counterRedSequence : '';
         arr.push('red');
+        arr[i - 1] && arr[i - 1] === 'red' ? counterRedSequence++ : counterRedSequence = 1;
       }
     }
 
     let lengthArr = arr.length;
 
     console.log(
-      `Процент выпадения красного ${counterRed / lengthArr*100}%, черного ${counterBlack / lengthArr*100}%,  
-       zero ${counterZero / lengthArr*100}%.    
+      `Процент выпадения красного ${counterRed / lengthArr * 100}%, черного ${counterBlack / lengthArr * 100}%,  
+       zero ${counterZero / lengthArr * 100}%.    
     `);
+
+    console.log(`Максимальная последовательность выпадения красного ${maxCounterRedSequence}`);
+    console.log(`Максимальная последовательность выпадения чёерного ${maxCounterBlackSequence}`);
+
 
   </script>
 
