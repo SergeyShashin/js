@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    let deposit = Number(prompt('Сумма вклада?', 100000));
+    let interestRate = Number(prompt('Процентная ставка?', 10));
+    let termContribution = Number(prompt('Срок вклада?', 10));
+
+    for (let i = 0; i < termContribution; i++) {
+      deposit += deposit * interestRate / 100;
+      alert(`Количество лет ${i + 1}. Сумма вклада ${parseInt(deposit)}`);
+    }
+
+  </script>
+
+</body>
+
+</html>
