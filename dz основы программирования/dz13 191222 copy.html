@@ -37,7 +37,6 @@
       alert(`Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)}.`);
     }
 
-
     if (winner !== 'stop') {
       while (getAccountCards(dealer) <= 15) {
         dealer.push(getCard(cards));
@@ -49,7 +48,6 @@
         }
       }
     }
-
 
     if (winner !== 'stop') {
       alert(getStatus());
