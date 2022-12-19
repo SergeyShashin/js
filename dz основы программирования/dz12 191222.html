@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+    const cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let player = [];
+    let dealer = [];
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getCard(arr) {
+      console.log(arr);
+      console.log(arr.length);
+      return arr[getRandomInt(0, arr.length-1)];
+    };
+
+    function getAccountCards(arr) {
+      return arr.reduce((acc, el) => {
+        switch (el) {
+          case 'A':
+            acc += 11;
+            break;
+          case 'K':
+          case 'Q':
+          case 'J':
+            acc += 10
+            break;
+          default: acc += Number(el);
+        }
+        return acc;
+      }, 0)
+    }
+
+    player.push(getCard(cards));
+    player.push(getCard(cards));
+
+    console.log('Карты игрока ' + player.join(' '));
+    console.log('Счёт игрока ' + getAccountCards(player));
+  </script>
+</body>
+
+</html>
