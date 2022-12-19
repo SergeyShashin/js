@@ -22,16 +22,14 @@
     }
 
     function getCard(arr) {
-      console.log(arr);
-      console.log(arr.length);
-      return arr[getRandomInt(0, arr.length-1)];
+      return arr[getRandomInt(0, arr.length - 1)];
     };
 
     function getAccountCards(arr) {
       return arr.reduce((acc, el) => {
         switch (el) {
           case 'A':
-            acc += 11;
+            acc > 10 ? acc += 1 : acc += 11;
             break;
           case 'K':
           case 'Q':
@@ -44,6 +42,7 @@
       }, 0)
     }
 
+    player.push(getCard(cards));
     player.push(getCard(cards));
     player.push(getCard(cards));
 
