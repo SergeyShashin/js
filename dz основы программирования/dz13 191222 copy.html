@@ -25,39 +25,36 @@
       player.push(getCard(cards));
       accountPlayer = getAccountCards(player);
       if (accountPlayer > 21) {
-        alert('Перебор. Диллер выиграл.');
-        winner = 'dealer';
-        getStatus();
+        alert(`Перебор. Диллер выиграл.\n Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)}.`);
+        winner = 'stop';
         break;
       }
       if (accountPlayer === 21) {
-        alert('Игрок выиграл \n' + getStatus());
-        winner = 'player';
+        alert(`Игрок выиграл. \n Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)}.`);
+        winner = 'stop';
         break;
       }
-      alert(getStatus());
+      alert(`Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)}.`);
     }
 
 
-    if (winner !== 'dealer' && winner !== 'player') {
+    if (winner !== 'stop') {
       while (getAccountCards(dealer) <= 15) {
         dealer.push(getCard(cards));
         if (getAccountCards(dealer) > 21) {
-          alert('Перебор. Игрок выиграл.');
-          winner = 'player';
           alert(getStatus());
+          alert('Перебор. Игрок выиграл.');
+          winner = 'stop';
           break;
         }
       }
     }
 
 
-    if (winner !== 'player' && winner !== 'dealer') {
+    if (winner !== 'stop') {
       alert(getStatus());
       getAccountCards(dealer) >= accountPlayer ? alert('Дилер выиграл.') : alert('Игрок выгирал.');
     }
-
-
 
     function getRandomInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
