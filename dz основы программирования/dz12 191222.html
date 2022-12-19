@@ -48,6 +48,12 @@
 
     console.log('Карты игрока ' + player.join(' '));
     console.log('Счёт игрока ' + getAccountCards(player));
+
+    function getStatus() {
+      console.log(`Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)} \n
+      Карты дилера: ${dealer.join(' ')}. Счёт дилера: ${getAccountCards(dealer)}
+      `);
+    }
   </script>
 </body>
 
