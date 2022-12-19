@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+    const cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let player = [];
+    let dealer = [];
+    let accountPlayer;
+    let accountDealer;
+    let winner;
+
+
+    while (confirm('Играем?')) {
+      player.push(getCard(cards));
+      accountPlayer = getAccountCards(player);
+      if (accountPlayer > 21) {
+        alert('Перебор. Диллер выиграл.');
+        winner = 'dealer';
+        getStatus();
+        break;
+      }
+      if (accountPlayer === 21) {
+        alert('Игрок выиграл \n' + getStatus());
+        winner = 'player';
+        break;
+      }
+      alert(getStatus());
+    }
+
+
+    if (winner !== 'dealer' && winner !== 'player') {
+      while (getAccountCards(dealer) <= 15) {
+        dealer.push(getCard(cards));
+        if (getAccountCards(dealer) > 21) {
+          alert('Перебор. Игрок выиграл.');
+          winner = 'player';
+          alert(getStatus());
+          break;
+        }
+      }
+    }
+
+
+    if (winner !== 'player' && winner !== 'dealer') {
+      alert(getStatus());
+      getAccountCards(dealer) >= accountPlayer ? alert('Дилер выиграл.') : alert('Игрок выгирал.');
+    }
+
+
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getCard(arr) {
+      return arr[getRandomInt(0, arr.length - 1)];
+    };
+
+    function getAccountCards(arr) {
+      return arr.reduce((acc, el) => {
+        switch (el) {
+          case 'A':
+            acc > 10 ? acc += 1 : acc += 11;
+            break;
+          case 'K':
+          case 'Q':
+          case 'J':
+            acc += 10
+            break;
+          default: acc += Number(el);
+        }
+        return acc;
+      }, 0)
+    }
+
+    function getStatus() {
+      return `Карты игрока: ${player.join(' ')}. Счёт игрока: ${getAccountCards(player)}. \n
+      Карты дилера: ${dealer.join(' ')}. Счёт дилера: ${getAccountCards(dealer)}.
+      `;
+    }
+  </script>
+</body>
+
+</html>
