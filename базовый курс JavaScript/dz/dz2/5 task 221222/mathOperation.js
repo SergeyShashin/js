@@ -8,65 +8,76 @@
 операций
 (использовать функции из задания 4) и вернуть полученное значение.
 */
-console.log(mathOperation(1.1, -1, '+'));
-console.log(mathOperation(1.1, -1, '*'));
-console.log(mathOperation(1.1, -1, '-'));
-console.log(mathOperation(1.1, -1, '/'));
+
+console.log(mathOperation(2, 2, '+') + ' = 4');
+console.log(mathOperation(2, 2, '-') + ' = 0');
+console.log(mathOperation(2, 2, '/') + ' = 1');
+console.log(mathOperation(2, 2, '*') + ' = 4');
 
 /**
  * 
- * @param {number} arg1 Первое число. 
- * @param {number} arg2 Второе число.
- * @param {string} operation Знак математической операции '+', '*', '-', '/'.
- * @returns {number} Результат математической операции.
+ * @param {number} arg1 Операнд1
+ * @param {number} arg2 Операнд2
+ * @param {string} operation Оператор
+ * @returns {number} Возвращает результат математической операции. 
  */
-function mathOperation(arg1, arg2, operation){
-  switch(operation){
+function mathOperation(arg1, arg2, operation) {
+  switch (operation) {
     case '+':
-      return addition(arg1, arg2);
+      return add(arg1, arg2);
     case '-':
-      return subtraction(arg1, arg2);
+      return difference(arg1, arg2);
     case '/':
       return division(arg1, arg2);
     case '*':
       return multiplication(arg1, arg2);
+    default: 'Проверьте ввод данных. Нужно ввести число1, число2 и знак математической операции (+, -, /, *)'
   }
+
 }
 
+
+/*
+Реализовать основные 4 арифметические операции (+, -, /, *) в виде функций с двумя
+параметрами.
+Обязательно использовать оператор return.
+*/
+
 /**
- * Складывает 2 числа
+ * Складывает два числа
  * @param {number} num1 
- * @param {number} num2  
- * @returns {number} Возвращает сумму 2 чисел.
+ * @param {number} num2 
+ * @returns number
  */
- function addition(num1, num2) {
+function add(num1, num2) {
   return num1 + num2
 }
 
 /**
- * Разность 2 чисел
+ * Вычитает из одного числа другое
  * @param {number} num1 
- * @param {number} num2  
- * @returns {number} Возвращает разность 2 чисел.
+ * @param {number} num2 
+ * @returns number
  */
-function subtraction(num1, num2) {
+function difference(num1, num2) {
   return num1 - num2
 }
 
 /**
- * Деление 2 чисел
+ * Делит числа
  * @param {number} num1 
- * @param {number} num2  
- * @returns {number} Возвращает результат деления чисел.
+ * @param {number} num2 
+ * @returns number
  */
 function division(num1, num2) {
   return num1 / num2
 }
+
 /**
- * Умножение 2 чисел
+ * Умножает числа
  * @param {number} num1 
- * @param {number} num2  
- * @returns {number} Возвращает результат умножения чисел.
+ * @param {number} num2 
+ * @returns number
  */
 function multiplication(num1, num2) {
   return num1 * num2
