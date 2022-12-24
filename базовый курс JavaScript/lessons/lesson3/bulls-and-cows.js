@@ -1,6 +1,6 @@
 'use strict';
 
-let attemps, number;
+let attempts, number;
 
 bullsAndCows();
 
@@ -24,11 +24,11 @@ function bullsAndCows() {
       }
     }
 
-    attemps++;
+    attempts++;
 
-    alert(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
+    alert(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attempts}`);
     console.log(`Предположение ${userNumber}`);
-    console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attemps}`);
+    console.log(`Быков ${result[0]}, коров ${result[1]}. Количество попыток ${attempts}`);
 
     if (result[0] === 4) {
       alert('Поздравляем. Вы отгадали!');
@@ -44,7 +44,7 @@ function bullsAndCows() {
  * Генерация 4-х значного числа для отгадывания
  */
 function setStartSettings() {
-  attemps = 0;
+  attempts = 0;
   number = [];
 
   for (let i = 0; number.length < 4; i++) {
