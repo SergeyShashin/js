@@ -12,4 +12,4 @@ xxxxxxx
 xxxxxxxxx
 */
 
-for (let i = 0, x=''; i < 20; console.log(`${x += 'x'}\n`), i++) { }
+for (let i = 0, x = 'x'; i < 21; console.log(`${x}\n`), x += 'xx', i++) { }
