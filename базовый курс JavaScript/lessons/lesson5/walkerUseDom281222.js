@@ -18,7 +18,6 @@ const player = {
     this.x = startX;
     this.y = startY;
     this.direction = startDirection;
-    console.log(this.direction);
   },
 
   getNextStepPoint() {
@@ -48,6 +47,10 @@ const player = {
   makeStep(nextPoint) {
     this.x = nextPoint.x;
     this.y = nextPoint.y;
+  },
+
+  setDirection(direction) {
+    this.direction = direction;
   }
 };
 
@@ -66,9 +69,7 @@ const game = {
       let nextStepPoint = this.player.getNextStepPoint()
 
       if (this.canMakeStep(nextStepPoint)) {
-        console.log('идём!');
         this.player.makeStep(nextStepPoint);
-        console.log(this.player);
         this.render();
       }
     }
@@ -81,6 +82,7 @@ const game = {
     this.gameElement = document.getElementById('game');
     this.tdElements = [];
     this.player.init(this.settings.positionX, this.settings.positionY, this.settings.direction);
+    document.addEventListener('keydown', (e) => this.eventHandler(e));
   },
 
   render() {
@@ -94,8 +96,7 @@ const game = {
         let tdElement = document.createElement('td');
         trElement.appendChild(tdElement);
 
-        if (row === this.player.y && col === this.player.y) {
-          console.log(this.player);
+        if (row === this.player.y && col === this.player.x) {
           tdElement.classList.add('player');
         }
       }
@@ -103,10 +104,42 @@ const game = {
   },
 
   canMakeStep(nextStepPoint) {
-    return nextStepPoint.x !== 0
-      && nextStepPoint.y !== 0
+    return nextStepPoint.x >= 0
+      && nextStepPoint.y >= 0
       && nextStepPoint.x !== this.settings.rowsCount
       && nextStepPoint.y !== this.settings.colsCount;
+  },
+
+  eventHandler(e) {
+    console.log(e.keyCode);
+    switch (e.keyCode) {
+      case 39:
+      case 102:
+      case 68:
+        this.player.setDirection('right');
+        break;
+      case 37:
+      case 100:
+      case 65:
+        this.player.setDirection('left');
+        break;
+      case 38:
+      case 104:
+      case 87:
+        this.player.setDirection('up');
+        break;
+      case 40:
+      case 98:
+      case 83:
+        this.player.setDirection('down');
+        break;
+      case 81:
+        confirm('Exit') ? window.close() : '';
+        break;
+
+
+
+    }
   }
 };
 
