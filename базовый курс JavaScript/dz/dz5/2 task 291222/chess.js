@@ -77,6 +77,16 @@ function chessGen() {
       if (row == 7 && col == 3 || row == 7 && col == 6) {
         td.innerHTML = white.elephant;
       }
+
+      //ставим белых коней
+      if (row == 7 && col == 2 || row == 7 && col == 7) {
+        td.innerHTML = white.knight;
+      }
+
+      //ставим белые ладьи
+      if (row == 7 && col == 1 || row == 7 && col == 8) {
+        td.innerHTML = white.rook;
+      }
       
       //ставим чёрные пешки
       if (row == 1 && col !== 0) {
@@ -101,6 +111,11 @@ function chessGen() {
       //ставим чёрных коней
       if (row == 0 && col == 2 || row == 0 && col == 7) {
         td.innerHTML = black.knight;
+      }
+
+      //ставим чёрные ладьи
+      if (row == 0 && col == 1 || row == 0 && col == 8) {
+        td.innerHTML = black.rook;
       }
       
       
