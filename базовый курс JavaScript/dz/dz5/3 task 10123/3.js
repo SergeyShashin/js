@@ -48,24 +48,29 @@ const validationMethods = {
     switch (sign) {
       case '>':
         if (!(valueLength > then)) {
-          return `Нужно ввести ${then + 1} символов.`;
+          return `Нужно ввести более ${then + 1} символов.`;
         }
+        break;
       case '>=':
         if (!(valueLength >= then)) {
-          return `Нужно ввести ${then} символов.`;
+          return `Нужно ввести более ${then} символов.`;
         }
+        break;
       case '<':
         if (!(valueLength < then)) {
-          return `Нужно ввести ${then - 1} символов.`;
+          return `Нужно ввести менее ${then - 1} символов.`;
         }
+        break;
       case '<=':
         if (!(valueLength <= then)) {
-          return `Нужно ввести ${then} символов.`;
+          return `Нужно ввести менее ${then} символов.`;
         }
+        break;
       case '===':
         if (valueLength !== then) {
           return `Нужно ввести ${then} символов.`;
         }
+        break;
     }
     return null;
   },
@@ -77,7 +82,6 @@ const validationMethods = {
   */
   mustContainDigits(field) {
     let fieldValue = field.value;
-
     if (!Number.isInteger(Number(fieldValue))) {
       return `Нужно ввести только цифры`;
     }
@@ -113,7 +117,7 @@ const form = {
   init() {
 
     this.formElement = document.getElementById('formDz5Task3');
-    this.formElement.addEventListener('submit', (event) => this.formSubmit(event));
+    this.formElement.addEventListener('click', (event) => this.formSubmit(event));
     this.rules = [
       {
         selector: document.getElementById('name'),
@@ -131,14 +135,14 @@ const form = {
       },
       {
         selector: document.getElementById('password'),
-        methods: [  
+        methods: [
           { name: 'length', args: ['>=', 5] },
           { name: 'length', args: ['<=', 50] }
         ]
       },
       {
         selector: document.getElementById('passwordRepeat'),
-        methods: [ 
+        methods: [
           { name: 'fieldCompare', args: [document.getElementById('password')] },
         ]
       }
@@ -147,21 +151,50 @@ const form = {
 
   formSubmit(event) {
     if (!this.validate()) {
+      console.log('Не отправлено!');
       event.preventDefault();
     }
   },
 
   validate() {
+    let flag = true;
 
     for (let rule of this.rules) {
-      console.log(rule.name)
-      // for(let method of rule.methods){
-      //   validationMethodsp[method](rule.selector, )
-      // } 
-
+      for (let method of rule.methods) {
+        let error = validationMethods[method.name](rule.selector, method.args);
+        if (error) {
+          this.setError(rule.selector, error);
+          flag = false;
+          break;
+        } else {
+          this.deleteError(rule.selector);
+        }
+      }
     }
 
-  }
+
+    return flag;
+
+  },
+
+  setError(selector, error) {
+    selector.classList.add('is-invalid');
+    selector.nextElementSibling.classList.remove('valid-feedback');
+    selector.nextElementSibling.classList.add('invalid-feedback');
+    selector.nextElementSibling.textContent = error;
+    ;
+  },
+
+  deleteError(selector) {
+    selector.classList.remove('is-invalid');
+    selector.classList.add('is-valid');
+    selector.nextElementSibling.classList.remove('invalid-feedback');
+    selector.nextElementSibling.classList.add('valid-feedback');
+    selector.nextElementSibling.textContent = 'Отлично';
+
+  },
+
+
 }
 
 form.init();
