@@ -5,6 +5,7 @@ const tikTakToe = {
   phase: null,
   mapValue: null,
   gameElement: null,
+  moveMade: null,
 
   init() {
     this.statusGame = 'play';
@@ -14,8 +15,8 @@ const tikTakToe = {
       ['', '', ''],
       ['', '', ''],
     ];
+    this.moveMade = 0;
     this.gameElement = document.getElementById('tikTakToe');
-    console.log(this.gameElement);
 
     this.render();
     this.setHandlerClick();
@@ -23,6 +24,7 @@ const tikTakToe = {
   },
 
   render() {
+    this.gameElement.innerHTML = '';
     for (let row = 0; row < 3; row++) {
       let tr = document.createElement('tr');
       this.gameElement.appendChild(tr);
@@ -43,10 +45,33 @@ const tikTakToe = {
     if (!this.isClickCell(event) || !this.isCellEmpty(event) || this.statusGameStop()) {
       return;
     }
+    this.moveMade++;
     event.target.textContent = this.phase;
     this.mapValue[event.target.dataset.x][event.target.dataset.y] = this.phase;
-    this.hasWon();
-    this.toglePhase();
+
+    if (this.hasWon()) {
+      this.statusGame = 'stop';
+      alert('Победили ' + this.phase);
+      this.newGame();
+      return;
+    } else {
+      this.toglePhase();
+    }
+
+    if (this.moveMade === 9) {
+      alert('Ничья)');
+      this.newGame();
+    }
+
+  },
+
+  newGame() {
+    if (confirm('Ещё разок?')) {
+      this.init();
+    } else {
+      alert('Всех благ!)')
+      window.close();
+    }
   },
 
   isClickCell(event) {
@@ -65,8 +90,21 @@ const tikTakToe = {
     return event.target.textContent === '';
   },
 
-  hasWon(){
-    
+  hasWon() {
+
+    return this.isLineWon({ x: 0, y: 0 }, { x: 0, y: 1 }, { x: 0, y: 2 }) ||
+      this.isLineWon({ x: 1, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 2 }) ||
+      this.isLineWon({ x: 2, y: 0 }, { x: 2, y: 1 }, { x: 2, y: 2 }) ||
+      this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }) ||
+      this.isLineWon({ x: 2, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 2 })
+
+  },
+
+  isLineWon(a, b, c) {
+    return this.mapValue[a.x][a.y] === 'X' && this.mapValue[b.x][b.y] === 'X' && this.mapValue[c.x][c.y] === 'X' ||
+      this.mapValue[a.x][a.y] === 'O' && this.mapValue[b.x][b.y] === 'O' && this.mapValue[c.x][c.y] === 'O'
+
+
   }
 
 }
