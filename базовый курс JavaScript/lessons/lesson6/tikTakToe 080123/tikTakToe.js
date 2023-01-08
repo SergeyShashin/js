@@ -96,7 +96,10 @@ const tikTakToe = {
       this.isLineWon({ x: 1, y: 0 }, { x: 1, y: 1 }, { x: 1, y: 2 }) ||
       this.isLineWon({ x: 2, y: 0 }, { x: 2, y: 1 }, { x: 2, y: 2 }) ||
       this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }) ||
-      this.isLineWon({ x: 2, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 2 })
+      this.isLineWon({ x: 2, y: 0 }, { x: 1, y: 1 }, { x: 0, y: 2 })||
+      this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 0 }, { x: 2, y: 0 }) ||
+      this.isLineWon({ x: 0, y: 1 }, { x: 1, y: 1 }, { x: 2, y: 1 })||
+      this.isLineWon({ x: 0, y: 2 }, { x: 1, y: 2 }, { x: 2, y: 2 })
 
   },
 
