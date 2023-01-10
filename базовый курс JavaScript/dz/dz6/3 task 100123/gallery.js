@@ -46,8 +46,6 @@ const gallery = {
     img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
     img.src = src;
 
-
-
   },
 
   openBigImage(src) {
@@ -89,10 +87,22 @@ const gallery = {
     this.previousElementSibling = this.curentElement.previousElementSibling;
 
     if (this.previousElementSibling) {
-      this.openBigImage(this.previousElementSibling.src);
+      let img = new Image();
+      img.onload = () => this.openBigImage(this.previousElementSibling.dataset.fullImgUrl);
+      img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
+      img.src = this.previousElementSibling.dataset.fullImgUrl;
+
+      // this.openBigImage(this.previousElementSibling.dataset.fullImgUrl);
+
     } else {
       this.previousElementSibling = this.galleryElement.lastElementChild;
-      this.openBigImage(this.previousElementSibling.src);
+
+      let img = new Image();
+      img.onload = () => this.openBigImage(this.previousElementSibling.dataset.fullImgUrl);
+      img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
+      img.src = this.previousElementSibling.dataset.fullImgUrl;
+      
+      // this.openBigImage(this.previousElementSibling.dataset.fullImgUrl);
     }
     this.curentElement = this.previousElementSibling;
   },
@@ -101,10 +111,22 @@ const gallery = {
     this.nextElementSibling = this.curentElement.nextElementSibling;
 
     if (this.nextElementSibling) {
-      this.openBigImage(this.nextElementSibling.src);
+
+      let img = new Image();
+      img.onload = () => this.openBigImage(this.nextElementSibling.dataset.fullImgUrl);
+      img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
+      img.src = this.nextElementSibling.dataset.fullImgUrl;
+
+      // this.openBigImage(this.nextElementSibling.dataset.fullImgUrl);
+
     } else {
       this.nextElementSibling = this.galleryElement.firstElementChild;
-      this.openBigImage(this.nextElementSibling.src);
+
+      let img = new Image();
+      img.onload = () => this.openBigImage(this.nextElementSibling.dataset.fullImgUrl);
+      img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
+      img.src = this.nextElementSibling.dataset.fullImgUrl;
+      // this.openBigImage(this.nextElementSibling.dataset.fullImgUrl);
     }
     this.curentElement = this.nextElementSibling;
 
