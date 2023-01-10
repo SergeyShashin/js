@@ -5,6 +5,7 @@ const settings = {
   idWrapForBigImg: "wrapForBigImg",
   idImgClose: 'imgClose',
   pathToImgClose: 'img/gallery/close.png',
+  pathToImgNothing: 'img/gallery/nothing.png',
   classImgMax: 'imgMax',
 
 };
@@ -29,11 +30,16 @@ const gallery = {
 
     let src = event.target.dataset.fullImgUrl;
 
-    this.openBigImage(src);
+    let img = new Image();
+    img.onload = () => this.openBigImage(src);
+    img.onerror = () => this.openBigImage(this.settings.pathToImgNothing);
+    img.src = src;
+
+
   },
 
   openBigImage(src) {
-    this.createWrapForBigImg();    
+    this.createWrapForBigImg();
     document.getElementById(this.settings.idWrapForBigImg).querySelector('.' + this.settings.classImgMax).src = src;
   },
 
