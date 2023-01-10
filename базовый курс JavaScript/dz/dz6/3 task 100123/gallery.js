@@ -15,6 +15,10 @@ const settings = {
 const gallery = {
   settings,
   galleryElement: null,
+  idClickImg: null,
+  curentElement: null,
+  previousElementSibling: null,
+  nextElementSibling: null,
 
 
   init() {
@@ -33,6 +37,8 @@ const gallery = {
     }
 
     let src = event.target.dataset.fullImgUrl;
+    this.idClickImg = event.target.id;
+    this.curentElement = document.getElementById(this.idClickImg);
 
 
     let img = new Image();
@@ -41,10 +47,14 @@ const gallery = {
     img.src = src;
 
 
+
   },
 
   openBigImage(src) {
-    this.createWrapForBigImg();
+    if (!document.getElementById(this.settings.idWrapForBigImg)) {
+      this.createWrapForBigImg();
+    }
+
     document.getElementById(this.settings.idWrapForBigImg).querySelector('.' + this.settings.classImgMax).src = src;
   },
 
@@ -75,13 +85,30 @@ const gallery = {
 
   },
 
-  // moveLeft() {
-  //   document.querySelector('.' + this.settings.classImgMax).src = this.leftElement;
-  // },
+  moveLeft() {
+    this.previousElementSibling = this.curentElement.previousElementSibling;
 
-  // moveRight() {
-  //   document.querySelector('.' + this.settings.classImgMax).src = this.rightElement;
-  // }
+    if (this.previousElementSibling) {
+      this.openBigImage(this.previousElementSibling.src);
+    } else {
+      this.previousElementSibling = this.galleryElement.lastElementChild;
+      this.openBigImage(this.previousElementSibling.src);
+    }
+    this.curentElement = this.previousElementSibling;
+  },
+
+  moveRight() {
+    this.nextElementSibling = this.curentElement.nextElementSibling;
+
+    if (this.nextElementSibling) {
+      this.openBigImage(this.nextElementSibling.src);
+    } else {
+      this.nextElementSibling = this.galleryElement.firstElementChild;
+      this.openBigImage(this.nextElementSibling.src);
+    }
+    this.curentElement = this.nextElementSibling;
+
+  }
 
 
 
