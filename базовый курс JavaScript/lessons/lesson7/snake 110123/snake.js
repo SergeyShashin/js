@@ -40,15 +40,60 @@ const statusGame = {
 };
 
 const map = {
+  gameElement: null,
+  cells: null,
+  usedCells: null,
+
+  init(rows, cols) {
+    this.gameElement = document.getElementById('snake-game');
+    this.cells = {};
+    this.usedCells = [];
+    for (let row = 0; row < rows; row++) {
+      let tr = document.createElement('tr');
+      this.gameElement.appendChild(tr);
+      for (let col = 0; col < cols; col++) {
+        let td = document.createElement('td');
+        tr.appendChild(td);
+        this.cells[`x${row}_y${col}`] = td;
+      }
+    }
+  },
+
+  getUsedCells() {
+    return this.usedCells;
+  }
 
 };
 
 const snake = {
+  body: null,
+  direction: null,
+  lastDirection: null,
+
+  init(startPositionX, startPositionY, direction) {
+    this.body = [`x${startPositionX}_y${startPositionY}`];
+    this.direction = direction;
+    this.lastDirection = direction;
+  },
+
+  getBody() {
+    return this.body;
+  }
 
 };
 
 const food = {
+  x: null,
+  y: null,
 
+  init(startPosition) {
+    this.x = startPosition.x;
+    this.y = startPosition.y;
+  },
+
+  getPoint() {
+    return {x: this.x, y: this.y }
+  }
 };
 
 const game = {
@@ -63,11 +108,35 @@ const game = {
 
     let validation = this.validation();
 
-    if (!this.validation.isValid) {
+    if (!validation.isValid) {
       validation.errors.forEach(error => console.log(error));
-
       return
     }
+
+    this.map.init(this.config.getRowsCount(), this.config.getColsCount());
+
+    this.snake.init(this.config.getRowsCount() / 2, this.config.getColsCount() / 2, 'up');
+
+    this.food.init(this.getRandomFreeCoordinates());
+
+    console.log(this.food.getPoint());
+
+  },
+
+  getRandomFreeCoordinates() {
+    let usedCoordinates = this.map.getUsedCells();
+    let exclude = [...this.snake.getBody(), this.food.getPoint()];
+
+    while (true) {
+      let point = {
+        x: Math.floor(Math.random() * this.config.getRowsCount()),
+        y: Math.floor(Math.random() * this.config.getColsCount())
+      }
+      if (!exclude.some(exPoint => exPoint.x === point.x && exPoint.y === point.y)) {
+        return point;
+      }
+    }
+
   },
 
   validation() {
@@ -102,4 +171,4 @@ const game = {
 
 };
 
-window.onload = game.init({ speed: 800, rowsCount: 800 });
+window.onload = game.init({ speed: 7, rowsCount: 12, colsCount: 12 });
