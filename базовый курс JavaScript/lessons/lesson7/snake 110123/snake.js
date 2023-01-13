@@ -29,7 +29,6 @@ const config = {
 
   init(usersettings) {
     Object.assign(this.settings, usersettings);
-
   }
 
 };
@@ -93,9 +92,27 @@ const snake = {
   lastDirection: null,
 
   init(startPositionX, startPositionY, direction) {
-    this.body = [`x${startPositionX}_y${startPositionY}`];
+    this.body = [{ x: startPositionX, y: startPositionY }];
     this.direction = direction;
     this.lastDirection = direction;
+  },
+
+  move() {
+    switch (this.direction) {
+      case 'up':
+        this.body[0].y--
+        break;
+      case 'down':
+        this.body[0].y++
+        break;
+      case 'right':
+        this.body[0].x++
+        break;
+      case 'left':
+        this.body[0].x--
+        break;
+    }
+
   },
 
   getBody() {
@@ -149,6 +166,7 @@ const game = {
   food,
   newGameButtonElement: null,
   playOrStopButtonElement: null,
+  numberInterval: null,
 
   init(usersettings = {}) {
     this.config.init(usersettings);
@@ -170,6 +188,20 @@ const game = {
     this.playOrStopButtonElement = document.getElementById('playOrStopButton');
 
     this.setEventHandlers();
+
+    this.reset();
+
+  },
+
+  reset() {
+    this.statusGame.setStatusPlay();
+    this.map.cells.className = '';
+    this.map.usedCells = [];
+    this.map.cells[`x${this.snake.getBody()[0].x}_y${this.snake.getBody()[0].y}`].className = 'snake-body';
+    this.map.cells[`x${this.food.getPoint().x}_y${this.food.getPoint().y}`].className = 'food';
+
+    this.numberInterval = setInterval(() => this.snake.move(), 1000 / this.config.getSpeed());
+    console.log(this.snake.body);
 
   },
 
@@ -253,4 +285,4 @@ const game = {
 
 };
 
-window.onload = game.init({ speed: 7, rowsCount: 12, colsCount: 12 });
+window.onload = game.init({ speed: 4, rowsCount: 12, colsCount: 12 });
