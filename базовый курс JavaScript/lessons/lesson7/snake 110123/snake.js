@@ -11,7 +11,6 @@ const config = {
 
   settings,
 
-
   getRowsCount() {
     return this.settings.rowsCount;
   },
@@ -37,6 +36,29 @@ const config = {
 
 const statusGame = {
   condition: null,
+  setStatusPlay() {
+    this.condition = 'play';
+  },
+
+  setStatusStop() {
+    this.condition = 'stop';
+  },
+
+  setStatusFinish() {
+    this.condition = 'finish';
+  },
+
+  isStatusPlay() {
+    return this.condition === 'play';
+  },
+
+  isStatusPlay() {
+    return this.condition === 'stop';
+  },
+
+  isStatusFinish() {
+    return this.condition === 'finish';
+  },
 };
 
 const map = {
@@ -78,6 +100,29 @@ const snake = {
 
   getBody() {
     return this.body;
+  },
+
+  setDirection(direction) {
+    if (direction === 'right' && this.lastDirection !== 'left') {
+      this.direction = 'right';
+      this.lastDirection = 'right';
+    }
+
+    if (direction === 'left' && this.lastDirection !== 'right') {
+      this.direction = 'left';
+      this.lastDirection = 'left';
+    }
+
+    if (direction === 'up' && this.lastDirection !== 'down') {
+      this.direction = 'up';
+      this.lastDirection = 'up';
+    }
+
+    if (direction === 'down' && this.lastDirection !== 'up') {
+      this.direction = 'down';
+      this.lastDirection = 'down';
+    }
+
   }
 
 };
@@ -92,7 +137,7 @@ const food = {
   },
 
   getPoint() {
-    return {x: this.x, y: this.y }
+    return { x: this.x, y: this.y }
   }
 };
 
@@ -102,6 +147,8 @@ const game = {
   map,
   snake,
   food,
+  newGameButtonElement: null,
+  playOrStopButtonElement: null,
 
   init(usersettings = {}) {
     this.config.init(usersettings);
@@ -119,7 +166,42 @@ const game = {
 
     this.food.init(this.getRandomFreeCoordinates());
 
-    console.log(this.food.getPoint());
+    this.newGameButtonElement = document.getElementById('newGameButton');
+    this.playOrStopButtonElement = document.getElementById('playOrStopButton');
+
+    this.setEventHandlers();
+
+  },
+
+  setEventHandlers() {
+    window.addEventListener('keydown', (event) => this.keyDownHandler(event));
+    this.newGameButtonElement.addEventListener('click', () => this.reset());
+    this.playOrStopButtonElement.addEventListener('click', (event) => this.playOrStopButtonElementClickHandler(event));
+  },
+
+  playOrStopButtonElementClickHandler(event) {
+    //toDo
+  },
+
+  keyDownHandler(event) {
+    switch (event.code) {
+      case 'ArrowRight':
+      case 'Numpad6':
+      case 'KeyD':
+        return this.snake.setDirection('right');
+      case 'ArrowLeft':
+      case 'Numpad4':
+      case 'KeyA':
+        return this.snake.setDirection('left');
+      case 'ArrowUp':
+      case 'Numpad8':
+      case 'KeyW':
+        return this.snake.setDirection('up');
+      case 'ArrowDown':
+      case 'Numpad5':
+      case 'KeyS':
+        return this.snake.setDirection('down');
+    }
 
   },
 
