@@ -115,6 +115,22 @@ const snake = {
 
   getBody() {
     return this.body;
+  },
+
+  setDirection(direction) {
+    if (this.canSetDirection(direction)) {
+      this.direction = direction;
+    };
+
+  },
+
+  canSetDirection(direction) {
+    return direction === 'down' && this.lastDirection !== 'up' ||
+      direction === 'up' && this.lastDirection !== 'down' ||
+
+      direction === 'left' && this.lastDirection !== 'right' ||
+
+      direction === 'right' && this.lastDirection !== 'left'
   }
 };
 
@@ -142,19 +158,79 @@ const game = {
   map,
   snake,
   food,
+  interval: null,
 
   init(userSettings = {}) {
     this.config.init(userSettings);
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
     this.reset();
+    this.setEventHandlers();
+
+
+  },
+
+  setEventHandlers() {
+    let btnNewGameElement = document.getElementById('newGameButton');
+    btnNewGameElement.addEventListener('click', () => this.reset());
+    let btnPlayOrStopButtonElement = document.getElementById('playOrStopButton');
+    btnPlayOrStopButtonElement.addEventListener('click', event => this.handlerPlayOrStop(event));
+    window.document.addEventListener('keydown', event => this.keyDownHandler(event));
+  },
+
+  handlerPlayOrStop(event) {
+    console.log('Написать обработку клика по кнопке Стоп/Плей/Финиш');
+  },
+
+  keyDownHandler(event) {
+    switch (event.code) {
+      case 'ArrowDown':
+      case 'KeyS':
+      case 'Numpad2':
+        this.snake.setDirection('down');
+        break;
+      case 'ArrowUp':
+      case 'KeyW':
+      case 'Numpad8':
+        this.snake.setDirection('up');
+        break;
+      case 'ArrowRight':
+      case 'KeyD':
+      case 'Numpad6':
+        this.snake.setDirection('right');
+        break;
+      case 'ArrowLeft':
+      case 'KeyA':
+      case 'Numpad4':
+        this.snake.setDirection('left');
+        break;
+    }
 
   },
 
   reset() {
-    this.status.setPla
+    this.play();
     this.snake.init(this.getStartSnakePosition(), 'up');
     this.food.setPosition(this.getRandomPosition());
     this.map.render(this.snake.getBody(), this.food.getPosition());
+  },
+
+  play() {
+    this.status.setPlay();
+    // this.interval = setInterval(() => {
+    //   console.log('Змейка ходи');
+
+    // }, 1000 / this.config.getSpeed());
+
+  },
+
+  stop() {
+    this.status.setStop();
+
+  },
+
+  finished() {
+    this.status.setFinished();
+
   },
 
   getRandomPosition() {
