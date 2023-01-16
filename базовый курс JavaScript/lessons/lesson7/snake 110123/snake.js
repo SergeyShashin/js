@@ -82,7 +82,6 @@ const map = {
   },
 
   render(snakeBody, foodPosition) {
-    this.cells[`x10_y10`].className = 'snake';
 
     for (let cell in this.cells) {
       this.cells[cell].className = '';
@@ -92,10 +91,10 @@ const map = {
 
     this.cells[`x${foodPosition.x}_y${foodPosition.y}`].className = 'food';
     this.usedcells.push(foodPosition);
-
+    
     snakeBody.forEach((point, idx) => {
       this.cells[`x${point.x}_y${point.y}`].classList.add(idx == 0 ? 'snake-head' : 'snake-body');
-      this.usedcells.push(point);
+      this.usedcells.push(snakeBody);
     });
 
   }
@@ -141,7 +140,6 @@ const snake = {
         this.body[0].y++;
         break;
     }
-
   },
 
   canSetDirection(direction) {
@@ -151,6 +149,24 @@ const snake = {
       direction === 'left' && this.lastDirection !== 'right' ||
 
       direction === 'right' && this.lastDirection !== 'left'
+  },
+
+  growUp() {
+    switch (this.direction) {
+      case 'up':
+        this.body.push({ x: this.body[this.body.length - 1].x--, y: this.body[this.body.length - 1].y });
+        break;
+      case 'down':
+        this.body.push({ x: this.body[this.body.length - 1].x++, y: this.body[this.body.length - 1].y });
+        break;
+      case 'right':
+        this.body.push({ x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y++ });
+        break;
+      case 'left':
+        this.body.push({ x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y-- });
+        break;
+
+    }
   }
 };
 
@@ -194,11 +210,11 @@ const game = {
 
   setEventHandlers() {
     this.btnNewGameElement.addEventListener('click', () => this.reset());
-    this.btnPlayOrStopButtonElement.addEventListener('click', event => this.handlerPlayOrStop(event));
+    this.btnPlayOrStopButtonElement.addEventListener('click', () => this.handlerPlayOrStop());
     window.document.addEventListener('keydown', event => this.keyDownHandler(event));
   },
 
-  handlerPlayOrStop(event) {
+  handlerPlayOrStop() {
     if (this.statusGame.isPlay()) {
       this.stop();
     } else if (this.statusGame.isStop()) {
@@ -250,8 +266,16 @@ const game = {
     this.statusGame.setPlay();
     this.interval = setInterval(() => {
       if (this.canMakeStep()) {
+
+        if (this.stepOnFood()) {
+          this.food.setPosition(this.getRandomPosition());
+          console.log('Подрасти');
+          this.snake.growUp();
+        }
+
         this.snake.makeStep();
         this.render();
+
       } else {
         this.finished();
       }
@@ -265,9 +289,9 @@ const game = {
     this.changeTextBtn('Play');
     this.statusGame.setStop();
     clearInterval(this.interval);
-    
+
   },
-  
+
   finished() {
     this.statusGame.setFinished();
     this.changeTextBtn('End', true);
@@ -301,9 +325,9 @@ const game = {
   canMakeStep() {
     let snakeHead = this.snake.getBody()[0];
     return this.snake.direction === 'up' && snakeHead.x > 0 ||
-      this.snake.direction === 'down' && snakeHead.x < this.config.getRowsCount()-1 ||
+      this.snake.direction === 'down' && snakeHead.x < this.config.getRowsCount() - 1 ||
       this.snake.direction === 'left' && snakeHead.y > 0 ||
-      this.snake.direction === 'right' && snakeHead.y < this.config.getColsCount()-1
+      this.snake.direction === 'right' && snakeHead.y < this.config.getColsCount() - 1
   },
 
   changeTextBtn(textBtn, isFinished = false) {
@@ -313,6 +337,12 @@ const game = {
       this.btnPlayOrStopButtonElement.textContent = textBtn;
       this.btnPlayOrStopButtonElement.classList.add('finish');
     }
+  },
+
+  stepOnFood() {
+    let foodLocation = this.food.getPosition();
+    let snakeHead = this.snake.getBody()[0];
+    return foodLocation.x === snakeHead.x && foodLocation.y === snakeHead.y;
   }
 
 };
