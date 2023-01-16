@@ -91,7 +91,7 @@ const map = {
 
     this.cells[`x${foodPosition.x}_y${foodPosition.y}`].className = 'food';
     this.usedcells.push(foodPosition);
-    
+
     snakeBody.forEach((point, idx) => {
       this.cells[`x${point.x}_y${point.y}`].classList.add(idx == 0 ? 'snake-head' : 'snake-body');
       this.usedcells.push(snakeBody);
@@ -225,23 +225,23 @@ const game = {
   keyDownHandler(event) {
     switch (event.code) {
       case 'ArrowDown':
-        // case 'KeyS':
-        // case 'Numpad2':
+      case 'KeyS':
+      case 'Numpad2':
         this.snake.setDirection('down');
         break;
       case 'ArrowUp':
-        // case 'KeyW':
-        // case 'Numpad8':
+      case 'KeyW':
+      case 'Numpad8':
         this.snake.setDirection('up');
         break;
       case 'ArrowRight':
-        // case 'KeyD':
-        // case 'Numpad6':
+      case 'KeyD':
+      case 'Numpad6':
         this.snake.setDirection('right');
         break;
       case 'ArrowLeft':
-        // case 'KeyA':
-        // case 'Numpad4':
+      case 'KeyA':
+      case 'Numpad4':
         this.snake.setDirection('left');
         break;
     }
@@ -318,7 +318,7 @@ const game = {
     return [{
       x: Math.floor(this.config.getRowsCount() / 2),
       y: Math.floor(this.config.getColsCount() / 2)
-    }]
+    },]
 
   },
 
