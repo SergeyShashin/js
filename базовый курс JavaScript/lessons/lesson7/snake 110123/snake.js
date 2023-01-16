@@ -36,7 +36,7 @@ const config = {
 
 };
 
-const status = {
+const statusGame = {
   condition: null,
   setPlay() {
     this.condition = 'play';
@@ -120,7 +120,27 @@ const snake = {
   setDirection(direction) {
     if (this.canSetDirection(direction)) {
       this.direction = direction;
+      this.lastDirection = direction;
     };
+
+  },
+
+  makeStep() {
+
+    switch (this.direction) {
+      case 'up':
+        this.body[0].x--;
+        break;
+      case 'down':
+        this.body[0].x++;
+        break;
+      case 'left':
+        this.body[0].y--;
+        break;
+      case 'right':
+        this.body[0].y++;
+        break;
+    }
 
   },
 
@@ -154,53 +174,58 @@ const food = {
 
 const game = {
   config,
-  status,
+  statusGame,
   map,
   snake,
   food,
   interval: null,
+  btnNewGameElement: null,
+  btnPlayOrStopButtonElement: null,
 
   init(userSettings = {}) {
     this.config.init(userSettings);
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
-    this.reset();
+    this.btnNewGameElement = document.getElementById('newGameButton');
+    this.btnPlayOrStopButtonElement = document.getElementById('playOrStopButton');
     this.setEventHandlers();
-
+    this.reset();
 
   },
 
   setEventHandlers() {
-    let btnNewGameElement = document.getElementById('newGameButton');
-    btnNewGameElement.addEventListener('click', () => this.reset());
-    let btnPlayOrStopButtonElement = document.getElementById('playOrStopButton');
-    btnPlayOrStopButtonElement.addEventListener('click', event => this.handlerPlayOrStop(event));
+    this.btnNewGameElement.addEventListener('click', () => this.reset());
+    this.btnPlayOrStopButtonElement.addEventListener('click', event => this.handlerPlayOrStop(event));
     window.document.addEventListener('keydown', event => this.keyDownHandler(event));
   },
 
   handlerPlayOrStop(event) {
-    console.log('Написать обработку клика по кнопке Стоп/Плей/Финиш');
+    if (this.statusGame.isPlay()) {
+      this.stop();
+    } else if (this.statusGame.isStop()) {
+      this.play();
+    };
   },
 
   keyDownHandler(event) {
     switch (event.code) {
       case 'ArrowDown':
-      case 'KeyS':
-      case 'Numpad2':
+        // case 'KeyS':
+        // case 'Numpad2':
         this.snake.setDirection('down');
         break;
       case 'ArrowUp':
-      case 'KeyW':
-      case 'Numpad8':
+        // case 'KeyW':
+        // case 'Numpad8':
         this.snake.setDirection('up');
         break;
       case 'ArrowRight':
-      case 'KeyD':
-      case 'Numpad6':
+        // case 'KeyD':
+        // case 'Numpad6':
         this.snake.setDirection('right');
         break;
       case 'ArrowLeft':
-      case 'KeyA':
-      case 'Numpad4':
+        // case 'KeyA':
+        // case 'Numpad4':
         this.snake.setDirection('left');
         break;
     }
@@ -208,29 +233,45 @@ const game = {
   },
 
   reset() {
+    clearInterval(this.interval);
+    this.btnPlayOrStopButtonElement.className = 'button-play-or-stop';
     this.play();
     this.snake.init(this.getStartSnakePosition(), 'up');
     this.food.setPosition(this.getRandomPosition());
+    this.render();
+  },
+
+  render() {
     this.map.render(this.snake.getBody(), this.food.getPosition());
   },
 
   play() {
-    this.status.setPlay();
-    // this.interval = setInterval(() => {
-    //   console.log('Змейка ходи');
+    this.changeTextBtn('Stop');
+    this.statusGame.setPlay();
+    this.interval = setInterval(() => {
+      if (this.canMakeStep()) {
+        this.snake.makeStep();
+        this.render();
+      } else {
+        this.finished();
+      }
 
-    // }, 1000 / this.config.getSpeed());
+    }, 1000 / this.config.getSpeed());
+
 
   },
 
   stop() {
-    this.status.setStop();
-
+    this.changeTextBtn('Play');
+    this.statusGame.setStop();
+    clearInterval(this.interval);
+    
   },
-
+  
   finished() {
-    this.status.setFinished();
-
+    this.statusGame.setFinished();
+    this.changeTextBtn('End', true);
+    clearInterval(this.interval);
   },
 
   getRandomPosition() {
@@ -255,6 +296,23 @@ const game = {
       y: Math.floor(this.config.getColsCount() / 2)
     }]
 
+  },
+
+  canMakeStep() {
+    let snakeHead = this.snake.getBody()[0];
+    return this.snake.direction === 'up' && snakeHead.x > 0 ||
+      this.snake.direction === 'down' && snakeHead.x < this.config.getRowsCount()-1 ||
+      this.snake.direction === 'left' && snakeHead.y > 0 ||
+      this.snake.direction === 'right' && snakeHead.y < this.config.getColsCount()-1
+  },
+
+  changeTextBtn(textBtn, isFinished = false) {
+    this.btnPlayOrStopButtonElement.textContent = textBtn;
+
+    if (isFinished) {
+      this.btnPlayOrStopButtonElement.textContent = textBtn;
+      this.btnPlayOrStopButtonElement.classList.add('finish');
+    }
   }
 
 };
