@@ -270,7 +270,7 @@ const game = {
         if (this.stepOnFood()) {
           this.food.setPosition(this.getRandomPosition());
           console.log('Подрасти');
-          this.snake.growUp();
+          this.snake.growUp(this.food.getPosition());
         }
 
         this.snake.makeStep();
