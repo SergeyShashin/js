@@ -27,10 +27,11 @@ const config = {
   },
 
   getWinFoodCount() {
-    return this.settings.speed;
+    return this.settings.winFoodCount;
   },
 
   validate() {
+    //Сделать;   
 
   },
 
@@ -151,22 +152,8 @@ const snake = {
       direction === 'right' && this.lastDirection !== 'left'
   },
 
-  growUp() {
-    switch (this.direction) {
-      case 'up':
-        this.body.push({ x: this.body[this.body.length - 1].x--, y: this.body[this.body.length - 1].y });
-        break;
-      case 'down':
-        this.body.push({ x: this.body[this.body.length - 1].x++, y: this.body[this.body.length - 1].y });
-        break;
-      case 'right':
-        this.body.push({ x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y++ });
-        break;
-      case 'left':
-        this.body.push({ x: this.body[this.body.length - 1].x, y: this.body[this.body.length - 1].y-- });
-        break;
-
-    }
+  growUp(foodCoordinates) {    
+    this.body.push(foodCoordinates);
   }
 };
 
@@ -265,20 +252,21 @@ const game = {
     this.changeTextBtn('Stop');
     this.statusGame.setPlay();
     this.interval = setInterval(() => {
-      if (this.canMakeStep()) {
-
-        if (this.stepOnFood()) {
-          this.food.setPosition(this.getRandomPosition());
-          console.log('Подрасти');
-          this.snake.growUp(this.food.getPosition());
-        }
-
-        this.snake.makeStep();
-        this.render();
-
-      } else {
-        this.finished();
+      if (!this.canMakeStep()) {
+        return this.finished();
       }
+
+      if (this.stepOnFood()) {
+        this.snake.growUp(this.food.getPosition());
+        console.log(this.snake.getBody());
+        this.food.setPosition(this.getRandomPosition());
+        console.log('Подрасти');
+      }
+
+      this.snake.makeStep();
+      this.render();
+
+
 
     }, 1000 / this.config.getSpeed());
 
