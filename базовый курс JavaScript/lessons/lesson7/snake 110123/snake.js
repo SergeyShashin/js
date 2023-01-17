@@ -31,8 +31,31 @@ const config = {
   },
 
   validate() {
-    //Сделать;   
+    let isValid = true;
+    let errors = [];
 
+    if (this.getSpeed() < 1 || this.getSpeed() > 10) {
+      isValid = false;
+      errors.push('Диапазон скорости [1-10]')
+    }
+
+    if (this.getWinFoodCount() < 5 || this.getWinFoodCount > 20) {
+      isValid = false;
+      errors.push('Диапазон еды для победы [5-20]')
+    }
+
+    if (this.getRowsCount() < 10 || this.getRowsCount() > 25) {
+      isValid = false;
+      errors.push('Диапазон строк [10-25]')
+    }
+    if (this.getColsCount() < 10 || this.getColsCount() > 25) {
+      isValid = false;
+      errors.push('Диапазон колонок [10-25]')
+    }
+    return {
+      isValid: isValid,
+      errors: errors,
+    }
   },
 
 };
@@ -188,6 +211,12 @@ const game = {
 
   init(userSettings = {}) {
     this.config.init(userSettings);
+    let validation = this.config.validate();
+    if(!validation.isValid){
+      validation.errors.forEach(el=>console.error(el));
+      return
+    };
+
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
     this.btnNewGameElement = document.getElementById('newGameButton');
     this.btnPlayOrStopButtonElement = document.getElementById('playOrStopButton');
@@ -253,7 +282,7 @@ const game = {
     this.changeTextBtn('Stop');
     this.statusGame.setPlay();
     this.interval = setInterval(() => {
-      if (this.isWin()||!this.canMakeStep()) {
+      if (this.isWin() || !this.canMakeStep()) {
         return this.finished();
       }
 
@@ -336,4 +365,4 @@ const game = {
 
 };
 
-window.onload = game.init({ speed: 3 });
+window.onload = game.init({ speed: 9 });
