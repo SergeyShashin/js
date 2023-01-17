@@ -69,6 +69,10 @@ const score = {
   growUp() {
     this.scoreCurent++;
     this.scoreElement.textContent = this.scoreCurent;
+  },
+  drop() {
+    this.scoreCurent = 0;
+    this.scoreElement.textContent = this.scoreCurent;
   }
 }
 
@@ -283,6 +287,7 @@ const game = {
 
   reset() {
     clearInterval(this.interval);
+    this.score.drop();
     this.btnPlayOrStopButtonElement.className = 'button-play-or-stop';
     this.play();
     this.snake.init(this.getStartSnakePosition(), 'up');
