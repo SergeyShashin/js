@@ -4,7 +4,7 @@ const settings = {
   rowsCount: 21,
   colsCount: 21,
   speed: 5,
-  winFoodCount: 10,
+  winFoodCount: 5,
 };
 
 const config = {
@@ -126,20 +126,21 @@ const snake = {
   },
 
   makeStep() {
+    this.body.unshift(this.getNextHeadPoint());
+    this.body.pop();
+  },
 
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
     switch (this.direction) {
       case 'up':
-        this.body[0].x--;
-        break;
-      case 'down':
-        this.body[0].x++;
-        break;
-      case 'left':
-        this.body[0].y--;
-        break;
+        return { x: headPoint.x - 1, y: headPoint.y };
       case 'right':
-        this.body[0].y++;
-        break;
+        return { x: headPoint.x, y: headPoint.y + 1 };
+      case 'down':
+        return { x: headPoint.x + 1, y: headPoint.y };
+      case 'left':
+        return { x: headPoint.x, y: headPoint.y - 1 };
     }
   },
 
@@ -152,7 +153,7 @@ const snake = {
       direction === 'right' && this.lastDirection !== 'left'
   },
 
-  growUp(foodCoordinates) {    
+  growUp(foodCoordinates) {
     this.body.push(foodCoordinates);
   }
 };
@@ -252,21 +253,17 @@ const game = {
     this.changeTextBtn('Stop');
     this.statusGame.setPlay();
     this.interval = setInterval(() => {
-      if (!this.canMakeStep()) {
+      if (this.isWin()||!this.canMakeStep()) {
         return this.finished();
       }
 
       if (this.stepOnFood()) {
         this.snake.growUp(this.food.getPosition());
-        console.log(this.snake.getBody());
         this.food.setPosition(this.getRandomPosition());
-        console.log('Подрасти');
       }
 
       this.snake.makeStep();
       this.render();
-
-
 
     }, 1000 / this.config.getSpeed());
 
@@ -331,6 +328,10 @@ const game = {
     let foodLocation = this.food.getPosition();
     let snakeHead = this.snake.getBody()[0];
     return foodLocation.x === snakeHead.x && foodLocation.y === snakeHead.y;
+  },
+
+  isWin() {
+    return this.config.getWinFoodCount() === this.snake.getBody().length;
   }
 
 };
