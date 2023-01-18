@@ -15,10 +15,13 @@
   <script>
     window.onload = function () {
 
-      var menu = new Menu('idMenu', 'classMenu', [
+      var menu = new SuperMenu('idMenu', 'classMenu', [
         new MenuItem('/', 'Home'),
         new MenuItem('/page', 'Page'),
-        new MenuItem('/page2', 'Page2'),
+        new SuperMenu('idSubmenu', 'classSubmenu', [
+          new MenuItem('/submenu/atricles', 'Articles'),
+          new MenuItem('/submenu/products', 'Products'),
+        ], '/submenu', 'SubMenu'),
       ])
 
       document.body.appendChild(menu.render());
