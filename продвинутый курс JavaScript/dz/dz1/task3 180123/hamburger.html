@@ -4,11 +4,31 @@
 
 <head>
     <meta charset="utf-8" />
+    <link rel="stylesheet" href="style.css">
     <title>Заказ Гамбургера</title>
 </head>
 
 <body>
-
+    <form action="#">
+        <div id="monitor"> Большой гамбургер с салотом и приправой. Стоиомсть 135 рублей. 45 Калорий </div>
+        <div id="hamburgerSize">
+            <h3>Виды гамбургеров</h3>
+            <div id='small' data-size="small" data-price="50" data-calories="20">маленький (50 рублей, 20 калорий)</div>
+            <div id='big' data-size="big" data-price="100" data-calories="40">большой (100 рублей, 40 калорий)</div>
+        </div>
+        <div id="stuffings">
+            <h3>Виды начинок</h3>
+            <div>сыр (+ 10 рублей, + 20 калорий)</div>
+            <div>салат (+ 20 рублей, + 5 калорий)</div>
+            <div>картофель (+ 15 рублей, + 10 калорий)</div>
+        </div>
+        <div id="toppings">
+            <h3>Добавки</h3>
+            <div>посыпать приправой (+ 15 рублей, 0 калорий)</div>
+            <div>полить майонезом (+ 20 рублей, + 5 калорий)</div>
+        </div>
+        <button id="order" type="submit">Заказать</button>
+    </form>
 </body>
 
 </html>

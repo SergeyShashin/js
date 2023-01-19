@@ -1,0 +1,72 @@
+body {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+form {
+  padding: 3%;
+  width: 700px;
+  height: 600px;
+  background: olivedrab;
+}
+
+#monitor {
+  width: 100%;
+  height: 10%;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+#hamburgerSize,
+#stuffings,
+#toppings {
+  margin: 3% 0;
+  width: 100%;
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+
+h3 {
+  width: 20%;
+}
+
+#small {
+  text-align: center;
+  padding: 1%;
+  height: 100%;
+  width: 40%;
+  background-image: url("img/smal.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5%;
+}
+
+#big {
+  text-align: center;
+  padding: 1%;
+  height: 100%;
+  width: 40%;
+  background-image: url("img/big.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5%;
+}
+
+#small:hover, #big:hover, button:hover{
+  cursor: pointer;
+  background-color: rgba(171, 242, 130, 0.3);
+}
+
+button{
+  width: 100px;
+  height: 5%;
+  background: none;
+  border-radius: 10px;
+  border: 1px solid orange;
+}
