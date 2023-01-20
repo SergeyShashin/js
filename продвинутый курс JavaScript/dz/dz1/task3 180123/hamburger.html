@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="RU" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -10,7 +10,7 @@
 
 <body>
 
-    <form action="#">
+    <form id="hamburger" action="#">
         <div id="monitor"> Большой гамбургер с салатом и приправой. Стоимость 135 рублей. 45 Калорий </div>
         <div id="hamburgerSize">
             <h3>Виды гамбургеров</h3>
@@ -19,17 +19,19 @@
         </div>
         <div id="stuffings">
             <h3>Виды начинок</h3>
-            <div id='cheese'>сыр (10 рублей, + 20 калорий)</div>
-            <div id='salad'>салат (20 рублей, + 5 калорий)</div>
-            <div id='potato'>картофель (15 рублей, + 10 калорий)</div>
+            <div id='cheese' data-price="10" data-calories="20">сыр (10 рублей, + 20 калорий)</div>
+            <div id='salad' data-price="20" data-calories="5">салат (20 рублей, + 5 калорий)</div>
+            <div id='potato' data-price="15" data-calories="10">картофель (15 рублей, + 10 калорий)</div>
         </div>
         <div id="toppings">
             <h3>Добавки</h3>
-            <div id='spices'>посыпать приправой (15 рублей, 0 калорий)</div>
-            <div id = 'mayo'>полить майонезом (20 рублей, + 5 калорий)</div>
+            <div id='spices' data-price="15" data-calories="0">посыпать приправой (15 рублей, 0 калорий)</div>
+            <div id = 'mayo' data-price="20" data-calories="5">полить майонезом (20 рублей, + 5 калорий)</div>
         </div>
         <button id="order" type="submit">Заказать</button>
     </form>
+
+    <script src="hamburger.js"></script>
 </body>
 
 </html>
