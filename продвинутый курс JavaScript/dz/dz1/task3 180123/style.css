@@ -98,6 +98,8 @@ button:hover,
 #mayo:hover {
   cursor: pointer;
   background-color: rgba(171, 242, 130, 0.3);
+  color: azure;
+  font-size: 24px;
 }
 
 button {
