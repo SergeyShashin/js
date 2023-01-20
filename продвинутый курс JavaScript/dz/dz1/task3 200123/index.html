@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hamburger</title>
+</head>
+
+<body>
+  <h2>Заказ гамбургера</h2>
+  <form id='hamburgerForm' action="#" method="GET">
+
+    <p>
+      <h3>Размер гамбургера:</h3>
+      <select name="size" id='size'>
+        <option value="1">Маленький</option>
+        <option value="2">Большой</option>
+      </select>
+    </p>
+    <p>
+      <h3>Начинки:</h3>
+      <label for="cheese">Сыр</label>
+      <input id='cheese' name='stuffing' type="radio" value="1">
+      <label for="salad">Салат</label>
+      <input id="salad" name='stuffing' type="radio" value="2" checked>
+      <label for="potato">Картофель</label>
+      <input id="potato" name='stuffing' type="radio" value="3">
+    </p>
+    <p>
+      <h3>Добавки:</h3>
+      <label for="spice">Специи</label>
+      <input id='spice' name='topping_spice' type="checkbox" value="1" checked>
+      <label for="mayo">Майонез</label>
+      <input id="mayo" name='topping_mayo' type="checkbox" value="2">
+    </p>
+
+    <input type="submit">
+
+  </form>
+
+  <div id='result'></div>
+  <script src="js.js"></script>
+  <script>
+
+    window.onload = function () {
+      document.forms[0].onsubmit = function () {
+        try {
+          var burger = new Hamburger(+this.size.value, +this.stuffing.value);
+
+          if (this.topping_spice.checked) {
+            burger.addTopping(Hamburger.TOPPING_SPICE);
+          }
+
+          if (this.topping_mayo.checked) {
+            burger.addTopping(Hamburger.TOPPING_SPICE);
+          }
+
+          var resultEl = document.getElementById('result');
+
+          resultEl.textContent = `Размер: ${burger.getSize()} `;
+          resultEl.textContent += `Стоимость: ${burger.getPrise()} `;
+          resultEl.textContent += `Калорийность: ${burger.getCalories()} `;
+          resultEl.textContent += `Начинка: ${burger.getStuffing()} `;
+          resultEl.textContent += `Добавки: ${burger.getToppings()} `;
+
+        }
+        catch (e) {
+          console.error(e.message);
+        }
+        return false;
+      };
+    }
+
+
+
+
+  </script>
+</body>
+
+</html>
