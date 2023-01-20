@@ -2,12 +2,14 @@ body {
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  height: 100vh;
+
 }
 
 form {
   padding: 3%;
   width: 700px;
-  height: 600px;
+
   background: olivedrab;
 }
 
