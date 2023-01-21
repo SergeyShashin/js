@@ -126,7 +126,6 @@ Hamburger.prototype.getToppings = function () {
   return this.toppings;
 }
 
-
 function HamburgerError(message) {
   this.name = 'HamburgerError';
   this.error = message;
