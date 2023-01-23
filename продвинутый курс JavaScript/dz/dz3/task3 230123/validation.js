@@ -33,8 +33,7 @@ window.onload = function () {
         this.phone.classList.add('is-invalid');
         this.phone.classList.remove('is-valid');
       }
-
-      if (/^[\w\.\-]\@[\w\-]\.\w{0,2}$/i.test(this.email.value)) {
+      if (/[\w\.\-]\@\w*\.\w{0,2}$/i.test(this.email.value)) {
         this.email.classList.add('is-valid');
         this.email.classList.remove('is-invalid');
       } else {
