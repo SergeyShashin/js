@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .invalid {
+      border: 1px solid red;
+      color: red;
+    }
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="$" action="GET">
+    <p>
+      <label for="name">Name</label>
+      <input type="text" id='name' name='name' data-validation-rule='name' placeholder="Ivan">
+    </p>
+    <p>
+      <label for="phone">Phone</label>
+      <input type="text" id='phone' name='phone' data-validation-rule='phone' placeholder="+7(000)000-0000">
+    </p>
+    <p>
+      <label for="email">Email</label>
+      <input type="text" id='email' name='email' data-validation-rule='email'
+        placeholder="mymail@mail.ru, my.mail@mail.ru, my-mail@mail.ru">
+    </p>
+    <input type="submit" id="submit">
+  </form>
+  <script src="js.js"></script>
+</body>
+
+</html>
