@@ -23,8 +23,6 @@ window.onload = function () {
     event.preventDefault();
     Object.keys(validationRules).forEach(function (rule) {
       document.querySelectorAll('[data-validation-rule ="' + rule + '"]').forEach(function (field) {
-        console.log(validationRules[rule]);
-        console.log(field.value);
         if (validationRules[rule].test(field.value)) {
           field.classList.remove('invalid');
         } else {
