@@ -11,10 +11,10 @@
   var header3El = $('#header3');
   var header4El = $('#header4');
 
-  var content1El = $('#content1')
-  var content2El = $('#content2')
-  var content3El = $('#content3')
-  var content4El = $('#content4')
+  var content1El = $('#content1');
+  var content2El = $('#content2');
+  var content3El = $('#content3');
+  var content4El = $('#content4');
 
   content1
 
