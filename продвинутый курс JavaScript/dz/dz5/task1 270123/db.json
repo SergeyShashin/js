@@ -3,28 +3,34 @@
     {
       "id": 1,
       "name": "t-short",
-      "price": 2000
+      "price": 2000,
+      "currency": "rub"
     },
     {
       "id": 2,
       "name": "shirt",
-      "price": 4000
+      "price": 4000,
+      "currency": "rub"
     },
     {
       "id": 3,
       "name": "jeans",
-      "price": 4000
+      "price": 4000,
+      "currency": "rub"
     },
     {
       "id": 4,
       "name": "socks",
-      "price": 150
+      "price": 150,
+      "currency": "rub"
     },
     {
       "id": 5,
       "name": "underpants",
-      "price": 300
+      "price": 300,
+      "currency": "rub"
     }
   ],
-  "cart": []
+  "cart": [
+  ]
 }
