@@ -1,0 +1,30 @@
+{
+  "goods": [
+    {
+      "id": 1,
+      "name": "t-short",
+      "price": 2000
+    },
+    {
+      "id": 2,
+      "name": "shirt",
+      "price": 4000
+    },
+    {
+      "id": 3,
+      "name": "jeans",
+      "price": 4000
+    },
+    {
+      "id": 4,
+      "name": "socks",
+      "price": 150
+    },
+    {
+      "id": 5,
+      "name": "underpants",
+      "price": 300
+    }
+  ],
+  "cart": []
+}
