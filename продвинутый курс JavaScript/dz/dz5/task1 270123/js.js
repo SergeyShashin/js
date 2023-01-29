@@ -17,6 +17,7 @@ function buildList(goodsEl) {
       btnBuyEl.dataset.id = item.id;
       btnBuyEl.dataset.name = item.name;
       btnBuyEl.dataset.price = item.price;
+      btnBuyEl.dataset.quantity = item.quantity;
       btnBuyEl.textContent = 'Buy';
       goodsEl.appendChild(liEl);
       goodsEl.appendChild(btnBuyEl);
@@ -39,7 +40,9 @@ function buildCart(cartEl) {
       cartEl.appendChild(liEl);
       cartEl.appendChild(btnBuyEl);
     });
-  })
+  });
+
+
 }
 
 function getJsonData(method, url, callback) {
@@ -73,28 +76,37 @@ function buyThisGood(event) {
   var goodEl = document.querySelector(`#cart > [data-id="${goodId}"]`);
   var name = event.target.dataset.name;
   var price = event.target.dataset.price;
-  var quantity = event.target.dataset.quantity;
 
   if (goodEl) {
-    console.log('Товар есть. Patch');
-  } else {
-    console.log('Товара нет. POST');
     var data = {
       "id": goodId,
       "name": name,
       "price": price,
-      "quantity": 1
+      "currency": 'rub',
+      "quantity": Number(goodEl.dataset.quantity) + 1
     };
 
-    console.log(data);
+    sendJsonData('PATCH', 'http://localhost:3000/cart/' + goodId, function (goodsIncart) { }, data);
+
+  } else {
+    var data = {
+      "id": goodId,
+      "name": name,
+      "price": price,
+      "currency": 'rub',
+      "quantity": 1
+    };
     sendJsonData('POST', 'http://localhost:3000/cart', function (goodsIncart) { }, data);
+
   }
+  buildCart(cartEl);
 
 }
 
 function sendJsonData(method, url, callback, data) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
+  xhr.setRequestHeader("Content-type", "application/json");
   xhr.send(JSON.stringify(data));
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -103,11 +115,42 @@ function sendJsonData(method, url, callback, data) {
       }
     }
   }
+
 }
 
 function delThisGood(event) {
   if (event.target.tagName !== 'BUTTON') {
     return
   }
+
   console.log(event);
+  var goodId = Number(event.target.dataset.id);
+  var goodEl = document.querySelector(`#cart > [data-id="${goodId}"]`);
+  var name = event.target.dataset.name;
+  var price = event.target.dataset.price;
+  var quantity = Number(goodEl.dataset.quantity);
+
+  if (quantity > 1) {
+    var data = {
+      "id": goodId,
+      "name": name,
+      "price": price,
+      "currency": 'rub',
+      "quantity": quantity - 1
+    };
+
+    sendJsonData('PATCH', 'http://localhost:3000/cart/' + goodId, function (goodsIncart) { }, data);
+
+  } else {
+    var data = {
+      "id": goodId,
+      "name": name,
+      "price": price,
+      "currency": 'rub',
+      "quantity": 1
+    };
+    sendJsonData('DELETE', 'http://localhost:3000/cart/' + goodId, function (goodsIncart) { }, data);
+
+  }
+  buildCart(cartEl);
 }
