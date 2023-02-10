@@ -7,8 +7,6 @@ describe('cart', function () {
 
     expect(cart.items).toEqual([{ price: 100, quantity: 10 }]);
 
-
-
   })
 
   it('total', function () {
@@ -16,10 +14,7 @@ describe('cart', function () {
 
     cart.addItem({ price: 100, quantity: 10 });
 
-
     expect(cart.cartTotal()).toEqual(1000);
-
-
   })
 
 })
