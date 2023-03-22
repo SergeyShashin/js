@@ -1,0 +1,21 @@
+<meta charset='utf-8'>
+
+<script>
+  let counterRounds = 0;
+
+  while (true) {
+    if (Math.random() * 6 < 1) {
+      alert('Конец');
+      break;
+    }
+    if (!confirm('Ещё?')) {
+      alert('Конец');
+      break;
+    }
+    counterRounds++;
+  }
+
+  alert('Продержались ' + counterRounds + ' раундов');
+
+
+</script>
