@@ -1,0 +1,32 @@
+<meta charset='utf-8'>
+
+<script>
+  let questions = [];
+  let correctAnswers = [];
+  let quantityQuestions = Number(prompt('Какое количество вопросов хотите задать?'));
+  let counterCorrectAnswers = 0;
+
+  while (quantityQuestions) {
+    questions.push(prompt('Вопрос № ' + quantityQuestions));
+    correctAnswers.push(prompt('Правильный ответ на вопрос №' + quantityQuestions));
+    quantityQuestions--;
+  }
+
+  alert('Игра в загадки!');
+
+  quantityQuestions = questions.length - 1;
+
+  while (quantityQuestions + 1) {
+    let answer = prompt(questions[quantityQuestions]);
+    if (correctAnswers[quantityQuestions] === answer) {
+      alert('Верно')
+      counterCorrectAnswers++;
+    } else {
+      alert('Ошибочка');
+    }
+    quantityQuestions--;
+  }
+
+  alert('Правильных ответов ' + counterCorrectAnswers);
+
+</script>
