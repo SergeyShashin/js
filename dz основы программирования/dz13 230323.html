@@ -1,0 +1,88 @@
+<meta charset='utf-8'>
+
+<script>
+
+  let player = [getCard(), getCard()];
+  let dealer = [getCard()];
+
+  getStatus();
+
+  if (getSum(player) === 21) {
+    sayOfWinner('Игрок');
+  }
+
+  if (getSum(player) < 21) {
+    while (confirm('Ещё карту?')) {
+      player.push(getCard());
+
+      if (getSum(player) > 21) {
+        sayOfWinner('Дилер');
+        break;
+      }
+
+      if (getSum(player) === 21) {
+        sayOfWinner('Игрок');
+        break;
+      }
+    }
+  }
+
+  if (getSum(player) < 21) {
+    while (getSum(dealer) < 18) {
+      dealer.push(getCard());
+      if (getSum(dealer) > 21) {
+        break;
+      }
+    }
+
+    if (getSum(player) <= getSum(dealer) && getSum(dealer) < 22) {
+      sayOfWinner('Дилер');
+    } else {
+      sayOfWinner('Игрок');
+    }
+  }
+
+  function sayOfWinner(winner) {
+    alert(`${winner} выиграл!`);
+    getStatus();
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max + 1 - min)) + min;
+  }
+
+  function getCard() {
+    let cards = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+    return cards[getRandomInt(0, cards.length - 1)]
+  }
+
+  function getSum(arr) {
+    let sum = 0;
+
+    arr.forEach(card => {
+      switch (card) {
+        case 'J':
+        case 'Q':
+        case 'K':
+          sum += 10;
+          break;
+
+        case 'A':
+          sum > 10 ? sum += 1 : sum += 11;
+          break;
+        default: sum += card;
+      }
+    });
+
+    return sum;
+  }
+
+  function getStatus() {
+    alert(`\n
+    Карты игрока [${player}]. Сумма карт игрока ${getSum(player)}.\n
+    Карты дилера [${dealer}]. Сумма карт дилера ${getSum(dealer)}.`);
+  }
+
+
+
+</script>
