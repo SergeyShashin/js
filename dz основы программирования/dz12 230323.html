@@ -1,0 +1,44 @@
+<meta charset='utf-8'>
+
+<script>
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max + 1 - min)) + min;
+  }
+
+  function getCard() {
+    let cards = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+    return cards[getRandomInt(0, cards.length - 1)]
+
+  }
+
+  function getSum(arr) {
+    let sum = 0;
+
+    arr.forEach(card => {
+      switch (card) {
+        case 'J':
+        case 'Q':
+        case 'K':
+          sum += 10;
+          break;
+
+        case 'A':
+          sum > 10 ? sum += 1 : sum += 11;
+          break;
+        default: sum += card;
+      }
+    });
+
+    return sum;
+  }
+
+  let player = [getCard(), getCard()];
+  let dealer = [getCard()];
+
+  console.log(`Карты игрока [${player}]. Сумма карт игрока ${getSum(player)}.`);
+  console.log(`Карты дилера [${dealer}]. Сумма карт дилера ${getSum(dealer)}.`);
+
+
+
+</script>
