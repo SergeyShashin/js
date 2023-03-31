@@ -16,7 +16,6 @@ while (confirm('Ещё?')) {
 function resetGame() {
   randomNumber = Math.floor(Math.random() * 100);
   attempt = 0;
-  console.log('Рандомное число' + randomNumber);
 }
 
 /**
