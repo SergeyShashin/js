@@ -44,7 +44,7 @@ function tryGuesNumber() {
     console.log(`Попробуйте число больше ${userNumber}.`);
     attempt++;
   } else if (randomNumber < userNumber) {
-    console.log(`Попробуйте число меньше. ${userNumber}`);
+    console.log(`Попробуйте число меньше ${userNumber}.`);
     attempt++;
   }
 
