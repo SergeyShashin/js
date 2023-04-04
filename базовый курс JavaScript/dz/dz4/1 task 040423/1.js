@@ -8,12 +8,12 @@
 - единицы (в свойстве firstDigit)
 - десятки (в свойстве secondDigit)
 - сотни (в свойстве thirdDigit)
-Например, для числа 45 мы должны получить следующий объект:
+Например, для числа 245 мы должны получить следующий объект:
 ```
 {
 firstDigit: 5,
 secondDigit: 4,
-thirdDigit: 0,
+thirdDigit: 2,
 }
 ```
 Если число было передано вне [0, 999] диапазона, не целое число или вообще не число,
@@ -29,15 +29,15 @@ console.log(numberToObject(Number(prompt('Введите число в диап�
  * разряды числа или пустой объект.
  */
 function numberToObject(number) {
-  
+
   if (!Number.isInteger(number) || number < 0 || number > 999) {
     return {}
   }
 
   return {
-    firstDigit: parseInt(number / 100),
+    firstDigit: number % 10,
     secondDigit: parseInt(number / 10 % 10),
-    thirdDigit: number % 10,
+    thirdDigit: parseInt(number / 100),
   }
 
 }
