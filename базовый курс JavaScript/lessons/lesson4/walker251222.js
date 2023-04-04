@@ -1,5 +1,11 @@
 'use strict';
-
+/**
+ * Настройки игры
+ * @property {number} Количество строк игрового поля rowsCount.
+ * @property {number} Количество колонок игрового поля colsCount.
+ * @property {number} Стартовая позиция игрока по X positionX.
+ * @property {number} Стартовая позиция игрока по Y positionY.
+ */
 const settings = {
   rowsCount: 10,
   colsCount: 10,
@@ -7,6 +13,13 @@ const settings = {
   positionY: 5,
 };
 
+/**
+ * Игрок
+ * @property {number} Позиция игрока по оси x. X
+ * @property {number} Позиция игрока по оси x. Y
+ * @method init Инициализация игрока.
+ * @method move Перемещения игрока.
+ */
 const player = {
   x: null,
   y: null,
@@ -36,6 +49,14 @@ const player = {
 
 };
 
+/**
+ * Игра.
+ * @property {Object} 
+ * @property {Object}
+ * @method run Старт игры.
+ * @method render Отображение игрового поля и игрока.
+ * @method getDirection Получаение направления для перемещения игрока.
+ */
 const game = {
   settings,
   player,
