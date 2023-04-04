@@ -20,17 +20,26 @@ thirdDigit: 0,
 необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
 */
 
-console.log(numberToObject(Number(prompt('число в диапазоне [0, 999]'))));
+let number = +prompt(`Введите целое число в диапазоне [0, 999]`);
 
-function numberToObject(number) {
-  if (!Number.isInteger(number) && number < 0 && number > 999) {
-    return {}
+console.log(transferNumberInToObject(number));
+
+function transferNumberInToObject(number) {
+  const obj = {};
+
+  if (!validateNumber(number)) {
+    console.error(`Для преобразования нужно передать целое число в диапазоне [0, 999].`);
+  } else {
+    number = number.toString();
+    // console.log(number);
+    obj.firstDigit = number[0];
+    obj.secondDigit = number[1];
+    obj.thirdDigit = number[2];
   }
 
-  return {
-    firstDigit: parseInt(number / 100),
-    secondDigit: parseInt(number / 10 % 10),
-    thirdDigit: number % 10,
-  }
+  return obj;
+}
 
+function validateNumber(number) {
+  return number >= 0 && number <= 999 && Number.isInteger(number);
 }
