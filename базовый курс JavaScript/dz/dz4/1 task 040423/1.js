@@ -31,6 +31,7 @@ console.log(numberToObject(Number(prompt('Введите число в диап�
 function numberToObject(number) {
 
   if (!Number.isInteger(number) || number < 0 || number > 999) {
+    console.error('Нужно ввести число в диапазоне [0, 999]');
     return {}
   }
 
