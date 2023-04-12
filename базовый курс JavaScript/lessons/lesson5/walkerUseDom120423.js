@@ -42,6 +42,14 @@ const player = {
   },
 
   /**
+   * Возвращает текущую позицию игрока
+   * @returns {Object} Текущая позиция игрока
+   */
+  getPosition() {
+    return { x: this.x, y: this.y }
+  },
+
+  /**
    * Возвращает координаты точки, где будет игрок, если сделает ход.
    * @param {string} direction Направление игрока. 
    * @returns {object} Кординаты точки, где будет игрок, если сделает ход.
@@ -75,8 +83,14 @@ const player = {
  * @type {Object} Объект игры.
  */
 const game = {
-  run(){
+  settings,
+  player,
 
+  run() {
+    this.player.init(this.settings.startPositionPlayerX, this.settings.startPositionPlayerY, this.settings.startDirection);
+    
   }
 }
+
+game.run();
 
