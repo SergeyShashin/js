@@ -50,6 +50,14 @@ const player = {
   },
 
   /**
+   * Возвращает текущее направление игрока
+   * @returns {string} Текущая направление игрока
+   */
+  getDirection() {
+    return this.direction;
+  },
+
+  /**
    * Возвращает координаты точки, где будет игрок, если сделает ход.
    * @param {string} direction Направление игрока. 
    * @returns {object} Кординаты точки, где будет игрок, если сделает ход.
@@ -85,11 +93,39 @@ const player = {
 const game = {
   settings,
   player,
+  gameElement: null,
+  gameCells: [],
 
   run() {
+    this.init();
+
+  },
+
+  init() {
     this.player.init(this.settings.startPositionPlayerX, this.settings.startPositionPlayerY, this.settings.startDirection);
-    
+    this.gameElement = document.getElementById('game');
+    this.renderMap();
+  },
+
+  renderMap() {
+    this.gameElement.innerHtml = '';
+    let positionPlayer = this.player.getPosition();
+    for (let row = 0; row < this.settings.rowsCount; row++) {
+      let rowElement = document.createElement('tr');
+      for (let col = 0; col < this.settings.colsCount; col++) {
+        let colElement = document.createElement('td');
+        rowElement.appendChild(colElement);
+        if (positionPlayer.y === row && positionPlayer.x === col) {
+          colElement.classList.add('player');
+        }
+      }
+      this.gameElement.appendChild(rowElement);
+      this.gameCells.push(rowElement);
+    }
+
+    document.body.appendChild(this.gameElement);
   }
+
 }
 
 game.run();
