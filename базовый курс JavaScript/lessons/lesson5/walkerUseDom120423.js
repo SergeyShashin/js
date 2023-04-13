@@ -103,9 +103,7 @@ const game = {
 
   run() {
     this.init();
-
-
-
+    
     this.interval = setInterval(() => {
       let nextPosition = this.player.getNextPosition(this.player.getDirection());
       if (this.canMove(nextPosition)) {
@@ -117,9 +115,6 @@ const game = {
       }
     },
       200);
-
-
-
   },
 
   init() {
