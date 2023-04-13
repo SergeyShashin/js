@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * @type {Object} Объект с настройками.
  * @property {int} rowsCount Количество строк.
@@ -105,8 +104,7 @@ const player = {
  * @method renderMap Отображает карту и игрока.
  * @method setHandlers Устанавливает обработчики событий.
  * @method keyDownHandler Обрабатывает нажатия клавиш на клавиатуре.
- * @method canMove Проверяет можно-ли игроку сделать ход.
- * 
+ * @method canMove Проверяет можно-ли игроку сделать ход. * 
  */
 const game = {
   settings,
@@ -115,9 +113,12 @@ const game = {
   gameCells: [],
   interval: null,
 
+  /**
+   * Запускает игру.
+   */
   run() {
     this.init();
-    
+
     this.interval = setInterval(() => {
       let nextPosition = this.player.getNextPosition(this.player.getDirection());
       if (this.canMove(nextPosition)) {
@@ -131,6 +132,9 @@ const game = {
       200);
   },
 
+  /**
+   * Устанавливает игру в начальное положение.
+   */
   init() {
     this.player.init(this.settings.startPositionPlayerX, this.settings.startPositionPlayerY, this.settings.startDirection);
     this.gameElement = document.getElementById('game');
@@ -138,6 +142,9 @@ const game = {
     this.setHandlers();
   },
 
+  /**
+   * Отображает карту и игрока.
+   */
   renderMap() {
     this.gameElement.innerHTML = '';
     let positionPlayer = this.player.getPosition();
@@ -155,10 +162,17 @@ const game = {
     }
   },
 
+  /**
+   * Устанавливает обработчики событий.
+   */
   setHandlers() {
     window.addEventListener('keydown', (e) => this.keyDownHandler(e.code));
   },
 
+  /**
+   * Обрабатывает нажатия клавиш на клавиатуре. 
+   * @param {string} event Клавиша на клавиатуре.
+   */
   keyDownHandler(event) {
     switch (event) {
       case 'Numpad8':
@@ -184,6 +198,11 @@ const game = {
     }
   },
 
+  /**
+   * Проверяет можно-ли игроку сделать ход.
+   * @param {Object} nextPosition Следующая позиция игрока. 
+   * @returns {boolean} Возращает true или false.
+   */
   canMove(nextPosition) {
     return nextPosition.x >= 0 &&
       nextPosition.y >= 0 &&
@@ -194,4 +213,3 @@ const game = {
 }
 
 game.run();
-
