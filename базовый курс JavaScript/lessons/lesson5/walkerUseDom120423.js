@@ -9,10 +9,10 @@
  * @property {int} startPositionPlayerY Стартовая позиция игрока по оси y.
  */
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
-  startPositionPlayerX: 5,
-  startPositionPlayerY: 5,
+  rowsCount: 20,
+  colsCount: 20,
+  startPositionPlayerX: 10,
+  startPositionPlayerY: 10,
   startDirection: 'right'
 }
 
@@ -65,13 +65,13 @@ const player = {
   getNextPosition(direction) {
     switch (direction) {
       case 'right':
-        return { x: this.x++, y: this.y }
+        return { x: this.x + 1, y: this.y }
       case 'left':
-        return { x: this.x--, y: this.y }
+        return { x: this.x - 1, y: this.y }
       case 'top':
-        return { x: this.x, y: this.y++ }
-      case 'bottom':
-        return { x: this.x, y: this.y-- }
+        return { x: this.x, y: this.y - 1 }
+      case 'down':
+        return { x: this.x, y: this.y + 1 }
       default:
         return console.error(`Ошибочное направление ${direction}`);
     }
@@ -84,6 +84,10 @@ const player = {
   move(position) {
     this.x = position.x;
     this.y = position.y;
+  },
+
+  setDirection(direction) {
+    this.direction = direction;
   }
 }
 
@@ -95,9 +99,26 @@ const game = {
   player,
   gameElement: null,
   gameCells: [],
+  interval: null,
 
   run() {
     this.init();
+
+
+
+    this.interval = setInterval(() => {
+      let nextPosition = this.player.getNextPosition(this.player.getDirection());
+      if (this.canMove(nextPosition)) {
+        this.player.move(nextPosition);
+        this.renderMap();
+      } else {
+        alert('Врезались в стену. Нажмите F5 для нового старта.')
+        clearInterval(this.interval);
+      }
+    },
+      200);
+
+
 
   },
 
@@ -105,10 +126,11 @@ const game = {
     this.player.init(this.settings.startPositionPlayerX, this.settings.startPositionPlayerY, this.settings.startDirection);
     this.gameElement = document.getElementById('game');
     this.renderMap();
+    this.setHandlers();
   },
 
   renderMap() {
-    this.gameElement.innerHtml = '';
+    this.gameElement.innerHTML = '';
     let positionPlayer = this.player.getPosition();
     for (let row = 0; row < this.settings.rowsCount; row++) {
       let rowElement = document.createElement('tr');
@@ -122,8 +144,42 @@ const game = {
       this.gameElement.appendChild(rowElement);
       this.gameCells.push(rowElement);
     }
+  },
 
-    document.body.appendChild(this.gameElement);
+  setHandlers() {
+    window.addEventListener('keydown', (e) => this.keyDownHandler(e.code));
+  },
+
+  keyDownHandler(event) {
+    switch (event) {
+      case 'Numpad8':
+      case 'ArrowUp':
+      case 'KeyW':
+        this.player.setDirection('top');
+        break;
+      case 'Numpad2':
+      case 'ArrowDown':
+      case 'KeyS':
+        this.player.setDirection('down');
+        break;
+      case 'Numpad6':
+      case 'ArrowRight':
+      case 'KeyD':
+        this.player.setDirection('right');
+        break;
+      case 'Numpad4':
+      case 'ArrowLeft':
+      case 'KeyA':
+        this.player.setDirection('left');
+        break;
+    }
+  },
+
+  canMove(nextPosition) {
+    return nextPosition.x >= 0 &&
+      nextPosition.y >= 0 &&
+      nextPosition.x < this.settings.colsCount &&
+      nextPosition.y < this.settings.rowsCount
   }
 
 }
