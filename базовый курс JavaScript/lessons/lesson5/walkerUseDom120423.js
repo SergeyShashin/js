@@ -86,6 +86,10 @@ const player = {
     this.y = position.y;
   },
 
+  /**
+   * Устанавливает направление игроку
+   * @param {string} direction 
+   */
   setDirection(direction) {
     this.direction = direction;
   }
@@ -93,6 +97,16 @@ const player = {
 
 /**
  * @type {Object} Объект игры.
+ * @param {Object} settings Настройки игры.
+ * @param {Object} player Объект игрока.
+ * @param {HTMLElement} gameElement Html элемент для карты и игрока.
+ * @method run Запускает игру.
+ * @method init Устанавливает игру в начальное положение.
+ * @method renderMap Отображает карту и игрока.
+ * @method setHandlers Устанавливает обработчики событий.
+ * @method keyDownHandler Обрабатывает нажатия клавиш на клавиатуре.
+ * @method canMove Проверяет можно-ли игроку сделать ход.
+ * 
  */
 const game = {
   settings,
