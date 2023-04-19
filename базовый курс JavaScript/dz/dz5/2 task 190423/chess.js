@@ -44,9 +44,10 @@ const figures = [
   { name: 'elephant', color: 'black', startPosition: 'f8', postion: null, uniСode: 'U+265D', htmlCode: '&#9821;' },
   { name: 'queen', color: 'black', startPosition: 'd8', postion: null, uniСode: 'U+265B', htmlCode: '&#9819;' },
   { name: 'king', color: 'black', startPosition: 'e8', postion: null, uniСode: 'U+265A', htmlCode: '&#9818;' },
-]
+];
 
 genChesDesk();
+setFiguresOnStartPosition();
 
 /**
  * Рисует шахматную доску в теге <table id="chess">
@@ -60,7 +61,7 @@ function genChesDesk() {
       setLettersColums(row, col, colEl);
       setNumbersRows(row, col, colEl);
       setBlackField(row, col, colEl);
-
+      serAttributeColEl(row, col, colEl);
     }
     htmlElement.appendChild(rowEl);
   }
@@ -112,5 +113,25 @@ function setBlackField(row, col, colEl) {
   ) {
     colEl.classList.add('black');
   }
+}
 
+/**
+ * Устанавливает атрибуты td
+ * @param {int} row Номер строки
+ * @param {int} col Номер колонки
+ * @param {htmlElement} colEl Html элемент 'td'
+ */
+function serAttributeColEl(row, col, colEl) {
+  colEl.id = letters[col-1] + (Math.abs(row-9));
+}
+
+/**
+ * Устанавливает фигуры в стартовую позицию
+ */
+function setFiguresOnStartPosition(){
+  figures.forEach(figure=>{
+    console.log(figure.startPosition);
+    console.log(figure.htmlCode);
+    document.getElementById(figure.startPosition).innerHTML=figure.htmlCode;
+  })
 }
