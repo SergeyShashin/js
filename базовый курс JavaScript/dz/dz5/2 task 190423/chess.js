@@ -122,16 +122,14 @@ function setBlackField(row, col, colEl) {
  * @param {htmlElement} colEl Html элемент 'td'
  */
 function serAttributeColEl(row, col, colEl) {
-  colEl.id = letters[col-1] + (Math.abs(row-9));
+  colEl.id = letters[col - 1] + (Math.abs(row - 9));
 }
 
 /**
  * Устанавливает фигуры в стартовую позицию
  */
-function setFiguresOnStartPosition(){
-  figures.forEach(figure=>{
-    console.log(figure.startPosition);
-    console.log(figure.htmlCode);
-    document.getElementById(figure.startPosition).innerHTML=figure.htmlCode;
+function setFiguresOnStartPosition() {
+  figures.forEach(figure => {
+    document.getElementById(figure.startPosition).innerHTML = figure.htmlCode;
   })
 }
