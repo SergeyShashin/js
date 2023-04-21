@@ -25,6 +25,37 @@ javascript.
 
 let buttonSendForm = document.getElementById('sendForm');
 
+const methods = {
+
+  /**
+   * Проверяет поле по длине
+   * @param {String} fieldValue 
+   * @param {Array} args  
+   */
+  length(fieldValue, args) {
+    let length = fieldValue.length;
+    let sign = args[0];
+    let number = args[1];
+
+    switch (sign) {
+      case '>':
+        return length > number ? true : `Длина поля должна быть больше ${number}`;
+      case '>=':
+        return length >= number ? true : `Длина поля должна быть больше или равна ${number}`;
+      case '===':
+        return length === number ? true : `Длина поля должна быть ${number}`;
+      case '<':
+        return length > number ? true : `Длина поля должна быть меньше ${number}`;
+      case '<=':
+        return length >= number ? true : `Длина поля должна быть меньше или равна ${number}`;
+      default:
+        return `Проверьте аргументы, передаваемые в функцию`;
+    }
+
+  }
+
+}
+
 let validationRules = [
   {
     fieldName: 'name',
@@ -33,7 +64,6 @@ let validationRules = [
         '<=50']
     }]
   }
-
 ]
 
 buttonSendForm.addEventListener('click', (e) => {
@@ -47,5 +77,23 @@ buttonSendForm.addEventListener('click', (e) => {
 })
 
 function isValidate() {
-  return true;
+  let validate = true;
+
+  validationRules.forEach(rule => {
+    let htmlElements = document.querySelectorAll('#' + rule.fieldName);
+
+    if (htmlElements.length < 1) {
+      console.log('Полей для проверки нет.');
+      validate = false;
+      return
+    }
+
+    htmlElements.forEach(element => {
+      rule.methods.forEach(method => {
+        methods[`method ${method}(${element.value}[${method[0]}, ${method[1]})]`]
+      })
+    });
+
+  });
+  return validate;
 }
