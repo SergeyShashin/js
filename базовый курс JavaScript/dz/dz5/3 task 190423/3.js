@@ -25,33 +25,51 @@ javascript.
 
 let buttonSendForm = document.getElementById('sendForm');
 
+/**
+ * @type {Object} Содержит методы для проверки
+ */
 const methods = {
 
   /**
    * Проверяет поле по длине
-   * @param {String} fieldValue 
-   * @param {Array} args  
+   * @param {htmlElement} field
+   * @param {Array} args  Массив со знаком и цифрами
    */
-  length(fieldValue, args) {
-    let length = fieldValue.length;
+  length(field, args) {
+    let length = field.value.length;
     let sign = args[0];
     let number = args[1];
 
     switch (sign) {
       case '>':
-        return length > number ? true : `Длина поля должна быть больше ${number}`;
+        return length > number ? true : `Длина поля должна быть больше ${number}.`;
       case '>=':
-        return length >= number ? true : `Длина поля должна быть больше или равна ${number}`;
+        return length >= number ? true : `Длина поля должна быть больше или равна ${number}.`;
       case '===':
-        return length === number ? true : `Длина поля должна быть ${number}`;
+        return length === number ? true : `Длина поля должна быть ${number}.`;
       case '<':
-        return length > number ? true : `Длина поля должна быть меньше ${number}`;
+        return length < number ? true : `Длина поля должна быть меньше ${number}.`;
       case '<=':
-        return length >= number ? true : `Длина поля должна быть меньше или равна ${number}`;
+        return length <= number ? true : `Длина поля должна быть меньше или равна ${number}.`;
       default:
-        return `Проверьте аргументы, передаваемые в функцию`;
+        return `Проверьте аргументы, передаваемые в функцию.`;
     }
+  },
 
+  /**
+   * Проверка на цифры
+   * @param {htmlElement} field
+   */
+  mustContainOnlyNumbers(field) {
+    return Number.isInteger(Number(field.value)) && field.value.length === 11 ? true : 'Должно быть 11 цифр';
+  },
+
+  /**
+   * Проверка на идентичность значений у полей repeatPassword и password
+   * @param {htmlElement} field 
+   */
+  repeatPassword(field) {
+    return field.value === document.getElementById('password').value ? true : 'Поля не совпадают.'
   }
 
 }
@@ -59,8 +77,33 @@ const methods = {
 let validationRules = [
   {
     fieldName: 'name',
-    methods: [ 'length'],
-  }
+    methods: [
+      { name: 'length', arguments: ['>', 0] }
+    ],
+  },
+
+  {
+    fieldName: 'phone',
+    methods: [
+      { name: 'length', arguments: ['===', 11] },
+      { name: 'mustContainOnlyNumbers', arguments: [] }
+    ],
+  },
+
+  {
+    fieldName: 'password',
+    methods: [
+      { name: 'length', arguments: ['>', 4] },
+      { name: 'length', arguments: ['<', 50] }
+    ],
+  },
+
+  {
+    fieldName: 'repeatPassword',
+    methods: [
+      { name: 'repeatPassword', arguments: [] },
+    ],
+  },
 ]
 
 buttonSendForm.addEventListener('click', (e) => {
@@ -70,6 +113,11 @@ buttonSendForm.addEventListener('click', (e) => {
   }
 
   console.log('Форма может быть отправлена');
+  document.querySelectorAll('input').forEach(el=>{
+    el.value='';
+    el.className='';
+  });
+  
 
 })
 
@@ -85,12 +133,36 @@ function isValidate() {
       return
     }
 
-    htmlElements.forEach(element => {
-      rule.methods.forEach(method=>{
-        console.log(method);
+    htmlElements.forEach(element => {      
+      rule.methods.forEach(method => {
+        if (!validate) {
+          return
+        }
+        let resultCheck = methods[method.name](element, method.arguments);
+        if (resultCheck === true) {
+          element.className = 'ok';
+          validate = true;
+          clearElementsError();
+        } else {
+          element.className = 'error';
+          let message = document.createElement('div');
+          message.textContent = resultCheck;
+          message.className = 'errorMessage';
+          element.insertAdjacentElement('afterend', message);
+          validate = false;
+          return
+        }
       });
     });
 
   });
   return validate;
+}
+
+function clearElementsError() {
+  document.querySelectorAll('.errorMessage').forEach(el => el.remove());
+}
+
+function clearElementsOk() {
+  document.querySelectorAll('.ok').forEach(el => el.remove());
 }
