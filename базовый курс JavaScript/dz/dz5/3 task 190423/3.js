@@ -59,10 +59,7 @@ const methods = {
 let validationRules = [
   {
     fieldName: 'name',
-    methods: [{
-      length: ['>=1',
-        '<=50']
-    }]
+    methods: [ 'length'],
   }
 ]
 
@@ -89,9 +86,9 @@ function isValidate() {
     }
 
     htmlElements.forEach(element => {
-      rule.methods.forEach(method => {
-        methods[`method ${method}(${element.value}[${method[0]}, ${method[1]})]`]
-      })
+      rule.methods.forEach(method=>{
+        console.log(method);
+      });
     });
 
   });
