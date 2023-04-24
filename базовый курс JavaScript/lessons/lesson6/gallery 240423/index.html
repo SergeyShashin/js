@@ -20,7 +20,7 @@
       cursor: pointer;
     }
 
-    .display {
+    #display {
       position: absolute;
       position: relative;
       z-index: 10;
@@ -32,19 +32,21 @@
       align-items: center;
     }
 
-    .close {
+    #close {
+      display: block;
+      width: 40px;
       position: absolute;
-      top: 0;
-      right: 0;
+      top: 1%;
+      right: 1%;
       cursor: pointer;
     }
 
-    .wrap {
+    #wrap {
       text-align: center;
       position: relative;
     }
 
-    .wrap img {
+    #wrap img {
       width: 80%;
     }
 
@@ -77,9 +79,9 @@
     <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
   </div>
 
-  <!-- <div class="display">
-    <img class="close" src="img/gallery/close.png" alt="close">
-    <div class="wrap">
+  <!-- <div id="display">
+    <img id="close" src="img/gallery/close.png" alt="close">
+    <div id="wrap">
       <div id="arrow-left"> < </div>
           <img src="img/max/1.jpg">
           <div id="arrow-right">></div>
