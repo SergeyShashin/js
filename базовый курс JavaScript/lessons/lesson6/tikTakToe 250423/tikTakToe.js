@@ -67,14 +67,15 @@ const tikTakToe = {
 
 
     if (this.counterClick === 9) {
-      alert('Дружба');
+      alert('Дружба)');
     }
 
     this.field[target.dataset.row][target.dataset.col] = this.phase;
 
     if (this.isTheareWiner()) {
       this.status = 'stop';
-      alert(`${this.phase} победили.`);
+      let winner = this.phase === 'X' ? 'Крестики' : 'Нолики';
+      alert(`${winner} победили.`);
       if (confirm('Ещё?')) {
         this.init();
       } else {
