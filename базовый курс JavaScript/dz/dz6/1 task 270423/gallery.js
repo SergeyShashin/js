@@ -85,6 +85,8 @@ const gallery = {
 
     let fullImgElement = new Image();
     fullImgElement.src = src;
+    fullImgElement.id = 'openedImageDisplay';
+
     wrapElement.appendChild(fullImgElement);
 
     let arrowLeftElement = document.createElement('div');
@@ -112,12 +114,10 @@ const gallery = {
   },
 
   handleLeftClick() {
-    console.log('Клик влево.');
-    console.dir(this.currentImgClickElement.previousElementSibling);
-    if(!this.currentImgClickElement.previousElementSibling){
-      console.log(this.currentImgClickElement.parentElement.lastElementChild);
-      console.log(this.currentImgClickElement.parentElement.lastElementChild.dataset.fullImageUrl);
-      this.openFullImg(this.currentImgClickElement.parentElement.lastElementChild.dataset.fullImageUrl);
+    if (!this.currentImgClickElement.previousElementSibling) {
+      let openedImageDisplayElement = document.getElementById('openedImageDisplay');
+      console.log(openedImageDisplayElement);
+      openedImageDisplayElement.src = this.currentImgClickElement.parentElement.lastElementChild.dataset.fullImageUrl;
     }
 
   },
