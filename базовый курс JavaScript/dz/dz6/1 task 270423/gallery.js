@@ -15,7 +15,6 @@ const settings = {
   closeElementPathImg: 'img/gallery/close.png',
   closeId: 'close',
   wrapId: 'wrap',
-  currentImgClickElement: null,
 }
 
 /**
@@ -33,6 +32,8 @@ const gallery = {
     Object.assign(this.settings, userSettings);
     this.galleryElement = document.getElementById(this.settings.galleryElementId);
 
+    this.imgElemnts = this.galleryElement.querySelectorAll('img');
+
     this.galleryElement.addEventListener('click', (e) => this.handlerClick(e));
   },
 
@@ -47,7 +48,6 @@ const gallery = {
     }
 
     let srcFullImgUrl = e.target.dataset.fullImageUrl;
-    this.currentImgClickElement = e.target;
     this.openFullImg(srcFullImgUrl);
   },
 
@@ -85,7 +85,6 @@ const gallery = {
 
     let fullImgElement = new Image();
     fullImgElement.src = src;
-    fullImgElement.id = 'openedImageDisplay';
 
     wrapElement.appendChild(fullImgElement);
 
@@ -114,11 +113,7 @@ const gallery = {
   },
 
   handleLeftClick() {
-    if (!this.currentImgClickElement.previousElementSibling) {
-      let openedImageDisplayElement = document.getElementById('openedImageDisplay');
-      console.log(openedImageDisplayElement);
-      openedImageDisplayElement.src = this.currentImgClickElement.parentElement.lastElementChild.dataset.fullImageUrl;
-    }
+    console.log('Клик влево.');
 
   },
 
