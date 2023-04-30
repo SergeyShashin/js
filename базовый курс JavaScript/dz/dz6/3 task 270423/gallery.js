@@ -1,9 +1,9 @@
 'use strict';
 
 /*
-1. Доработать функцию замены картинки в галерее таким образом, чтобы она проверяла наличие большой
-картинки по указанному в src адресу. Если такой картинки не существует или она не доступна, то должна
-ставиться картинка-заглушка сообщающая об ошибке.
+3*. Добавить в галерею функцию перехода к следующему изображению. По сторонам от большой картинки
+должны быть стрелки “вперед” и “назад”, по нажатию на которые происходит замена изображения на
+следующее или предыдущее.
 */
 
 /**
@@ -23,6 +23,9 @@ const settings = {
 const gallery = {
   settings,
   galleryElement: null,
+  idCurentImg: null,
+  idPreviousImg: null,
+  idNextImg: null,
 
   /**
    * Инициализация галереи
@@ -31,8 +34,6 @@ const gallery = {
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
     this.galleryElement = document.getElementById(this.settings.galleryElementId);
-
-    this.imgElemnts = this.galleryElement.querySelectorAll('img');
 
     this.galleryElement.addEventListener('click', (e) => this.handlerClick(e));
   },
@@ -48,6 +49,9 @@ const gallery = {
     }
 
     let srcFullImgUrl = e.target.dataset.fullImageUrl;
+
+    this.setIdImages(e.target);
+
     this.openFullImg(srcFullImgUrl);
   },
 
@@ -113,12 +117,30 @@ const gallery = {
   },
 
   handleLeftClick() {
-    console.log('Клик влево.');
-
+    let imgElementinwrap = document.getElementById('wrap').querySelector('img');
+    let previosImgElement = document.getElementById(this.idPreviousImg);
+    imgElementinwrap.src = previosImgElement.dataset.fullImageUrl;
+    this.setIdImages(previosImgElement);
   },
 
   handleRightClick() {
-    console.log('Клик вправо.');
+    let imgElementinwrap = document.getElementById('wrap').querySelector('img');
+    let nextImgElement = document.getElementById(this.idNextImg);
+
+    imgElementinwrap.src = nextImgElement.dataset.fullImageUrl;
+    this.setIdImages(nextImgElement);
+  },
+
+  setIdImages(curentImgElement) {
+    this.idCurentImg = curentImgElement.id;
+
+    this.idPreviousImg = curentImgElement.previousElementSibling
+      ? curentImgElement.previousElementSibling.id
+      : curentImgElement.parentElement.lastElementChild.id;
+
+    this.idNextImg = curentImgElement.nextElementSibling
+      ? curentImgElement.nextElementSibling.id
+      : curentImgElement.parentElement.firstElementChild.id;
   }
 
 }
