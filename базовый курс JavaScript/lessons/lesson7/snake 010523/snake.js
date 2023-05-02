@@ -95,7 +95,7 @@ const map = {
   /**
    * Инициализация карты
    */
-  init(rowsCount, colsCount) {
+  init(rowsCount, colsCount, snakeBody, coordinatesFood) {
     this.gameElement = document.getElementById('snake-game');
     this.gameElement.innerHTML = '';
     for (let row = 0; row < rowsCount; row++) {
@@ -103,7 +103,13 @@ const map = {
       for (let col = 0; col < colsCount; col++) {
         let td = document.createElement('td');
         tr.appendChild(td);
-        this.cells[`x${row}_y${col}`]=td;
+        this.cells[`x${row}_y${col}`] = td;
+        if (col === snakeBody[0].x && row === snakeBody[0].y) {
+          td.classList.add('snake-head');
+        }
+        if (col === coordinatesFood.x && row === coordinatesFood.y) {
+          td.classList.add('food');
+        }
       }
       this.gameElement.appendChild(tr);
     }
@@ -123,6 +129,10 @@ const map = {
    */
   getUsedCells() {
     return this.usedCells;
+  },
+
+  setUsedCells(point) {
+    this.usedCells.push(point);
   }
 };
 
@@ -144,6 +154,22 @@ const snake = {
     this.body.push({ x: startPositionX, y: startPositionY });
     this.direction = direction;
     this.lastDirection = direction;
+  },
+
+  /**
+   * 
+   * @returns {Array} Возвращает координаты тела змейки
+   */
+  getBody() {
+    return this.body
+  },
+
+  /**
+   * 
+   * @returns {String} Возвращает направление змейки
+   */
+  getDirrection() {
+    return this.direction
   }
 
 };
@@ -158,6 +184,10 @@ const food = {
   init(startPosition) {
     this.x = startPosition.x;
     this.y = startPosition.y;
+  },
+
+  getFood() {
+    return { x: this.x, y: this.y }
   }
 
 };
@@ -191,20 +221,14 @@ const game = {
       validation.errors.forEach(error => console.error(error));
       return
     }
-
-    this.reset();
-  },
-
-  /**
-   * Устанавливает игру в стартовое состояние
-   */
-  reset() {
     this.snake.init(Math.round(this.config.getColsCount() / 2), Math.round(this.config.getRowsCount() / 2), 'up');
+    this.map.setUsedCells(this.snake.getBody()[0]);
     this.food.init(this.getRandomFreeCoordinates());
+    this.map.setUsedCells(this.food.getFood());
 
-    map.init(this.config.getRowsCount(), this.config.getColsCount());
-    console.log(this.map.getCells());
+    map.init(this.config.getRowsCount(), this.config.getColsCount(), this.snake.getBody(), this.food.getFood());
   },
+
 
   /**
    * 
