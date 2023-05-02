@@ -22,7 +22,6 @@ const config = {
    */
   init(userSettings) {
     this.settings = Object.assign(this.settings, userSettings);
-    console.log(this.settings.speed);
   },
 
   validate() {
@@ -96,6 +95,21 @@ const map = {
  * @type {Object} Змейка
  */
 const snake = {
+  body: [],
+  direction: null,
+  lastDirection: null,
+
+  /**
+   * Инициализация змейки
+   * @param {Number} startPositionX Стартовое положение змейки по 'X'
+   * @param {Number} startPositionY Стартовое положение змейки по 'Y'
+   * @param {String} direction Стартовое направление змейки
+   */
+  init(startPositionX, startPositionY, direction) {
+    this.body.push({ x: startPositionX, y: startPositionY });
+    this.direction = direction;
+    this.lastDirection = direction;
+  }
 
 };
 
@@ -123,6 +137,10 @@ const game = {
   food,
   statusGame,
 
+  /**
+   * Инициализация игры
+   * @param {Object} userSettings Пользовательские настройки 
+   */
   init(userSettings) {
     this.config.init(userSettings);
 
@@ -132,8 +150,16 @@ const game = {
       return
     }
 
+    this.reset();
   },
+
+  reset() {
+    snake.init(Math.round(this.config.getColsCount() / 2), Math.round(this.config.getRowsCount() / 2), 'up');
+    // food.init()
+
+    // map.init(this.config.getRowsCount, this.config.getColsCount);
+  }
 
 };
 
-window.onload = () => game.init({ speed: 7});
+window.onload = () => game.init({ speed: 7 });
