@@ -88,7 +88,42 @@ const config = {
  * @type {Object} Карта
  */
 const map = {
+  cells: {},
+  usedCells: [],
+  gameElement: null,
 
+  /**
+   * Инициализация карты
+   */
+  init(rowsCount, colsCount) {
+    this.gameElement = document.getElementById('snake-game');
+    this.gameElement.innerHTML = '';
+    for (let row = 0; row < rowsCount; row++) {
+      let tr = document.createElement('tr');
+      for (let col = 0; col < colsCount; col++) {
+        let td = document.createElement('td');
+        tr.appendChild(td);
+        this.cells[`x${row}_y${col}`]=td;
+      }
+      this.gameElement.appendChild(tr);
+    }
+  },
+
+  /**
+   * 
+   * @returns Возвращает объект со всеми ячейками игрового поля
+   */
+  getCells() {
+    return this.cells
+  },
+
+  /**
+   * 
+   * @returns Возвращает массив с занятыми ячейками игрового поля
+   */
+  getUsedCells() {
+    return this.usedCells;
+  }
 };
 
 /**
@@ -117,6 +152,13 @@ const snake = {
  * @type {Object} Еда
  */
 const food = {
+  x: null,
+  y: null,
+
+  init(startPosition) {
+    this.x = startPosition.x;
+    this.y = startPosition.y;
+  }
 
 };
 
@@ -153,11 +195,34 @@ const game = {
     this.reset();
   },
 
+  /**
+   * Устанавливает игру в стартовое состояние
+   */
   reset() {
-    snake.init(Math.round(this.config.getColsCount() / 2), Math.round(this.config.getRowsCount() / 2), 'up');
-    // food.init()
+    this.snake.init(Math.round(this.config.getColsCount() / 2), Math.round(this.config.getRowsCount() / 2), 'up');
+    this.food.init(this.getRandomFreeCoordinates());
 
-    // map.init(this.config.getRowsCount, this.config.getColsCount);
+    map.init(this.config.getRowsCount(), this.config.getColsCount());
+    console.log(this.map.getCells());
+  },
+
+  /**
+   * 
+   * @returns {Object} Возвращает объект со свободными x и y
+   */
+  getRandomFreeCoordinates() {
+
+    while (true) {
+      const randomPoint = {
+        x: Math.round(Math.random() * this.config.getRowsCount()),
+        y: Math.round(Math.random() * this.config.getColsCount())
+      };
+
+      if (!this.map.getUsedCells().some(usedPoint => usedPoint.x === randomPoint.x && usedPoint.y === randomPoint.y)) {
+        return randomPoint;
+      }
+    }
+
   }
 
 };
