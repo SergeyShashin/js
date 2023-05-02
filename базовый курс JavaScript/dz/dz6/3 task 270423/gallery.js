@@ -15,9 +15,6 @@ const settings = {
   closeElementPathImg: 'img/gallery/close.png',
   closeId: 'close',
   wrapId: 'wrap',
-  idCurentImg: null,
-  idPreviousImg: null,
-  idNextImg: null
 }
 
 /**
@@ -51,10 +48,6 @@ const gallery = {
     }
 
     let srcFullImgUrl = e.target.dataset.fullImageUrl;
-    this.idCurentImg = e.target.id;
-    this.idPreviousImg = this.getPreviosId(e.target);
-    this.idNextImg = this.getNextId(e.target);
-
     this.openFullImg(srcFullImgUrl);
   },
 
@@ -92,7 +85,6 @@ const gallery = {
 
     let fullImgElement = new Image();
     fullImgElement.src = src;
-    fullImgElement.id = 'imgInWrap' + this.idCurentImg;
 
     wrapElement.appendChild(fullImgElement);
 
@@ -121,27 +113,12 @@ const gallery = {
   },
 
   handleLeftClick() {
-    let imgInWrap = document.getElementById('wrap').querySelector('img');
-    imgInWrap.src = document.getElementById(this.idPreviousImg).dataset.fullImageUrl;
-    this.idCurentImg = this.idPreviousImg;
-    this.idPreviousImg = this.getPreviosId(document.getElementById(this.idPreviousImg));
+    console.log('Клик влево.');
+
   },
 
   handleRightClick() {
-    let imgInWrap = document.getElementById('wrap').querySelector('img');
-    imgInWrap.src = document.getElementById(this.idNextImg).dataset.fullImageUrl;
-    this.idNextImg = this.getNextId(document.getElementById(this.idCurentImg));
-    this.idCurentImg = this.idNextImg;
-  },
-
-  getPreviosId(element) {
-    return element.previousElementSibling ? element.previousElementSibling.id : element.parentElement.lastElementChild.id;
-  },
-
-  getNextId(element) {
-    return element.nextElementSibling ? element.nextElementSibling.id : element.parentElement.firstElementChild.id;
+    console.log('Клик вправо.');
   }
 
 }
-
-gallery.init();
