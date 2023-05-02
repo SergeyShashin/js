@@ -17,6 +17,46 @@ const config = {
   settings,
 
   /**
+   * Инициализация конфигурации
+   * @param {Object} userSettings Настройки от пользователя
+   */
+  init(userSettings) {
+    this.settings = Object.assign(this.settings, userSettings);
+    console.log(this.settings.speed);
+  },
+
+  validate() {
+    let flag = true;
+    let errors = [];
+
+    if (this.getRowsCount() < 5 || this.getRowsCount() > 30) {
+      errors.push('Количество строк должно быть больше 5 и меньше 30.');
+    }
+
+    if (this.getColsCount() < 5 || this.getColsCount() > 30) {
+      errors.push('Количество колонок должно быть больше 5 и меньше 30.');
+    }
+
+    if (this.getSpeed() < 3 || this.getSpeed() > 10) {
+      errors.push('Скорость должна быть больше 3 и меньше 10.');
+    }
+
+    if (this.getWinFoodCount() < 5 || this.getWinFoodCount() > 20) {
+      errors.push('Количество еды для победы должно быть больше 5 и меньше 20.');
+    }
+
+    if (errors.length > 0) {
+      flag = false;
+    }
+
+    return {
+      flag: flag,
+      errors: errors
+    }
+
+  },
+
+  /**
    * Возвращает количество строк
    */
   getRowsCount() {
@@ -35,6 +75,13 @@ const config = {
    */
   getWinFoodCount() {
     return this.settings.winFoodCount
+  },
+
+  /**
+   * Возвращает скорость
+   */
+  getSpeed() {
+    return this.settings.speed
   },
 };
 
@@ -62,7 +109,7 @@ const food = {
 /**
  * @type {Object} Статус
  */
-const status = {
+const statusGame = {
 
 };
 
@@ -74,13 +121,19 @@ const game = {
   map,
   snake,
   food,
-  status,
+  statusGame,
 
-  init(userSettings){
-    console.log('Змейка.');
+  init(userSettings) {
+    this.config.init(userSettings);
 
-  }
+    let validation = this.config.validate();
+    if (!validation.flag) {
+      validation.errors.forEach(error => console.error(error));
+      return
+    }
+
+  },
 
 };
 
-window.onload = () => game.init();
+window.onload = () => game.init({ speed: 7});
