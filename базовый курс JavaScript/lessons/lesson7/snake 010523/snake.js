@@ -103,20 +103,32 @@ const map = {
       for (let col = 0; col < colsCount; col++) {
         let td = document.createElement('td');
         tr.appendChild(td);
-        this.cells[`x${row}_y${col}`] = td;
+        this.cells[`x${col}_y${row}`] = td;
       }
       this.gameElement.appendChild(tr);
     }
   },
 
+  /**
+   * Перерисовка карты, змейки на карте и еды на карте
+   * @param {Object} snakeBody
+   * @param {Object} foodCoordinates
+   */
   render(snakeBody, foodCoordinates) {
     this.usedCells = [];
     for (const cell in this.cells) {
-      this.cells[cell].className='cell';
+      this.cells[cell].className = 'cell';
     }
 
-    this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className='food';
+    this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className = 'food';
+    this.usedCells.push(foodCoordinates);
 
+    for (let i = 0; i < snakeBody.length; i++) {
+      i === 0 ? this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-head'
+        : this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-body';
+    }
+
+    this.usedCells.push(...snakeBody);
   },
 
   /**
@@ -148,11 +160,11 @@ const snake = {
   body: [],
   direction: null,
   lastDirection: null,
+  nextHeadPoint: null,
 
   /**
    * Инициализация змейки
-   * @param {Number} startPositionX Стартовое положение змейки по 'X'
-   * @param {Number} startPositionY Стартовое положение змейки по 'Y'
+   * @param {Number} startPosition Стартовое положение змейки
    * @param {String} direction Стартовое направление змейки
    */
   init(startPosition, direction) {
@@ -173,7 +185,28 @@ const snake = {
    */
   getDirrection() {
     return this.direction
-  }
+  },
+
+  /**
+   * Перемещение змейки
+   */
+  move() {
+    switch (this.direction) {
+      case 'up':
+        //[{x:5, y:5}{x:5, y:6}]
+        this.body[0].y--;
+        break;
+      case 'down':
+        this.body[0].y++;
+        break;
+      case 'left':
+        this.body[0].x--;
+        break;
+      case 'right':
+        this.body[0].x++;
+        break;
+    }
+  },  
 
 };
 
@@ -248,8 +281,11 @@ const game = {
    * Стартовое состояние игры
    */
   reset() {
-    this.map.render(this.snake.getBody(), this.food.getFoodCoordinates());
+    this.render();
+  },
 
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getFoodCoordinates());
   },
 
   stop() { },
@@ -260,9 +296,14 @@ const game = {
    *Устанавливает слушатели событий 
    */
   setEventHandlers() {
-
+    this.interval = setInterval(() => {
+      // if (this.canMove()) {
+      //   console.log('Можно сделать ход.');
+      // }
+      this.snake.move();
+      this.render();
+    }, 1000 / this.config.getSpeed());
   },
-
 
   /** 
    * @returns {Object} Возвращает стартовую позицию головы змейки
@@ -273,7 +314,6 @@ const game = {
       y: Math.round(this.config.getRowsCount() / 2)
     }
   },
-
 
   /** 
    * @returns {Object} Возвращает объект со свободными x и y
@@ -296,4 +336,4 @@ const game = {
 
 };
 
-window.onload = () => game.init({ speed: 7 });
+window.onload = () => game.init({ speed: 3 });
