@@ -98,9 +98,9 @@ const map = {
   init(rowsCount, colsCount) {
     this.gameElement = document.getElementById('snake-game');
     this.gameElement.innerHTML = '';
-    for (let row = 0; row < rowsCount; row++) {
+    for (let row = 0; row <= rowsCount; row++) {
       let tr = document.createElement('tr');
-      for (let col = 0; col < colsCount; col++) {
+      for (let col = 0; col <= colsCount; col++) {
         let td = document.createElement('td');
         tr.appendChild(td);
         this.cells[`x${col}_y${row}`] = td;
@@ -157,7 +157,7 @@ const map = {
  * @type {Object} Змейка
  */
 const snake = {
-  body: [],
+  body: null,
   direction: null,
   lastDirection: null,
   nextHeadPoint: null,
@@ -168,6 +168,7 @@ const snake = {
    * @param {String} direction Стартовое направление змейки
    */
   init(startPosition, direction) {
+    this.body=[];
     this.body.push(startPosition);
     this.direction = direction;
     this.lastDirection = direction;
@@ -274,6 +275,10 @@ const statusGame = {
     return this.condition === 'play';
   },
 
+  isFinish() {
+    return this.condition === 'finish';
+  },
+
   isStoped() {
     return this.condition === 'stop';
   },
@@ -310,17 +315,10 @@ const game = {
 
     this.setEventHandlers();
 
-    this.reset();
+    this.render();
 
     this.play();
 
-  },
-
-  /**
-   * Стартовое состояние игры
-   */
-  reset() {
-    this.render();
   },
 
   /**
@@ -360,6 +358,7 @@ const game = {
    */
   finish() {
     this.statusGame.setFinish();
+    clearInterval(this.interval);
     this.changeButton('finish', true);
   },
 
@@ -368,7 +367,6 @@ const game = {
    */
   setEventHandlers() {
     document.getElementById('playOrStopButton').addEventListener('click', (e) => {
-      console.log('Клик плей.');
       if (this.statusGame.isPlaying()) {
         this.stop();
       } else {
@@ -377,34 +375,53 @@ const game = {
     });
 
     document.getElementById('newGameButton').addEventListener('click', () => {
-      console.log('Клик новая игра.');
-      this.reset();
+      this.changeButton('Stop', false);
+      map.init(this.config.getRowsCount(), this.config.getColsCount());
+      this.snake.init(this.getStartPositionSnake(), 'up');
+      this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
+      this.render();
+      this.play();
+
     });
 
     document.addEventListener('keydown', (e) => this.keyDownHandler(e));
   },
 
   keyDownHandler(e) {
-    console.log(e.code);
+    if (this.statusGame.isFinish()) {
+      return
+    }
+    let direction = this.snake.getDirection();
     switch (e.code) {
       case 'ArrowUp':
-        this.snake.lastDirection = this.snake.getDirection();
-        this.snake.direction = 'up';
+        direction = 'up';
         break;
       case 'ArrowDown':
-        this.snake.lastDirection = this.snake.getDirection();
-        this.snake.direction = 'down';
+        direction = 'down';
         break;
       case 'ArrowRight':
-        this.snake.lastDirection = this.snake.getDirection();
-        this.snake.direction = 'right';
+        direction = 'right';
         break;
       case 'ArrowLeft':
-        this.snake.lastDirection = this.snake.getDirection();
-        this.snake.direction = 'left';
+        direction = 'left';
         break;
     }
+
+    this.snake.lastDirection = this.snake.getDirection();
+
+    if (this.canSetDirection(direction)) {
+      this.snake.direction = direction;
+    }
+
     this.render();
+  },
+
+  canSetDirection(direction) {
+    let lasdirection = this.snake.lastDirection;
+    return direction === 'up' && lasdirection !== 'down' ||
+      direction === 'down' && lasdirection !== 'up' ||
+      direction === 'left' && lasdirection !== 'right' ||
+      direction === 'right' && lasdirection !== 'left'
   },
 
   /** 
@@ -447,6 +464,8 @@ const game = {
 
     if (isDisable) {
       buttonElement.classList.add('finish');
+    }else{
+      buttonElement.classList.remove('finish');
     }
   },
 
