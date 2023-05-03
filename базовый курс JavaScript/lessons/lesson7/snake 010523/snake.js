@@ -187,27 +187,6 @@ const snake = {
     return this.direction
   },
 
-  /**
-   * Перемещение змейки
-   */
-  move() {
-    switch (this.direction) {
-      case 'up':
-        //[{x:5, y:5}{x:5, y:6}]
-        this.body[0].y--;
-        break;
-      case 'down':
-        this.body[0].y++;
-        break;
-      case 'left':
-        this.body[0].x--;
-        break;
-      case 'right':
-        this.body[0].x++;
-        break;
-    }
-  },  
-
 };
 
 /**
@@ -239,7 +218,27 @@ const food = {
  * @type {Object} Статус
  */
 const statusGame = {
+  condition: null,
 
+  setStop() {
+    this.condition = 'stop';
+  },
+
+  setFinish() {
+    this.condition = 'finish';
+  },
+
+  setPlay() {
+    this.condition = 'play';
+  },
+
+  isPlaying() {
+    return this.condition === 'play';
+  },
+
+  isStoped() {
+    return this.condition === 'stop';
+  },
 };
 
 /**
@@ -275,34 +274,73 @@ const game = {
 
     this.reset();
 
+    this.play();
+
   },
 
   /**
    * Стартовое состояние игры
    */
   reset() {
+    // this.stop();
     this.render();
   },
 
+  /**
+   * Перересовывает карту
+   */
   render() {
-    this.map.render(this.snake.getBody(), this.food.getFoodCoordinates());
+    this.map.render(this.snake.getBody(), this.getRandomFreeCoordinates());
   },
 
-  stop() { },
-  play() { },
-  finish() { },
+  /**
+   * Останавливает игру
+   */
+  stop() {
+    this.statusGame.setStop();
+    this.changeButton('Play');
+    clearInterval(this.interval);
+  },
+
+  /**
+   * Возобнобвляет игру
+   */
+  play() {
+    this.statusGame.setPlay();
+    this.changeButton('Stop');
+    this.interval = setInterval(() => {
+      // if (!this.canMakeStep()) {
+      //   this.finish();
+      // }
+      console.log('го');
+    }, 1000 / this.config.getSpeed());
+  },
+
+  /**
+   * Завершает игру
+   */
+  finish() {
+    this.statusGame.setFinish();
+    this.changeButton('finish', true);
+  },
 
   /**
    *Устанавливает слушатели событий 
    */
   setEventHandlers() {
-    this.interval = setInterval(() => {
-      // if (this.canMove()) {
-      //   console.log('Можно сделать ход.');
-      // }
-      this.snake.move();
-      this.render();
-    }, 1000 / this.config.getSpeed());
+    document.getElementById('playOrStopButton').addEventListener('click', (e) => {
+      console.log('Клик плей.');
+      if (this.statusGame.isPlaying()) {
+        this.stop();
+      } else {
+        this.play();
+      }
+    });
+
+    document.getElementById('newGameButton').addEventListener('click', () => {
+      console.log('Клик новая игра.');
+      this.reset();
+    });
   },
 
   /** 
@@ -332,6 +370,16 @@ const game = {
         return randomPoint;
       }
     }
+  },
+
+  changeButton(text, isDisable = false) {
+    let buttonElement = document.getElementById('playOrStopButton');
+    buttonElement.textContent = text;
+
+    if (isDisable) {
+      buttonElement.classList.add('finish');
+    }
+
   }
 
 };
