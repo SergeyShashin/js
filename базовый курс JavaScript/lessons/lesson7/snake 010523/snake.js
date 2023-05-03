@@ -183,8 +183,20 @@ const snake = {
   /** 
    * @returns {String} Возвращает направление змейки
    */
-  getDirrection() {
+  getDirection() {
     return this.direction
+  },
+
+  setDirection(direction) {
+    this.direction = direction
+  },
+
+  getLastDirection() {
+    return this.lastDirection
+  },
+
+  setLastDirection(direction) {
+    this.lastDirection = direction
   },
 
   /**
@@ -212,7 +224,6 @@ const snake = {
     this.body.push(nextHeadPoint);
     this.body.pop();
   }
-
 
 };
 
@@ -341,7 +352,6 @@ const game = {
       }
       this.snake.makeStep();
       this.render();
-      console.log('го');
     }, 1000 / this.config.getSpeed());
   },
 
@@ -375,7 +385,34 @@ const game = {
   },
 
   keyDownHandler(e) {
-    // console.log(e);
+    console.log(e.code);
+    switch (e.code) {
+      case 'ArrowUP':
+        console.log(this.canSetDirection('up'));
+        if (this.canSetDirection('up')) {
+          this.snake.setLastDirection(this.snake.getDirection());
+          this.snake.setDirection('up');
+        }
+        break;
+      case 'ArrowDown':
+        if (this.canSetDirection('down')) {
+          this.snake.setLastDirection(this.snake.getDirection());
+          this.snake.setDirection('down');
+        }
+        break;
+      case 'ArrowRight':
+        if (this.canSetDirection('right')) {
+          this.snake.setLastDirection(this.snake.getDirection());
+          this.snake.setDirection('right');
+        }
+        break;
+      case 'ArrowLeft':
+        if (this.canSetDirection('left')) {
+          this.snake.setLastDirection(this.snake.getDirection());
+          this.snake.setDirection('left');
+        }
+        break;
+    }
   },
 
   /** 
@@ -421,15 +458,26 @@ const game = {
     }
   },
 
+  /**
+   * Контролирует границы поля
+   * @param {Object} nextHeadPoint Следующая точка головы змейки 
+   * @returns {boolean} Возращает true, если можно сделать ход
+   */
   canMakeStep(nextHeadPoint) {
-    
     console.log(nextHeadPoint);
-
-
     return nextHeadPoint.x >= 0 &&
       nextHeadPoint.y >= 0 &&
       nextHeadPoint.x < this.config.getColsCount() &&
       nextHeadPoint.y < this.config.getRowsCount()
+  },
+
+  canSetDirection(direction) {
+    return true
+    // return direction === 'up' && this.snake.lastDirection !== 'down' 
+    // // ||
+      // direction === 'down' && this.snake.lastDirection !== 'up' ||
+      // direction === 'left' && this.snake.lastDirection !== 'right' ||
+      // direction === 'right' && this.snake.lastDirection !== 'left'
   }
 
 };
