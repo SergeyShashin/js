@@ -109,6 +109,16 @@ const map = {
     }
   },
 
+  render(snakeBody, foodCoordinates) {
+    this.usedCells = [];
+    for (const cell in this.cells) {
+      this.cells[cell].className='cell';
+    }
+
+    this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className='food';
+
+  },
+
   /**
    * 
    * @returns Возвращает объект со всеми ячейками игрового поля
@@ -208,6 +218,7 @@ const game = {
   snake,
   food,
   statusGame,
+  interval: null,
 
   /**
    * Инициализация игры
@@ -224,9 +235,31 @@ const game = {
     map.init(this.config.getRowsCount(), this.config.getColsCount());
 
     this.snake.init(this.getStartPositionSnake(), 'up');
-    
+
     this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
 
+    this.setEventHandlers();
+
+    this.reset();
+
+  },
+
+  /**
+   * Стартовое состояние игры
+   */
+  reset() {
+    this.map.render(this.snake.getBody(), this.food.getFoodCoordinates());
+
+  },
+
+  stop() { },
+  play() { },
+  finish() { },
+
+  /**
+   *Устанавливает слушатели событий 
+   */
+  setEventHandlers() {
 
   },
 
@@ -249,8 +282,8 @@ const game = {
 
     while (true) {
       const randomPoint = {
-        x: Math.round(Math.random() * this.config.getRowsCount()),
-        y: Math.round(Math.random() * this.config.getColsCount())
+        x: Math.floor(Math.random() * this.config.getRowsCount()),
+        y: Math.floor(Math.random() * this.config.getColsCount())
       };
 
       let usedCels = [this.food.getFoodCoordinates(), ...this.snake.getBody()];
