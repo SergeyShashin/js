@@ -213,12 +213,12 @@ const snake = {
       case 'right':
         return { x: head.x++, y: head.y }
       case 'left':
-        return { x: head.x++, y: head.y }
+        return { x: head.x--, y: head.y }
     }
   },
 
   /**
-   * Змейа делает шаг
+   * Змейка делает шаг
    */
   makeStep(nextHeadPoint) {
     this.body.push(nextHeadPoint);
@@ -387,32 +387,24 @@ const game = {
   keyDownHandler(e) {
     console.log(e.code);
     switch (e.code) {
-      case 'ArrowUP':
-        console.log(this.canSetDirection('up'));
-        if (this.canSetDirection('up')) {
-          this.snake.setLastDirection(this.snake.getDirection());
-          this.snake.setDirection('up');
-        }
+      case 'ArrowUp':
+        this.snake.lastDirection = this.snake.getDirection();
+        this.snake.direction = 'up';
         break;
       case 'ArrowDown':
-        if (this.canSetDirection('down')) {
-          this.snake.setLastDirection(this.snake.getDirection());
-          this.snake.setDirection('down');
-        }
+        this.snake.lastDirection = this.snake.getDirection();
+        this.snake.direction = 'down';
         break;
       case 'ArrowRight':
-        if (this.canSetDirection('right')) {
-          this.snake.setLastDirection(this.snake.getDirection());
-          this.snake.setDirection('right');
-        }
+        this.snake.lastDirection = this.snake.getDirection();
+        this.snake.direction = 'right';
         break;
       case 'ArrowLeft':
-        if (this.canSetDirection('left')) {
-          this.snake.setLastDirection(this.snake.getDirection());
-          this.snake.setDirection('left');
-        }
+        this.snake.lastDirection = this.snake.getDirection();
+        this.snake.direction = 'left';
         break;
     }
+    this.render();
   },
 
   /** 
@@ -464,21 +456,11 @@ const game = {
    * @returns {boolean} Возращает true, если можно сделать ход
    */
   canMakeStep(nextHeadPoint) {
-    console.log(nextHeadPoint);
-    return nextHeadPoint.x >= 0 &&
-      nextHeadPoint.y >= 0 &&
+    return nextHeadPoint.x > 0 &&
+      nextHeadPoint.y > 0 &&
       nextHeadPoint.x < this.config.getColsCount() &&
       nextHeadPoint.y < this.config.getRowsCount()
   },
-
-  canSetDirection(direction) {
-    return true
-    // return direction === 'up' && this.snake.lastDirection !== 'down' 
-    // // ||
-      // direction === 'down' && this.snake.lastDirection !== 'up' ||
-      // direction === 'left' && this.snake.lastDirection !== 'right' ||
-      // direction === 'right' && this.snake.lastDirection !== 'left'
-  }
 
 };
 
