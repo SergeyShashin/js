@@ -4,9 +4,9 @@
  * @type {Object} Настройки игры
  */
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
-  speed: 5,
+  rowsCount: 20,
+  colsCount: 20,
+  speed: 9,
   winFoodCount: 5
 };
 
@@ -187,6 +187,33 @@ const snake = {
     return this.direction
   },
 
+  /**
+   * 
+   * @returns {Object} Возвращает следующую позицию головы змейки
+   */
+  getNextPosition() {
+    let head = this.body[0];
+    switch (this.direction) {
+      case 'up':
+        return { x: head.x, y: head.y-- }
+      case 'down':
+        return { x: head.x, y: head.y++ }
+      case 'right':
+        return { x: head.x++, y: head.y }
+      case 'left':
+        return { x: head.x++, y: head.y }
+    }
+  },
+
+  /**
+   * Змейа делает шаг
+   */
+  makeStep(nextHeadPoint) {
+    this.body.push(nextHeadPoint);
+    this.body.pop();
+  }
+
+
 };
 
 /**
@@ -282,7 +309,6 @@ const game = {
    * Стартовое состояние игры
    */
   reset() {
-    // this.stop();
     this.render();
   },
 
@@ -290,7 +316,7 @@ const game = {
    * Перересовывает карту
    */
   render() {
-    this.map.render(this.snake.getBody(), this.getRandomFreeCoordinates());
+    this.map.render(this.snake.getBody(), this.food.getFoodCoordinates());
   },
 
   /**
@@ -309,9 +335,12 @@ const game = {
     this.statusGame.setPlay();
     this.changeButton('Stop');
     this.interval = setInterval(() => {
-      // if (!this.canMakeStep()) {
-      //   this.finish();
-      // }
+      if (!this.canMakeStep(this.snake.getNextPosition())) {
+        this.finish();
+        return
+      }
+      this.snake.makeStep();
+      this.render();
       console.log('го');
     }, 1000 / this.config.getSpeed());
   },
@@ -325,7 +354,7 @@ const game = {
   },
 
   /**
-   *Устанавливает слушатели событий 
+   *Устанавливает слушателей событий 
    */
   setEventHandlers() {
     document.getElementById('playOrStopButton').addEventListener('click', (e) => {
@@ -341,6 +370,12 @@ const game = {
       console.log('Клик новая игра.');
       this.reset();
     });
+
+    document.addEventListener('keydown', (e) => this.keyDownHandler(e));
+  },
+
+  keyDownHandler(e) {
+    // console.log(e);
   },
 
   /** 
@@ -372,6 +407,11 @@ const game = {
     }
   },
 
+  /**
+   * Меняет текст и цвет кнопки PLAY или STOP
+   * @param {String} text Текст кнопки
+   * @param {Boolean} isDisable Состояние кнопки
+   */
   changeButton(text, isDisable = false) {
     let buttonElement = document.getElementById('playOrStopButton');
     buttonElement.textContent = text;
@@ -379,7 +419,17 @@ const game = {
     if (isDisable) {
       buttonElement.classList.add('finish');
     }
+  },
 
+  canMakeStep(nextHeadPoint) {
+    
+    console.log(nextHeadPoint);
+
+
+    return nextHeadPoint.x >= 0 &&
+      nextHeadPoint.y >= 0 &&
+      nextHeadPoint.x < this.config.getColsCount() &&
+      nextHeadPoint.y < this.config.getRowsCount()
   }
 
 };
