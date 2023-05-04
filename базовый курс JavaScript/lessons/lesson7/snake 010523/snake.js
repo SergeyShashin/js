@@ -88,8 +88,8 @@ const config = {
  * @type {Object} Карта
  */
 const map = {
-  cells: {},
-  usedCells: [],
+  cells: null,
+  usedCells: null,
   gameElement: null,
 
   /**
@@ -98,9 +98,11 @@ const map = {
   init(rowsCount, colsCount) {
     this.gameElement = document.getElementById('snake-game');
     this.gameElement.innerHTML = '';
-    for (let row = 0; row <= rowsCount; row++) {
+    this.cells = {};
+    this.usedCells = [];
+    for (let row = 0; row < rowsCount; row++) {
       let tr = document.createElement('tr');
-      for (let col = 0; col <= colsCount; col++) {
+      for (let col = 0; col < colsCount; col++) {
         let td = document.createElement('td');
         tr.appendChild(td);
         this.cells[`x${col}_y${row}`] = td;
@@ -115,20 +117,21 @@ const map = {
    * @param {Object} foodCoordinates
    */
   render(snakeBody, foodCoordinates) {
-    this.usedCells = [];
-    for (const cell in this.cells) {
-      this.cells[cell].className = 'cell';
+    for (const cell of this.usedCells) {
+      cell.className = 'cell';
     }
 
+    this.usedCells = [];
+    
     this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className = 'food';
-    this.usedCells.push(foodCoordinates);
+    this.usedCells.push(this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`]);
 
     for (let i = 0; i < snakeBody.length; i++) {
       i === 0 ? this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-head'
         : this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-body';
-    }    
+        this.usedCells.push(this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`]);
+    }
 
-    this.usedCells.push(...snakeBody);
   },
 
   /**
@@ -231,14 +234,14 @@ const snake = {
    * @param {Object} nextPosition 
    */
   growUp(nextPosition) {
-    this.body.push(nextPosition);
+    this.body.push(this.getNextPosition());
   },
 
   /**
    * Змейка делает шаг
    */
   makeStep(nextPosition) {
-    this.body.push(nextPosition);
+    this.body.unshift(this.getNextPosition());
     this.body.pop();
   },
 
@@ -452,8 +455,8 @@ const game = {
    */
   getStartPositionSnake() {
     return {
-      x: Math.round(this.config.getColsCount() / 2),
-      y: Math.round(this.config.getRowsCount() / 2)
+      x: Math.floor(this.config.getColsCount() / 2),
+      y: Math.floor(this.config.getRowsCount() / 2)
     }
   },
 
