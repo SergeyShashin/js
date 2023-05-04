@@ -126,7 +126,7 @@ const map = {
     for (let i = 0; i < snakeBody.length; i++) {
       i === 0 ? this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-head'
         : this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-body';
-    }
+    }    
 
     this.usedCells.push(...snakeBody);
   },
@@ -168,8 +168,7 @@ const snake = {
    * @param {String} direction Стартовое направление змейки
    */
   init(startPosition, direction) {
-    this.body=[];
-    this.body.push(startPosition);
+    this.body = [startPosition];
     this.direction = direction;
     this.lastDirection = direction;
   },
@@ -188,20 +187,29 @@ const snake = {
     return this.direction
   },
 
+  /** 
+   * @param {String} direction Устанавливает направление змейки
+   */
   setDirection(direction) {
     this.direction = direction
   },
 
+  /** 
+   * @returns {String} Возвращает последнее направление змейки
+   */
   getLastDirection() {
     return this.lastDirection
   },
 
+
+  /** 
+   * @returns {String} Устанавливает последнее направление змейки
+   */
   setLastDirection(direction) {
     this.lastDirection = direction
   },
 
-  /**
-   * 
+  /** 
    * @returns {Object} Возвращает следующую позицию головы змейки
    */
   getNextPosition() {
@@ -219,12 +227,20 @@ const snake = {
   },
 
   /**
+   * Увеличение размеров змейки
+   * @param {Object} nextPosition 
+   */
+  growUp(nextPosition) {
+    this.body.push(nextPosition);
+  },
+
+  /**
    * Змейка делает шаг
    */
-  makeStep(nextHeadPoint) {
-    this.body.push(nextHeadPoint);
+  makeStep(nextPosition) {
+    this.body.push(nextPosition);
     this.body.pop();
-  }
+  },
 
 };
 
@@ -237,7 +253,7 @@ const food = {
 
   /**
    * 
-   * @param {*} startPosition 
+   * @param {Object} startPosition 
    */
   setFoodCoordinates(startPosition) {
     this.x = startPosition.x;
@@ -344,11 +360,18 @@ const game = {
     this.statusGame.setPlay();
     this.changeButton('Stop');
     this.interval = setInterval(() => {
-      if (!this.canMakeStep(this.snake.getNextPosition())) {
+      let nextPosition = this.snake.getNextPosition();
+      let foodPosition = this.food.getFoodCoordinates();
+      if (!this.canMakeStep(nextPosition)) {
         this.finish();
         return
       }
-      this.snake.makeStep();
+      this.snake.makeStep(nextPosition);
+      if (nextPosition.x === foodPosition.x && nextPosition.y === foodPosition.y) {
+        this.snake.growUp(nextPosition);
+        console.log('змейка расти');
+        this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
+      }
       this.render();
     }, 1000 / this.config.getSpeed());
   },
@@ -438,7 +461,6 @@ const game = {
    * @returns {Object} Возвращает объект со свободными x и y
    */
   getRandomFreeCoordinates() {
-
     while (true) {
       const randomPoint = {
         x: Math.floor(Math.random() * this.config.getRowsCount()),
@@ -464,7 +486,7 @@ const game = {
 
     if (isDisable) {
       buttonElement.classList.add('finish');
-    }else{
+    } else {
       buttonElement.classList.remove('finish');
     }
   },
