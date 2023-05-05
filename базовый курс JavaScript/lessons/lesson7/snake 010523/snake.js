@@ -234,14 +234,14 @@ const snake = {
    * @param {Object} nextPosition 
    */
   growUp(nextPosition) {
-    this.body.push(this.getNextPosition());
+    this.body.push(nextPosition);
   },
 
   /**
    * Змейка делает шаг
    */
   makeStep(nextPosition) {
-    this.body.unshift(this.getNextPosition());
+    this.body.push(nextPosition);
     this.body.pop();
   },
 
@@ -500,10 +500,11 @@ const game = {
    * @returns {boolean} Возращает true, если можно сделать ход
    */
   canMakeStep(nextHeadPoint) {
+    console.log(nextHeadPoint);
     return nextHeadPoint.x > 0 &&
       nextHeadPoint.y > 0 &&
-      nextHeadPoint.x < this.config.getColsCount() &&
-      nextHeadPoint.y < this.config.getRowsCount()
+      nextHeadPoint.x < this.config.getColsCount()-1 &&
+      nextHeadPoint.y < this.config.getRowsCount()-1
   },
 
 };
