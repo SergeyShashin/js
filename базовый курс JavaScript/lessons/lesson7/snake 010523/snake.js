@@ -127,12 +127,11 @@ const map = {
     foodElement.className = 'food';
     this.usedCells.push(foodElement);
 
-    for (let i = 0; i < snakeBody.length; i++) {
-      let snakeElement = this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`];
-      i === 0 ? snakeElement.className = 'snake-head'
-        : snakeElement.className = 'snake-body';
+    snakeBody.forEach((snakePoint, idx) => {
+      let snakeElement = this.cells[`x${snakePoint.x}_y${snakePoint.y}`];
+      idx === 0 ? snakeElement.className = 'snake-head' : snakeElement.className = 'snake-body';
       this.usedCells.push(snakeElement);
-    }
+    });
 
   },
 
@@ -206,7 +205,6 @@ const snake = {
     return this.lastDirection
   },
 
-
   /** 
    * @returns {String} Устанавливает последнее направление змейки
    */
@@ -243,7 +241,7 @@ const snake = {
    * Змейка делает шаг
    */
   makeStep(nextPosition) {
-    this.body.push(nextPosition);
+    this.body.unshift(this.getNextPosition());
     this.body.pop();
   },
 
@@ -368,12 +366,12 @@ const game = {
       let nextPosition = this.snake.getNextPosition();
       let foodPosition = this.food.getFoodCoordinates();
       if (this.canMakeStep(nextPosition)) {
-        this.snake.makeStep(nextPosition);
         if (this.isNextStepOnFood(nextPosition, foodPosition)) {
           this.snake.growUp(nextPosition);
           console.log('змейка расти');
           this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
         }
+        this.snake.makeStep(nextPosition);
         this.render();
       } else {
         this.finish();
@@ -414,7 +412,6 @@ const game = {
       this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
       this.render();
       this.play();
-
     });
 
     document.addEventListener('keydown', (e) => this.keyDownHandler(e));
@@ -477,9 +474,9 @@ const game = {
         y: Math.floor(Math.random() * this.config.getColsCount())
       };
 
-      let usedCels = [this.food.getFoodCoordinates(), ...this.snake.getBody()];
+      let usedCells = [this.food.getFoodCoordinates(), ...this.snake.getBody()];
 
-      if (!usedCels.some(usedPoint => usedPoint.x === randomPoint.x && usedPoint.y === randomPoint.y)) {
+      if (!usedCells.some(usedPoint => usedPoint.x === randomPoint.x && usedPoint.y === randomPoint.y)) {
         return randomPoint;
       }
     }
