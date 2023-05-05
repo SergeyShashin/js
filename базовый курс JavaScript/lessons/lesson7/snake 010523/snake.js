@@ -240,7 +240,7 @@ const snake = {
   /**
    * Змейка делает шаг
    */
-  makeStep(nextPosition) {
+  makeStep() {
     this.body.unshift(this.getNextPosition());
     this.body.pop();
   },
@@ -368,10 +368,9 @@ const game = {
       if (this.canMakeStep(nextPosition)) {
         if (this.isNextStepOnFood(nextPosition, foodPosition)) {
           this.snake.growUp(nextPosition);
-          console.log('змейка расти');
           this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
         }
-        this.snake.makeStep(nextPosition);
+        this.snake.makeStep();
         this.render();
       } else {
         this.finish();
