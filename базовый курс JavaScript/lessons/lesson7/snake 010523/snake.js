@@ -123,13 +123,15 @@ const map = {
 
     this.usedCells = [];
 
-    this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className = 'food';
-    this.usedCells.push(this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`]);
+    let foodElement = this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`];
+    foodElement.className = 'food';
+    this.usedCells.push(foodElement);
 
     for (let i = 0; i < snakeBody.length; i++) {
-      i === 0 ? this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-head'
-        : this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-body';
-      this.usedCells.push(this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`]);
+      let snakeElement = this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`];
+      i === 0 ? snakeElement.className = 'snake-head'
+        : snakeElement.className = 'snake-body';
+      this.usedCells.push(snakeElement);
     }
 
   },
@@ -400,7 +402,7 @@ const game = {
     document.getElementById('playOrStopButton').addEventListener('click', (e) => {
       if (this.statusGame.isPlaying()) {
         this.stop();
-      } else {
+      } else if (this.statusGame.isStoped()) {
         this.play();
       }
     });
@@ -507,8 +509,8 @@ const game = {
   canMakeStep(nextHeadPoint) {
     return nextHeadPoint.x >= 0 &&
       nextHeadPoint.y >= 0 &&
-      nextHeadPoint.x-1 < this.config.getColsCount() &&
-      nextHeadPoint.y-1 < this.config.getRowsCount()
+      nextHeadPoint.x - 1 < this.config.getColsCount() &&
+      nextHeadPoint.y - 1 < this.config.getRowsCount()
   },
 
 };
