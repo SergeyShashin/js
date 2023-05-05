@@ -122,14 +122,14 @@ const map = {
     }
 
     this.usedCells = [];
-    
+
     this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`].className = 'food';
     this.usedCells.push(this.cells[`x${foodCoordinates.x}_y${foodCoordinates.y}`]);
 
     for (let i = 0; i < snakeBody.length; i++) {
       i === 0 ? this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-head'
         : this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`].className = 'snake-body';
-        this.usedCells.push(this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`]);
+      this.usedCells.push(this.cells[`x${snakeBody[i].x}_y${snakeBody[i].y}`]);
     }
 
   },
@@ -365,18 +365,23 @@ const game = {
     this.interval = setInterval(() => {
       let nextPosition = this.snake.getNextPosition();
       let foodPosition = this.food.getFoodCoordinates();
-      if (!this.canMakeStep(nextPosition)) {
+      if (this.canMakeStep(nextPosition)) {
+        this.snake.makeStep(nextPosition);
+        if (this.isNextStepOnFood(nextPosition, foodPosition)) {
+          this.snake.growUp(nextPosition);
+          console.log('змейка расти');
+          this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
+        }
+        this.render();
+      } else {
         this.finish();
         return
       }
-      this.snake.makeStep(nextPosition);
-      if (nextPosition.x === foodPosition.x && nextPosition.y === foodPosition.y) {
-        this.snake.growUp(nextPosition);
-        console.log('змейка расти');
-        this.food.setFoodCoordinates(this.getRandomFreeCoordinates());
-      }
-      this.render();
     }, 1000 / this.config.getSpeed());
+  },
+
+  isNextStepOnFood(nextPosition, foodPosition) {
+    return nextPosition.x === foodPosition.x && nextPosition.y === foodPosition.y
   },
 
   /**
@@ -500,11 +505,10 @@ const game = {
    * @returns {boolean} Возращает true, если можно сделать ход
    */
   canMakeStep(nextHeadPoint) {
-    console.log(nextHeadPoint);
-    return nextHeadPoint.x > 0 &&
-      nextHeadPoint.y > 0 &&
-      nextHeadPoint.x < this.config.getColsCount()-1 &&
-      nextHeadPoint.y < this.config.getRowsCount()-1
+    return nextHeadPoint.x >= 0 &&
+      nextHeadPoint.y >= 0 &&
+      nextHeadPoint.x-1 < this.config.getColsCount() &&
+      nextHeadPoint.y-1 < this.config.getRowsCount()
   },
 
 };
