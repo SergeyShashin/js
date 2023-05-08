@@ -1,3 +1,4 @@
+// 1. Улучшить базовый класс, добавив в него общий для всех метод remove(), который удаляет контейнер.
 
 function Container(idParam, classNameParam) {
   this.idParam = idParam;
@@ -9,6 +10,10 @@ Container.prototype.render = function () {
   div.id = this.idParam;
   div.className = this.classNameParam;
   return div;
+}
+
+Container.prototype.remove = function () {
+  document.getElementById(this.idParam).remove();
 }
 
 function Menu(idParam, classNameParam, items) {

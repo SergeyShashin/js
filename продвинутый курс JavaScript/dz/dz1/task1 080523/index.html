@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Menu</title>
+</head>
+
+<body>
+
+  <script src="menu.js"></script>
+
+  <script>
+    window.onload = function () {
+      var menu = new Menu('idMenu', 'classMenu', [
+        new ItemsMenu('/', 'Home'),
+        new ItemsMenu('/Page1', 'Page1'),
+        new ItemsMenu('/Page2', 'Page2'),
+      ]);
+      document.body.appendChild(menu.render());
+
+      setTimeout(function () {
+        menu.remove(prompt('Для удаления этого меню введите idMenu'));
+      }, 1000);
+
+    }
+
+
+  </script>
+</body>
+
+</html>
