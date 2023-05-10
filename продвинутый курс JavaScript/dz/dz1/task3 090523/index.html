@@ -1,21 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Burger</title>
 </head>
+
 <body>
-  <form action="#" id="orderBurger">
-    <label for="">Размер гамбургера</label> <br>
-      <select name="" id="">
-        <option value="">маленький (50 рублей, 20 калорий)</option>
-        <option value="">большой (100 рублей, 40 калорий)</option>
+  <h2>Заказ гамбургера</h2>
+  <form action="Post" id="orderBurger">
+    <fieldset>
+      <legend>Размер</legend>
+      <select name="" id="size">
+        <option id='small' value="SIZE_SMALL">маленький (50 рублей, 20 калорий)</option>
+        <option id='big' value="SIZE_BIG">большой (100 рублей, 40 калорий)</option>
       </select>
-  
+    </fieldset>
+    <fieldset>
+      <legend>Начинки</legend>
+      <label for="cheese"><input id="cheese" type="radio">- сыр (+ 10 рублей, + 20 калорий)</label> <br>
+      <label for="salad"><input id="salad" type="radio">- салат (+ 20 рублей, + 5 калорий)</label> <br>
+      <label for="potato"><input id="potato" type="radio">- картофель (+ 15 рублей, + 10 калорий)</label> <br>
+      <label for="spice"><input id='spice' type="checkbox">- приправа (+ 15 рублей, 0 калорий)</label> <br>
+      <label for="mayonnaise"><input id='mayonnaise' type="checkbox">- полить майонезом (+ 20 рублей, + 5
+        калорий)</label> <br>
+    </fieldset>
+    <br>
+    <input id="send" type="submit" value="Отправить">
+    <input type="reset" value="Очистить">
   </form>
 
   <script src="burger.js"></script>
+  <script>
+
+    var burgerForm = {
+      sizeElement: null,
+      smallElement: null,
+      bigElement: null,
+      cheeseElement: null,
+      saladElement: null,
+      potatoElement: null,
+      spiceElement: null,
+      mayonnaiseElement: null,
+      init() {
+        this.sizeElement = document.getElementById('size');
+        this.smallElement = document.getElementById('small');
+        this.bigElement = document.getElementById('big');
+        this.cheeseElement = document.getElementById('cheese');
+        this.saladElement = document.getElementById('salad');
+        this.potatoElement = document.getElementById('potato');
+        this.spiceElement = document.getElementById('spice');
+        this.mayonnaiseElement = document.getElementById('mayonnaise');
+
+        this.setEventHandlers();
+      },
+
+      setEventHandlers() {
+        // console.log(this.saladElement);
+        var newBurger = new Hamburger(this.sizeElement.value);
+        console.log(newBurger.getCost());
+        console.log(newBurger.getCalories());
+      }
+
+    }
+
+
+    document.getElementById('send').addEventListener('click', function (event) {
+      event.preventDefault();
+      burgerForm.init();
+
+    });
+
+  </script>
+
 </body>
+
 </html>
