@@ -16,19 +16,48 @@
 function Hamburger(size, stuffing) {
   this.cost = 0;
   this.calories = 0;
-  console.log('Новый гамбургер');
   switch (size) {
     case 'SIZE_SMALL':
       this.cost += 50;
       this.calories += 20;
+      break;
+    case 'SIZE_BIG':
+      this.cost += 100;
+      this.calories += 40;
+      break;
+  }
+
+  switch (stuffing) {
+    case 'STUFFING_CHEESE':
+      this.cost += 10;
+      this.calories += 20;
+      break;
+    case 'STUFFING_SALAD':
+      this.cost += 20;
+      this.calories += 5;
+      break;
+    case 'STUFFING_POTATO':
+      this.cost += 15;
+      this.calories += 10;
+      break;
   }
 }
 
-Hamburger.prototype.getCost = function(){
+Hamburger.prototype.getCost = function () {
   return this.cost;
 }
-Hamburger.prototype.getCalories = function(){
+
+Hamburger.prototype.getCalories = function () {
   return this.calories;
+}
+
+Hamburger.prototype.addSpice = function () {
+  this.cost += 15;
+}
+
+Hamburger.prototype.addMayonnaise = function () {
+  this.cost += 20;
+  this.calories += 5;
 }
 
 var HAMBURGER_SIZE_SMAll = 0;

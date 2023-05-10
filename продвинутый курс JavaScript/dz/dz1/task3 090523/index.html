@@ -20,9 +20,11 @@
     </fieldset>
     <fieldset>
       <legend>Начинки</legend>
-      <label for="cheese"><input id="cheese" type="radio">- сыр (+ 10 рублей, + 20 калорий)</label> <br>
-      <label for="salad"><input id="salad" type="radio">- салат (+ 20 рублей, + 5 калорий)</label> <br>
-      <label for="potato"><input id="potato" type="radio">- картофель (+ 15 рублей, + 10 калорий)</label> <br>
+      <label for="cheese"><input id="cheese" type="radio" name="stuffing">- сыр (+ 10 рублей, + 20 калорий)</label> <br>
+      <label for="salad"><input id="salad" type="radio" name="stuffing" checked>- салат (+ 20 рублей, + 5
+        калорий)</label> <br>
+      <label for="potato"><input id="potato" type="radio" name="stuffing">- картофель (+ 15 рублей, + 10
+        калорий)</label> <br>
       <label for="spice"><input id='spice' type="checkbox">- приправа (+ 15 рублей, 0 калорий)</label> <br>
       <label for="mayonnaise"><input id='mayonnaise' type="checkbox">- полить майонезом (+ 20 рублей, + 5
         калорий)</label> <br>
@@ -54,23 +56,37 @@
         this.spiceElement = document.getElementById('spice');
         this.mayonnaiseElement = document.getElementById('mayonnaise');
 
-        this.setEventHandlers();
+        this.handlersSend();
       },
 
-      setEventHandlers() {
-        // console.log(this.saladElement);
-        var newBurger = new Hamburger(this.sizeElement.value);
-        console.log(newBurger.getCost());
-        console.log(newBurger.getCalories());
+      handlersSend() {
+        var size = this.sizeElement.value;
+        var stuffing = 'STUFFING_SALAD';
+
+        if (this.cheeseElement.checked) {
+          stuffing = 'STUFFING_CHEESE';
+        } else if (this.potatoElement.checked) {
+          stuffing = 'STUFFING_POTATO';
+        }
+
+        var newBurger = new Hamburger(size, stuffing);
+
+        if (this.spiceElement.checked) {
+          newBurger.addSpice();
+        }
+
+        if (this.mayonnaiseElement.checked) {
+          newBurger.addMayonnaise();
+        }
+
+        console.log(`Стоимость ${newBurger.getCost()}, калорийность ${newBurger.getCalories()}.`);
       }
 
     }
 
-
     document.getElementById('send').addEventListener('click', function (event) {
       event.preventDefault();
       burgerForm.init();
-
     });
 
   </script>
