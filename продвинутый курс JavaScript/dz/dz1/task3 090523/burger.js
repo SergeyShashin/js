@@ -59,9 +59,3 @@ Hamburger.prototype.addMayonnaise = function () {
   this.cost += 20;
   this.calories += 5;
 }
-
-var HAMBURGER_SIZE_SMAll = 0;
-var HAMBURGER_SIZE_BIG = 1;
-var STUFFING_CHEESE = 2;
-var STUFFING_SALAD = 3;
-var STUFFING_POTATO = 4;

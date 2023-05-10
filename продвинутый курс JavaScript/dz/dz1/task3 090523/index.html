@@ -34,6 +34,8 @@
     <input type="reset" value="Очистить">
   </form>
 
+  <h2 id="result"></h2>
+
   <script src="burger.js"></script>
   <script>
 
@@ -46,6 +48,8 @@
       potatoElement: null,
       spiceElement: null,
       mayonnaiseElement: null,
+      resultElement: null,
+
       init() {
         this.sizeElement = document.getElementById('size');
         this.smallElement = document.getElementById('small');
@@ -55,6 +59,7 @@
         this.potatoElement = document.getElementById('potato');
         this.spiceElement = document.getElementById('spice');
         this.mayonnaiseElement = document.getElementById('mayonnaise');
+        this.resultElement = document.getElementById('result');
 
         this.handlersSend();
       },
@@ -79,7 +84,8 @@
           newBurger.addMayonnaise();
         }
 
-        console.log(`Стоимость ${newBurger.getCost()}, калорийность ${newBurger.getCalories()}.`);
+        console.log(`Стоимость ${newBurger.getCost()} рублей, калорийность ${newBurger.getCalories()}.`);
+        this.resultElement.textContent = `Стоимость ${newBurger.getCost()} рублей, калорийность ${newBurger.getCalories()}.`;
       }
 
     }
