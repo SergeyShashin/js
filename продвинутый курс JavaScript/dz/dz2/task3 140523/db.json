@@ -1,0 +1,28 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "imgName": "1.jpg",
+      "imgPathMin": "img/min/1.jpg",
+      "imgPathMax": "img/max/1.jpg"
+    },
+    {
+      "id": 2,
+      "imgName": "2.jpg",
+      "imgPathMin": "img/min/2.jpg",
+      "imgPathMax": "img/max/2.jpg"
+    },
+    {
+      "id": 3,
+      "imgName": "3.jpg",
+      "imgPathMin": "img/min/3.jpg",
+      "imgPathMax": "img/max/3.jpg"
+    },
+    {
+      "id": 4,
+      "imgName": "4.jpg",
+      "imgPathMin": "img/min/4.jpg",
+      "imgPathMax": "img/max/4.jpg"
+    }
+  ]
+}
