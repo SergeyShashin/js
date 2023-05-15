@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    fieldset {
+      border: 1px solid lightskyblue;
+    }
+
+    input,
+    textarea {
+      border: none;
+      border-bottom: 1px solid lightskyblue;
+    }
+
+    .error {
+      border-bottom: 1px solid darkred;
+    }
+
+    .ok {
+      border-bottom: 1px solid lightgreen;
+    }
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="#" method="post">
+    <fieldset>
+      <legend>Контактные данные</legend>
+      <label for="name"><input id='name' type="text"> Имя</label>
+      <br>
+      <br>
+      <label for="phone"><input id='phone' type="text" placeholder="+7(000)000-0000"> Телефон</label>
+      <br>
+      <br>
+      <label for="email"><input id='email' type="text" placeholder="my-mail@mail.ru"> Емейл</label>
+      <br>
+      <br>
+      <label for="email"></label><textarea id='text' type="text"></textarea> Комментарий</label>
+    </fieldset>
+    <br>
+    <input type="reset" value="Очистить">
+    <br>
+    <br>
+    <input id='send' type="submit" value="Отправить">
+  </form>
+  <script src="formValidation.js"></script>
+</body>
+
+</html>
