@@ -8,7 +8,7 @@
 var btnEl= document.getElementById('btnSend');
 
 btnEl.addEventListener('click', function () {
-  var xhr = new XMLHttpRequest;
+  var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://localhost:3000/result');
   xhr.send();
   xhr.onreadystatechange = function () {
