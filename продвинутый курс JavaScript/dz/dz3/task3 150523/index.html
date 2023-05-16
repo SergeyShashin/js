@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+  <style> 
+
     fieldset {
       border: 1px solid lightskyblue;
     }
@@ -23,12 +24,13 @@
     .ok {
       border-bottom: 1px solid lightgreen;
     }
+
   </style>
   <title>Document</title>
 </head>
 
 <body>
-  <form action="#" method="post">
+  <form id='formContactData' action="#" method="post">
     <fieldset>
       <legend>Контактные данные</legend>
       <label for="name"><input id='name' type="text"> Имя</label>
@@ -43,11 +45,8 @@
       <label for="email"></label><textarea id='text' type="text"></textarea> Комментарий</label>
     </fieldset>
     <br>
-    <input type="reset" value="Очистить">
-    <br>
-    <br>
-    <input id='send' type="submit" value="Отправить">
   </form>
+    <input id='send' type="submit" value="Отправить">
   <script src="formValidation.js"></script>
 </body>
 
