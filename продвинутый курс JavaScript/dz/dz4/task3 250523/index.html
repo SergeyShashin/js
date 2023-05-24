@@ -1,15 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    select {
+      width: 20%;
+    }
+
+    #listTowns {
+      position: absolute;
+      border: 1px solid gainsboro;
+      border-top: none;
+      padding: 10px;
+    }
+
+    p{
+      margin: 0;
+      padding: 2px;
+    }
+
+    p:hover {
+      background: lightcyan;
+    }
+  </style>
   <title>Dz4. Task2</title>
 </head>
+
 <body>
-  <label for="citySelection">Список городов <input id="citySelection" type="text"></label>
+  <label for="citySelection"><input id="citySelection" type="text"> Список городов</label>
   <select name="towns" id="towns">
   </select>
   <script src="autocomplete.js"></script>
 </body>
+
 </html>

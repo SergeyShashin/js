@@ -9,8 +9,30 @@
 var townsElement = document.getElementById('towns');
 var towns = [];
 var citySelectionElement = document.getElementById('citySelection');
+var order = document.createElement('div');
+order.id = 'listTowns';
+order.addEventListener('click', (e) => handlerClick(e));
 
-console.log(citySelectionElement);
+citySelectionElement.addEventListener('input', function () {
+  var content = citySelectionElement.value;
+  var contentLength = content.length;
+
+  if (contentLength >= 3) {
+    document.body.appendChild(order);
+    order.innerHTML = '';
+    var regExp = new RegExp(content);
+    var filteredTowns = towns.filter(element => regExp.test(element));
+
+    filteredTowns.forEach(function (town, idx) {
+      var townElement = document.createElement('p');
+      townElement.textContent = town;
+      townElement.id = idx;
+      order.appendChild(townElement);
+    });
+
+  }
+
+});
 
 function loadData(callback) {
   var xhr = new XMLHttpRequest();
@@ -34,4 +56,11 @@ loadData(function callback(data) {
   });
 }
 );
+
+function handlerClick(e) {
+  if (e.target.tagName === 'P') {
+    citySelectionElement.value= e.target.textContent;
+    document.getElementById('listTowns').remove();
+  }
+}
 
