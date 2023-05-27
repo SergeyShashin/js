@@ -3,21 +3,23 @@
     {
       "id": 1,
       "name": "Трусы",
-      "price": 500,
+      "price": "500",
       "quantity": 0
     },
     {
       "id": 2,
       "name": "Джинсы",
-      "price": 3500,
+      "price": "3500",
       "quantity": 0
     },
     {
       "id": 3,
       "name": "Майка",
-      "price": 3000,
+      "price": "3000",
       "quantity": 0
     }
   ],
-  "cart": []
+  "cart": [
+   
+  ]
 }
