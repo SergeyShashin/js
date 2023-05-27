@@ -4,22 +4,20 @@
       "id": 1,
       "name": "Трусы",
       "price": "500",
-      "quantity": 0
+      "quantity": 6
     },
     {
       "id": 2,
       "name": "Джинсы",
       "price": "3500",
-      "quantity": 0
+      "quantity": 1
     },
     {
       "id": 3,
       "name": "Майка",
       "price": "3000",
-      "quantity": 0
+      "quantity": 2
     }
   ],
-  "cart": [
-   
-  ]
+  "cart": []
 }

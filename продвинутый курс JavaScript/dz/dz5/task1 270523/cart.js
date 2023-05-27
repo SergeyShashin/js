@@ -30,7 +30,7 @@ function btnBuyHandlerDelete(event) {
   }
 }
 
-function deleteFromCart(product){
+function deleteFromCart(product) {
   updateData('DELETE', 'http://localhost:3000/cart/' + product.id, product);
   buildCart();
 }
@@ -38,6 +38,7 @@ function deleteFromCart(product){
 function btnBuyHandler(event) {
   if (event.target.tagName === 'BUTTON') {
     var btnClick = event.target;
+    btnClick.dataset.quantity ++;
     var product = {
       id: btnClick.id,
       name: btnClick.dataset.name,
@@ -49,8 +50,7 @@ function btnBuyHandler(event) {
 }
 
 function addToCart(product) {
-  updateData('PATCH', 'http://localhost:3000/products/' + product.id, product); //не обновляет количество?
-  buildList();
+  updateData('PATCH', 'http://localhost:3000/cart/' + product.id, product);
   sendData('POST', 'http://localhost:3000/cart', product);
   buildCart();
 }
@@ -66,7 +66,6 @@ function updateData(method, url, product) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, url);
   xhr.setRequestHeader("Content-type", "application/json");
-  console.log(JSON.stringify(product));
   xhr.send(JSON.stringify(product));
 }
 
@@ -94,7 +93,6 @@ function buildList() {
       btnBuy.id = item.id;
       btnBuy.dataset.name = item.name;
       btnBuy.dataset.price = item.price;
-      btnBuy.dataset.quantity = item.quantity;
       productsListEl.appendChild(liEl);
       liEl.appendChild(btnBuy);
     });
