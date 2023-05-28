@@ -2,153 +2,65 @@
 
 //Модуль корзины. Добавление, удаление товаров.
 
-var productsListEl = document.getElementById('productsList');
-var cartEl = document.getElementById('cart');
-
-buildList();
-setHandlers();
-
-function setHandlers() {
-  productsListEl.addEventListener('click', function (event) {
-    return btnBuyHandler(event);
+function buildCart() {
+  $.ajax({
+    url: 'http://localhost:3000/cart',
+    dataType: 'json',
+    success: function (data) {
+      var $ul = $('<ul/>');
+      data.forEach(function (product) {
+        var $li = $('<li/>', {
+          text: product.name + ' ' + product.price + ' руб.',
+        });
+        var $btnDel = $('<button/>', {
+          text: 'X',
+          class: 'delete',
+          'data-id': product.id,
+          'data-name': product.name,
+          'data-price': product.price,
+        });
+        $ul.append($li);
+        $li.append($btnDel);
+      });
+      $('#cart').append($ul);
+    }
   });
-  cartEl.addEventListener('click', function (event) {
-    return btnBuyHandlerDelete(event);
-  });
-}
-
-function btnBuyHandlerDelete(event) {
-  if (event.target.tagName === 'BUTTON') {
-    var btnClick = event.target;
-    var product = {
-      id: btnClick.id,
-      name: btnClick.dataset.name,
-      price: btnClick.dataset.price,
-      quantity: btnClick.dataset.quantity--,
-    }
-    deleteFromCart(product);
-  }
-}
-
-function deleteFromCart(product) {
-  updateData('DELETE', 'http://localhost:3000/cart/' + product.id, product);
-  buildCart();
-}
-
-function btnBuyHandler(event) {
-  if (event.target.tagName === 'BUTTON') {
-    var btnClick = event.target;
-    btnClick.dataset.quantity ++;
-    var product = {
-      id: btnClick.id,
-      name: btnClick.dataset.name,
-      price: btnClick.dataset.price,
-      quantity: btnClick.dataset.quantity++,
-    }
-    addToCart(product);
-  }
-}
-
-function addToCart(product) {
-  updateData('PATCH', 'http://localhost:3000/cart/' + product.id, product);
-  sendData('POST', 'http://localhost:3000/cart', product);
-  buildCart();
-}
-
-function sendData(method, url, product) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url);
-  xhr.setRequestHeader("Content-type", "application/json");
-  xhr.send(JSON.stringify(product));
-}
-
-function updateData(method, url, product) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url);
-  xhr.setRequestHeader("Content-type", "application/json");
-  xhr.send(JSON.stringify(product));
-}
-
-function getData(method, url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open(method, url);
-  xhr.send();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        callback(JSON.parse(xhr.responseText));
-      }
-    }
-  }
 }
 
 function buildList() {
-  productsListEl.innerHTML = '';
-  getData('GET', 'http://localhost:3000/products', function (data) {
-    data.forEach(function (item) {
-      var liEl = document.createElement('li');
-      liEl.textContent = item.name + ' ' + item.price;
-      var btnBuy = document.createElement('button');
-      btnBuy.textContent = 'Купить';
-      btnBuy.id = item.id;
-      btnBuy.dataset.name = item.name;
-      btnBuy.dataset.price = item.price;
-      productsListEl.appendChild(liEl);
-      liEl.appendChild(btnBuy);
-    });
+  $.ajax({
+    url: 'http://localhost:3000/goods',
+    dataType: 'json',
+    success: function (data) {
+      var $ul = $('<ul/>');
+      data.forEach(function (product) {
+        var $li = $('<li/>', {
+          text: product.name + ' ' + product.price + ' руб.',
+        });
+        var $btnBuy = $('<button/>', {
+          text: 'Купить',
+          class: 'buy',
+          'data-id': product.id,
+          'data-name': product.name,
+          'data-price': product.price,
+        });
+        $ul.append($li);
+        $li.append($btnBuy);
+      });
+      $('#productsList').append($ul);
+    }
   });
+
 }
 
-function buildCart() {
-  cartEl.innerHTML = '';
-  getData('GET', 'http://localhost:3000/cart', function (data) {
-    data.forEach(function (item) {
-      var liEl = document.createElement('li');
-      liEl.textContent = item.name + ' ' + item.price + ' руб. ' + item.quantity + ' шт.';
-      var btnDelete = document.createElement('button');
-      btnDelete.textContent = 'X';
-      btnDelete.id = item.id;
-      btnDelete.dataset.name = item.name;
-      btnDelete.dataset.price = item.price;
-      btnDelete.dataset.quantity = item.quantity;
-      cartEl.appendChild(liEl);
-      liEl.appendChild(btnDelete);
-    });
+(function ($) {
+  $(function () {
+    buildCart();
+    buildList();
+    $('#productsList').on('click', '.buy', function(){
+      var id = $(this).attr('data-id');
+      var entity = $('#cart[""]')
+      console.log(id);
+    })
   });
-}
-
-// (
-//   function ($) {
-//     var productsListEl = document.getElementById('productsList');
-//     var cartEl = document.getElementById('cart');
-
-//     buildList();
-
-//     function getData(method, url, callback) {
-//       $.ajax({
-//         url: url,
-//         success: function(data){
-//           callback(data);
-//         }
-//       })
-//     }
-
-//     function buildList() {
-//       getData('GET', 'http://localhost:3000/products', function (data) {
-//         data.forEach(function (item) {
-//           var liEl = document.createElement('li');
-//           liEl.textContent = item.name + ' ' + item.price;
-//           var btnBuy = document.createElement('button');
-//           btnBuy.textContent = 'Купить';
-//           btnBuy.id = item.id;
-//           btnBuy.dataset.name = item.name;
-//           btnBuy.dataset.price = item.price;
-//           productsListEl.appendChild(liEl);
-//           liEl.appendChild(btnBuy);
-//         });
-//       });
-//     }
-
-
-//   }
-// )(jQuery);
+})(jQuery);
