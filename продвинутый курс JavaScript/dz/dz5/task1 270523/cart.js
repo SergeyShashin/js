@@ -3,14 +3,17 @@
 //Модуль корзины. Добавление, удаление товаров.
 
 function buildCart() {
+  $('#cart').empty();
+  var sum = 0;
   $.ajax({
     url: 'http://localhost:3000/cart',
     dataType: 'json',
     success: function (data) {
       var $ul = $('<ul/>');
+      var $h2 = $('<h2/>');
       data.forEach(function (product) {
         var $li = $('<li/>', {
-          text: product.name + ' ' + product.price + ' руб.',
+          text: product.name + ' ' + product.price + ' руб. ' + product.quantity + ' шт.',
         });
         var $btnDel = $('<button/>', {
           text: 'X',
@@ -18,11 +21,15 @@ function buildCart() {
           'data-id': product.id,
           'data-name': product.name,
           'data-price': product.price,
+          'data-quantity': product.quantity,
         });
+        sum += product.price * product.quantity;
         $ul.append($li);
         $li.append($btnDel);
+        $h2.text('Сумма: ' + sum + ' руб.');
       });
       $('#cart').append($ul);
+      $('#cart').append($h2);
     }
   });
 }
@@ -57,10 +64,81 @@ function buildList() {
   $(function () {
     buildCart();
     buildList();
-    $('#productsList').on('click', '.buy', function(){
+    $('#productsList').on('click', '.buy', function () {
       var id = $(this).attr('data-id');
-      var entity = $('#cart[""]')
-      console.log(id);
-    })
+      var entity = $('#cart [data-id="' + id + '"]');
+      console.log($(this).attr('data-quantity'));
+      if (entity.length) {
+        $.ajax({
+          url: 'http://localhost:3000/cart/' + id,
+          type: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            quantity: +$(entity).attr('data-quantity') + 1,
+          }),
+          success: function () {
+            buildCart();
+          }
+        });
+      } else {
+        $.ajax({
+          url: 'http://localhost:3000/cart',
+          type: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            id: id,
+            name: $(this).attr('data-name'),
+            price: $(this).attr('data-price'),
+            quantity: 1,
+          }),
+          success: function () {
+            buildCart();
+          }
+        });
+      }
+    });
   });
+
+  $('#productsList').on('click', '.delete', function () {
+    var id = $(this).attr('data-id');
+      var entity = $('#cart [data-id="' + id + '"]');
+      console.log($(this).attr('data-quantity'));
+      if (entity.length) {
+        $.ajax({
+          url: 'http://localhost:3000/cart/' + id,
+          type: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            quantity: +$(entity).attr('data-quantity') + 1,
+          }),
+          success: function () {
+            buildCart();
+          }
+        });
+      } else {
+        $.ajax({
+          url: 'http://localhost:3000/cart',
+          type: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          data: JSON.stringify({
+            id: id,
+            name: $(this).attr('data-name'),
+            price: $(this).attr('data-price'),
+            quantity: 1,
+          }),
+          success: function () {
+            buildCart();
+          }
+        });
+      }
+
+  })
 })(jQuery);
