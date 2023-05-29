@@ -103,11 +103,12 @@ function buildList() {
     });
   });
 
-  $('#productsList').on('click', '.delete', function () {
+  $('#cart').on('click', '.delete', function () {
     var id = $(this).attr('data-id');
       var entity = $('#cart [data-id="' + id + '"]');
-      console.log($(this).attr('data-quantity'));
-      if (entity.length) {
+      var quantityInBtn = $(this).attr('data-quantity');
+      console.log(quantityInBtn);
+      if (quantityInBtn>1) {
         $.ajax({
           url: 'http://localhost:3000/cart/' + id,
           type: 'PATCH',
@@ -115,7 +116,7 @@ function buildList() {
             'content-type': 'application/json',
           },
           data: JSON.stringify({
-            quantity: +$(entity).attr('data-quantity') + 1,
+            quantity: +$(entity).attr('data-quantity') - 1,
           }),
           success: function () {
             buildCart();
@@ -123,17 +124,11 @@ function buildList() {
         });
       } else {
         $.ajax({
-          url: 'http://localhost:3000/cart',
-          type: 'POST',
+          url: 'http://localhost:3000/cart/' + id,
+          type: 'DELETE',
           headers: {
             'content-type': 'application/json',
-          },
-          data: JSON.stringify({
-            id: id,
-            name: $(this).attr('data-name'),
-            price: $(this).attr('data-price'),
-            quantity: 1,
-          }),
+          },          
           success: function () {
             buildCart();
           }

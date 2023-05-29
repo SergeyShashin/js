@@ -24,13 +24,13 @@
       "id": "1",
       "name": "Трусы",
       "price": "500",
-      "quantity": 2
+      "quantity": 1
     },
     {
       "id": "2",
       "name": "Джинсы",
       "price": "3500",
-      "quantity": 2
+      "quantity": 1
     },
     {
       "id": "3",
