@@ -1,0 +1,20 @@
+{
+  "reviews": [
+    {
+      "id": 1,
+      "text": "Первый отзыв",
+      "status": "decline"
+    },
+    {
+      "id": 2,
+      "text": "Второй отзыв",
+      "status": "approve"
+    },
+ 
+    {
+      "text": "Ловите свежий отзыв)",
+      "status": null,
+      "id": 3
+    }
+  ]
+}
