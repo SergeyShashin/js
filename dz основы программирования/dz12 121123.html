@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    var dealer = [getCard()];
+    var player = [getCard(), getCard()];
+    // player.reduce();
+
+    // console.log(transformToNumber(player));
+
+    getResult('дилера', dealer);
+    getResult('игрока', player);
+
+    /*
+    *Преобразует карты V, Q, K, T в цифры
+    */
+    function transformToNumber(arr) {
+      var result = [];
+      arr.map(el => {
+        switch (el) {
+          case 'V': 
+          case 'Q': 
+          case 'K': {
+            result.push(10);
+            break;
+          }
+          case 'T': {
+            result.push(11);
+            break;
+          }
+          default: {
+            result.push(el);
+          }
+        }
+      });
+        return result;
+    }
+
+    function getResult(role, arr) {
+      console.log(`Карты ${role} [${arr}]. Сумма ${getSum(arr)}`);
+    }
+
+    function getRandomInt(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+
+    function getCard() {
+      var cards = [6, 7, 8, 9, 10, 'V', 'Q', 'K', 'T'];
+      return cards[getRandomInt(0, cards.length - 1)];
+    }
+
+    function getSum(arr) {
+      arr = transformToNumber(arr);
+      return arr.reduce((a, b) => a + b);
+    }
+
+  </script>
+</body>
+
+</html>

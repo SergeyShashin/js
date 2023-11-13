@@ -1,0 +1,17 @@
+<meta charset="UTF-8">
+
+<script>
+
+  let result = 1;
+
+  do {
+    if (Math.random() * 6 < 1) {
+      alert('Встреча головы и патрона состоялась');
+      break;
+    }
+    alert('Повезло. Попыток ' + result);
+    result++;
+  } while (confirm('Играем?'));
+
+  alert('Повезло ' + result + ' раз');
+</script>

@@ -1,0 +1,13 @@
+<meta charset="UTF-8">
+
+<script>
+  var sum = parseInt(prompt('Сумма вклада', 100000));
+  var quantityYears = parseInt(prompt('На сколько лет будет вклад?', 10));
+  var persent = Number('1.' + prompt('Под сколько процентов?', 10));
+
+  for (i = 1; i < quantityYears+1; i++) {
+    sum = parseInt(sum * persent);
+    alert('Прошло лет: ' + i + '. Сумма вклада: ' + sum);
+  }
+
+</script>
