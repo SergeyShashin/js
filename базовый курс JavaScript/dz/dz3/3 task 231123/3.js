@@ -11,4 +11,4 @@ xxxxx
 xxxxxxx
 xxxxxxxxx
 */
-for (let i = 0, x = 'x'; i < 21; console.log(`${x}\n`), i++, x += 'x') { }
+for (let i = 0, x = 'x'; i < 21; console.log(`${x}\n`), i++, x += 'x') {  }
