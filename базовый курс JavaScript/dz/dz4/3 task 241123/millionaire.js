@@ -1,0 +1,106 @@
+'use strict';
+
+/*
+3**. На базе игры (приняв за пример), созданной на уроке, реализовать игру «Кто хочет стать миллионером?».
+Т.е. у вас должен быть главный объект содержащий всю логику игры, который будет иметь методы, например
+метод run, возможно метод init и т.д.
+В игре должны быть заранее подготовлены список вопросов и ответов (как минимум 5 вопросов).
+Игра должна приветствовать пользователя, после чего задавать вопросы пользователю и предлагать варианты
+ответов в виде теста, например:
+Сколько букв в слове "привет":
+a. Пять.
+b. Шесть.
+c. Семь.
+d. Куда я попал?
+Проверять правильный вариант выбрал пользователь или нет, необходимо вести счет.
+По окончании игры, когда было задано 5 вопросов, вы должны сообщить пользователю его счет и предложить
+сыграть снова.
+Также должна быть возможность выхода из игры заранее, если пользователю надоело играть.
+*/
+
+const settings = {
+};
+
+const questions = [
+  {
+    question: 'Это первый вопрос?',
+    vaiantsAnswer: [
+      'a: Первый',
+      'b: Второй',
+      'c: Третий',
+      'd: Четвёртый',
+    ],
+    correctAnswer: 'a',
+  },
+  {
+    question: 'Это первый вопрос?',
+    vaiantsAnswer: [
+      'a: Первый',
+      'b: Второй',
+      'c: Третий',
+      'd: Четвёртый',
+    ],
+    correctAnswer: 'a',
+  },
+  {
+    question: 'Это первый вопрос?',
+    vaiantsAnswer: [
+      'a: Первый',
+      'b: Второй',
+      'c: Третий',
+      'd: Четвёртый',
+    ],
+    correctAnswer: 'a',
+  },
+  {
+    question: 'Это первый вопрос?',
+    vaiantsAnswer: [
+      'a: Первый',
+      'b: Второй',
+      'c: Третий',
+      'd: Четвёртый',
+    ],
+    correctAnswer: 'a',
+  },
+  {
+    question: 'Это первый вопрос?',
+    vaiantsAnswer: [
+      'a: Первый',
+      'b: Второй',
+      'c: Третий',
+      'd: Четвёртый',
+    ],
+    correctAnswer: 'a',
+  },
+];
+
+const game = {
+  questions,
+  numberoFCorrectAnswers: 0,
+
+  run() {
+    
+    let numberQuestion = this.getRandomNumber();
+
+    let answer = prompt(questions[numberQuestion].question + '\n' + questions[numberQuestion].vaiantsAnswer.join('\n'));
+    if (answer === questions[numberQuestion].correctAnswer) {
+      console.log('Ага.');
+      this.numberoFCorrectAnswers++;
+    }else{
+      console.log('Неа.');      
+    }
+
+  },
+
+  getRandomNumber() {
+    return Math.floor(Math.random() * questions.length);
+  },
+
+
+  // this.getQuestion()''
+
+
+};
+
+game.run();
+
