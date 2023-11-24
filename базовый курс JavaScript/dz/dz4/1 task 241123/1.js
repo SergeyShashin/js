@@ -20,14 +20,15 @@ thirdDigit: 0,
 необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
 */
 
-console.log(transferNumberToObj(1000));
+console.log(transferNumberToObj(45));
 
 function transferNumberToObj(number) {
-  if (number > -1 && number < 1000) {
+  console.log(typeof (number));
+  if (typeof (number) === 'number' && number > -1 && number < 1000) {
     return {
-      firstDigit: number%10,
-      secondDigit: parseInt(number/10%10),
-      thirdDigit: parseInt(number/100),
+      firstDigit: number % 10,
+      secondDigit: parseInt(number / 10 % 10),
+      thirdDigit: parseInt(number / 100),
     }
   } else {
     console.log('Нужно число в диапазоне [0,999]');
