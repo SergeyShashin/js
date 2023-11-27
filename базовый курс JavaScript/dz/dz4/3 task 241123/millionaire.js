@@ -19,6 +19,7 @@ d. Куда я попал?
 */
 
 const settings = {
+  allQuestions: 5
 };
 
 const questions = [
@@ -33,72 +34,76 @@ const questions = [
     correctAnswer: 'a',
   },
   {
-    question: 'Это первый вопрос?',
+    question: 'Это второй вопрос?',
     vaiantsAnswer: [
       'a: Первый',
       'b: Второй',
       'c: Третий',
       'd: Четвёртый',
     ],
-    correctAnswer: 'a',
+    correctAnswer: 'b',
   },
   {
-    question: 'Это первый вопрос?',
+    question: 'Это третий вопрос?',
     vaiantsAnswer: [
       'a: Первый',
       'b: Второй',
       'c: Третий',
       'd: Четвёртый',
     ],
-    correctAnswer: 'a',
+    correctAnswer: 'c',
   },
   {
-    question: 'Это первый вопрос?',
+    question: 'Это четвёртый вопрос?',
     vaiantsAnswer: [
       'a: Первый',
       'b: Второй',
       'c: Третий',
       'd: Четвёртый',
     ],
-    correctAnswer: 'a',
+    correctAnswer: 'd',
   },
   {
-    question: 'Это первый вопрос?',
+    question: 'Это пятый вопрос?',
     vaiantsAnswer: [
       'a: Первый',
       'b: Второй',
       'c: Третий',
-      'd: Четвёртый',
+      'd: Пятый',
     ],
-    correctAnswer: 'a',
+    correctAnswer: 'd',
   },
 ];
 
 const game = {
+  settings,
   questions,
   numberoFCorrectAnswers: 0,
 
   run() {
-    
-    let numberQuestion = this.getRandomNumber();
 
-    let answer = prompt(questions[numberQuestion].question + '\n' + questions[numberQuestion].vaiantsAnswer.join('\n'));
-    if (answer === questions[numberQuestion].correctAnswer) {
-      console.log('Ага.');
-      this.numberoFCorrectAnswers++;
-    }else{
-      console.log('Неа.');      
+    while (this.settings.allQuestions) {
+
+      let numberQuestion = this.getRandomNumber();
+
+      let answer = prompt(questions[numberQuestion].question + '\n' + questions[numberQuestion].vaiantsAnswer.join('\n'));
+      if (answer === questions[numberQuestion].correctAnswer) {
+        console.log('Ага.');
+        this.numberoFCorrectAnswers++;
+      } else {
+        console.log('Неа.');
+      }
+
+      this.settings.allQuestions--;
     }
+
+    console.log(`Количество правильных ответов ${this.numberoFCorrectAnswers}`)
 
   },
 
   getRandomNumber() {
     return Math.floor(Math.random() * questions.length);
   },
-
-
-  // this.getQuestion()''
-
 
 };
 
