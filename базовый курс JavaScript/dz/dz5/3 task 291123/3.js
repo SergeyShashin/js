@@ -22,3 +22,35 @@
 Пользоваться аттрибутами HTML5 запрещено, необходимо проверки реализовать с помощью
 javascript.
 */
+
+let sendBtn = document.getElementById('sendBtn');
+let formContacts = formContaсts;
+
+const validationFields = {
+  'userName': [
+    { 'minLength': 5 },
+    { 'maxLength': 50 }
+  ],
+  'phone': [
+    { 'length': 11 },
+    { 'type': 'number' }
+  ],
+  'password': [
+    { 'minLength': 5 },
+    { 'maxLength': 50 }
+
+  ],
+  'passwordRepeat': [
+    { 'mustСorrespondFiled': 'password' }
+  ]
+}
+
+sendBtn.addEventListener('click', (e) => validateForm(e));
+
+function validateForm(e) {
+  e.preventDefault();
+
+  for (let val of formContacts) {
+    console.dir(val.id);
+  }
+}
