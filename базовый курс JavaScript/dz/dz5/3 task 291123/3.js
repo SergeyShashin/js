@@ -24,11 +24,13 @@ javascript.
 */
 
 let sendBtn = document.getElementById('sendBtn');
-let formContacts = formContaсts;
+sendBtn.addEventListener('click', (e) => validateForm(e));
+
+let formContacts = document.getElementById('formContaсts');
 
 const validationFields = {
   'userName': [
-    { 'minLength': 5 },
+    { 'minLength': 1 },
     { 'maxLength': 50 }
   ],
   'phone': [
@@ -38,19 +40,36 @@ const validationFields = {
   'password': [
     { 'minLength': 5 },
     { 'maxLength': 50 }
-
   ],
   'passwordRepeat': [
     { 'mustСorrespondFiled': 'password' }
   ]
-}
+};
 
-sendBtn.addEventListener('click', (e) => validateForm(e));
+const methods = {
+  minLength(value, minNumber) {
+    return value > minNumber
+      ? { isValid: true, textError: '' }
+      : { isValid: false, textError: 'Имя - должно содержать как минимум 1 символ, не более 50 символов.' }
+  },
+  minLength(value, maxNumber) {
+    return value < maxNumber
+      ? { isValid: true, textError: '' }
+      : { isValid: false, textError: 'Имя - должно содержать как минимум 1 символ, не более 50 символов.' }
+  }
+};
 
 function validateForm(e) {
   e.preventDefault();
 
-  for (let val of formContacts) {
-    console.dir(val.id);
+  for (let field of formContacts) {
+    let fieldValue = field.value;
+    let rules = validationFields[field.id];
+    check(fieldValue, rules);
   }
+}
+
+function check(value, rules) {
+  let isValid = true;
+  let errors = [];
 }
