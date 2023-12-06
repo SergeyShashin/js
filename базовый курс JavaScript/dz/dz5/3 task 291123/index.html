@@ -4,13 +4,8 @@
 <head>
   <title>Dz5 task3</title>
   <style>
-    
     div {
       margin: 1em 0;
-    }
-
-    div small {
-      display: none;
     }
 
     .is-valid {
@@ -18,19 +13,10 @@
       color: green;
     }
 
-    .is-valid small {
-      display: none;
-    }
-
     .is-invalid {
       border-color: brown;
       color: brown;
     }
-
-    .is-invalid small {
-      display: block; 
-    }
-
   </style>
 
 </head>
@@ -42,28 +28,24 @@
       <br>
       <input name="userName" type="text" placeholder="Иван">
       <br>
-      <small>Имя - должно содержать как минимум 1 символ, не более 50 символов.</small>
     </div>
     <div>
       <label for="phone"><strong>Телефон</strong></label>
       <br>
       <input name="phone" type="text" placeholder="+79000000000">
       <br>
-      <small>Телефон - должен содержать 11 цифр</small>
     </div>
     <div>
       <label for="password"><strong>Пароль</strong></label>
       <br>
       <input name="password" type="text" placeholder="*****">
       <br>
-      <small>Пароль - минимум 5 символов, максимум 50</small>
     </div>
     <div>
       <label for="passwordRepeat"><strong>Подтверждение пароля</strong></label>
       <br>
       <input name="passwordRepeat" type="text" placeholder="*****">
       <br>
-      <small>Пароль - минимум 5 символов, максимум 50</small>
     </div>
 
     <div>

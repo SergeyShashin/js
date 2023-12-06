@@ -142,19 +142,36 @@ const form = {
         let message = currentMethod(inputEl, method.args);
 
         if (message) {
-          inputEl.classList.add('is-invalid');
-          inputEl.classList.remove('is-valid');
+          this.setInValid(inputEl, message);
           valid = false;
           return valid
         } else {
-          inputEl.classList.remove('is-invalid');
-          inputEl.classList.add('is-valid');
+          this.setValid(inputEl);
+          valid = true;
         }
       }
     }
     return valid
+  },
 
+  setInValid(inputEl, message) {
+    let small = document.createElement('small');
+    inputEl.parentElement.appendChild(small);
+    small.textContent = message;
+    inputEl.classList.add('is-invalid');
+    inputEl.classList.remove('is-valid');
+  },
+
+  setValid(inputEl) {
+    inputEl.classList.remove('is-invalid');
+    inputEl.classList.add('is-valid');
+    let errMsgEl = inputEl.parentElement.querySelector('small');
+
+    if (errMsgEl) {
+      errMsgEl.remove();
+    }
   }
+
 };
 
 form.init();
