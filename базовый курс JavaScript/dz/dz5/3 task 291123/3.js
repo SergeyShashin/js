@@ -115,7 +115,6 @@ const form = {
           { name: 'fieldsCompare', args: ['input[name="password"]', ''] }
         ],
       },
-
     ]
 
   },
@@ -127,24 +126,33 @@ const form = {
       e.preventDefault();
       return
     }
+
+    alert('Форма отправлена');
   },
 
   isValid() {
+    let valid = true;
+
     for (let rule of this.rules) {
       let inputEl = document.querySelector(rule.selector);
 
       for (let method of rule.methods) {
         let currentMethod = validationMethods[method.name];
 
-
         let message = currentMethod(inputEl, method.args);
 
-        console.log(`${inputEl.name} \n ${message}`);
-
         if (message) {
+          inputEl.classList.add('is-invalid');
+          inputEl.classList.remove('is-valid');
+          valid = false;
+          return valid
+        } else {
+          inputEl.classList.remove('is-invalid');
+          inputEl.classList.add('is-valid');
         }
       }
     }
+    return valid
 
   }
 };
