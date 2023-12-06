@@ -23,53 +23,130 @@
 javascript.
 */
 
-let sendBtn = document.getElementById('sendBtn');
-sendBtn.addEventListener('click', (e) => validateForm(e));
+const validationMethods = {
+  length(field, args) {
+    let valLength = field.value.length;
+    let sign = args[0];
+    let then = args[1];
 
-let formContacts = document.getElementById('formContaсts');
+    let message = null;
 
-const validationFields = {
-  'userName': [
-    { 'minLength': 1 },
-    { 'maxLength': 50 }
-  ],
-  'phone': [
-    { 'length': 11 },
-    { 'type': 'number' }
-  ],
-  'password': [
-    { 'minLength': 5 },
-    { 'maxLength': 50 }
-  ],
-  'passwordRepeat': [
-    { 'mustСorrespondFiled': 'password' }
-  ]
-};
+    switch (sign) {
+      case '>':
+        if (!(valLength > then)) {
+          message = `Длина должна быть больше чем ${then + 1}`;
+        }
+        break;
+      case '<':
+        if (!(valLength < then)) {
+          message = `Длина должна быть меньше чем ${then + 1}`;
+        }
+        break;
+      case '>=':
+        if (!(valLength >= then)) {
+          message = `Длина должна быть больше чем ${then}`;
+        }
+        break;
+      case '<=':
+        if (!(valLength <= then)) {
+          console.log(valLength);
+          console.log(!valLength <= then);
+          message = `Длина должна быть меньше чем ${then}`;
+        }
+        break;
+      case '===':
+        if (valLength !== then) {
+          message = `Длина должна быть ${then}`;
+        }
+        break;
+    }
+    return message;
 
-const methods = {
-  minLength(value, minNumber) {
-    return value > minNumber
-      ? { isValid: true, textError: '' }
-      : { isValid: false, textError: 'Имя - должно содержать как минимум 1 символ, не более 50 символов.' }
   },
-  minLength(value, maxNumber) {
-    return value < maxNumber
-      ? { isValid: true, textError: '' }
-      : { isValid: false, textError: 'Имя - должно содержать как минимум 1 символ, не более 50 символов.' }
+
+  mustContainedNumber(field) {
+    if (!Number.isInteger(Number(field.value))) {
+      return 'Поле должно содержать только число'
+    };
+
+    return null;
+  },
+
+  fieldsCompare(field, args) {
+    return field.value !== document.querySelector(args[0]).value ? `Пароли не совпадают` : null
+  }
+}
+
+const form = {
+  formEl: null,
+  rules: null,
+
+  init() {
+
+    this.formEl = document.getElementById('formContaсts');
+
+    this.formEl.addEventListener('submit', (e) => this.formSubmit(e));
+
+    this.rules = [
+      {
+        selector: 'input[name="userName"]',
+        methods: [
+          { name: 'length', args: ['>=', 1] },
+          { name: 'length', args: ['<=', 50] }
+        ],
+      },
+      {
+        selector: 'input[name="phone"]',
+        methods: [
+          { name: 'length', args: ['===', 11] },
+          { name: 'mustContainedNumber', args: [] }
+        ],
+      },
+      {
+        selector: 'input[name="password"]',
+        methods: [
+          { name: 'length', args: ['>=', 5] },
+          { name: 'length', args: ['<=', 50] },
+        ],
+      },
+      {
+        selector: 'input[name="passwordRepeat"]',
+        methods: [
+          { name: 'fieldsCompare', args: ['input[name="password"]', ''] }
+        ],
+      },
+
+    ]
+
+  },
+
+  formSubmit(e) {
+    e.preventDefault();
+
+    if (!this.isValid()) {
+      e.preventDefault();
+      return
+    }
+  },
+
+  isValid() {
+    for (let rule of this.rules) {
+      let inputEl = document.querySelector(rule.selector);
+
+      for (let method of rule.methods) {
+        let currentMethod = validationMethods[method.name];
+
+
+        let message = currentMethod(inputEl, method.args);
+
+        console.log(`${inputEl.name} \n ${message}`);
+
+        if (message) {
+        }
+      }
+    }
+
   }
 };
 
-function validateForm(e) {
-  e.preventDefault();
-
-  for (let field of formContacts) {
-    let fieldValue = field.value;
-    let rules = validationFields[field.id];
-    check(fieldValue, rules);
-  }
-}
-
-function check(value, rules) {
-  let isValid = true;
-  let errors = [];
-}
+form.init();
