@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+</head>
+
+<body>
+  <script src="gallery.js"></script>
+  <script>
+    window.onload = function () {
+      var ul = document.createElement('ul');
+      data_img.forEach(function (el_img) {
+        ul.appendChild(new Gallery(el_img.id, el_img.name, el_img.smallSize, el_img.fullSize).render());
+      })
+
+      document.body.appendChild(ul);
+    }
+
+  </script>
+</body>
+
+</html>
