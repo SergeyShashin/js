@@ -4,9 +4,18 @@ document.getElementById('btn').addEventListener('click', (e) => handlerClick(e))
 function handlerClick(e) {
   getXhr(
     function (result) {
-      result.map(function (user) {
-        console.log(user);
-      })
+
+      var items = result.map(function (item) {
+       return new MenuItem('i', 'c', item.href, item.label);
+      });
+
+      var menu = new Menu('f', 'f', items);
+
+      console.log(items);
+      console.log(menu.render());
+
+      document.body.appendChild(menu.render());
+      document.getElementById('btn').textContent = 'Меню постройся!';
     }
   )
 }
@@ -14,7 +23,7 @@ function handlerClick(e) {
 
 function getXhr(callback) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', ' http://localhost:3000/users');
+  xhr.open('GET', ' http://localhost:3000/items');
   xhr.send();
 
   xhr.onreadystatechange = function () {

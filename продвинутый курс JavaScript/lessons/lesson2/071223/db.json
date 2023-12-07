@@ -12,5 +12,22 @@
       "id": 3,
       "name": "someName3"
     }
+  ],
+  "items": [
+    {
+      "id": 1,
+      "href": "/home",
+      "label": "HOME"
+    },
+    {
+      "id": 2,
+      "href": "/page",
+      "label": "PAGE"
+    },
+    {
+      "id": 3,
+      "href": "/contacts",
+      "label": "CONTACTS"
+    }
   ]
 }
