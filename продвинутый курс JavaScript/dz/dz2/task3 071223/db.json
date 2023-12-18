@@ -1,0 +1,24 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "pathImg": "img/min/1.jpg",
+      "pathFullImg": "img/max/1.jpg"
+    },
+    {
+      "id": 2,
+      "pathImg": "img/min/2.jpg",
+      "pathFullImg": "img/max/2.jpg"
+    },
+    {
+      "id": 3,
+      "pathImg": "img/min/3.jpg",
+      "pathFullImg": "img/max/3.jpg"
+    },
+    {
+      "id": 4,
+      "pathImg": "img/min/4.jpg",
+      "pathFullImg": "img/max/4.jpg"
+    }
+  ]
+}

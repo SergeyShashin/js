@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Dz5 task3</title>
+  <style>
+    div {
+      margin: 1em 0;
+    }
+
+    .is-valid {
+      border-color: green;
+      color: green;
+    }
+
+    .is-invalid {
+      border-color: brown;
+      color: brown;
+    }
+  </style>
+
+</head>
+
+<body>
+  <form id="formContaсts" method="post" autocomplete>
+    <div>
+      <label for="userName"><strong>Имя пользователя</strong></label>
+      <br>
+      <input name="userName" type="text" placeholder="Иван">
+      <br>
+    </div>
+    <div>
+      <label for="phone"><strong>Телефон</strong></label>
+      <br>
+      <input name="phone" type="text" placeholder="+79000000000">
+      <br>
+    </div>
+    <div>
+      <label for="password"><strong>Пароль</strong></label>
+      <br>
+      <input name="password" type="text" placeholder="*****">
+      <br>
+    </div>
+    <div>
+      <label for="passwordRepeat"><strong>Подтверждение пароля</strong></label>
+      <br>
+      <input name="passwordRepeat" type="text" placeholder="*****">
+      <br>
+    </div>
+
+    <div>
+      <input id="sendBtn" type="submit">
+    </div>
+
+  </form>
+  <script src="3.js"></script>
+</body>
+
+</html>
