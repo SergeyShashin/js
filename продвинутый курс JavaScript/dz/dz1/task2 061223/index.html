@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Advanced level JS. Lesson1</title>
+</head>
+
+<body>
+  <script>
+    window.onload = function () {
+
+      var superMenu = new SuperMenu('idMenu', 'classMenu', [
+        new MenuItems('/', 'Home'),
+        new MenuItems('/page', 'Page'),
+        new SuperMenu('idSubmenu', 'classSubmenu', [
+          new MenuItems('/submenu/atricles', 'Articles'),
+          new MenuItems('/submenu/products', 'Products'),
+        ], '/submenu', 'SubMenu'),
+      ]
+      );
+
+      // var menu = new Menu('idMenu', 'classMenu', [
+      //   new MenuItems('home.html', 'Home'),
+      //   new MenuItems('page.html', 'Page'),
+      //   new MenuItems('catalog.html', 'Catalog'),
+      // ]);
+
+      document.body.appendChild(superMenu.render());
+
+      // menu.remove('idMenu'); //проверка выполнения первого задания.
+
+    }
+  </script>
+  <script src="menu.js">
+  </script>
+</body>
+
+</html>

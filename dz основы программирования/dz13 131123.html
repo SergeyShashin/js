@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var dealer = [getCard()];
+    var player = [getCard(), getCard()];
+    var statusGame = 'play';
+
+    getResult('дилера', dealer);
+    getResult('игрока', player);
+
+    if (getSum(player) === 21) {
+      sayWinAndStopGame('Игрок');
+    }
+
+    while (confirm('Ещё карту?') && statusGame === 'play') {
+      player.push(getCard());
+      getResult('игрока', player);
+
+      if (getSum(player) === 21) {
+        sayWinAndStopGame('Игрок');
+        break;
+      }
+
+      if (getSum(player) > 21) {
+        sayWinAndStopGame('Дилер');
+        break;
+      }
+    }
+
+    while (getSum(dealer) < 15 && statusGame === 'play') {
+      dealer.push(getCard());
+
+      if (getSum(dealer) >= getSum(player)) {
+        sayWinAndStopGame('Дилер');
+        break;
+      }
+
+      if (getSum(dealer) > 21) {
+        sayWinAndStopGame('Игрок');
+        break;
+      }
+    }
+
+    if (getSum(player) > getSum(dealer) && statusGame === 'play') {
+      sayWinAndStopGame('Игрок');
+    }
+
+
+    function getResult(role, arr) {
+      console.log(`Карты ${role} [${arr}]. Сумма ${getSum(arr)}`);
+    }
+
+    function getRandomInt(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+
+    function getCard() {
+      var cards = [6, 7, 8, 9, 10, 'V', 'Q', 'K', 'T'];
+      return cards[getRandomInt(0, cards.length - 1)];
+    }
+
+    function getSum(arr) {
+      var sum = 0;
+      for (var val of arr) {
+        if (val === 'V' || val === 'Q' || val === 'K') {
+          sum += 10;
+        } else if (val === 'T' && sum > 10) {
+          sum++
+        } else if (val === 'T' && sum < 11) {
+          sum += 11;
+        } else {
+          sum += val;
+        }
+      }
+      return sum
+    }
+
+    function sayWinAndStopGame(role) {
+      console.clear();
+      statusGame = 'stop'
+      getResult('дилера', dealer);
+      getResult('игрока', player);
+      console.log(role + ' победил!');
+    }
+
+  </script>
+</body>
+
+</html>
