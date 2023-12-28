@@ -1,0 +1,13 @@
+<script>
+  /*
+  Возвращает числа отличные от максимального не более 10%.
+  */
+  function func(arr) {
+    let maxEl = Math.max(...arr);
+    return arr.filter(el => el <= maxEl * 1.1 && el >= maxEl * 0.9 && el !== maxEl);
+  }
+
+  console.log(func([5, 88, 95, 100, 77, 21, 92])); //[95, 92]
+  console.log(func([2, 13, 55, 29, 19, 5, -5])); //[]
+
+</script>
