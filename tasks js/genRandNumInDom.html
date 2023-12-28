@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <span id="display"></span><br>
+  <button id="control">Нажать в случае необходимости вывовда случайного числа от 0 до 10</button>
+
+  <script>
+    'use script';
+
+    document.getElementById('control').addEventListener('click', ((event) => {
+      let displayEl = document.getElementById('display');
+      let arrNumbers = [];
+      function genRandNum() {
+        if (arrNumbers.length == 11) {
+          displayEl.textContent += 'конец.';
+          document.getElementById('control').removeEventListener('click', genRandNum);
+          return
+        }
+
+        let randomNum;
+
+        do {
+          randomNum = Math.round(Math.random() * 10);
+        }
+        while (arrNumbers.includes(randomNum))
+
+        arrNumbers.push(randomNum);
+        displayEl.textContent += randomNum + ', ';
+
+      }
+      return genRandNum;
+    })())
+  </script>
+
+</body>
+
+</html>

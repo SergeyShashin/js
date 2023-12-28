@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    let arr = arrayPushNumbers(-5, 8);
+
+
+    //*Возвращает массив чисел от num1 до num2
+    function arrayPushNumbers(num1, num2) {
+      let arrNumbers = [];
+
+      for (let i = num1; i < num2; i++) {
+        arrNumbers.push(i);
+      }
+
+      return arrNumbers;
+    }
+
+    //Возвращает сумму нечётных чисел в массиве arr
+    function sumNotEvenNumbers(arr) {
+
+      return arr.reduce((sum, el) => el > 0 && el % 2 ? sum + el : sum, 0)
+
+    }
+
+    console.log(`Сумма нечётных чисел в массиве ${arr} = ${sumNotEvenNumbers(arr)}`);
+
+
+
+
+  </script>
+</body>
+
+</html>

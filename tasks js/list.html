@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function list(names) {
+      let res = '';
+      if (names.length < 1) {
+        return ' ';
+      }
+      if (names.length === 1) {
+        return names[0].name;
+      }
+
+      for (let i = 0; i < names.length - 2; i++) {
+        res += `${names[i].name}, `;
+      }
+
+      res += `${names[names.length - 2].name} & ${names[names.length - 1].name}`;
+
+      return res;
+
+    }
+
+    //Работает медленнее 
+    //function list(names) {
+    //   let res = '';
+    //   if (names.length < 1) {
+    //     return ' ';
+    //   }
+    //   if (names.length === 1) {
+    //     return names[0].name;
+    //   }
+
+    //   names.forEach((el, idx) => {
+    //     console.log()
+    //     if (idx + 1 === names.length - 1) {
+    //       res += `${el.name} & ${names[idx + 1].name}`;
+    //     } else if (idx === names.length) {
+    //       res += `${el.name} `;
+    //     } else if (idx + 1 < names.length - 1) {
+    //       res += `${el.name}, `;
+    //     }
+
+    //   });
+
+
+    //   return res;
+
+    // }
+
+    console.log(list([
+      { name: 'Bart' }, { name: 'Lisa' }, { name: 'Maggie' }
+    ]));
+    // console.log(list([{ name: 'Bart' }, { name: 'Lisa' }]));
+    // console.log(list([{ name: 'Bart' }]));
+    // console.log(list([]));
+  </script>
+</body>
+
+</html>

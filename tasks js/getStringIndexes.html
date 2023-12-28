@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function getStringIndexes(str) {
+      let newStr = str.toLowerCase().replace(/[\W\d_]/gi, '');
+
+      let obj = {};
+
+      let res = [];
+
+      for (let idx in newStr) {
+        obj[newStr[idx]] ? obj[newStr[idx]] += ' ' + idx : obj[newStr[idx]] = idx
+      }
+
+      for (let key in obj) {
+        res.push(`${key}: [${obj[key].split(' ')}]`);
+      }
+
+      return res
+    }
+
+    console.log(getStringIndexes('aaaaAbbbbBccccCa9'));
+    //['a: [0, 1, 2, 3, 4, 15]', 'b:[5,6,7,8,9]', 'c:[10, 11, 12, 13, 14]']
+
+    console.log(getStringIndexes('HHbbbbHHzzcc88?14_+=*/ccckkklloop0ousttt"&~!@#$%^()h'));
+    //['h: [0, 1, 6, 7, 29]', 'b:[2,3,4,5]', 'z:[8,9]', 'c: [10,11,12,13,14]', 'k:[15,16,17]']
+
+  </script>
+</body>
+
+</html>

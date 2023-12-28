@@ -1,0 +1,22 @@
+<script>
+
+  /**
+   * Возвращает true если в arr есть 2 числа сумма которых равна k
+  */
+  function check(arr, k) {
+
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = i + 1; j < arr.length; j++) {
+        if (arr[i] + arr[j] === k) {
+          return true;
+        }
+      }
+    }
+
+    return false
+  }
+
+  console.log(check([10, 15, 3, 7], 17)); //true
+  console.log(check([10, 15, 3, 7], 20)); //false
+
+</script>

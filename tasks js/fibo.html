@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    console.log(fibo(3)); //2
+    console.log(fibo(7)); //13
+    console.log(fibo(77)); //5527939700884757
+
+    //возращает вычисленное число Фибоначчи
+    function fibo(num) {
+      let a = 0;
+      let b = 1;
+      for (let i = 2; i <= num; i++) {
+        [a, b] = [b, a + b];
+      }
+      return b;
+    }
+
+    // работает
+    // возращает вычисленное число Фибоначчи
+    // function fibo(num) {
+    //   let a = 0;
+    //   let b = 1;
+    //   let c = a + b;
+    //   for (let i = 2; i < num; i++) {
+    //     a = b;
+    //     b = c;
+    //     c = a + b;
+    //   }
+    //   return c;
+    // }
+
+    //работает
+    //возращает вычисленное число Фибоначчи
+    // function fibo(num) {
+    //   if (num < 2) {
+    //     return 1;
+    //   }
+
+    //   let sum = 1;
+    //   let fibNum = 2;
+    //   let arr = [0, 1, 1];
+    //   for (; fibNum < num;) {
+    //     sum = arr[arr.length - 1] + arr[arr.length - 2];
+    //     arr.push(sum);
+    //     fibNum++;
+    //   }
+    //   return sum;
+    // }
+
+  </script>
+</body>
+
+</html>

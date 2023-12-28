@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    //Возвращает масимальный элемент из значений, находящихся под чётными индексами
+    function getMaxEvenElement(arr) {
+      let arrEvenIdx = [];
+      arr.forEach((el, idx) => {
+        idx % 2 === 0 ? arrEvenIdx.push(el) : '';
+      });
+
+
+      return Math.max(...arrEvenIdx);
+    }
+
+
+    console.log('Максимальный элемент из чётных индексов в массиве [5, 7, -1, 12, 3, 0] = ' + getMaxEvenElement([5, 7, -1, 12, 3, 0]));
+  </script>
+</body>
+
+</html>

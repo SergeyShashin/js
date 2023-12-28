@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function replaceItems(arr, item, replaceItem) {
+      return arr.map(el => el === item ? replaceItem : el);
+    }
+
+    console.log(replaceItems([1, 2, 3, 4, 2], 2, 'a')); // [1, 'a', 3, 4, 'a'];
+
+  </script>
+</body>
+
+</html>

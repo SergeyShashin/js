@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    //возращает массив без столбцов с положительными элементами
+    function deletePositiveEl(arr) {
+      
+
+      for (let x = 0; x < arr.length; x++) {
+        for (let y = 0; y < arr.length; y++) {
+          console.log(arr[y][x]<0);
+
+        }
+      }
+
+
+    }
+
+    console.log(deletePositiveEl([
+      [2, 55, 8, 10],
+      [-1, 4, -9, 1],
+      [2, 4, -3, 50],
+      [7, 9, 7, 108],
+
+    ]));
+  </script>
+
+</body>
+
+</html>

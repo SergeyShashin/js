@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    console.log(operation(14, 1, 3));
+
+    //возвращает массив чисел arrNumbers в котором каждое число при делении numRangeMax на numDivider делится без остатка до numRangeMin
+    function operation(num1, num2, numDivider) {
+      const arrNumbers = [];
+      if (num2 > num1) {
+        numRangeMax = num2;
+        numRangeMin = num1;
+      } else if (num2 < num1) {
+        numRangeMax = num1;
+        numRangeMin = num2;
+      } else {
+        num2 % numDivider === 0 ? arrNumbers.push(num2) : console.log(`Нет чисел кратных 0 при делении ${num2} на ${numDivider}`);
+        return arrNumbers
+      }
+
+      for (; numRangeMax > numRangeMin; numRangeMax--) {
+        if (numRangeMax % numDivider === 0) {
+          arrNumbers.push(numRangeMax);
+          numRangeMax + 1 - numDivider;
+        }
+      }
+
+
+
+      return arrNumbers;
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use script';
+    const data = [
+      'html',
+      [
+        [
+          'head',
+          [
+            ['title', 'Helo, mockinterview!'],
+          ]
+        ],
+        [
+          'body', { class: 'container' },
+          [
+            ['h1', { class: 'header' }, 'html builder example'],
+            [
+              'div',
+              [
+                ['span', 'text2'],
+                ['span', 'text3'],
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]
+
+    //возвращает html
+    function buildHtml(data) {
+      let html = data[1].class ? `\n<${data[0]} class="${data[1].class}">\n` : `\n<${data[0]}>\n`;
+
+      if (Array.isArray(data[data.length - 1])) {
+        data[data.length - 1].forEach(teg => {
+          html += buildHtml(teg);
+        }
+        );
+
+      } else {
+        html += ' ' + data[data.length - 1];
+      }
+
+      html += `\n</${data[0]}>\n`;
+
+      return html;
+    }
+
+    console.log(buildHtml(data));
+  </script>
+
+</body>
+
+</html>

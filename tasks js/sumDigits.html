@@ -1,0 +1,10 @@
+<script>
+
+  function sumDigits(num) {
+    return String(num).split('').reduce((acc, el) => acc + parseInt(el), 0);
+  }
+
+  console.log(sumDigits(123)); //6
+  console.log(sumDigits(9045)); //18
+  console.log(sumDigits(3));//3
+</script>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+    const getMoney = function (sum, limits) {
+
+      if (sum > getSumAllCash()) {
+        return 'Uncaught Error: not enough bank notes.';
+      }
+
+      let keysLimits = Object.keys(limits);
+      let valuesLimits = Object.values(limits);
+      let res = '';
+
+      for (let i = keysLimits.length - 1; i >= 0; i--) {
+        let resDivide = parseInt(sum / keysLimits[i]);
+        if (resDivide > 0) {
+
+          if (resDivide <= valuesLimits[i]) {
+            res += ` ${resDivide}*${keysLimits[i]}`;
+            sum -= keysLimits[i] * resDivide;
+            limits[keysLimits[i]] -= resDivide;
+          } else {
+            res += ` ${valuesLimits[i]}*${keysLimits[i]}`;
+            sum -= keysLimits[i] * valuesLimits[i];
+            limits[keysLimits[i]] -= valuesLimits[i];
+          }
+        }
+      }
+
+
+      return res;
+
+
+      function getSumAllCash() {
+        let res = 0;
+        for (let key in limits) {
+          res += key * limits[key];
+        }
+        return res;
+      }
+
+    }
+
+    const limitsObj = {
+      5000: 4,
+      1000: 5,
+      500: 2,
+      100: 7,
+      50: 100
+    };
+
+    // console.log(getMoney(3600, limitsObj));// 3*1000 1*500 1*100
+    // console.log(getMoney(6650, limitsObj));// 1*5000 1*1000 1*500 1*100 1*50
+    // console.log(getMoney(22000, limitsObj));// 4*5000 2*1000
+    console.log(getMoney(100000, limitsObj));// Uncaught Error: not enough bank notes.
+    console.log(getMoney(26000, limitsObj));// 3*1000 1*500 1*100
+
+  </script>
+</body>
+
+</html>

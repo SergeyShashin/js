@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function existsDuplicate(arr) {
+      return arr.length !== new Set(arr).size;
+    }
+
+    console.log(existsDuplicate.toString());
+
+    //Работает
+    //Возвращает правду, если есть дубли
+    // function existsDuplicate(arr) {
+    //   let counter = 0;
+    //   let el = 0;
+    //   let sliceArr = arr.slice(0);
+
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (sliceArr.includes(sliceArr[i])) {
+    //       el = sliceArr[i];
+    //       counter++;
+    //     }
+    //     sliceArr.splice(i, 1);
+
+    //     if (sliceArr.indexOf(el) !== -1) {
+    //       return true
+    //     }
+    //   }
+
+    //   return false
+    // }
+
+    console.log(existsDuplicate([4, 6, 7, 7, 1])); //true
+    console.log(existsDuplicate([1, 1, 5, 4, 4, 10])); //true
+    console.log(existsDuplicate([1, 5, 8, 21, 45])); //false
+
+  </script>
+
+</body>
+
+</html>

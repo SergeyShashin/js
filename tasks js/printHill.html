@@ -1,0 +1,16 @@
+<script>
+
+  function printHill(num) {
+
+    let str = '';
+
+    // for (let i = 0, x=''; i < num; i++, x += 'x', str += x + '\n') { }
+    for (let i = 0; i < num; i++, str += 'x'.repeat(i) + '\n') { }
+
+    return str;
+
+  }
+
+  console.log(printHill(5));
+
+</script>

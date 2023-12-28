@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    const variants = [
+      [0, 8], //0
+      [1, 2, 4], //1
+      [1, 2, 3, 5], //2
+      [2, 3, 6], //3
+      [1, 4, 5, 7], //4
+      [2, 4, 5, 6, 8], //5
+      [3, 5, 6, 9], //6
+      [4, 7, 8], //7
+      [5, 7, 8, 9, 0], //8
+      [6, 8, 9] //9
+    ]
+
+    function getPINs(observed) { 
+
+      if (observed.length <= 1) {
+        return variants[+observed];
+      }
+
+      let current = variants[observed[0]]; 
+      let next = getPINs(observed.slice(1));
+      let res = [];
+
+      for (let i = 0; i < current.length; i++) { 
+        for (let j = 0; j < next.length; j++) { 
+          res.push(current[i] + '' + next[j]); 
+        }
+      }
+
+      return res;
+
+    }
+
+    console.log(getPINs('8')); // [5, 7, 8, 9, 0]
+    console.log(getPINs('11')); // [11, 22, 44, 12, 21, 14, 41, 24, 42 ]
+
+    /*
+    1 2 3
+    4 5 6
+    7 8 9
+      0
+
+    */
+  </script>
+
+</body>
+
+</html>

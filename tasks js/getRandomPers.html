@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    const ManIM = ['Андрей', 'Борис', 'Егор', 'Валерий', 'Пётр'];
+    const WomanIM = ['Алла', 'Виктория', 'Татьяна', 'Марина', 'Яна'];
+
+    const ManFM = ['Князев', 'Самойлов', 'Кипелов', 'Васильев', 'Шевчук'];
+    const WomanFM = ['Звягинцева', 'Волкова', 'Гусева', 'Наливкина', 'Дроздова'];
+
+    const ManOT = ['Анатольевич', 'Иванович', 'Петрович', 'Григорьевич', 'Дмитриевич'];
+    const WomanOT = ['Анатольевна', 'Ивановна', 'Петровна', 'Григорьевна', 'Дмитриевна'];
+
+    function getRandomPers(num) {
+      if (!num) {        
+        return {FM: getRandomFM()}
+      }
+
+      function getRandomFM() {
+        let gender = getRandomGender();
+        let randomNum = 
+        console.log(gender);
+
+        return gender === 'Man'
+          ? ManFM[Math.round(Math.random() * ManFM.length)]
+          : WomanFM[Math.round(Math.random() * WomanFM.length)]
+      }     
+
+      function getRandomGender() {
+        const gender = ['Man', 'Woman'];
+        return gender[Math.round(Math.random() * 2)]
+      }
+
+      
+
+    }
+
+
+    console.log(getRandomPers());
+  </script>
+</body>
+
+</html>

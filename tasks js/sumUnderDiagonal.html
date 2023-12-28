@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    //возвращает сумму элементов под диагональю
+    function calculate(arr) {
+      let sumUnderDiagonal = 0;
+      for (let x = 0; x < arr.length; x++) {
+        for (let y = x + 1, counter = 0; y < arr.length; y++) {
+          console.log(arr[y][x]);
+          sumUnderDiagonal += arr[y][x];
+        }
+      }
+      return sumUnderDiagonal;
+    }
+
+    console.log('Сумма = ' + calculate([
+      [5, 9, -1],
+      [1, 7, 2],
+      [6, 4, 14],
+    ]));
+
+    console.log('Сумма = ' + calculate([
+      [5, 73, 9, 81, -6],
+      [1, 8, 22, 18, -66],
+      [57, 7, -19, 8, 0],
+      [2, -7, 54, 1, 33],
+      [6, 21, 38, -4, 11],
+    ]));
+
+  </script>
+</body>
+
+</html>

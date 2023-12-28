@@ -1,0 +1,29 @@
+<script>
+  /*
+  Удалить элементы стоящие не по порядку.
+  */
+
+
+  function sortStalin(arr) {
+
+    if (arr.length < 2) {
+      return arr;
+    }
+
+    let sortArr = [];
+    let max = arr[0];
+    sortArr.push(arr[0]);
+
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i + 1] && arr[i + 1] > max) {
+        sortArr.push(arr[i + 1]);
+        max = arr[i + 1];
+      }
+    }
+
+    return sortArr;
+
+  }
+
+  console.log(sortStalin([5, 18, 2, 7, 88, 20, 109])); //[5, 18, 88, 109]
+</script>

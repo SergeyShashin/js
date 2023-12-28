@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    //возвращает число, полученное из массива от 1 до n после фильтрации чисел на нечётных индексах.  
+    function getNumber(n) {
+
+      let arr = Array.from({ length: n }, (_, i) => i + 1);
+
+      function sortArr(arr) {
+        return arr.length > 1 ? sortArr(arr.filter((_, idx) => idx % 2 !== 0).reverse()) : arr;
+      }
+
+      return +sortArr(arr).join('');
+    }
+
+    //работает
+    // function getNumber(n) {
+    //   console.time();
+    //   let arr = Array.from({ length: n }, (_, i) => i + 1);     
+
+    //   while (arr.length > 1) {
+    //     arr = arr.filter((_, idx) => idx % 2 !== 0);
+    //     arr.reverse();
+    //   }
+    //   console.timeEnd();
+
+    //   return +arr.join('');
+    // }
+
+    //работает
+    // function getNumber(n) {
+    //   let arr = [];
+
+    //   for (let i = 1; i <= n; i++) {
+    //     arr.push(i);
+    //   }
+
+    //   while (arr.length > 1) {
+    //     arr = arr.filter((_, idx) => idx % 2 !== 0);
+    //     arr.reverse();
+    //   }
+
+    //   return +arr.join('');
+    // }
+
+    console.log(getNumber(9)); //6
+    console.log(getNumber(15)); //8
+
+  </script>
+
+</body>
+
+</html>

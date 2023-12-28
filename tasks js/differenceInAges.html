@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function differenceInAges(ages) {
+      let res = [];
+
+      res[0] = ages[0];
+      res[1] = ages[0];
+
+      for (let i = 1; i < ages.length; i++) {
+        res[0] > ages[i] ? res[0] = ages[i] : '';
+        res[1] < ages[i] ? res[1] = ages[i] : '';
+      }
+      res[2] = res[1] - res[0];
+
+
+      return res;
+    }
+    // function differenceInAges(ages) {
+    //   let res = [];
+    //   res[0] = Math.min(...ages);
+    //   res[1] = Math.max(...ages);
+    //   res[3] = res[1] - res[0];
+
+    //   return res;
+    // }
+
+    console.log(differenceInAges([82, 15, 6, 38, 35])) //[6, 82, 76]; 
+    console.log(differenceInAges([57, 99, 14, 32])) //[14, 99, 85]; 
+
+  </script>
+
+</body>
+
+</html>

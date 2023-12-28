@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    console.log(getChar('Саратов'));
+    console.log(getChar('Новый Уренгой'));
+    console.log(getChar('Санкт-Петербург'));
+
+    //Возращает строку с символами и их количеством.
+    function getChar(str) {
+
+      return Object.values(str.toLowerCase().replace(/[^а-яё]+/g, '').split('').reduce((acc, el) => {
+        acc[el] = acc[el] ? acc[el] + '*' : el + ':*';
+        return acc;
+      }, {})).join(',');
+
+    }
+
+    //Работает. Возращает строку с символами и их количеством.
+    // function getChar(str) {
+    //   const obj = {};
+
+    //   str.toLowerCase().replace(/[^а-яё]+/g, '').split('').forEach(el => {
+    //     obj[el] ? obj[el] += '*' : obj[el] = el + ':*';
+    //   });
+
+
+    //   return Object.values(obj).join(',');
+    // }
+
+
+  </script>
+
+</body>
+
+</html>

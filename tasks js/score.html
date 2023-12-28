@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function Sqore() {
+      this.firstPlayerScore = 0;
+      this.secondPlayerScore = 0;
+      this.history = [{
+        firstPlayerScore: this.firstPlayerScore,
+        secondPlayerScore: this.secondPlayerScore,
+      }];
+
+      if (this.firstPlayerScore > 0 || this.firstPlayerScore > 0)
+        this.history.push({
+          firstPlayerScore: this.firstPlayerScore,
+          secondPlayerScore: this.secondPlayerScore,
+        });
+
+
+      this.getHystory = function () {
+        return history;
+      }
+
+    }
+
+
+    const score = new Sqore();
+
+    score.firstPlayerScore = 1;
+    score.firstPlayerScore = 2;
+    score.secondPlayerScore = 1;
+
+    console.log(score.firstPlayerScore); //2
+    console.log(score.secondPlayerScore); //1
+    console.log(score.getHystory());
+
+  </script>
+
+</body>
+
+</html>

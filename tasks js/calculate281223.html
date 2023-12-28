@@ -1,0 +1,11 @@
+<script>
+  /**
+   * Вывести сумму нечётных чисел больше нуля.
+  */
+
+  function calculate(arr) {
+    return arr.reduce((acc, el) => el > 0 && el % 2 ? acc + el : acc)
+  }
+
+  console.log(calculate([5, 0, -5, 20, 88, 17, -32])); //22
+</script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+
+
+    function sumAge(user) {
+      // let totalAge = 0;
+
+      // if (user.children) {
+      //   console.log(user.children);
+      // }
+
+      let childrenProp = 'children';
+
+      console.log(user[childrenProp]);
+
+      for(let el of user[childrenProp]){
+        console.log(el[childrenProp])
+        if(el[childrenProp]){
+          console.log(el[childrenProp][childrenProp]);
+        }
+      }
+
+
+      // return totalAge;
+
+    }
+
+    const user = {
+      name: 'Пётр',
+      age: 49,
+      children: [
+        {
+          name: 'Нина',
+          age: 25,
+          children: [
+            {
+              name: 'Андрей',
+              age: 3,
+            },
+            {
+              name: 'Олег',
+              age: 1,
+            },
+          ]
+        },
+        {
+          name: 'Александр',
+          age: 22
+        },
+      ],
+    };
+
+    console.log(sumAge(user)); //100
+  </script>
+</body>
+
+</html>

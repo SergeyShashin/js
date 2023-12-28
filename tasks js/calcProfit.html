@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+    console.log(calcProfit([1, 2, 3, 4, 5, 6])); // 15 (покупка 1,2,3,4,5 и продажа на 6)
+    console.log(calcProfit([6, 5, 4, 3, 2, 1])); // 0 (тут нечего покупать, не можем заработать на покупке)
+    console.log(calcProfit([1, 6, 5, 10, 8, 7])); // 18 (покупка 1,6,5 и продажа на 10)
+    console.log(calcProfit([1, 2, 10, 2, 4, 6])); // 23 (покупка 1,2 продажа на 10; покупка 2, 4 продажа на 6)
+
+    function calcProfit(arr) {
+      let max1 = Math.max(...arr);
+      let idx1 = arr.indexOf(max1);
+
+      let arrSliceAfterMax = arr.slice(idx1 + 1, arr.length);
+      let max2 = Math.max(...arrSliceAfterMax);
+      let idx2 = arrSliceAfterMax.indexOf(max2);
+      let min = Math.min(...arrSliceAfterMax);
+      let idxMin = arrSliceAfterMax.indexOf(min);
+      let sum = arr.slice(0, idx1).reduce((acc, el) => acc + max1 - el, 0);
+
+      if (idxMin < idx2) {
+        sum += arrSliceAfterMax.slice(0, idx2).reduce((acc, el) => acc + max2 - el, 0);
+      }
+
+      return sum;
+    }
+
+  </script>
+</body>
+
+</html>

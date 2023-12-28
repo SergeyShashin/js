@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    function getLettersVariants(str) {
+
+      if (str.length === 1) {
+        return [str];
+      }
+
+      let arr = [];
+      for (let i = 0; i < str.length; i++) {
+        let variants = getLettersVariants(str.slice(0, i) + str.slice(i + 1));
+
+        for (let variant of variants) {
+          if (!arr.includes(str[i] + variant)) {
+
+            arr.push(str[i] + variant);
+          }
+        }
+
+      }
+      return arr;
+
+    }
+
+    console.log(getLettersVariants('asd'));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function getEventChars(str) {
+
+      if (str.length < 2 || str.length > 100) {
+        return 'неверная строка';
+      }
+
+      return str.split('').filter((x, idx) => idx % 2 !== 0);
+
+    }
+
+    console.log(getEventChars('abcdefghijklm')); //['b', 'd', 'f', 'h', 'j', 'l']
+    console.log(getEventChars('a')); //'неверная строка'
+  </script>
+</body>
+
+</html>

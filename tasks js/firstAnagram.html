@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    const arr = ['asfd', 'asd', 'dsa', '1knil', 'asd', 'fhk', '1fd', 'link', 'link1'];
+
+    const getFirstAnagram = (str) => {
+      let reverseStr = str.split('').reverse().join('');
+      let includeStr = arr.indexOf(str);
+      let includeReverseStr = arr.indexOf(reverseStr);
+      return includeStr > -1 && includeReverseStr > -1 ? arr[Math.min(includeStr, includeReverseStr)] : null;
+    }
+
+    console.log(getFirstAnagram('asd')); //'asd'
+    console.log(getFirstAnagram('link')); //null
+    console.log(getFirstAnagram('link1')); //'1nkil'
+
+
+
+
+  </script>
+</body>
+
+</html>

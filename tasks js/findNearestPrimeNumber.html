@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+    function findNearestPrimeNumber(num) {
+      let primesUntilEleven = [2, 3, 5, 7, 11];
+      let primeLessThanNum;
+      let primeMoreThanNum;
+      let result;
+
+      if (primesUntilEleven.includes(num)) {
+        return num;
+      }
+
+      if (num < 11) {
+        for (let i = num - 1; i > 2; i--) {
+          if (primesUntilEleven.includes(i)) {
+            return i;
+          }
+        }
+      }
+
+      primeLessThanNum = getLessThanNum(num);
+      primeMoreThanNum = getMoreThanNum(num);
+
+      function getLessThanNum(i) {
+        for (; i > 11; i--) {
+          if (isPrime(i)) {
+            return i;
+          }
+        }
+      }
+
+      function getMoreThanNum(j) {
+        for (let i = j; i < j + 17; i++) {
+          if (isPrime(i)) {
+            return i;
+          }
+        }
+      }
+
+      function isPrime(num) {
+
+        for (let j = 2; j < 109; j++) {
+          if (num % j === 0) {
+            return false
+          }
+        }
+
+        return true;
+      }
+
+
+      if (num - primeLessThanNum > primeMoreThanNum - num) {
+        return primeMoreThanNum;
+      } else {
+        return primeLessThanNum;
+      }
+
+    }
+
+    console.log(findNearestPrimeNumber(4)); //3
+    console.log(findNearestPrimeNumber(3)); //3
+    console.log(findNearestPrimeNumber(11)); //11
+    console.log(findNearestPrimeNumber(125)); //127
+    console.log(findNearestPrimeNumber(110)); //109
+    console.log(findNearestPrimeNumber(1110)); //1109
+    console.log(findNearestPrimeNumber(350000)); //350003
+
+  </script>
+
+</body>
+
+</html>

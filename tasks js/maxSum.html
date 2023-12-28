@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    //возвращает максимальную сумму из чисел по которомы можно пройти в массиве arr от низа до вершины
+    function maxSum(arr) {
+      let target = Array.from(arr);
+
+      for (let i = target.length - 2; i >= 0; i--) {
+        target[i] = target[i].map((el, idx) => {
+          return el + Math.max(...target[i + 1].slice(idx > 0 ? idx - 1 : 0, idx + 2));
+        })
+      }
+
+      return target[0][0];
+    }
+
+    console.log(maxSum([
+      [1],
+      [4, 8],
+      [1, 5, 3],
+    ])); //14
+    console.log(maxSum([
+      [1],
+      [-3, -4],
+      [2, 1, 9],
+    ])); //6
+
+  </script>
+</body>
+
+</html>

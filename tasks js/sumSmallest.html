@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+
+    //Работает возвращает сумму 2 минимальных элементов без использования методов массива
+    function sumSmallest(arr) {
+      let minEl = arr[0];
+      let idxMinEl = 0;
+      let minEl1 = arr[1];
+      let idxMinEl1 = 1;
+
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] < minEl) {
+          minEl = arr[i];
+          idxMinEl = i;
+        }
+      }
+
+      for (let i = 0; i < arr.length; i++) {
+        if (i !== idxMinEl && arr[i] < minEl1) {
+          minEl1 = arr[i];
+          idxMinEl1 = i;
+        }
+      }
+
+      return minEl + minEl1
+    }
+
+    console.log(sumSmallest([5, 8, 12, 19, 22])); //13
+    console.log(sumSmallest([15, 28, 4, 2, 43])); //6
+
+  </script>
+
+</body>
+
+</html>

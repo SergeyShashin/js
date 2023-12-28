@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use script';
+
+    function testIq(str) {
+      let strToArr = [];
+      str.split(' ').map(el => +el % 2 === 0 ? strToArr.push(0) : strToArr.push(1));
+
+      let even = strToArr.filter(el => el === 0);
+      let notEven = strToArr.filter(el => el === 1);
+
+      let result = even.length > notEven.length ? strToArr.indexOf(notEven[0]) : strToArr.indexOf(even[0]) + 1;
+
+
+      return result + 1
+    }
+
+    console.log(testIq('2 4 7 8 10')) //3
+    console.log(testIq('1 2 2')) //1
+    
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function leftPad(symbolsCount, str) {
+
+      return str.padStart(symbolsCount, ' ');
+    }
+
+    //Работает
+    // function leftPad(symbolsCount, str) {
+    //   if (symbolsCount <= str.length) {
+    //     return str
+    //   }
+    //   let res = str.split('');
+
+
+    //   for (let i = symbolsCount - str.length; i !== 0; i--) {
+    //     res.unshift('1');
+    //   }
+
+    //   return res.join('');
+    // }
+
+    console.log(leftPad(6, 'test')) // '   test'
+    console.log(leftPad(3, 'test')) // 'test'
+
+  </script>
+</body>
+
+</html>

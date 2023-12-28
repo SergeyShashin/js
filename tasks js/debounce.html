@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    'use strict';
+
+    function debounce(f, ms) {
+      let flag = false;
+
+      return (...arg) => {
+        if (flag) {
+          return;
+        }
+        flag = true;
+        f(...arg);
+        setTimeout(() => flag = false, ms);
+      }
+
+    }
+
+    let debounceFunc = debounce(console.log, 1000);
+
+    debounceFunc('MockInterview 1', 123);
+
+    debounceFunc('MockInterview 2');
+
+    setTimeout(() => debounceFunc('MockInterview 500'), 500);
+    setTimeout(() => debounceFunc('MockInterview 1200'), 1200);
+    setTimeout(() => debounceFunc('MockInterview 1500'), 1500);
+
+  </script>
+
+</body>
+
+</html>

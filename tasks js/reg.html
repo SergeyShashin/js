@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict'
+
+    function reg(str, regex) {
+      for (let i = 0; i < str.length; i++) {
+        console.log(i);
+        console.log('str i =' + str[i] + ' reg=' + regex[i]);
+        if (regex[i] == '*') {
+          console.log(str[i] + regex.indexOf('*'));
+          let strI = str[i];
+          let idxStar = regex.indexOf('*');
+          for (let r=i; ;r--) {
+
+          }
+        }
+
+        if (str[i] !== regex[i] && regex[i] !== '.') {
+          return false
+        }
+
+      }
+      return true
+
+    }
+
+    //Hel l  Hel*
+    // console.log(reg('Hello', 'Hello')) //true
+    // console.log(reg('Hello', 'Hel.o')) //true
+    // console.log(reg('Hello', '.....')) //true
+    console.log(reg('Hello', 'Hel*o')) //true
+  </script>
+</body>
+
+</html>

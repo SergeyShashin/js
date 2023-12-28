@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // //возвращает true, если circle1 и circle2 имеют хоть одну точку пересечения и false если не пересекаются.
+    function isIntersect(circle1, circle2) {
+      let flag = false;
+
+      let distanceX = Math.abs(circle1.x - circle2.x); 
+      let distanceY = Math.abs(circle1.y - circle2.y);
+      let sumRadius = circle1.r + circle2.r; 
+
+      if (sumRadius >= distanceX && sumRadius >= distanceY) {
+        flag = true;
+      }
+
+      return flag
+    }
+
+    console.log(isIntersect({ x: 0, y: 0, r: 2 }, { x: 5, y: 5, r: 1 })); //нет
+    console.log(isIntersect({ x: 0, y: 0, r: 2 }, { x: 2, y: 2, r: 1 })); //да      
+    console.log(isIntersect({ x: 0, y: 0, r: 2 }, { x: 0, y: 1, r: 1 })); //да
+    console.log(isIntersect({ x: 3, y: 3, r: 2 }, { x: 3, y: 3, r: 2 })); // да
+    console.log(isIntersect({ x: 5, y: 5, r: 1 }, { x: 0, y: 0, r: 2 })); // нет
+    console.log(isIntersect({ x: 3, y: 3, r: 5 }, { x: 5, y: 5, r: 1 })); // да
+    console.log(isIntersect({ x: 0, y: 0, r: 5 }, { x: 0, y: 4, r: 1 })); // да    
+  </script>
+</body>
+
+</html>

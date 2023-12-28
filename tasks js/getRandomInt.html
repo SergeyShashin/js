@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use script';
+
+    function getRandomInt() {
+      let set = new Set();
+      for (; set.size < 100;) {
+        set.add(Math.round(Math.random() * 200));
+      }
+
+      return [...set];
+    }
+
+    //работает
+    //возвращает массив arr из 100 цифр от 0 до 200
+    // function getRandomInt() {
+    //   let arr = [];
+    //   for (; arr.length < 100; ) {
+    //     let num = Math.round(Math.random() * 200);
+    //     arr.includes(num) ? '' : arr.push(num);
+    //   }
+
+    //   return arr;
+    // }
+
+    console.log(getRandomInt());    
+  </script>
+
+</body>
+
+</html>

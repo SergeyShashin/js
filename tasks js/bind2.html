@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+    function fun(a, b) {
+      console.log(a, b);
+      console.log(this);
+    }
+
+
+    const person = {
+      name: 'Андрей'
+    }
+
+    const bind1 = fun.bind(person, 5);
+    bind1(12);
+
+    const bind2 = bindNew(fun, person, 5);
+    bind2(12);
+
+    function bindNew(target, context, ...args1) {
+
+      return (...args) => {
+        target.call(context, ...args1, ...args);
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>

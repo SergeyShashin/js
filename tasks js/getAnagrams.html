@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function getAnagrams(string) {
+      let arrWords = string.split(' ');
+      let res = [];
+
+      while (arrWords.length > 0) {
+        let word = arrWords.pop();
+        let matched = getMatched(word, arrWords);
+
+        if (matched.length > 0) {
+          matched.push(word);
+          res.push(word, matched);
+        }
+      }
+
+      function getMatched(word, arrWords) {
+        let wordSort = word.split('').sort().join('');
+        let matched = [];
+
+        for (let i = 0; i < arrWords.length; i++) {
+          let comparedWord = arrWords[i];
+          let comparedWordSort = comparedWord.split('').sort().join('');
+
+          if (wordSort === comparedWordSort) {
+            matched.push(comparedWord);
+          }
+        }
+
+        return matched;
+      }
+
+      return res;
+    }
+
+    const str = 'адрес карп кума мир мука парк рим среда стук рост сорт трос q укам';
+
+
+    console.log(getAnagrams(str));
+
+  </script>
+
+</body>
+
+</html>

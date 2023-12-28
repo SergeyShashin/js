@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function alphanumeric(str) {
+      return /^[a-z]+\d+$/i.test(str);
+    }
+
+    console.log(alphanumeric("hell0")); //true
+    console.log(alphanumeric("R0bOT _")); //false
+    console.log(alphanumeric("      ")); //false
+    console.log(alphanumeric("")); //false
+    console.log(alphanumeric("JavaScript100")); //true
+  </script>
+</body>
+
+</html>

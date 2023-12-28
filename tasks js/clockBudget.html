@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function clockBudget(clockArr, money) {
+      let resArr = clockArr.filter(el => money > el);
+      let res = false;
+
+      if (resArr.length < 2) {
+        return false;
+      }
+
+      for (let i = resArr.length; i >= 0; i--) {
+        let el = resArr.pop();
+        if (resArr.includes(Number((money - el).toFixed(2)))) {
+          return res = true;
+        }
+      }
+
+      return res;
+
+    }
+
+    console.log(clockBudget([8.74, 3.12, 9.50, 2.35], 2.35)) // false
+    console.log(clockBudget([1.1, 4.2, 7.5, 0.4], 8.4)) // false
+    console.log(clockBudget([54.10, 20.00, 18.51, 97.75, 35.20, 76.42], 89.3)) // true
+    console.log(clockBudget([1, 1, 100], 2)) // true
+  </script>
+</body>
+
+</html>

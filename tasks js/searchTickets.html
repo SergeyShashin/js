@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    'use strict';
+
+    function searchTickets(data) {
+      let free = getFree(data);
+      console.log(free);
+      let variantsWithMinimumPrice = getVariantsWithMinimumPrice(free);
+
+
+      let res = getBestVariant(variantsWithMinimumPrice);
+
+      function getBestVariant(variants) {
+
+        let amounts = [];
+
+        for (let i = 0; i < variants.length; i++) {
+          amounts.push(variants[i].sum);
+        }
+
+        let minSum = Math.min(...amounts);
+        let idxMinSum = amounts.indexOf(minSum);
+
+        return `(${idxMinSum}, ${variants[idxMinSum].placewithPrice1})(${idxMinSum}, ${variants[idxMinSum].minPrice2}), ${minSum}`;
+
+
+      }
+
+
+      //возвращает массив с местами, которые можно приобрести в одном ряду для двоих.
+      function getFree(arr) {
+        let res = [];
+        arr.forEach(elements => res.push(elements.filter(el => el > 0)));
+
+        return res.filter(el => el.length > 1);
+      }
+
+      //возвращает объект с местами по минимальной цене, которые расположены рядом друг с дургом
+      function getVariantsWithMinimumPrice(arr) {
+
+        let minPrice = [];
+
+
+        arr.forEach((el, idx, arr) => {
+
+          minPrice.push(
+            {
+              idx: idx + ' ряд', // ряд 0
+              minPriceInCurrentRow: Math.min(...el), //цена 1
+              placewithPrice1: el.indexOf(Math.min(...el)), //место 2
+              minPrice2: getPrice2(el, idx),
+              sum: Math.min(...el) + getPrice2(el, idx)
+            }
+          );
+        })
+
+
+        //Возвращает цену соседнего места с лучшей ценой и ближе к центру
+        function getPrice2(curentArr, indexPlacePrice1) {
+          let leftSibling;
+          let idxLeftSibling;
+          let rightSibling;
+          let idxRightSibling;
+          let bestOffer;
+          let centerRow;
+
+
+          if (indexPlacePrice1 !== 0) {
+            idxLeftSibling = indexPlacePrice1;
+            leftSibling = curentArr[idxLeftSibling];
+          }
+
+          if (indexPlacePrice1 !== curentArr.length) {
+            idxRightSibling = indexPlacePrice1 + 1;
+            rightSibling = curentArr[idxRightSibling];
+          }
+
+
+          if (!leftSibling) {
+            bestOffer = rightSibling;
+          }
+
+          if (!rightSibling) {
+            bestOffer = leftSibling;
+          }
+
+          if (leftSibling < rightSibling) {
+            bestOffer = leftSibling;
+          }
+
+          if (rightSibling < leftSibling) {
+            bestOffer = rightSibling;
+          }
+
+          if (rightSibling === leftSibling) {
+            centerRow = Math.round(curentArr.length / 2);
+            bestOffer = curentArr[getSiblingCloserToCenter(idxLeftSibling, idxRightSibling, centerRow)];
+          }
+
+
+          //возвращает индекс места, которое находится ближе к центру
+          function getSiblingCloserToCenter(idxLeft, idxRight, center) {
+            if (center - idxLeft < center - idxRight) {
+              return idxLeft;
+            }
+            if (center - idxRight < center - idxLeft) {
+              return idxRight;
+            }
+            if (center - idxLeft === center - idxRight) {
+              return idxRight;
+            }
+
+          }
+
+          return bestOffer;
+
+        }
+
+        return minPrice;
+      }
+
+      return res;
+
+    }
+
+    console.log(searchTickets([
+      [3, 2, 1],
+      [-1, -1, 4],
+      [-1, 3, 5],
+      //экран
+      //'(0, 1) (0, 2) 3'
+    ]));
+
+  </script>
+
+</body>
+
+</html>
