@@ -1,0 +1,66 @@
+<meta charset="UTF-8">
+
+<script>
+  var arrRedAndBlack = [];
+  var sizeArrRedAndBlack = 100;
+  var maxRed = 0;
+  var curRed = 0;
+  var maxBlack = 0;
+  var curBlack = 0;
+  var idxRed = 0;
+  var idxBlack = 0;
+
+  for (; sizeArrRedAndBlack; sizeArrRedAndBlack--) {
+    var randomNumber = Math.round(Math.random() * 36);
+
+    if (randomNumber === 0) {
+      arrRedAndBlack.push('zero');
+    } else if (randomNumber % 2 === 0) {
+      arrRedAndBlack.push('black');
+    } else {
+      arrRedAndBlack.push('red');
+    }
+  }
+
+  if (arrRedAndBlack[0] === 'red') {
+    curRed++;
+  }
+
+  if (arrRedAndBlack[0] === 'black') {
+    curBlack++;
+  }
+
+  for (let i = 1; i < arrRedAndBlack.length; i++) {
+
+    let curEl = arrRedAndBlack[i];
+    let prevEl = arrRedAndBlack[i - 1];
+
+    if (curEl === 'red' && prevEl === 'red') {
+      curRed++;
+    } else {
+      curRed = 1;
+    }
+
+    if (curEl === 'black' && prevEl === 'black') {
+      curBlack++;
+    } else {
+      curBlack = 1;
+    }
+
+    if (curRed > maxRed) {
+      maxRed = curRed;
+      idxRed = i;
+    }
+
+    if (curBlack > maxBlack) {
+      maxBlack = curBlack;
+      idxBlack = i;
+    }
+
+  }
+
+  console.log(arrRedAndBlack);
+  console.log(`Максимальная последовательность выпадания красного ${maxRed}. Начинается с ${idxRed - maxRed + 1}.`);
+  console.log(`Максимальная последовательность выпадания чёрного ${maxBlack}. Начинается с ${idxBlack - maxBlack + 1}.`);
+
+</script>

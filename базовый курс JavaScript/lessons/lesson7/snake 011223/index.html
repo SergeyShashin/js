@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lesson7. Snake.</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 90vh;
+      background: url(1.jpg) no-repeat;
+      background-size: cover;
+    }
+
+    td {
+      width: 20px;
+      height: 20px;
+      background: burlywood;
+    }
+
+    .snake-head {
+      background: url(2.jpg) no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .snake-body {
+      background: brown;
+    }
+
+    .food {
+      background: green;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-evenly;
+      width: 400px
+    }
+
+    .button-play-or-stop {
+      flex: 1;
+      background: lightseagreen;
+      border: none;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: white;
+      margin-right: 20px;
+
+    }
+
+    .button-new-game {
+      flex: 1;
+      background: lightseagreen;
+      border: none;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      cursor: pointer;
+      color: white;
+    }
+
+    .finish {
+      background: gray;
+      cursor: none;
+    }
+  </style>
+</head>
+
+<body>
+  <table id='snake-game' class="snake-game">
+  </table>
+  <div class="buttons">
+    <button id="playOrStopButton" class="button-play-or-stop play" type="button">Play</button>
+    <button id="newGameButton" class="button-new-game" type="button">New Game</button>
+  </div>
+  <script src="snake.js"></script>
+</body>
+
+</html>
