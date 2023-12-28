@@ -3,29 +3,22 @@
   Возвращает ближайщее целое число, делящееся на 5 без остатка
   */
   function round5(num) {
-    if (!num % 5) {
+    if (num % 5 == 0) {
       return num
     }
 
-    let up = 0;
-    let down = 0;
     let numUp = num;
-    let numDown = num;
 
-    while (numUp % 5) {
+    while (numUp % 5 || num % 5) {
       numUp++;
-      up++;
-    }
+      num--;
 
-    while (numDown % 5) {
-      numDown--;
-      down++;
-    }
-
-    if (up <= down) {
-      return numUp
-    } else {
-      return numDown
+      if (numUp % 5 == 0) {
+        return numUp;
+      }
+      if (num % 5 == 0) {
+        return num;
+      }
     }
 
   }
@@ -38,4 +31,5 @@
   console.log(round5(50)); //50
   console.log(round5(-2)); //0
   console.log(round5(-3)); //-5
+
 </script>
