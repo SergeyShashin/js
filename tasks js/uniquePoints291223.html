@@ -1,0 +1,50 @@
+<script>
+
+  /*
+  *Вернуть массив без дублей
+  **/
+  function uniquePoints(arr) {
+    let arrFromObj = [];
+    let tempArr = [];
+    const rez = [];
+    arr.map((el, idx) => {
+      arrFromObj.push('|');
+      for (let key in el) {
+        arrFromObj.push(key + el[key]);
+      }
+    });
+
+    arrFromObj = new Set(arrFromObj.join('').split('|'));
+    arrFromObj = Array.from(arrFromObj);
+    arrFromObj.shift();
+    arrFromObj.map(el => tempArr.push(el.split('y')));
+
+    for (let val of tempArr) {
+      rez.push({ x: val[0].replace('x', ''), y: val[1] });
+    }
+
+    console.log(rez);
+
+  }
+
+  console.log(uniquePoints(
+    [
+      { x: 5, y: 10 },
+      { x: 1, y: 15 },
+      { x: 7, y: -5 },
+      { x: 16, y: 33 },
+      { x: 1, y: 15 },
+      { x: 7, y: -5 },
+      { x: 4, y: 12 },
+    ]
+  ));
+  // 
+  // [
+  //     { x: 5, y: 10 },
+  //     { x: 1, y: 15 },
+  //     { x: 7, y: -5 },
+  //     { x: 16, y: 33 },
+  //     { x: 4, y: 12 },
+  //   ]
+
+</script>
