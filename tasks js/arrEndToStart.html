@@ -1,0 +1,15 @@
+<script>
+
+  /*
+  Вывести с конца в таком виде: 
+  "Под свойством 5 лежит 35"
+  "Под свойством 4 лежит 2".
+  */
+  function arrAndToStart(arr) {
+    arr.reverse().forEach((el, idx) => console.log(`Под свойством ${arr.length-1 - idx} лежит ${el}`));
+
+  }
+
+  console.log(arrAndToStart([51, 8, 99, 71, 2, 35]));
+
+</script>
