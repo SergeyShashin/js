@@ -6,8 +6,12 @@
   "Под свойством 4 лежит 2".
   */
   function arrAndToStart(arr) {
-    arr.reverse().forEach((el, idx) => console.log(`Под свойством ${arr.length-1 - idx} лежит ${el}`));
-
+    // arr.reverse().forEach((el, idx) => console.log(`Под свойством ${arr.length-1 - idx} лежит ${el}`));
+    let length = arr.length;
+    while (length) {
+      console.log(`Под свойством ${length-1} лежит ${arr[length-1]}`);
+      length--;
+    }
   }
 
   console.log(arrAndToStart([51, 8, 99, 71, 2, 35]));
