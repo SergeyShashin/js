@@ -1,0 +1,23 @@
+<script>
+
+
+  /*
+  Возвращает массив с числами от a до b, которые делтся на с без остатка
+  */
+  function filter(a, b, c) {
+    let result = [];
+
+    for (let i = 5; i < b + 1; i++) {
+      if (i % c === 0) {
+        result.push(i);
+        i += c - 1;
+      }
+    }
+
+    return result;
+
+  }
+
+  console.log(filter(5, 15, 3));// [6, 9, 12, 15]
+
+</script>
