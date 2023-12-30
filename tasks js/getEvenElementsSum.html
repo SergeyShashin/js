@@ -1,0 +1,13 @@
+<script>
+
+  /**
+  Возвращает сумму четных элементов.
+  */
+  function getEvenElementsSum(arr) {
+    return arr.reduce((acc, el, idx) => idx % 2===0 ? acc + el : acc, 0);
+  }
+
+  console.log(getEvenElementsSum([5, 7, -1, 12, 3, 0])); //7
+  console.log(getEvenElementsSum([4, -12, 29, 6, 31, 2, -50])); //14
+
+</script>
