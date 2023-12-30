@@ -1,0 +1,21 @@
+<script>
+
+  /*
+  Возвращает массив от числа num в обратном порядке с числами кратными 3.
+  */
+  function getArr(num) {
+    let result = [];
+
+    while (num>-1) {
+      num % 3 === 0 ? result.push(num) : '';
+      num--;
+    }
+
+    return result
+  }
+
+  console.log(getArr(15)); //[15, 12, 9, 6, 3]
+  console.log(getArr(17)); //[15, 12, 9, 6, 3]
+  console.log(getArr(22)); //[18, 21, 15, 12, 9, 6, 3]
+
+</script>
