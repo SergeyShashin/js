@@ -1,0 +1,13 @@
+<script>
+
+  /**
+  Возвращает true если палиндром
+  */
+  function palindrom(str) {
+    return str === Array.from(str.toLowerCase()).reverse().join("");
+  }
+
+  console.log(palindrom('топот'));
+  console.log(palindrom('Колобок'));
+
+</script>
