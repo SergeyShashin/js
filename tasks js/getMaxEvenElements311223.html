@@ -1,0 +1,15 @@
+<script>
+
+  /*
+  Возвращает максимальный элемент из чисел, находящихся на четных индексах массива
+  */
+
+  function getMaxEvenElements(arr) {
+    return Math.max(...arr.filter((el, id) => id % 2 === 0))
+
+}
+
+  console.log(getMaxEvenElements([5, 7, -11, 12, 3, 0]));//5
+  console.log(getMaxEvenElements([4, -12, 29, 6, 31, 92, -50]));//31
+
+</script>
