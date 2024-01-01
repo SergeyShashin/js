@@ -1,0 +1,44 @@
+<script>
+
+  const lib = {
+    a: 1,
+    e: 2,
+    i: 3,
+    o: 4,
+    u: 5,
+    y: 6
+  };
+
+  /*
+  Возвращает строку в которой заменены английские гласные цифрами a-1, e-2, i-3, o-4, u-5, y-6
+  */
+  function encode(str) {
+
+
+    for (let key in lib) {
+      let rgxp = new RegExp(key, 'ig');
+      str = str.replace(rgxp, lib[key]);
+    }
+
+    return str
+  }
+
+  /*
+  Возвращает строку в которой заменены цифры на английские гласные a-1, e-2, i-3, o-4, u-5, y-6
+  */
+  function deCode(str) {
+
+
+    for (let key in lib) {
+      let rgxp = new RegExp(lib[key], 'ig');
+      str = str.replace(rgxp, key);
+    }
+
+    return str
+  }
+
+
+  console.log(encode('AeiAouyA'));
+  console.log(deCode(encode('AeiouyA')));
+
+</script>
