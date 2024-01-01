@@ -1,0 +1,13 @@
+<script>
+
+  function add(a = 0) {
+    let sum = a;
+    return function rec(b) {
+      sum += b;
+      return rec
+    }
+  }
+
+  console.log(add(2)(10)(4)); //0 
+
+</script>
