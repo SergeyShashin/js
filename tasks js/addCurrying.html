@@ -1,13 +1,24 @@
 <script>
 
-  function add(a = 0) {
-    let sum = a;
+  function add(n) {
+    if (n === undefined) {
+      return n = 0;
+    }
+
+    let sum = n;
+
     return function rec(b) {
+      if (b === undefined) {
+        return sum;
+      }
       sum += b;
       return rec
     }
+
   }
 
-  console.log(add(2)(10)(4)); //0 
+  console.log(add()); //0 
+  console.log(add(2)()); //2
+  console.log(add(2)(1)()); //3
 
 </script>
