@@ -1,0 +1,39 @@
+<script>
+
+  /*
+  Возвращает сумму человека и всех его детей.
+  */
+  function sumAge(user) {
+    return user.children ?
+      user.children.reduce((acc, el) => el ? acc + sumAge(el) : acc, user.age)
+      : user.age;
+  }
+
+  const user = {
+    name: 'Пётр',
+    age: 49,
+    children: [
+      {
+        name: 'Нина',
+        age: 25,
+        children: [
+          {
+            name: 'Андрей',
+            age: 3,
+          },
+          {
+            name: 'Олег',
+            age: 1,
+          },
+        ],
+      },
+      {
+        name: 'Александр',
+        age: 22,
+      },
+    ]
+  }
+
+  console.log(sumAge(user));
+
+</script>
