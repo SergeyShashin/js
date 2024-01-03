@@ -1,0 +1,22 @@
+<script>
+  /*
+  Возвращает объект из полученного массива объектов
+  */
+
+  function transform(arr) {
+    const obj = {}
+
+    for (let el of arr) {
+      obj[el.name] = el.value
+    }
+
+    return obj
+  }
+
+  console.log(transform([
+    { name: 'name', value: 'Анатолий' },
+    { name: 'age', value: 40 },
+  ]
+  )); //{name: Анатолий, age: 40}
+
+</script>
