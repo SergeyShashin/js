@@ -1,0 +1,26 @@
+<script>
+
+  /*
+  Преобразует число в bigint
+  */
+  function getBigInt(num) {
+    return BigInt(num);
+  }
+
+  /*
+  Вовращает факториал num. num bigInt
+  */
+  function getFactorial(num) {
+    return num === BigInt(1) ? num : getFactorial(num - BigInt(1)) * num;
+  }
+
+  /*
+  Возвращает сумму
+  */
+  function sumDigitsNumber(num) {
+    return num.toString().split('').reduce((acc, el) => acc + Number(el), 0);
+  }
+
+  console.log(sumDigitsNumber(getFactorial(getBigInt(100))));
+
+</script>
