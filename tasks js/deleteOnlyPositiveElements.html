@@ -1,0 +1,45 @@
+<script>
+
+  /*
+  Удалить столбцы, содержащие только положительные цифры
+  */
+  function deleteOnlyPositiveElements(arr) {
+
+    let positive;
+    let indexsPositive = [];
+    let res = [];
+
+    arr.map((el, idx) => {
+      positive = true;
+
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i][idx] < 0) {
+          positive = false;
+        }
+      }
+
+      if (positive) {
+        indexsPositive.push(idx);
+      }
+
+    });
+
+    res = arr.map((el) => el.filter((el1, idx) => !indexsPositive.includes(idx)));
+
+    return res
+
+  }
+
+  console.log(
+    deleteOnlyPositiveElements(
+      [
+        [2, 5, 8, 10],
+        [-1, 4, - 9, 1],
+        [2, 4, - 3, 50],
+        [7, 9, 7, 108],
+      ]
+    )
+  );
+
+
+</script>
