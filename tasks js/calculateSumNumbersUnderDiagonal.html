@@ -7,7 +7,7 @@
     let res = [];
 
     arr.map((el, idx) => el.map((el1, idx1) => {
-      if (idx === idx1 && el.slice(0, idx1)) {
+      if (idx !== 0 && idx === idx1 && el.slice(0, idx1)) {
         res.push(...el.slice(0, idx1));
       }
     }));
