@@ -1,0 +1,17 @@
+<script>
+
+  /*
+  Возвращает true если строка str содержит только буквы и цифры
+  */
+  function alphanumeric(str) {
+    return /^[a-zёа-я\d]+$/ig.test(str);
+  }
+
+  console.log(alphanumeric('ёJavaScript')); //true
+  console.log(alphanumeric('hello_')); //false
+  console.log(alphanumeric('R0bOT')); //true
+  console.log(alphanumeric('   ')); //false
+  console.log(alphanumeric('')); //false
+
+
+</script>
