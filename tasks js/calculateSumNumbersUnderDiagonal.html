@@ -1,0 +1,33 @@
+<script>
+
+  /*
+  Возращает сумму чисел под диагональю матрицы
+  */
+  function calculate(arr) {
+    let res = [];
+
+    arr.map((el, idx) => el.map((el1, idx1) => {
+      if (idx === idx1 && el.slice(0, idx1)) {
+        res.push(...el.slice(0, idx1));
+      }
+    }));
+
+    return res.reduce((acc, el) => acc + el);
+  }
+
+  console.log(calculate([
+    [5, 9, -1],
+    [1, 7, 2],
+    [6, 4, 14]
+  ])); //11
+
+  console.log(calculate([
+    [5, 73, 9, 81, -6],
+    [1, 8, 22, 18, 66],
+    [57, 7, - 19, 8, 0],
+    [2, -7, 54, 1, 33],
+    [6, 21, 38, -4, 11],
+  ]));//175
+
+
+</script>
