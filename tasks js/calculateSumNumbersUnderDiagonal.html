@@ -4,15 +4,15 @@
   Возращает сумму чисел под диагональю матрицы
   */
   function calculate(arr) {
-    let res = [];
+    let sum = 0;
 
     arr.map((el, idx) => el.map((el1, idx1) => {
-      if (idx !== 0 && idx === idx1 && el.slice(0, idx1)) {
-        res.push(...el.slice(0, idx1));
+      if (idx !== 0 && idx1 < idx) {
+        sum += el1;
       }
     }));
 
-    return res.reduce((acc, el) => acc + el);
+    return sum;
   }
 
   console.log(calculate([
