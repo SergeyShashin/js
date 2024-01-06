@@ -1,0 +1,9 @@
+<script>
+
+  function funcSumSqrtEven(arr) {
+    return arr.reduce((acc, el) => el % 2 === 0 ? acc + Math.sqrt(el) : acc, 0)
+  }
+
+  console.log(funcSumSqrtEven([3, 4, 9, 16, 1, 0])); //6
+
+</script>
