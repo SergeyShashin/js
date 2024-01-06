@@ -1,0 +1,18 @@
+<script>
+
+  /*
+  Возвращает строку = строка у которой длина меньше+строка у которой длина больше + строка у которой длина меньше
+  */
+
+  function func(str1, str2) {
+    if (str1.length > str2.length) {
+      return str2 + str1 + str2;
+    } else {
+      return str1 + str2 + str1;
+    }
+  }
+
+  console.log(func('1', '22')); //1221
+  console.log(func('22', '1')); //1221
+
+</script>
