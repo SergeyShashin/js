@@ -1,0 +1,11 @@
+<script>
+
+  function validParentheses(str) {
+    return /^(\(\))+$/.test(str)
+  }
+
+  console.log(validParentheses('()')); //true 
+  console.log(validParentheses('())')); //false 
+  console.log(validParentheses('())(')); //false 
+
+</script>
