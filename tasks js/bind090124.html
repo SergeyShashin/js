@@ -1,0 +1,20 @@
+<script>
+  const person = {
+    name: 'Андрей'
+  }
+
+  function func() {
+    console.log(this);
+  }
+
+  const bind2 = func.bind(person);
+
+  bind2();
+
+  function bind(f, context) {
+    return function (...arguments) {
+      f.call(context, ...arguments);
+    }
+  }
+
+</script>
