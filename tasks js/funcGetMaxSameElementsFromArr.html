@@ -1,0 +1,23 @@
+<script>
+
+  function funcGetMaxSameElementsFromArr(arr) {
+
+    //slowly
+    // let maxElement = 0;
+    // arr.map(el => {
+    //   let quantityElement = arr.filter(el1 => el1 === el).length;
+    //   if (quantityElement > maxElement) {
+    //     maxElement = quantityElement;
+    //   }
+    // });
+    // return maxElement;
+
+    let newArr = arr.sort((a, b) => a - b);
+    return newArr.filter(el => newArr[0] === el).length
+
+  }
+
+  console.log(funcGetMaxSameElementsFromArr([0, 1, 3, 0, 0, 9]))//3
+  console.log(funcGetMaxSameElementsFromArr([2, 13, 5, 9, 7]))//1
+
+</script>
