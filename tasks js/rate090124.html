@@ -4,17 +4,24 @@
     Возвращает среднее от суммы переданных рейтингов деленное на количество рейтингов с округлением до ближайшего целого 
   */
   function rate() {
-    let result;
+    let sum = 0;
+    let quantityCall = 0;
 
+    function setRate(num) {
+      sum += num;
+      quantityCall++;
+      
+      return Math.round(sum/quantityCall);
+    }
+
+    return setRate;
   }
 
-  function setRate(num) {
+  const setRate = rate();
 
-  }
-
-  console.log(setRate(5))//5 = 5/1 
-  console.log(setRate(3))//4 = (5+3)/2
-  console.log(setRate(4))//3 = (5+3+4)/3 
-  console.log(setRate(0))//3 = (5+3+4+0)/4
+  console.log(setRate(5)); //5 = 5/1 
+  console.log(setRate(3)); //4 = (5+3)/2
+  console.log(setRate(4)); //4 = (5+3+4)/3 
+  console.log(setRate(0)); //3 = (5+3+4+0)/4
 
 </script>
