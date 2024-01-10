@@ -1,0 +1,22 @@
+<script>
+  /*
+  Возвращает строку в которой показывается какие буквы и какое количество содержатся в строке.
+  Реализовывать в функциональном стиле 
+  */
+  function getChars(city) {
+    let result;
+    city.toLowerCase().split('').reduce((acc, el, idx, arr) => acc = [...arr.filter(elF => elF === el ? el = el + '*' : el)], []);
+    return result;
+  }
+
+  //с:*,а:**,р:*,т:*,о:*,в
+  console.log(getChars('саратов'));
+
+  // //н:**,о:**,в:*,ы:*,й:**,у:*,р:*,е:*,г*
+  // console.log(getChars('Новый Уренгой'));
+
+  // //с:*,а:*,н:*,к:*,т:**,п:*,е:**,р:**,б:*,у:*,г:*
+  // console.log(getChars('Санкт-Петербург'));
+
+
+</script>
