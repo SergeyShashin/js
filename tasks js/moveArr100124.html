@@ -1,0 +1,25 @@
+<script>
+
+  /*
+  Возвращает массив со смещением влево, если step положительный и со смещением вправо, если отрицательный.
+  */
+
+  function moveArr(arr, step) {
+
+    while (step) {
+      if (step > 0) {
+        arr.unshift(arr.pop())
+        step--;
+      } else {
+        arr.push(arr.shift());
+        step++
+      }
+    }
+
+    return arr;
+  }
+
+  console.log(moveArr([1, 2, 3, 4, 5], 2)); // [4, 5, 1, 2, 3]
+  console.log(moveArr([1, 2, 3, 4, 5], -2)); // [3, 4, 5, 1, 2]
+
+</script>
