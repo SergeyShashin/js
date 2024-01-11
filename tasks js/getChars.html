@@ -4,7 +4,7 @@
   Реализовывать в функциональном стиле 
   */
   function getChars(city) {
-    let tmpArr = city.toLowerCase().split('').filter(el => el !== ' ');
+    let tmpArr = city.toLowerCase().split('').filter(el => el !== ' ' && el !== '-');
     let result = [...new Set(tmpArr)];
 
     result.map((el, idx) => {
