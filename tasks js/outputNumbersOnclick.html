@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <span id="monitor"></span><br>
+  <button id="btn">Можно нажать</button>
+</body>
+
+</html>
+
+<script>
+  /*
+  По клику добавлять случайное неповторяющееся число от 1 до 10 в monitorEl через запятую.
+  После вывода всех чисел убрать обработчик клика. 
+  */
+
+  let btnEl = document.getElementById('btn');
+  let monitorEl = document.getElementById('monitor');
+
+  btnEl.addEventListener('click', () => {
+    monitorEl.textContent = '1';
+  })
+
+</script>
