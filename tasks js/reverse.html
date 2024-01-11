@@ -1,0 +1,18 @@
+<script>
+
+  /*
+  Возвращает строку в которой перевёрнуты символы со start и до end
+  */
+  function reverse(str, start, end) {
+    let result = str.split('');
+    let sliceArr = result.splice(start, end).reverse();
+    
+    result.splice(start, 0, ...sliceArr);
+    
+    return result.join('');
+  }
+
+  console.log(reverse('mockinterview', 1, 5));
+  console.log(reverse('codingIsFun', 2, 100));
+
+</script>
