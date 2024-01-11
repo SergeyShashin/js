@@ -1,0 +1,17 @@
+<script>
+  /*
+  Вернуть количество 7 в друмерном массиве
+  */
+  function f(arr) {
+    let result = arr.flat(1);
+
+    return result.join('').replace(/[^7]+/g, '').length
+  }
+
+  console.log(f([
+    [4, 7.7, 81.4],
+    [-17, 4.8, 171],
+    [15, 2.27, -3],
+  ]));
+
+</script>
