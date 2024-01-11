@@ -4,19 +4,32 @@
   Реализовывать в функциональном стиле 
   */
   function getChars(city) {
-    let result;
-    city.toLowerCase().split('').reduce((acc, el, idx, arr) => acc = [...arr.filter(elF => elF === el ? el = el + '*' : el)], []);
-    return result;
+    let tmpArr = city.toLowerCase().split('').filter(el => el !== ' ');
+    let result = [...new Set(tmpArr)];
+
+    result.map((el, idx) => {
+      let arrChars = tmpArr.filter(cityElement => cityElement === el);
+      let quantityStars = '';
+      let lengthArrChars = arrChars.length;
+
+      while (lengthArrChars) {
+        quantityStars += '*';
+        lengthArrChars--;
+      }
+
+      result[idx] = `${el}: ${quantityStars}`;
+    });
+
+    return result.join(', ');
   }
 
   //с:*,а:**,р:*,т:*,о:*,в
   console.log(getChars('саратов'));
 
-  // //н:**,о:**,в:*,ы:*,й:**,у:*,р:*,е:*,г*
-  // console.log(getChars('Новый Уренгой'));
+  //н:**,о:**,в:*,ы:*,й:**,у:*,р:*,е:*,г*
+  console.log(getChars('Новый Уренгой'));
 
-  // //с:*,а:*,н:*,к:*,т:**,п:*,е:**,р:**,б:*,у:*,г:*
-  // console.log(getChars('Санкт-Петербург'));
-
+  //с:*,а:*,н:*,к:*,т:**,п:*,е:**,р:**,б:*,у:*,г:*
+  console.log(getChars('Санкт-Петербург'));
 
 </script>
