@@ -1,0 +1,29 @@
+<script>
+
+  /*
+   Возвращает перевёрнутую строку. Пробелы должны оставаться на своих местах
+  */
+  function reverse2(str) {
+    let placeSpace = [];
+    let result = str.split('').filter((el, idx) => {
+      if (el === ' ') {
+        placeSpace.push(idx);
+      }
+
+      return el !== ' ';
+    });
+
+    result.reverse();
+
+    for (let val of placeSpace) {
+      result.splice(val, 0, ' ');
+    }
+
+    return result.join('');
+
+  }
+
+  console.log(reverse2('привет')); //тевирп
+  console.log(reverse2('Как дела?')); //?ал едкаК
+  
+</script>
