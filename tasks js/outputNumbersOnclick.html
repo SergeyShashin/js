@@ -22,9 +22,41 @@
 
   let btnEl = document.getElementById('btn');
   let monitorEl = document.getElementById('monitor');
+  const arrNumbersRandom = getRandomArrNumbers(10);
 
-  btnEl.addEventListener('click', () => {
-    monitorEl.textContent = '1';
-  })
+  btnEl.addEventListener('click', () => btnElClickHandler());
+
+
+  /*
+  Обрабатывает клик по кнопке btnEl
+  */
+  function btnElClickHandler() {
+    if (arrNumbersRandom.length < 1) {
+      btnEl.removeEventListener('click', btnElClickHandler);
+      return
+    }
+
+    if (arrNumbersRandom.length > 1) {
+      monitorEl.textContent += arrNumbersRandom.splice(0, 1) + ', ';
+    } else {
+      monitorEl.textContent += arrNumbersRandom.splice(0, 1) + '.';
+    }
+
+  };
+
+  /*
+ Возвращает массив со случайными числами до num
+ */
+  function getRandomArrNumbers(num) {
+    const result = [];
+    while (result.length < num) {
+      let numRandom = Math.floor(Math.random() * num + 1)
+      result.includes(numRandom) ? '' : result.push(numRandom);
+    }
+
+    return result
+
+  }
+
 
 </script>
