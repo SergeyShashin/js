@@ -1,0 +1,19 @@
+<script>
+
+  /*
+  Возвращает максимальное число из num
+  */
+  function getMax(num) {
+    if (typeof num !== 'number') {
+      return NaN
+    }
+
+    return Number(num.toString().replace(/[,.]+/g, '').split('').sort((a, b) => b - a).join(''))
+
+  }
+
+  console.log(getMax(6118)); //8611
+  console.log(getMax(17)); //71
+  console.log(getMax(17.5)); //751
+  console.log(getMax('Привет')); //NaN
+</script>
