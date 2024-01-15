@@ -1,0 +1,31 @@
+<script>
+
+  /*
+  Возвращает строку содержащую html
+  */
+
+  function buildHtml(data) {
+
+  }
+
+  console.log(buildHtml(
+    [
+      'html',
+      [
+        [
+          'head',
+          [
+            ['title', 'Hello, mockinterview!'],
+          ]
+        ],
+        ['body', { class: 'container' }, [
+          ['h1', { 'class': header }, 'html builder example'],
+          ['div', [
+            ['span', 'span text2'],
+            ['span', 'span text3']
+          ]]
+        ]]
+      ]]
+  ));
+
+</script>
