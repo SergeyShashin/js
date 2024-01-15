@@ -1,0 +1,38 @@
+<script>
+
+  class Developer {
+    constructor(name, skill, favoriteFrameWork) {
+      this.name = name;
+      this.skill = skill;
+      this.favoriteFrameWork = favoriteFrameWork;
+    }
+  }
+
+  class DeveloperBuilder {
+    constructor(name) {
+      this.name = name;
+      this.skills = [];
+      this.favoriteFrameWork = null;
+    }
+
+    addSkill(skill) {
+      this.skills.push(skill);
+      return this;
+    }
+
+    setFavoriteFrameWork(nameFrameWork) {
+      this.favoriteFrameWork = nameFrameWork;
+      return this;
+    }
+
+    build(nameFrameWork) {
+      return new Developer(this.name, [...this.skills], this.favoriteFrameWork)
+    }
+
+  }
+
+  const developer = new DeveloperBuilder('Павел').addSkill('ES6').addSkill('TypeScript').setFavoriteFrameWork('React').build();
+
+  console.log(developer);
+
+</script>
