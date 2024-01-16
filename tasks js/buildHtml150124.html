@@ -6,21 +6,24 @@
 
   function buildHtml(data) {
 
-    if (Array.isArray(data)) {
-      data.map((el, idx) => {
-        if (!Array.isArray(el) && idx === 0 && el[1] !== '/') {
-          console.log(`<${el}>`);
-          data.push(`</${el}>`);
-        } else if (Array.isArray(el)) {
-          console.log(buildHtml(el));
-        } else {
-          console.dir(el);
-        }
-      })
-
+    if (typeof data === 'string') {
+      // console.log(`</${data}>`);
+      return `</${data}>`;
     }
 
-    return data[data.length - 1]
+    if (Array.isArray(data)) {
+      data.map((el, idx) => {
+
+        if (Array.isArray(el)) {
+
+          return buildHtml(el);
+        } else {
+
+          idx === 0 ? console.log(`<${el}>`) : console.log(`</${el}>`);
+        }
+
+      });
+    }
 
   }
 
