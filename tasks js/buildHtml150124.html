@@ -1,12 +1,29 @@
 <script>
 
   /*
-  Возвращает строку содержащую html
+  Возвращает строку содержащую html.
   */
 
   function buildHtml(data) {
 
+    if (Array.isArray(data)) {
+      data.map((el, idx) => {
+        if (!Array.isArray(el) && idx === 0 && el[1] !== '/') {
+          console.log(`<${el}>`);
+          data.push(`</${el}>`);
+        } else if (Array.isArray(el)) {
+          console.log(buildHtml(el));
+        } else {
+          console.dir(el);
+        }
+      })
+
+    }
+
+    return data[data.length - 1]
+
   }
+
 
   console.log(buildHtml(
     [
@@ -19,7 +36,7 @@
           ]
         ],
         ['body', { class: 'container' }, [
-          ['h1', { 'class': header }, 'html builder example'],
+          ['h1', { class: 'header' }, 'html builder example'],
           ['div', [
             ['span', 'span text2'],
             ['span', 'span text3']
