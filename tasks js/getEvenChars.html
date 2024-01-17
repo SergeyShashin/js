@@ -1,0 +1,18 @@
+<script>
+  /*
+  Возвращает массив строк с нечётными символами строки, если строка больше 2 и меньше 100 символов
+  */
+  function getEvenChars(str) {
+    let lengthStr = str.length;
+
+    if (lengthStr < 2 || lengthStr > 100) {
+      return 'неверная строка'
+    }
+
+    return str.split('').filter((el, idx) => idx % 2 !== 0 ? el : '');
+  }
+
+  console.log(getEvenChars('abcdefghijklm')); //['b', 'd', 'f', 'h', 'j', l]
+  console.log(getEvenChars('a'));
+
+</script>
