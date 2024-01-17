@@ -1,0 +1,33 @@
+<script>
+
+  /*
+  Возращает сумму 2 минимальных чисел
+  */
+  function sumSmallest(arr) {
+    let min;
+    let min2;
+
+    if (arr[0] <= arr[1]) {
+      min = arr[0];
+      min2 = arr[1];
+    } else {
+      min = arr[0];
+      min2 = arr[1];
+    }
+
+    for (let i = 2; i < arr.length; i++) {
+      if (arr[i] <= min) {
+        min2 = min;
+        min = arr[i];
+      } else if (arr[i] <= min2) {
+        min2 = arr[i];
+      }
+    }
+
+    return sum = min + min2;
+  }
+
+  console.log(sumSmallest([5, 8, 12, 19, 22])); //13
+  console.log(sumSmallest([15, 28, 4, 2, 43])); //6
+
+</script>
