@@ -6,15 +6,31 @@
   */
   function findWord(puzzle, word) {
     let result = true;
+    const alphabet = englishAlphabet();
 
-    word.split('').map((elWord, idxWord) => {
-      puzzle.map((elPuzzle, idxPuzzle) => {
-        let charsInElPuzzle = 'буква ' + elWord + ' строка ' + idxPuzzle + ' колонка ' + elPuzzle.split('').filter((elFilterInPuzzle, idxFilterInPuzzle) => elFilterInPuzzle === elWord);
-        console.log(charsInElPuzzle);
-      });
+    //собираем объект с индексами букв puzzle
+    puzzle.map((row, idxRow) => {
+      row.split('').map((col, idxCol) => {
+        alphabet[col].push({ row: idxRow, col: idxCol });
+      })
     })
 
+    console.log(alphabet);
+
     return result
+  }
+
+  /*
+  Создаёт объект с английскими буквами
+  */
+  function englishAlphabet() {
+    const alphabet = {};
+
+    for (let i = 65; i < 91; i++) {
+      alphabet[String.fromCharCode(i)] = [];
+    }
+
+    return alphabet
   }
 
   const puzzle = [
