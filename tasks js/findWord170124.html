@@ -1,0 +1,32 @@
+<script>
+
+  /*
+  Возвращает true, если в puzzle можно собрать слово word. В остальных случая false.
+  Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
+  */
+  function findWord(puzzle, word) {
+    let result = true;
+
+    word.split('').map((elWord, idxWord) => {
+      puzzle.map((elPuzzle, idxPuzzle) => {
+        let charsInElPuzzle = 'буква ' + elWord + ' строка ' + idxPuzzle + ' колонка ' + elPuzzle.split('').filter((elFilterInPuzzle, idxFilterInPuzzle) => elFilterInPuzzle === elWord);
+        console.log(charsInElPuzzle);
+      });
+    })
+
+    return result
+  }
+
+  const puzzle = [
+    'ANGULAR',
+    'REDNCAE',
+    'RFIDTCL',
+    'AGNEGSA',
+    'YTIRTSP'
+  ]
+
+  console.log(findWord(puzzle, 'ANGULAR')); //true
+  // console.log(findWord(puzzle, 'REACT')); //true
+  // console.log(findWord(puzzle, 'ARRAY')); //true
+
+</script>
