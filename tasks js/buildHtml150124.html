@@ -6,25 +6,13 @@
 
   function buildHtml(data) {
 
-    if (typeof data === 'string') {
-      // console.log(`</${data}>`);
-      return `</${data}>`;
-    }
+    let html = data[1].class ? `<${data[0]} class='${data[1].class}'>` : `<${data[0]}>`
 
-    if (Array.isArray(data)) {
-      data.map((el, idx) => {
 
-        if (Array.isArray(el)) {
+    
 
-          return buildHtml(el);
-        } else {
 
-          idx === 0 ? console.log(`<${el}>`) : console.log(`</${el}>`);
-        }
-
-      });
-    }
-
+    return html += `</${data[0]}>`
   }
 
 
