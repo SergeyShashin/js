@@ -8,8 +8,8 @@
     'YTIRTSP'
   ];
 
-  console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true
+  // console.log(findWord(puzzle, 'ANGULAR')); //true
+  console.log(findWord(puzzle, 'REACT')); //true ?? 
   // console.log(findWord(puzzle, 'ARRAY')); //true
 
 
@@ -20,15 +20,15 @@
   function findWord(puzzle, word) {
     let result = true;
     const alphabet = englishAlphabet();
-    const matrix = [];
+    // const matrix = [];
     let lengthPuzzle = puzzle.length;
 
     //собираем объект с индексами букв puzzle
     puzzle.map((row, idxRow) => {
-      matrix.push(row);
+      // matrix.push(row);
       row.split('').map((col, idxCol) => {
         alphabet[col].push({ row: idxRow, col: idxCol });
-        matrix[idxRow][idxCol] = col;
+        // matrix[idxRow][idxCol] = col;
       })
     })
 
@@ -103,10 +103,11 @@
     for (let coordinateNextChar of coordinatesNextChar) {
 
       let nextCol = coordinateNextChar.col;
+
       let nextRow = coordinateNextChar.row;
 
       if (nextCol - 1 >= 0) {
-        if (checkStepLeftOrRight(coordinatesChar, nextCol - 1)) {
+        if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, coordinateNextChar.row)) {
           // console.log('Вариант есть');
           // console.log(coordinateNextChar);
           isStepLeft = true;
@@ -114,7 +115,7 @@
       }
 
       if (nextCol + 1 <= lengthPuzzle) {
-        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1)) {
+        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, coordinateNextChar.row)) {
           // console.log('Вариант есть');
           // console.log(coordinateNextChar);
           isStepRight = true;
@@ -122,11 +123,18 @@
       }
 
       if (nextRow - 1 >= 0) {
-        console.log(`Предыдущий символ!!! ${nextRow - 1}`);
-        if (checkStepTopOrBottom(coordinatesChar, nextRow - 1)) {
+        if (checkStepTopOrBottom(coordinatesChar, nextRow - 1, coordinateNextChar.col)) {
           // console.log('Вариант есть');
           // console.log(coordinateNextChar);
           isStepTop = true;
+        };
+      }
+
+      if (nextRow + 1 <= lengthPuzzle) {
+        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, coordinateNextChar.col)) {
+          // console.log('Вариант есть');
+          // console.log(coordinateNextChar);
+          isStepRight = true;
         };
       }
 
@@ -144,11 +152,11 @@
   /*
   Возвращает true если шаг влево или вправо воможен
   */
-  function checkStepLeftOrRight(coordinatesChar, col) {
+  function checkStepLeftOrRight(coordinatesChar, col, row) {
 
     for (let coordinateChar of coordinatesChar) {
 
-      if (coordinateChar.col === col) {
+      if (coordinateChar.col === col && coordinateChar.row === row) {
         return true
       }
 
@@ -159,11 +167,11 @@
   /*
   Возвращает true если шаг вверх или вниз возможен
   */
-  function checkStepTopOrBottom(coordinatesChar, row) {
+  function checkStepTopOrBottom(coordinatesChar, row, col) {
 
     for (let coordinateChar of coordinatesChar) {
 
-      if (coordinateChar.row === row) {
+      if (coordinateChar.row === row && coordinateChar.col === col) {
         return true
       }
 
