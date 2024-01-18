@@ -46,7 +46,7 @@
           return
         }
 
-        // проверка возможности путь из последнего символа word в предпоследний
+        // проверка возможности наличия пути из последнего символа word в предпоследний
       } else if (word[idxChar]) {
         console.log('зашли сюда ');
 
@@ -57,7 +57,6 @@
         let lastChar = word[idxChar];
         console.log('символ ' + lastChar);
         console.log(alphabet[lastChar]);
-
 
         if (!checkStep(alphabet[prevChar], alphabet[lastChar], lengthPuzzle)) {
           result = false;
@@ -93,26 +92,44 @@
   */
   function checkStep(coordinatesChar, coordinatesNextChar, lengthPuzzle) {
 
-    let canStep = true;
+    let isStepLeft;
+    let isStepRight;
+    let isStepTop;
+    let isStepDown;
 
     for (let coordinateNextChar of coordinatesNextChar) {
-      console.log(coordinateNextChar);
-      console.log(coordinateNextChar.col);
+      // console.log(coordinateNextChar);
+      // console.log(coordinateNextChar.col);
 
       let nextCol = coordinateNextChar.col;
 
       if (nextCol - 1 >= 0) {
-        console.log(nextCol - 1);
+        // console.log(nextCol - 1);
         if (checkStepLeft(coordinatesChar, nextCol - 1)) {
-
-          console.log('Вариант есть');
-          console.log(coordinateNextChar);
+          // console.log('Вариант есть');
+          // console.log(coordinateNextChar);
+          isStepLeft = true;
         };
       }
 
+      if (nextCol + 1 <= lengthPuzzle) {
+        // console.log(nextCol + 1);
+        if (checkStepLeft(coordinatesChar, nextCol + 1)) {
+
+          // console.log('Вариант есть');
+          // console.log(coordinateNextChar);
+        };
+      }
+
+
     }
 
-    return canStep;
+    console.log('Возможность шагать влево ' + isStepLeft);
+    console.log('Возможность шагать влево ' + isStepRight);
+    console.log('Возможность шагать влево ' + isStepTop);
+    console.log('Возможность шагать влево ' + isStepDown);
+
+    return isStepLeft||isStepRight||isStepTop||isStepDown;
   }
 
   /*
