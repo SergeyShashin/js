@@ -6,7 +6,7 @@
     'RFIDTCL',
     'AGNEGSA',
     'YTIRTSP'
-  ]
+  ];
 
   console.log(findWord(puzzle, 'ANGULAR')); //true
   // console.log(findWord(puzzle, 'REACT')); //true
@@ -20,12 +20,15 @@
   function findWord(puzzle, word) {
     let result = true;
     const alphabet = englishAlphabet();
+    const matrix = [];
     let lengthPuzzle = puzzle.length;
 
     //собираем объект с индексами букв puzzle
     puzzle.map((row, idxRow) => {
+      matrix.push(row);
       row.split('').map((col, idxCol) => {
         alphabet[col].push({ row: idxRow, col: idxCol });
+        matrix[idxRow][idxCol] = col;
       })
     })
 
@@ -95,17 +98,15 @@
     let isStepLeft;
     let isStepRight;
     let isStepTop;
-    let isStepDown;
+    let isStepBottom;
 
     for (let coordinateNextChar of coordinatesNextChar) {
-      // console.log(coordinateNextChar);
-      // console.log(coordinateNextChar.col);
 
       let nextCol = coordinateNextChar.col;
+      let nextRow = coordinateNextChar.row;
 
       if (nextCol - 1 >= 0) {
-        // console.log(nextCol - 1);
-        if (checkStepLeft(coordinatesChar, nextCol - 1)) {
+        if (checkStepLeftOrRight(coordinatesChar, nextCol - 1)) {
           // console.log('Вариант есть');
           // console.log(coordinateNextChar);
           isStepLeft = true;
@@ -113,11 +114,19 @@
       }
 
       if (nextCol + 1 <= lengthPuzzle) {
-        // console.log(nextCol + 1);
-        if (checkStepLeft(coordinatesChar, nextCol + 1)) {
-
+        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1)) {
           // console.log('Вариант есть');
           // console.log(coordinateNextChar);
+          isStepRight = true;
+        };
+      }
+
+      if (nextRow - 1 >= 0) {
+        console.log(`Предыдущий символ!!! ${nextRow - 1}`);
+        if (checkStepTopOrBottom(coordinatesChar, nextRow - 1)) {
+          // console.log('Вариант есть');
+          // console.log(coordinateNextChar);
+          isStepTop = true;
         };
       }
 
@@ -125,17 +134,17 @@
     }
 
     console.log('Возможность шагать влево ' + isStepLeft);
-    console.log('Возможность шагать влево ' + isStepRight);
-    console.log('Возможность шагать влево ' + isStepTop);
-    console.log('Возможность шагать влево ' + isStepDown);
+    console.log('Возможность шагать вправо ' + isStepRight);
+    console.log('Возможность шагать вверх ' + isStepTop);
+    console.log('Возможность шагать вниз ' + isStepBottom);
 
-    return isStepLeft||isStepRight||isStepTop||isStepDown;
+    return isStepLeft || isStepRight || isStepTop || isStepBottom;
   }
 
   /*
-  Возвращает true если шаг влево воможен
+  Возвращает true если шаг влево или вправо воможен
   */
-  function checkStepLeft(coordinatesChar, col) {
+  function checkStepLeftOrRight(coordinatesChar, col) {
 
     for (let coordinateChar of coordinatesChar) {
 
@@ -146,6 +155,23 @@
     }
 
   }
+
+  /*
+  Возвращает true если шаг вверх или вниз возможен
+  */
+  function checkStepTopOrBottom(coordinatesChar, row) {
+
+    for (let coordinateChar of coordinatesChar) {
+
+      if (coordinateChar.row === row) {
+        return true
+      }
+
+    }
+
+  }
+
+
 
 
 </script>
