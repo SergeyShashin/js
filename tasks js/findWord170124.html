@@ -1,5 +1,18 @@
 <script>
 
+  const puzzle = [
+    'ANGULAR',
+    'REDNCAE',
+    'RFIDTCL',
+    'AGNEGSA',
+    'YTIRTSP'
+  ]
+
+  console.log(findWord(puzzle, 'ANGULAR')); //true
+  // console.log(findWord(puzzle, 'REACT')); //true
+  // console.log(findWord(puzzle, 'ARRAY')); //true
+
+
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случая false.
   Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
@@ -7,6 +20,7 @@
   function findWord(puzzle, word) {
     let result = true;
     const alphabet = englishAlphabet();
+    let lengthPuzzle = puzzle.length;
 
     //собираем объект с индексами букв puzzle
     puzzle.map((row, idxRow) => {
@@ -27,12 +41,28 @@
         console.log('следующий символ ' + nextChar);
         console.log(alphabet[nextChar]);
 
-        if (!checkStep(alphabet[char], alphabet[nextChar])) {
+        if (!checkStep(alphabet[char], alphabet[nextChar], lengthPuzzle)) {
           result = false;
           return
         }
 
-      } else {
+        // проверка возможности путь из последнего символа word в предпоследний
+      } else if (word[idxChar]) {
+        console.log('зашли сюда ');
+
+        let prevChar = word[idxChar - 1];
+        console.log('символ ' + prevChar);
+        console.log(alphabet[prevChar]);
+
+        console.log('символ ' + word[idxChar]);
+
+        if (!checkStep(alphabet[prevChar], alphabet[word[idxChar]], lengthPuzzle)) {
+          result = false;
+          return
+        }
+
+      }
+      else {
         result = false;
         return
       }
@@ -58,27 +88,42 @@
   /*
   Возращает true, если можно шагнуть к следующей букве и false, если нельзя 
   */
-  function checkStep(coordinatesChar, coordinatesNextChar) {
+  function checkStep(coordinatesChar, coordinatesNextChar, lengthPuzzle) {
     let canStep = true;
+
     for (let coordinateNextChar of coordinatesNextChar) {
-      console.log(coordinateNextChar);
+      console.log(coordinateNextChar.col);
+
+      let nextCol = coordinateNextChar.col;
+
+      if (nextCol - 1 >= 0) {
+        if (checkStepLeft(coordinatesChar, nextCol - 1)) {
+
+          console.log('Вариант есть');
+          console.log(coordinateNextChar);
+        };
+      }
+      //1, 2, 3
+
+
 
     }
-
 
     return canStep;
   }
 
-  const puzzle = [
-    'ANGULAR',
-    'REDNCAE',
-    'RFIDTCL',
-    'AGNEGSA',
-    'YTIRTSP'
-  ]
+  /*
+  Возвращает true если шаг влево воможен
+  */
+  function checkStepLeft(coordinatesChar, col) {
 
-  console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true
-  // console.log(findWord(puzzle, 'ARRAY')); //true
+    for (let coordinateChar of coordinatesChar) {
+
+      return coordinateChar.col === col
+
+    }
+
+  }
+
 
 </script>
