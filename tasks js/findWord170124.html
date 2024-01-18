@@ -15,7 +15,29 @@
       })
     })
 
-    console.log(alphabet);
+    // console.log(alphabet);
+
+    word.split('').map((char, idxChar) => {
+      if (alphabet[char] && word[idxChar + 1]) {
+
+        console.log('этот символ ' + char);
+        console.log(alphabet[char]);
+
+        let nextChar = word[idxChar + 1];
+        console.log('следующий символ ' + nextChar);
+        console.log(alphabet[nextChar]);
+
+        if (!checkStep(alphabet[char], alphabet[nextChar])) {
+          result = false;
+          return
+        }
+
+      } else {
+        result = false;
+        return
+      }
+
+    });
 
     return result
   }
@@ -31,6 +53,20 @@
     }
 
     return alphabet
+  }
+
+  /*
+  Возращает true, если можно шагнуть к следующей букве и false, если нельзя 
+  */
+  function checkStep(coordinatesChar, coordinatesNextChar) {
+    let canStep = true;
+    for (let coordinateNextChar of coordinatesNextChar) {
+      console.log(coordinateNextChar);
+
+    }
+
+
+    return canStep;
   }
 
   const puzzle = [
