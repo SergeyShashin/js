@@ -54,9 +54,12 @@
         console.log('символ ' + prevChar);
         console.log(alphabet[prevChar]);
 
-        console.log('символ ' + word[idxChar]);
+        let lastChar = word[idxChar];
+        console.log('символ ' + lastChar);
+        console.log(alphabet[lastChar]);
 
-        if (!checkStep(alphabet[prevChar], alphabet[word[idxChar]], lengthPuzzle)) {
+
+        if (!checkStep(alphabet[prevChar], alphabet[lastChar], lengthPuzzle)) {
           result = false;
           return
         }
@@ -89,23 +92,23 @@
   Возращает true, если можно шагнуть к следующей букве и false, если нельзя 
   */
   function checkStep(coordinatesChar, coordinatesNextChar, lengthPuzzle) {
+
     let canStep = true;
 
     for (let coordinateNextChar of coordinatesNextChar) {
+      console.log(coordinateNextChar);
       console.log(coordinateNextChar.col);
 
       let nextCol = coordinateNextChar.col;
 
       if (nextCol - 1 >= 0) {
+        console.log(nextCol - 1);
         if (checkStepLeft(coordinatesChar, nextCol - 1)) {
 
           console.log('Вариант есть');
           console.log(coordinateNextChar);
         };
       }
-      //1, 2, 3
-
-
 
     }
 
@@ -119,7 +122,9 @@
 
     for (let coordinateChar of coordinatesChar) {
 
-      return coordinateChar.col === col
+      if (coordinateChar.col === col) {
+        return true
+      }
 
     }
 
