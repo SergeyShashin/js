@@ -8,9 +8,15 @@
     'YTIRTSP'
   ];
 
-  // console.log(findWord(puzzle, 'ANGULAR')); //true
-  console.log(findWord(puzzle, 'REACT')); //true ?? 
-  // console.log(findWord(puzzle, 'ARRAY')); //true
+  console.log(findWord(puzzle, 'ANGULAR')); //true
+  console.log(findWord(puzzle, 'REACT')); //true 
+  console.log(findWord(puzzle, 'ARRAY')); //true
+  console.log(findWord(puzzle, 'UNDEFINED')); //true
+  console.log(findWord(puzzle, 'RED')); //true
+  console.log(findWord(puzzle, 'STRING')); //true
+  console.log(findWord(puzzle, 'CLASS')); //true
+  console.log(findWord(puzzle, 'FUNCTION')); //false
+  console.log(findWord(puzzle, 'NULL')); //false
 
 
   /*
@@ -20,48 +26,34 @@
   function findWord(puzzle, word) {
     let result = true;
     const alphabet = englishAlphabet();
-    // const matrix = [];
-    let lengthPuzzle = puzzle.length;
+    let lengthStr = puzzle[0].length;
 
     //собираем объект с индексами букв puzzle
     puzzle.map((row, idxRow) => {
-      // matrix.push(row);
       row.split('').map((col, idxCol) => {
         alphabet[col].push({ row: idxRow, col: idxCol });
-        // matrix[idxRow][idxCol] = col;
       })
     })
 
-    // console.log(alphabet);
 
     word.split('').map((char, idxChar) => {
       if (alphabet[char] && word[idxChar + 1]) {
 
-        console.log('этот символ ' + char);
-        console.log(alphabet[char]);
-
         let nextChar = word[idxChar + 1];
-        console.log('следующий символ ' + nextChar);
-        console.log(alphabet[nextChar]);
 
-        if (!checkStep(alphabet[char], alphabet[nextChar], lengthPuzzle)) {
+        if (!checkStep(alphabet[char], alphabet[nextChar], lengthStr)) {
           result = false;
           return
         }
 
         // проверка возможности наличия пути из последнего символа word в предпоследний
       } else if (word[idxChar]) {
-        console.log('зашли сюда ');
 
         let prevChar = word[idxChar - 1];
-        console.log('символ ' + prevChar);
-        console.log(alphabet[prevChar]);
 
         let lastChar = word[idxChar];
-        console.log('символ ' + lastChar);
-        console.log(alphabet[lastChar]);
 
-        if (!checkStep(alphabet[prevChar], alphabet[lastChar], lengthPuzzle)) {
+        if (!checkStep(alphabet[prevChar], alphabet[lastChar], lengthStr)) {
           result = false;
           return
         }
@@ -93,7 +85,7 @@
   /*
   Возращает true, если можно шагнуть к следующей букве и false, если нельзя 
   */
-  function checkStep(coordinatesChar, coordinatesNextChar, lengthPuzzle) {
+  function checkStep(coordinatesChar, coordinatesNextChar, lengthStr) {
 
     let isStepLeft;
     let isStepRight;
@@ -106,45 +98,35 @@
 
       let nextRow = coordinateNextChar.row;
 
+      //проверяем возможность шага влево
       if (nextCol - 1 >= 0) {
         if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, coordinateNextChar.row)) {
-          // console.log('Вариант есть');
-          // console.log(coordinateNextChar);
           isStepLeft = true;
         };
       }
 
-      if (nextCol + 1 <= lengthPuzzle) {
+      //проверяем возможность шага вправо
+      if (nextCol + 1 <= lengthStr) {
         if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, coordinateNextChar.row)) {
-          // console.log('Вариант есть');
-          // console.log(coordinateNextChar);
           isStepRight = true;
         };
       }
 
+      //проверяем возможность шага вверх
       if (nextRow - 1 >= 0) {
         if (checkStepTopOrBottom(coordinatesChar, nextRow - 1, coordinateNextChar.col)) {
-          // console.log('Вариант есть');
-          // console.log(coordinateNextChar);
           isStepTop = true;
         };
       }
 
-      if (nextRow + 1 <= lengthPuzzle) {
-        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, coordinateNextChar.col)) {
-          // console.log('Вариант есть');
-          // console.log(coordinateNextChar);
-          isStepRight = true;
+      //проверяем возможность шага вниз
+      if (nextRow + 1 <= lengthStr) {
+        if (checkStepTopOrBottom(coordinatesChar, nextRow + 1, coordinateNextChar.col)) {
+          isStepBottom = true;
         };
       }
 
-
     }
-
-    console.log('Возможность шагать влево ' + isStepLeft);
-    console.log('Возможность шагать вправо ' + isStepRight);
-    console.log('Возможность шагать вверх ' + isStepTop);
-    console.log('Возможность шагать вниз ' + isStepBottom);
 
     return isStepLeft || isStepRight || isStepTop || isStepBottom;
   }
@@ -178,8 +160,6 @@
     }
 
   }
-
-
 
 
 </script>
