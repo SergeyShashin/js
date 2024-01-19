@@ -18,7 +18,7 @@
   // console.log(findWord(puzzle, 'FUNCTION')); //false
   // console.log(findWord(puzzle, 'NULL')); //false
   console.log(findWord(puzzle, 'ANGNA')); //false ?
-  console.log(findWord(puzzle, 'REDER')); //false ?
+  // console.log(findWord(puzzle, 'REDER')); //false ?
 
 
   /*
@@ -43,13 +43,15 @@
 
         let nextChar = word[idxChar + 1];
 
-        if (!checkStep(alphabet[char], alphabet[nextChar], lengthStr)) {
+
+        if (!checkStep(alphabet[char], alphabet[nextChar], lengthStr, char)) {
           result = false;
           return
         }
 
         // проверка возможности наличия пути из последнего символа word в предпоследний
       } else if (word[idxChar]) {
+        currentChar = word[idxChar];
 
         let prevChar = word[idxChar - 1];
 
@@ -87,12 +89,14 @@
   /*
   Возращает true, если можно шагнуть к следующей букве и false, если нельзя 
   */
-  function checkStep(coordinatesChar, coordinatesNextChar, lengthStr) {
+  function checkStep(coordinatesChar, coordinatesNextChar, lengthStr, char) {
 
     let isStepLeft;
     let isStepRight;
     let isStepTop;
     let isStepBottom;
+
+    let usedVariants = {};
 
     for (let coordinateNextChar of coordinatesNextChar) {
 
@@ -102,33 +106,36 @@
 
       //проверяем возможность шага влево
       if (nextCol - 1 >= 0) {
-        if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, coordinateNextChar.row)) {
-          isStepLeft = true;
+        console.log(usedVariants[char]);
+        if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, nextRow)) {
+          usedVariants[char] ? '' : usedVariants[char] = [{ row: nextRow, col: nextCol }];
+          usedVariants[char].includes({ row: nextRow, col: nextCol }) ? isStepLeft = false : isStepLeft = true;
         };
       }
 
       //проверяем возможность шага вправо
       if (nextCol + 1 <= lengthStr) {
-        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, coordinateNextChar.row)) {
+        if (checkStepLeftOrRight(coordinatesChar, nextCol + 1, nextRow)) {
           isStepRight = true;
         };
       }
 
       //проверяем возможность шага вверх
       if (nextRow - 1 >= 0) {
-        if (checkStepTopOrBottom(coordinatesChar, nextRow - 1, coordinateNextChar.col)) {
+        if (checkStepTopOrBottom(coordinatesChar, nextRow - 1, nextCol)) {
           isStepTop = true;
         };
       }
 
       //проверяем возможность шага вниз
       if (nextRow + 1 <= lengthStr) {
-        if (checkStepTopOrBottom(coordinatesChar, nextRow + 1, coordinateNextChar.col)) {
+        if (checkStepTopOrBottom(coordinatesChar, nextRow + 1, nextCol)) {
           isStepBottom = true;
         };
       }
 
     }
+
 
     return isStepLeft || isStepRight || isStepTop || isStepBottom;
   }
