@@ -25,33 +25,7 @@
   Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
-    const puzzleArr = puzzle.map(str => [...str]);
-    let puzzleLength = puzzle.length;
-    const nextChar = (tail, position, usedPositions) => {
-      return tail.length === 0
-        ? true
-        : [
-          { row: position.row + 1, col: position.col },
-          { row: position.row - 1, col: position.col },
-          { row: position.row, col: position.col + 1 },
-          { row: position.row, col: position.col - 1 },
-        ].filter(coordinate => (coordinate.row >= 0 && coordinate.row < puzzleLength) && (coordinate.col >= 0 && coordinate.col < puzzleLength))
-          .some(coordinate => {
-            console.log(coordinate.row);
-            return tail[0] === puzzleArr[coordinate.row][coordinate.col] && nextChar(tail.slice(1), coordinate, [...usedPositions, coordinate])
-          }
-          );
-    }
 
-    for (let row = 0; row < puzzleLength; row++) {
-      for (let col = 0; col < puzzleArr[row].length; col++) {
-        if (puzzleArr[row][col] === word[0] && nextChar(word.slice(1), { row: row, col: col }, [{ row: row, col: col }])) {
-          return true
-        }
-      }
-    }
-
-    return false
 
   }
 
