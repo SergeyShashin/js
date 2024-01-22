@@ -9,7 +9,7 @@
   ];
 
   // console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true 
+  console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -17,9 +17,8 @@
   // console.log(findWord(puzzle, 'CLASS')); //true
   // console.log(findWord(puzzle, 'FUNCTION')); //false
   // console.log(findWord(puzzle, 'NULL')); //false
-  console.log(findWord(puzzle, 'ANGNA')); //false ?
+  // console.log(findWord(puzzle, 'ANGNA')); //false ?
   // console.log(findWord(puzzle, 'REDER')); //false ?
-
 
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случаях false.
@@ -95,12 +94,7 @@
     let isStepRight;
     let isStepTop;
     let isStepBottom;
-
-    let usedVariants = [];
-
-    console.log(coordinatesChar);
-    console.log(usedVariants);
-
+    let usedVariants;
 
 
     for (let coordinateNextChar of coordinatesNextChar) {
@@ -109,15 +103,10 @@
 
       let nextRow = coordinateNextChar.row;
 
-      for (let variant of usedVariants) {
-        let isExist = coordinatesChar.some(point => point.row === variant.row && point.col === variant.col);
-        console.log('существует?', isExist);
-      }
 
       //проверяем возможность шага влево
       if (nextCol - 1 >= 0) {
         if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, nextRow)) {
-          usedVariants.push({ char: char, row: nextRow, col: nextCol - 1 });
           isStepLeft = true;
         };
       }
@@ -178,6 +167,7 @@
     }
 
   }
+
 
 
 </script>
