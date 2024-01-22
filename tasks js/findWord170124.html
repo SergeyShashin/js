@@ -96,7 +96,12 @@
     let isStepTop;
     let isStepBottom;
 
-    let usedVariants = {};
+    let usedVariants = [];
+
+    console.log(coordinatesChar);
+    console.log(usedVariants);
+
+
 
     for (let coordinateNextChar of coordinatesNextChar) {
 
@@ -104,12 +109,16 @@
 
       let nextRow = coordinateNextChar.row;
 
+      for (let variant of usedVariants) {
+        let isExist = coordinatesChar.some(point => point.row === variant.row && point.col === variant.col);
+        console.log('существует?', isExist);
+      }
+
       //проверяем возможность шага влево
       if (nextCol - 1 >= 0) {
-        console.log(usedVariants[char]);
         if (checkStepLeftOrRight(coordinatesChar, nextCol - 1, nextRow)) {
-          usedVariants[char] ? '' : usedVariants[char] = [{ row: nextRow, col: nextCol }];
-          usedVariants[char].includes({ row: nextRow, col: nextCol }) ? isStepLeft = false : isStepLeft = true;
+          usedVariants.push({ char: char, row: nextRow, col: nextCol - 1 });
+          isStepLeft = true;
         };
       }
 
