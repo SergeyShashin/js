@@ -1,11 +1,11 @@
 <script>
 
   const puzzle = [
-    'ANGULAR', // 0 0  0 1  0 2  0 3  
-    'REDNZAE', // 1 0  1 1  1 2  1 3
-    'RFIDTZL', // 2 0  2 1  2 2  2 3
-    'AGNECSA', // 3 0  3 1  3 2  3 3
-    'YTIRTSP'  // 4 0  4 1  4 2  4 3
+    'ANGULAR',
+    'REDNZAE',
+    'RFIDTZL',
+    'AGNECSA',
+    'YTIRTSP'
   ];
 
 
@@ -21,15 +21,41 @@
   // console.log(findWord(puzzle, 'ANGNA')); //false
   // console.log(findWord(puzzle, 'REDER')); //false
 
+
+  //   'ANGULAR',
+  //   'REDNZAE',
+  //   'RFIDTZL',
+  //   'AGNECSA',
+  //   'YTIRTSP'
+
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случаях false.
-  Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
+  Перемещаться можно по вертикали или горизонтали. Нарушать границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
-    
+    if (word.length === 0) {
+      return true
+    } else {
+      puzzle.map((str, idxStr) => {
 
+        let idxChar = str.indexOf((word[0]));
+        
+        console.log(`${word[0]}_${idxStr}_${str.indexOf(word[0])}`);
+        isPath();
+
+      }
+      );
+
+      findWord(puzzle, word.slice(1));
+    }
   }
 
+  /*
+  Возвращает правду если есть путь к следующей букве в слове word
+  */
+  function isPath() {
+
+  }
 
 
 </script>
