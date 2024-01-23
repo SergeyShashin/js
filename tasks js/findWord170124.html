@@ -1,15 +1,25 @@
 <script>
 
   const puzzle = [
-    'ANGULAR',
-    'REDNCAE',
-    'RFIDTCL',
-    'AGNEGSA',
-    'YTIRTSP'
+    'ANGULAR', // 0 0  0 1  0 2  0 3  
+    'REDNCAE', // 1 0  1 1  1 2  1 3
+    'RFIDTCL', // 2 0  2 1  2 2  2 3
+    'AGNEGSA', // 3 0  3 1  3 2  3 3
+    'YTIRTSP'  // 4 0  4 1  4 2  4 3
   ];
 
-  console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true 
+  /*
+  ['A', 'R', 'R', 'A', 'Y']
+  ['N', 'E', 'F', 'G', 'T']
+  ['G', 'D', 'I', 'N', 'I']
+  ['U', 'N', 'D', 'E', 'R']
+  ['L', 'C', 'T', 'G', 'T']
+  ['A', 'A', 'C', 'S', 'S']
+  ['R', 'E', 'L', 'A', 'P']
+  */
+
+  // console.log(findWord(puzzle, 'ANGULAR')); //true
+  console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -17,15 +27,47 @@
   // console.log(findWord(puzzle, 'CLASS')); //true
   // console.log(findWord(puzzle, 'FUNCTION')); //false
   // console.log(findWord(puzzle, 'NULL')); //false
-  // console.log(findWord(puzzle, 'ANGNA')); //false ?
-  // console.log(findWord(puzzle, 'REDER')); //false ?
+  // console.log(findWord(puzzle, 'ANGNA')); //false
+  // console.log(findWord(puzzle, 'REDER')); //false
 
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случаях false.
   Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
+    puzzle = puzzle.map(str => [...str]);
+    const arrCols = [];
+    let arrRowsAndCols = [];
+    let variants = [];
+    // let rgp = new RegExp(`${word[0] + word[1]}|${word[1] + word[0]}`);
 
+    for (let row = 0; row < puzzle[0].length; row++) {
+      arrCols[row] = [];
+      for (let col = 0; col < puzzle.length; col++) {
+        arrCols[row].push(puzzle[col][row]);
+      }
+    }
+
+    arrRowsAndCols = puzzle.concat(arrCols);
+
+    arrRowsAndCols.map((str, idxStr) =>
+      str.map((char, idxChar) => {
+        if (char + arrRowsAndCols[idxStr][idxChar + 1] === word[0] + word[1] || char + arrRowsAndCols[idxStr][idxChar + 1] === word[1] + word[0]) {
+          console.log(char + '_' + 'row' + idxStr + '_col' + idxChar);
+        }
+      }
+      )
+    );
+
+    // if (word.length === 0) {
+    //   return true
+    // } else {
+    //   console.log(word);
+    //   getPossibleMatches();
+    //   findWord(puzzle, word.slice(1));
+    // }
+
+    // return true
 
   }
 
