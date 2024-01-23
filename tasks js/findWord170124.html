@@ -8,15 +8,6 @@
     'YTIRTSP'  // 4 0  4 1  4 2  4 3
   ];
 
-  /*
-  ['A', 'R', 'R', 'A', 'Y']
-  ['N', 'E', 'F', 'G', 'T']
-  ['G', 'D', 'I', 'N', 'I']
-  ['U', 'N', 'D', 'E', 'R']
-  ['L', 'C', 'T', 'G', 'T']
-  ['A', 'A', 'C', 'S', 'S']
-  ['R', 'E', 'L', 'A', 'P']
-  */
 
   // console.log(findWord(puzzle, 'ANGULAR')); //true
   console.log(findWord(puzzle, 'REACT')); //true 
@@ -35,45 +26,7 @@
   Перемещаться можно по вертикали или горизонтали. Нарушть границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
-    puzzle = puzzle.map(str => [...str]);
-    let wordTmp = word;
-    const arrCols = [];
-    let arrRowsAndCols = [];
-    let variants = [];
-
-    for (let row = 0; row < puzzle[0].length; row++) {
-      arrCols[row] = [];
-      for (let col = 0; col < puzzle.length; col++) {
-        arrCols[row].push(puzzle[col][row]);
-      }
-    }
-
-    arrRowsAndCols = puzzle.concat(arrCols);
-
-    while (wordTmp.length) {
-      arrRowsAndCols.map((str, idxStr) =>
-        str.map((char, idxChar) => {
-          if (char + arrRowsAndCols[idxStr][idxChar + 1] === wordTmp[0] + wordTmp[1] || char + arrRowsAndCols[idxStr][idxChar + 1] === wordTmp[1] + wordTmp[0]) {
-            // console.log(char + '_' + 'row' + idxStr + '_col' + idxChar);
-            // console.log(arrRowsAndCols[idxStr][idxChar + 1] + '_' + 'row' + idxStr + '_col' + idxChar + 1);
-            // console.log('___');
-            variants.push(`${char} индекс строки${idxStr} индекс колонки ${idxChar}`);
-          }
-        }
-        )
-      );
-      console.log(variants);
-      wordTmp = wordTmp.slice(1);
-    }
-
-    // function findTwoChars(word) {
-    //   if (word.length === 0) {
-    //     return true
-    //   } else {
-    //     console.log(word);
-    //     findTwoChars(word.slice(1));
-    //   }
-    // }
+    
 
   }
 
