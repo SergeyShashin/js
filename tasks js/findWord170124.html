@@ -39,7 +39,6 @@
     const arrCols = [];
     let arrRowsAndCols = [];
     let variants = [];
-    // let rgp = new RegExp(`${word[0] + word[1]}|${word[1] + word[0]}`);
 
     for (let row = 0; row < puzzle[0].length; row++) {
       arrCols[row] = [];
@@ -50,24 +49,33 @@
 
     arrRowsAndCols = puzzle.concat(arrCols);
 
-    arrRowsAndCols.map((str, idxStr) =>
-      str.map((char, idxChar) => {
-        if (char + arrRowsAndCols[idxStr][idxChar + 1] === word[0] + word[1] || char + arrRowsAndCols[idxStr][idxChar + 1] === word[1] + word[0]) {
-          console.log(char + '_' + 'row' + idxStr + '_col' + idxChar);
-        }
+    if (findTwoChars(word)) {
+      return true
+    } else {
+      return false
+    }
+
+
+    function findTwoChars(word) {
+      if (word.length === 1) {
+        return true
+      } else {
+        console.log(word);
+        arrRowsAndCols.map((str, idxStr) =>
+          str.map((char, idxChar) => {
+            if (char + arrRowsAndCols[idxStr][idxChar + 1] === word[0] + word[1] || char + arrRowsAndCols[idxStr][idxChar + 1] === word[1] + word[0]) {
+              console.log(char + '_' + 'row' + idxStr + '_col' + idxChar);
+              console.log(arrRowsAndCols[idxStr][idxChar + 1] + '_' + 'row' + idxStr + '_col' + idxChar + 1);
+              console.log('___');
+              findTwoChars(word.slice(1));
+
+            }
+          }
+          )
+        );
+
       }
-      )
-    );
-
-    // if (word.length === 0) {
-    //   return true
-    // } else {
-    //   console.log(word);
-    //   getPossibleMatches();
-    //   findWord(puzzle, word.slice(1));
-    // }
-
-    // return true
+    }
 
   }
 
