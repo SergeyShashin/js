@@ -34,6 +34,26 @@
   */
   function findWord(puzzle, word) {
 
+    let recur = (tail, { x, y }, usedPosition) => {
+      return tail === 0
+        ? true
+        : [
+          { x: x + 1, y },
+          { x: x - 1, y },
+          { x, y: y + 1 },
+          { x, y: y - 1 }
+        ].filter(({ x, y }) => y >= 0 && y < puzzle.length && x >= 0 && x < puzzle[y].length)
+          .some(item => console.log(puzzle[item.y][item.x]) === tail[0] && recur(tail.slice(1), item, [...usedPosition, item]))
+    }
+
+    for (let y = 0; y < puzzle.length; y++) {
+      for (let x = 0; x < puzzle.length; x++) {
+        if (puzzle[y][x] === word[0] && recur(word.slice(1), { x, y }, [{ x, y }])) {
+          return true
+        }
+      }
+    }
+
   }
 
 </script>
