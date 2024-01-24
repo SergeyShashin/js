@@ -34,26 +34,6 @@
   */
   function findWord(puzzle, word) {
 
-    let compareChar = (tail, position, usedPosition) => {
-      return tail === 0
-        ? true
-        :
-        [
-          { idxStr: position.idxStr + 1, idxChar: position.idxChar },
-          { idxStr: position.idxStr - 1, idxChar: position.idxChar },
-          { idxStr: position.idxStr, idxChar: position.idxChar + 1 },
-          { idxStr: position.idxStr, idxChar: position.idxChar - 1 },
-        ].filter(item => item.idxStr >= 0 && item.idxStr < puzzle.length && item.idxChar >= 0 && item.idxChar < puzzle[position.idxStr].length)
-          .some(coordinates => puzzle[coordinates.idxStr][coordinates.idxChar] === tail[0]);
-    };
-
-    puzzle.map((str, idxStr) => str.split('').map((char, idxChar) => {
-
-      if (char === word[0] && compareChar(word.slice(1), { idxStr, idxChar }, [{ idxStr, idxChar }])) {
-        return true
-      }
-
-    }));
   }
 
 </script>
