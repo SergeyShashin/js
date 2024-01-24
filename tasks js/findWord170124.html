@@ -33,29 +33,6 @@
   Перемещаться можно по вертикали или горизонтали. Нарушать границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
-    if (word.length === 0) {
-      return true
-    } else {
-      puzzle.map((str, idxStr) => {
-
-        let idxChar = str.indexOf((word[0]));
-        
-        console.log(`${word[0]}_${idxStr}_${str.indexOf(word[0])}`);
-        isPath();
-
-      }
-      );
-
-      findWord(puzzle, word.slice(1));
-    }
   }
-
-  /*
-  Возвращает правду если есть путь к следующей букве в слове word
-  */
-  function isPath() {
-
-  }
-
 
 </script>
