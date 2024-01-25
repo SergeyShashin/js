@@ -9,10 +9,6 @@
   ];
 
 
-  // console.log(findWord(puzzle, ''));
-  // console.log(findWord(puzzle, 'R'));
-  // console.log(findWord(puzzle, 'RE'));
-  console.log(findWord(puzzle, 'REA')); //true 
   // console.log(findWord(puzzle, 'ANGULAR')); //true
   // console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
@@ -26,130 +22,13 @@
   // console.log(findWord(puzzle, 'REDER')); //false
 
 
-  //   'ANGULAR',
-  //   'REDNCAE',
-  //   'RFIDTCL',
-  //   'AGNECSA',
-  //   'YTIRTSP'
 
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случаях false.
   Перемещаться можно по вертикали или горизонтали. Нарушать границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
-    switch (word.length) {
-      case 0: return `Длина слова ${word} 0 символов.`;
-      case 1: return findChar(word[0]);
-      case 2: return findTwoChars(word);
-    }
 
-
-    // +если длина 1 ищем word[0]. Возвращаем false, если не нашли.
-    // +если длина 2 ищем word[0]word[1] revers word[1]word[0]. Возвращаем false, если не нашли.
-    // если длина 3 ищем word[0]word[1] revers word[1]word[0] и word[2]. Если не нашли, возвращаем false.
-
-    // если длина 4 и более ищем word[0]word[1] revers word[1]word[0] и word[2]word[3]. Если не нашли, возвращаем false.
-
-
-    //    0123456    RE или ER   AC                                                                       T
-    //0   ANGULAR    
-    //1   REDNCAE    11и12        ?12и13 или 01и00 или 01и02 или 21и20 или 21и22     
-    //2   RFIDTCL
-    //3   AGNECSA
-    //4   YTIRTSP
-    //    0123456
-    //колонки
-    //    01234   
-    //0   ARRAY        
-    //1   NEFGT
-    //2   GDINI
-    //3   UNDER      34и33        ?32и31 или 23и13 или 23и22 или 23и24 или 43и53 или 43и42 или 43и44          
-    //4   LCTCT
-    //5   AACSS     
-    //6   RELAP      60и61        ?62и63 или 51и54 или 51и50 или 5152
-    //    01234
-
-    const arrColumnsFromPuzzle = [];
-
-    // создаем массив строк из колонок массива puzzle
-    for (let i = 0; i < puzzle[0].length; i++) {
-      arrColumnsFromPuzzle.push('');
-      for (let j = 0; j < puzzle.length; j++) {
-        arrColumnsFromPuzzle[i] += puzzle[j][i];
-      }
-    }
-
-    if (word.length === 3) {
-      for (let str = 0; str < puzzle.length; str++) {
-        for (let col = 0; col < puzzle[str].length; col++) {
-          if (word[0] + word[1] === puzzle[str][col] + puzzle[str][col + 1]
-            || word[1] + word[0] === puzzle[str][col] + puzzle[str][col + 1]
-            || word[3] === puzzle[str][col]
-          ) {
-            console.log(puzzle[str]);
-          }
-        }
-      }
-
-      for (let str = 0; str < arrColumnsFromPuzzle.length; str++) {
-        for (let col = 0; col < arrColumnsFromPuzzle[str].length; col++) {
-          if (word[0] + word[1] === arrColumnsFromPuzzle[str][col] + arrColumnsFromPuzzle[str][col + 1]
-            || word[1] + word[0] === arrColumnsFromPuzzle[str][col] + arrColumnsFromPuzzle[str][col + 1]
-            || word[3] === arrColumnsFromPuzzle[str][col]
-          ) {
-            console.log(arrColumnsFromPuzzle[str]);
-          }
-        }
-      }
-
-
-    }
-
-  }
-
-
-  /*
-  Возвращает правду если char есть в puzzle
-  */
-  function findChar(char) {
-    for (const str of puzzle) {
-      if (str.includes(char)) {
-        return true
-      }
-    }
-    return false
-  }
-
-  /*
-  Возвращает правду если сочетание word есть в строках или колонках puzzle
-  */
-  function findTwoChars(word) {
-    const arrColumnsFromPuzzle = [];
-
-    for (const str of puzzle) {
-      if (str.includes(word) || str.includes(word[1] + word[0])) {
-        console.log(str);
-        return true
-      }
-    }
-
-    // создаем массив строк из колонок массива puzzle
-    for (let i = 0; i < puzzle[0].length; i++) {
-      arrColumnsFromPuzzle.push('');
-      for (let j = 0; j < puzzle.length; j++) {
-        arrColumnsFromPuzzle[i] += puzzle[j][i];
-      }
-    }
-
-    for (const str of arrColumnsFromPuzzle) {
-      if (str.includes(word) || str.includes(word[1] + word[0])) {
-        console.log(str);
-        return true
-      }
-    }
-
-
-    return false
   }
 
 
