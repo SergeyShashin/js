@@ -9,8 +9,8 @@
   ];
 
 
-  console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true 
+  // console.log(findWord(puzzle, 'ANGULAR')); //true
+  console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -34,12 +34,36 @@
   */
   function findWord(puzzle, word) {
 
-    if (word.length === 0) {
-      return true
-    } else {
-      console.log(word);
-      findWord(puzzle, word.slice(1));
-    }
+    // if (word.length === 0) {
+    //   return true
+    // } else {
+    //   console.log(word.length);
+    //   findWord(puzzle, word.slice(1));
+    // }
+
+    //word REACT длина 5
+    // если длина 1 ищем word[0]. Возвращаем false, если не нашли.
+    // если длина 2 ищем word[0]word[1] revers word[1]word[0]. Возвращаем false, если не нашли.
+    // если длина 3 ищем word[0]word[1] revers word[1]word[0] и word[2]. Если не нашли, возвращаем false.       
+    // если длина 4 и более ищем word[0]word[1] revers word[1]word[0] и word[2]word[3]. Если не нашли, возвращаем false.       
+    
+  //    0123456    RE или ER   AC                                                                       T
+  //0   ANGULAR    
+  //1   REDNCAE    11и12        ?13и14 или 01и00 или 01и02 или 21и20 или 21и22     
+  //2   RFIDTCL
+  //3   AGNECSA
+  //4   YTIRTSP
+  //    0123456
+  //колонки
+  //    01234   
+  //0   ARRAY        
+  //1   NEFGT
+  //2   GDINI
+  //3   UNDER      34и33        ?32и31 или 23и13 или 23и22 или 23и24 или 43и53 или 43и42 или 43и44          
+  //4   LCTCT
+  //5   AACSS     
+  //6   RELAP      60и61        ?62и63 или 51и54 или 51и50 или 5152
+  //    01234
 
   }
 
