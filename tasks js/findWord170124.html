@@ -10,9 +10,10 @@
 
 
   // console.log(findWord(puzzle, ''));
-  console.log(findWord(puzzle, 'R'));
+  // console.log(findWord(puzzle, 'R'));
+  // console.log(findWord(puzzle, 'RE'));
   // console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true 
+  console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -38,6 +39,8 @@
     switch (word.length) {
       case 0: return `Длина слова ${word} 0 символов.`;
       case 1: return findChar(word[0]);
+      case 2: return findTwoChars(word);
+      default: return findTwoChars(word);
     }
 
     // if (word.length === 0) {
@@ -85,6 +88,29 @@
         return true
       }
     }
+    return false
+  }
+
+  /*
+  Возвращает правду если сочетание word есть в строках или колонках puzzle
+  */
+  function findTwoChars(word) {
+    const arrColumnsFromPuzzle = [];
+
+    for (let idxStr = 0; idxStr < puzzle.length; idxStr++) {
+      if (puzzle[idxStr].includes(word) || puzzle[idxStr].includes(word[1] + word[0])) {
+        console.log(puzzle[idxStr]);
+        return true
+      }
+
+
+      for (let char of puzzle[idxStr]) {
+      }
+
+    }
+
+    console.log(arrColumnsFromPuzzle);
+
     return false
   }
 
