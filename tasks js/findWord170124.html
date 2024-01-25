@@ -2,15 +2,17 @@
 
   const puzzle = [
     'ANGULAR',
-    'REDNZAE',
-    'RFIDTZL',
+    'REDNCAE',
+    'RFIDTCL',
     'AGNECSA',
     'YTIRTSP'
   ];
 
 
+  // console.log(findWord(puzzle, ''));
+  console.log(findWord(puzzle, 'R'));
   // console.log(findWord(puzzle, 'ANGULAR')); //true
-  console.log(findWord(puzzle, 'REACT')); //true 
+  // console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -23,8 +25,8 @@
 
 
   //   'ANGULAR',
-  //   'REDNZAE',
-  //   'RFIDTZL',
+  //   'REDNCAE',
+  //   'RFIDTCL',
   //   'AGNECSA',
   //   'YTIRTSP'
 
@@ -33,6 +35,10 @@
   Перемещаться можно по вертикали или горизонтали. Нарушать границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
+    switch (word.length) {
+      case 0: return `Длина слова ${word} 0 символов.`;
+      case 1: return findChar(word[0]);
+    }
 
     // if (word.length === 0) {
     //   return true
@@ -44,27 +50,43 @@
     //word REACT длина 5
     // если длина 1 ищем word[0]. Возвращаем false, если не нашли.
     // если длина 2 ищем word[0]word[1] revers word[1]word[0]. Возвращаем false, если не нашли.
-    // если длина 3 ищем word[0]word[1] revers word[1]word[0] и word[2]. Если не нашли, возвращаем false.       
-    // если длина 4 и более ищем word[0]word[1] revers word[1]word[0] и word[2]word[3]. Если не нашли, возвращаем false.       
-    
-  //    0123456    RE или ER   AC                                                                       T
-  //0   ANGULAR    
-  //1   REDNCAE    11и12        ?13и14 или 01и00 или 01и02 или 21и20 или 21и22     
-  //2   RFIDTCL
-  //3   AGNECSA
-  //4   YTIRTSP
-  //    0123456
-  //колонки
-  //    01234   
-  //0   ARRAY        
-  //1   NEFGT
-  //2   GDINI
-  //3   UNDER      34и33        ?32и31 или 23и13 или 23и22 или 23и24 или 43и53 или 43и42 или 43и44          
-  //4   LCTCT
-  //5   AACSS     
-  //6   RELAP      60и61        ?62и63 или 51и54 или 51и50 или 5152
-  //    01234
+    // если длина 3 ищем word[0]word[1] revers word[1]word[0] и word[2]. Если не нашли, возвращаем false.
+
+    // если длина 4 и более ищем word[0]word[1] revers word[1]word[0] и word[2]word[3]. Если не нашли, возвращаем false.
+
+
+    //    0123456    RE или ER   AC                                                                       T
+    //0   ANGULAR    
+    //1   REDNCAE    11и12        ?12и13 или 01и00 или 01и02 или 21и20 или 21и22     
+    //2   RFIDTCL
+    //3   AGNECSA
+    //4   YTIRTSP
+    //    0123456
+    //колонки
+    //    01234   
+    //0   ARRAY        
+    //1   NEFGT
+    //2   GDINI
+    //3   UNDER      34и33        ?32и31 или 23и13 или 23и22 или 23и24 или 43и53 или 43и42 или 43и44          
+    //4   LCTCT
+    //5   AACSS     
+    //6   RELAP      60и61        ?62и63 или 51и54 или 51и50 или 5152
+    //    01234
+
 
   }
+
+  /*
+  Возвращает правду если char есть в puzzle
+  */
+  function findChar(char) {
+    for (const str of puzzle) {
+      if (str.includes(char)) {
+        return true
+      }
+    }
+    return false
+  }
+
 
 </script>
