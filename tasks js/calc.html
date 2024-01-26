@@ -5,24 +5,31 @@
   Вернуть максимальную прибыль от продажи акций. Покупать можно один раз. Продавать можно всё сразу.
   */
   function calc(arr) {
+    const copyInArr = [...arr];
     let result = 0;
-    let idxMaxElemInArr = arr.indexOf(Math.max(...arr));
-    let maxElemInArr = arr[idxMaxElemInArr];
-    let arrElemsUntilMaxElem = arr.slice(0, idxMaxElemInArr);
+    let idxMaxElemInArr;
+    let maxElemInArr;
+    let arrElemsUntilMaxElem;
 
-    for (const el of arrElemsUntilMaxElem) {
-      result += el;
+    while (copyInArr.indexOf(Math.max(...copyInArr)) > 0) {
+      idxMaxElemInArr = copyInArr.indexOf(Math.max(...copyInArr));
+      maxElemInArr = copyInArr[idxMaxElemInArr];
+      arrElemsUntilMaxElem = copyInArr.splice(0, idxMaxElemInArr);
+
+      for (const el of arrElemsUntilMaxElem) {
+        result += maxElemInArr - el;
+      }
+
+      copyInArr.splice(0, 1);
+
     }
 
-    // console.log(arrElemsUntilMaxElem);
-
     return result
-
   }
 
   console.log(calc([1, 2, 3, 4, 5, 6])); //15 покупка 1,2,3,4,5 и продажа на 6
-  // console.log(calc([6, 5, 4, 3, 2, 1])); //0 
-  // console.log(calc([1, 6, 5, 10, 8, 7])); //18 покупка 1,6,5 и продажа на 10
-  // console.log(calc([1, 2, 10, 2, 4, 6])); //23 покупка 1,2 продажа на 10, покупка 2,4 продажа 6
+  console.log(calc([6, 5, 4, 3, 2, 1])); //0 
+  console.log(calc([1, 6, 5, 10, 8, 7])); //18 покупка 1,6,5 и продажа на 10
+  console.log(calc([1, 2, 10, 2, 4, 6])); //23 покупка 1,2 продажа на 10, покупка 2,4 продажа 6
 
 </script>
