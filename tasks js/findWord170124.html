@@ -9,8 +9,10 @@
   ];
 
 
+
+
   // console.log(findWord(puzzle, 'ANGULAR')); //true
-  // console.log(findWord(puzzle, 'REACT')); //true 
+  console.log(findWord(puzzle, 'REACT')); //true 
   // console.log(findWord(puzzle, 'ARRAY')); //true
   // console.log(findWord(puzzle, 'UNDEFINED')); //true
   // console.log(findWord(puzzle, 'RED')); //true
@@ -23,13 +25,40 @@
 
 
 
+
   /*
   Возвращает true, если в puzzle можно собрать слово word. В остальных случаях false.
   Перемещаться можно по вертикали или горизонтали. Нарушать границы нельзя. Буквы из puzzle можно использовать только 1 раз.
   */
   function findWord(puzzle, word) {
 
+    console.log(word);
+
+    for (let y = 0; y < puzzle.length; y++) {
+      for (let x = 0; x < puzzle[y].length; x++) {
+        if (puzzle[y][x] === word[0] && recur(word.slice(1), { x, y }, [{ x, y }])) {
+          return true
+        };
+      }
+    }
+
+    function recur(tail, { x, y }, usedPosition) {
+      console.log(puzzle[y][x]);
+
+      tail.length === 0
+        ? true
+        : [
+          { x: x + 1, y },
+          { x: x - 1, y },
+          { x, y: y - 1 },
+          { x, y: y + 1 },
+        ].filter(({ x, y }) => ((y >= 0 && y < puzzle.length) && (x >= 0 && x < puzzle[y].length)))
+          .some(item => puzzle[item.y][item.x] === tail[0] && recur(tail.slice(1), item, [...usedPosition, item]))
+    }
+
+    return false
   }
+
 
 
 </script>
