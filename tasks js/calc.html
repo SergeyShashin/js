@@ -5,12 +5,18 @@
   Вернуть максимальную прибыль от продажи акций. Покупать можно один раз. Продавать можно всё сразу.
   */
   function calc(arr) {
-    // let result = 0;
+    let result = 0;
+    let idxMaxElemInArr = arr.indexOf(Math.max(...arr));
+    let maxElemInArr = arr[idxMaxElemInArr];
+    let arrElemsUntilMaxElem = arr.slice(0, idxMaxElemInArr);
 
-    console.log(arr.slice(0, arr.indexOf(Math.max(...arr))));
+    for (const el of arrElemsUntilMaxElem) {
+      result += el;
+    }
 
+    // console.log(arrElemsUntilMaxElem);
 
-    // return result
+    return result
 
   }
 
