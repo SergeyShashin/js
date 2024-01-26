@@ -1,0 +1,60 @@
+<script>
+
+  /*
+  Сделать проверку подобно RegExp.
+  Правила:
+  'h'-'h'
+  '.' - любой символ
+  'h*'- сколько угодно букв h. Используется только в сочетании с предыдущим символом.
+  */
+  function reg(str, regex) {
+    if (regex[0] === '*' || regex.length === 0) {
+      console.error('Регулярное выражение не может начинаться с * и быть нулевой длины.');
+    }
+
+    let strCopy = str.toLowerCase();
+    let regexCopy = regex.toLowerCase();
+    let regexCopyWithoutDots = regexCopy.split('').filter(char => char != '.');
+
+    let charDotIdx = [];
+
+    for (let idxChar = 0; idxChar < regexCopy.length; idxChar++) {
+      if (regexCopy[idxChar] === '.') {
+        charDotIdx.push(idxChar);
+      }
+    }
+
+    //удаляем из строки символы, индексы которых, совпадают с индексом '.'
+    strCopy = strCopy.split('').filter((char, idx) => !charDotIdx.includes(idx));
+
+    //удаляем 'h*'
+
+
+
+    while (regexCopyWithoutDots.includes('*')) {
+      let charPrevStar;
+      let idxStar;
+      idxStar = regexCopyWithoutDots.indexOf('*');
+      charPrevStar = strCopy[idxStar - 1];
+
+      while (strCopy[idxStar + 1] === charPrevStar) {
+        strCopy.splice(idxStar + 1, 1);
+      }
+
+      strCopy.splice(idxStar - 1, 2);
+      regexCopyWithoutDots.splice(idxStar - 1, 2);
+
+    }
+
+
+    return strCopy.join('') === regexCopyWithoutDots.join('')
+  }
+
+  console.log(reg('Hello', 'Hello')); // true
+  console.log(reg('Hello', 'Hel.o')); // true
+  console.log(reg('Hello', 'Helllo')); // false
+  console.log(reg('Hello', 'He.o')); // false
+  console.log(reg('Hello', 'Hell')); // false
+  console.log(reg('Hellolo', 'Hel*olo')); // true
+
+</script>
