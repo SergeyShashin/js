@@ -8,20 +8,37 @@
   'h*'- сколько угодно букв h. Используется только в сочетании с предыдущим символом.
   */
   function reg(str, regex) {
+    let result = [];
+    let resultStr;
 
-    return result
+    for (let idxRegex = 0, idxStr = 0; idxRegex < regex.length; idxRegex++ , idxStr++) {
+      if (regex[idxRegex] === '*' && str[idxStr] !== str[idxStr - 1]) {
+        idxStr--;
+      } else if (regex[idxRegex] === '*' && str[idxStr] == str[idxStr - 1]) {
+        result[idxStr] = str[idxStr];
+      } else if (regex[idxRegex] === str[idxStr] || regex[idxRegex] === '.') {
+        result[idxStr] = str[idxStr];
+      }
+      else if (regex[idxRegex + 1] === '*') {
+        idxStr--;
+      }
+
+    }
+
+    resultStr = result.join('');
+
+    return str = resultStr && str.length === resultStr.length
   }
 
-  console.log(reg('Hello', 'Hello')); // true
-  console.log(reg('Hello', 'Hel.o')); // true
-  console.log(reg('Hello', 'Helllo')); // false
-  console.log(reg('Hello', 'He.o')); // false
-  console.log(reg('Hello', 'Hell')); // false
-  console.log(reg('Hellolo', 'Hel*olo')); // true
-  console.log(reg('Hellolo', 'Hell*olo')); // true
-  console.log(reg('Hellolo', 'Helll*olo')); // true
-  console.log(reg('Hellolo', 'He.*lo')); // true
-  console.log(reg('Hellolo', 'He.*llo...')); // false
-
+  // console.log(reg('Bellolo', 'Bell*olo')); // true
+  // console.log(reg('Bellolo', 'Be.*llo...')); // false
+  // console.log(reg('Hello', 'Hello')); // true
+  // console.log(reg('Hello', 'Hel.o')); // true
+  // console.log(reg('Hello', 'Helllo')); // false
+  // console.log(reg('Hello', 'He.o')); // false
+  // console.log(reg('Hello', 'Hell')); // false
+  // console.log(reg('Hellolo', 'Hel*olo')); // true
+  // console.log(reg('Bellolo', 'Belll*olo')); // true
+  console.log(reg('Bellolo', 'Be.*lo')); // Почему true у в видео, когда вроде false? Откуда еще берутся в str 'lo'?
 
 </script>
