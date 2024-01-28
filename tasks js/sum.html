@@ -3,16 +3,21 @@
   /*
   Возвращает суммму всех предыдущих вызовов
   */
+  // function sum(number) {
+  //   let sum = number;
+  //   console.log(number);
+  //   return function add(num) {
+  //     sum += num;
+  //     console.log(sum);
+  //     return add;
+  //   }
+  // }
+
   function sum(number) {
-    let sum = 0;
     console.log(number);
     return (num) => {
-      sum += number + num;
-      console.log(sum);
-      return (numN) => {
-        sum += numN;
-        console.log(sum);
-      }
+      number += num;
+      return sum(number);
     }
   }
 
