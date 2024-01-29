@@ -1,0 +1,12 @@
+<script>
+
+  function numering(arr) {
+    const resArr = [];
+    arr.map((el, idx) => resArr.push(`${idx+1}: ${el}`));
+
+    return resArr;
+  }
+
+  console.log(numering(['a', 'b', 'c'])) //['1:a', '2:b', '3:c']
+
+</script>
