@@ -4,14 +4,14 @@
   Возвращает true, если param целое число, иначе false.
   */
   function isInteger(param) {
-    return typeof param === 'number';
+    return typeof param === 'number' && parseInt(param) === param;
   }
 
   console.log(isInteger('5'));
   console.log(isInteger(5));
+  console.log(isInteger(5.5));
   console.log(isInteger([]));
   console.log(isInteger({}));
-
 
 
 </script>
