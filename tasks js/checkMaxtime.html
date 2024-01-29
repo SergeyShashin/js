@@ -1,0 +1,66 @@
+<script>
+
+
+  /*
+  Возвращает максимальный диапазон молчания будильника из arr. Длительность сигнала 1 минута.
+  */
+  function checkMaxTime(arr) {
+    if (arr.length === 1) {
+      return '23:59'
+    }
+    const resultArr = [];
+    const minutesInDay = 1440;
+    const rangeWorkingAlarmInMinutes = 1;
+
+    const arrRangesMinutes = transformStrHoursAndMinutesInNumMinutes(arr);
+    sortArrUp(arrRangesMinutes);
+    let lastIdx = arrRangesMinutes.length - 1;
+
+
+    for (let idx = 0; idx + 1 < arrRangesMinutes.length; idx++) {
+      resultArr.push(arrRangesMinutes[idx + 1] - arrRangesMinutes[idx] - rangeWorkingAlarmInMinutes);
+      if (idx + 1 === lastIdx) {
+        resultArr.push(minutesInDay - arrRangesMinutes[lastIdx] + arrRangesMinutes[0] - rangeWorkingAlarmInMinutes);
+      }
+    }
+
+    sortArr(resultArr);
+    return convertMinutesToHours(resultArr[0]);
+
+
+    /*
+    Возвращает массив диапазонов в минутах
+    */
+    function transformStrHoursAndMinutesInNumMinutes(arr) {
+      return arr.map(el => Number(el[0] + el[1]) * 60 + Number(el[3] + el[4]))
+    }
+
+    /*
+   Возвращает строку со временем часы:минуты
+   */
+    function convertMinutesToHours(num) {
+      let minutes = num % 60;
+      let hours = (num - minutes) / 60;
+      return `${hours}:${minutes}`
+    }
+
+    /*
+    Сортирует массив по возрастанию
+    */
+    function sortArrUp(arrForSort) {
+      arrForSort.sort((a, b) => a - b);
+    }
+    /*
+    Сортирует массив по убыванию
+    */
+    function sortArr(arrForSort) {
+      arrForSort.sort((a, b) => b - a);
+    }
+
+  }
+
+  console.log(checkMaxTime(['14:41'])) //'23:59'
+  console.log(checkMaxTime(['23:00', '04:22', '18:05', '06:24'])) //'11:40'
+  console.log(checkMaxTime(['21:14', '15:34', '14:51', '06:25', '15:30'])); //'09:10'
+
+</script>
