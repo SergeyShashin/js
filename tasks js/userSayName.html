@@ -8,7 +8,8 @@
 
   };
 
-  setTimeout(user.sayName.call(user), 1000);
   setTimeout(user.sayName.apply(user), 1000);
+  setTimeout(user.sayName.call({ name: 'Name' }), 1000);
+  setTimeout(user.sayName.bind({ name: 'Name' }), 1000);
 
 </script>
