@@ -1,0 +1,11 @@
+<script>
+  /*
+  Возвращает массив со значениями свойств в arr по ключу key
+  */
+  function pluck(arr, key) {
+    return arr.map(el => el[key]);
+  }
+
+  console.log(pluck([{ a: 1 }, { a: 2 }], 'a')); // [1,2]
+  console.log(pluck([{ a: 1, b: 3 }, { a: 2 }], 'b')); // [3, undefined]
+</script>
