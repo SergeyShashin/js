@@ -1,0 +1,14 @@
+<script>
+
+  let user = {
+    name: 'Павел',
+    sayName() {
+      console.log(`My name is ${this.name}!`);
+    }
+
+  };
+
+  setTimeout(user.sayName.call(user), 1000);
+  setTimeout(user.sayName.apply(user), 1000);
+
+</script>
