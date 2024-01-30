@@ -4,28 +4,38 @@
   Возвращает ближайшее простое число к num. Если числа равны, то наименьшее.
   */
   function findNearestPrimeNumber(num) {
-    let numUp = num + 1;
-    let numDown = num - 1;
 
-    for (let i = 2; i < 108; i++) {
-      if (numUp % i === 0) {
-        console.log(numUp);
-        console.log(i);
-        console.log(numUp % i === 0);
-        break;
-      };
+    for (let numUp = num, numDown = num; ; numUp++ , numDown--) {
+
+      if (isSimple(numDown)) {
+        return numDown;
+      }
+
+      if (isSimple(numUp)) {
+        return numUp;
+      }
     }
 
+    /*
+    Возвращает true, если число простое, иначе false.
+    */
+    function isSimple(number) {
+      for (let divider = 2; divider < 108 && divider < number; divider++) {
+        if ((number % divider) === 0) {
+          return false;
+        };
+      }
+      return true
+    }
 
   }
 
-  // console.log(findNearestPrimeNumber(4)); //3
-  // console.log(findNearestPrimeNumber(3)); //3
-  // console.log(findNearestPrimeNumber(11)); //11
-  // console.log(findNearestPrimeNumber(125)); //127
-  // console.log(findNearestPrimeNumber(110)); //109
-  // console.log(findNearestPrimeNumber(1110)); //1109
-
+  console.log(findNearestPrimeNumber(4)); //3
+  console.log(findNearestPrimeNumber(3)); //3
+  console.log(findNearestPrimeNumber(11)); //11
+  console.log(findNearestPrimeNumber(125)); //127
+  console.log(findNearestPrimeNumber(110)); //109
+  console.log(findNearestPrimeNumber(1110)); //1109
   console.log(findNearestPrimeNumber(350000)); //350003
 
 </script>
