@@ -1,11 +1,14 @@
 <script>
 
   /*
-  Вовзращает номер позиции нечётного числа в строке.
+  Вовзращает номер позиции отличающегося по чётности числа в строке.
   */
   function iqTest(numbers) {
     const numbersToArr = numbers.split(' ');
-    return numbersToArr.indexOf(...numbersToArr.filter(el => Number(el) % 2 !== 0)) + 1;
+    const getEvenNumberArr = numbersToArr.filter(el => Number(el) % 2 === 0);
+    const getNotEvenNumberArr = numbersToArr.filter(el => Number(el) % 2 !== 0);
+
+    return getEvenNumberArr.length === 1 ? numbersToArr.indexOf(...getEvenNumberArr) + 1 : numbersToArr.indexOf(...getNotEvenNumberArr) + 1;
   }
 
   console.log(iqTest('2 4 7 8 10')) //3
