@@ -5,6 +5,10 @@
   */
   function findNearestPrimeNumber(num) {
 
+    if(num<2){
+      return 2;
+    }
+
     for (let numUp = num, numDown = num; ; numUp++ , numDown--) {
 
       if (isSimple(numDown)) {
