@@ -1,0 +1,16 @@
+<script>
+
+
+  /*
+  Возращает новый массив с заменой item на replaceItem
+  */
+  function replaceItems(arr, item, replaceItem) {
+    let rgxp = new RegExp(item, 'g');
+
+    return arr.join('').replace(rgxp, replaceItem).split('');
+
+  }
+
+  console.log(replaceItems([1, 2, 3, 4, 2], 2, 'a')); //[1, 'a', 3, 4, 'a'];
+
+</script>
