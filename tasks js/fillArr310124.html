@@ -4,8 +4,62 @@
   Возвращает двумерный массив, заполненный против часовой стрелки.
   */
   function fillArr(rows, cols) {
-    
+    const resultArr = [];
+    const maxValue = rows * cols;
+    let counter = 1;
+    let row = 0;
+    let col = 0;
+    const directions = ['down', 'right', 'up', 'left'];
+    let direction = 0;
+    let addedPositions = [];
 
+    for (let i = 0; i < rows; i++) {
+      resultArr.push(Array(rows).fill(1));
+    }
+
+    for (let i = 0; i < maxValue; i++, counter++) {
+      resultArr[row][col] = counter;
+      addedPositions.push(`row${row}col${col}`);
+      // console.log(addedPositions);
+      console.log(`row${row}col${col}`)
+      console.log(resultArr);
+
+
+      switch (directions[direction]) {
+        case 'down':
+          row++;
+          break;
+        case 'right':
+          col++;
+          break;
+        case 'up':
+          row--;
+          break;
+        case 'left':
+          col--;
+          break;
+      }
+
+      if (direction + 1 === 4) {
+        direction = 0;
+      }
+
+
+      if (
+        row + 1 > rows - 1 && col === 0
+        || col + 1 > cols - 1 && row === rows - 1
+        || row-1 < 0 && col === cols - 1
+        || col-1 < 0 && row===rows-1
+        // || addedPositions.includes(`row${row + 1}col${col}`)
+        // || addedPositions.includes(`row${row}col${col + 1}`)
+      ) {
+        direction++;
+      }
+
+    }
+
+    console.log(counter);
+    console.log(resultArr);
   }
 
   console.log(fillArr(3, 3));
