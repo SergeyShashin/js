@@ -11,85 +11,57 @@
     let col = 0;
     const directions = ['down', 'right', 'up', 'left'];
     let direction = 0;
-    let addedPositions = [];
     let depth = 0;
-    let historyPoints = [];
 
     for (let i = 0; i < rows; i++) {
       resultArr.push(Array(cols).fill(1));
     }
 
     for (let i = 0; i < maxValue; i++, counter++) {
-      debugger
-      
-      console.log(`row${row}_col${col}`);
-      console.log('direction' + direction);
-      console.log('counter' + counter);
-      resultArr[row][col] = counter;
-      // console.log(historyPoints);
-      console.log(resultArr);
+      counter < 10 ? resultArr[row][col] = ' ' + counter : resultArr[row][col] = '' + counter;
 
       if (
-        row + 1 === rows && col === depth  //row 3===3 и col 0===0
-        || col + 1 === cols && row === rows - 1  //col 3===2 и row 2===2
-        || row - 1 === depth - 1 && col === cols - 1 //row -1==-1 и col 2===2
-        || col - 1 === depth && row === depth //col -1==0 и row ===0
-        // || historyPoints.includes(`row${row}_col${col}`)
+        row + 1 === rows - depth && col === depth
+        || col + 1 === cols - depth && row === rows - 1 - depth // row3col3 должен повернуть
+        || row - 1 === depth - 1 && col === cols - 1 - depth
+        || col - 1 === depth && row === depth
       ) {
         direction++;
+        if (col - 1 === depth && row === depth) {
+          direction = 0;
+          depth++;
+        }
       }
-
-      // historyPoints.push(`row${row}_col${col}`);
 
       switch (directions[direction]) {
         case 'down':
           row++;
-          col = 0 + depth;
           break;
         case 'right':
           col++;
-          row = rows - 1 - depth;
           break;
         case 'up':
           row--;
-          col = cols - 1 - depth;
           break;
         case 'left':
           col--;
-          row = 0 + depth
           break;
-      }
-
-
-
-      if (direction + 1 === 4) {
-        direction = 0;
-        depth++;
       }
 
     }
 
-    // console.log(counter);
-    console.log(resultArr);
+    return resultArr
   }
 
   // console.log(fillArr(3, 3));
   /*
-  [                                 col3
-    [1,8,7],     00, 01, 02     1 2 3     строка 0, колонка 2, строка 2, убывающая колонка без одной ячейки 0, строка без одной ячейки 1
-    [2,9,6],     10, 11, 12                   последний элемент = row*col
-    [3,4,5],     21, 22, 23
-  ]                                 row3
-
- заполнять массивы пока rows*cols
- заполнить колонку 0 c нулевой позиции до col-1
- заполнить строку номер row с нулевой позиции до row-1
- заполнить колонку col с col позиции, уменьшая индекс колонки до col-1
- заполнить строку 0 с row позиции, уменьшая индекс до row-1
- заполнить колонку row-1 с row+1 позиции до col-1
-
+  [                                 
+    [1,8,7],     
+    [2,9,6],     
+    [3,4,5],   
+  ]                         
   */
-  console.log(fillArr(3, 4));
+  // console.log(fillArr(3, 4));
   /*
   [
     [1, 10,  9,  8],
@@ -97,14 +69,9 @@
     [3,  4,  5,  6],
   ]
 
- заполнять массивы пока rows*cols
- заполнить колонку 0 c нулевой позиции до col-1
- заполнить строку номер row с нулевой позиции до row-1
- заполнить колонку col с col позиции, уменьшая индекс колонки до col-1
- заполнить строку 0 с row позиции, уменьшая индекс до row-1
- заполнить колонку row-1 с row+1 позиции до col-1
- заполнить строку col-1 c row+1 позиции до row-1
-
   */
+
+  console.log(fillArr(4, 3));
+
 
 </script>
