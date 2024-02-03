@@ -4,67 +4,77 @@
   Возвращает двумерный массив, заполненный против часовой стрелки.
   */
   function fillArr(rows, cols) {
-    const resultArr = [];
-    const maxValue = rows * cols;
-    let counter = 1;
+    let maxValue = rows * cols;
+    const resArr = [];
     let row = 0;
     let col = 0;
-    const directions = ['down', 'right', 'up', 'left'];
+    const directions = ['down', 'right', 'top', 'left'];
     let direction = 0;
     let depth = 0;
+    let counter = 1;
+    let historyPoints = [];
 
-    for (let i = 0; i < rows; i++) {
-      resultArr.push(Array(cols).fill(1));
+    for (let idx = 0; idx < rows; idx++) {
+      resArr.push(Array(cols).fill(1));
     }
 
-    for (let i = 0; i < maxValue; i++ , counter++) {
-      // debugger
-      console.log(`row${row}_col${col} depth${depth} direction${direction}`);
-      console.log(resultArr);
-      counter < 10 ? resultArr[row][col] = ' ' + counter : resultArr[row][col] = '' + counter;
+    while (maxValue) {
+      resArr[row][col] = counter<10? ` ${counter}`: `${counter}`;
+      historyPoints.push(`row${row}_col${col}`);
 
-      if (
-        row + 1 === rows - depth && col === depth
-        || col + 1 === cols - depth && row === rows - 1 - depth 
-        || row - 1 === depth - 1 && col === cols - 1 - depth
-        || col - 1 === depth && row === depth
-      ) {
+      let nextPoint = getNextPointStep(row, col, directions[direction]);
+
+      if (nextPoint[0] === depth && nextPoint[1] === depth) {
+        depth++;
+        direction = 0;
+        nextPoint = [depth, depth];
+      }
+
+      if (canMakeStep(nextPoint[0], nextPoint[1])) {
+        row = nextPoint[0];
+        col = nextPoint[1];
+      } else {
         direction++;
-        if (col - 1 === depth && row === depth) {
-          direction = 0;
-          depth++;
-        }
+        let newNextPoint = getNextPointStep(row, col, directions[direction]);
+        row = newNextPoint[0];
+        col = newNextPoint[1];
       }
 
-      switch (directions[direction]) {
-        case 'down':
-          row++;
-          break;
-        case 'right':
-          col++;
-          break;
-        case 'up':
-          row--;
-          break;
-        case 'left':
-          col--;
-          break;
-      }
-
+      counter++;
+      maxValue--;
     }
 
-    return resultArr
+    function getNextPointStep(row, col, direction) {
+      switch (direction) {
+        case 'down':
+          return [row + 1, col]
+        case 'right':
+          return [row, col + 1]
+        case 'top':
+          return [row - 1, col]
+        case 'left':
+          return [row, col - 1]
+      }
+    }
+
+    function canMakeStep(row, col) {
+      return row >= 0 + depth && col >= 0 + depth && row < rows - depth && col < cols - depth
+    }
+
+    return resArr;
   }
 
-  // console.log(fillArr(3, 3));
+
+
+  console.log(fillArr(3, 3));
   /*
-  [                                 
-    [1,8,7],     
-    [2,9,6],     
-    [3,4,5],   
-  ]                         
+  [
+    [1,8,7],
+    [2,9,6],
+    [3,4,5],
+  ]
   */
-  // console.log(fillArr(3, 4));
+  console.log(fillArr(3, 4));
   /*
   [
     [1, 10,  9,  8],
@@ -74,7 +84,6 @@
 
   */
 
-  console.log(fillArr(4, 3));
 
 
 </script>
