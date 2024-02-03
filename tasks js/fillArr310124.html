@@ -17,12 +17,15 @@
       resultArr.push(Array(cols).fill(1));
     }
 
-    for (let i = 0; i < maxValue; i++, counter++) {
+    for (let i = 0; i < maxValue; i++ , counter++) {
+      // debugger
+      console.log(`row${row}_col${col} depth${depth} direction${direction}`);
+      console.log(resultArr);
       counter < 10 ? resultArr[row][col] = ' ' + counter : resultArr[row][col] = '' + counter;
 
       if (
         row + 1 === rows - depth && col === depth
-        || col + 1 === cols - depth && row === rows - 1 - depth // row3col3 должен повернуть
+        || col + 1 === cols - depth && row === rows - 1 - depth 
         || row - 1 === depth - 1 && col === cols - 1 - depth
         || col - 1 === depth && row === depth
       ) {
