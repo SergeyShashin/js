@@ -20,7 +20,6 @@
 
     while (maxValue) {
       resArr[row][col] = counter<10? ` ${counter}`: `${counter}`;
-      historyPoints.push(`row${row}_col${col}`);
 
       let nextPoint = getNextPointStep(row, col, directions[direction]);
 
