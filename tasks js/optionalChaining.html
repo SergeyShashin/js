@@ -1,0 +1,30 @@
+<html>
+
+
+<script>
+
+  function optionalChaining(obj, arr) {
+
+    return typeof obj[arr[0]] !== 'object'
+      ? obj[arr[0]]
+      : optionalChaining(obj[arr[0]], arr.slice(1));
+  }
+
+  const obj = {
+    a: {
+      b: {
+        c: {
+          d: 'Привет!'
+        }
+      }
+    }
+  };
+
+  console.log(optionalChaining(obj, ['a', 'b', 'c', 'd'])); //привет
+  console.log(optionalChaining(obj, ['a', 'b', 'c', 'd', 'e'])); //undefined
+  console.log(optionalChaining(obj, ['a', 'b', 'c'])); //undefined
+  console.log(optionalChaining(obj, ['b', 'd', 'a'])); //undefined
+
+</script>
+
+</html>
