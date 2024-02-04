@@ -5,9 +5,17 @@
 
   function optionalChaining(obj, arr) {
 
-    return typeof obj[arr[0]] !== 'object'
-      ? obj[arr[0]]
-      : optionalChaining(obj[arr[0]], arr.slice(1));
+    if (!obj[arr[0]]) {
+      return 'undefined'
+    }
+
+    if (arr.length === 1 && typeof obj[arr[0]] !== 'object') {
+      return obj[arr[0]]
+    } else {
+      // console.log(arr);
+      return optionalChaining(obj[arr[0]], arr.slice(1))
+    }
+
   }
 
   const obj = {
