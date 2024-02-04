@@ -1,0 +1,25 @@
+<script>
+
+  /*
+  Возвращает самый длинный префикс в словах из массива arr
+  */
+  function longestCommonPrefix(arr) {
+    let result = '';
+    let idx = 0;
+
+    for (let char of arr[0]) {
+      if (arr.every(el => el[idx] === char)) {
+        result += char;
+        idx++
+      } else {
+        return result
+      }
+    }
+
+  }
+
+  console.log(longestCommonPrefix(['привет', 'правила', 'проезда'])); //'пр'
+  console.log(longestCommonPrefix(['очень', 'плохая', 'музыка'])); //''
+
+
+</script>
