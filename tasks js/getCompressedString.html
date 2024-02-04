@@ -1,0 +1,21 @@
+<script>
+
+  /*
+  Возвращает строку с символом его количеством в str
+  */
+
+  function getCompressedString(str) {
+    let result = '';
+    let resStr = '';
+    let strToLC = str.toLowerCase();
+    
+    strToLC.split('').map((el, idxEl, arr) => result += `,${el}${arr.filter(elf => el === elf).length}`);
+
+    resStr = new Set(result.split(','));
+
+    return [...resStr].join('');
+  }
+
+  console.log(getCompressedString('aaAaBbBbDFFFff')); //a4b4d1f5
+
+</script>
