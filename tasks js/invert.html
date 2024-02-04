@@ -1,0 +1,18 @@
+<script>
+
+  /*
+  Возращает объект с инвертированными значениями в ключи. В случае повторов берется последнее значение.
+  */
+
+  function invert(obj) {
+    const invertObj = {};
+    Object.values(obj).map((el, idxEl) => invertObj[el] = Object.keys(obj)[idxEl]);
+
+    return invertObj;
+
+  }
+
+  console.log(invert({ a: 1, b: 2, c: 3 }))//{1:'a', 2:'b', 3:'c'}
+  console.log(invert({ a: 1, b: 2, c: 1 }))//{1:'c', 2:'b'}
+
+</script>
