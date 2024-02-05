@@ -1,0 +1,19 @@
+<script>
+
+  /*
+  Возвращает отсортированный массив arr. Числа меньше k переносятся левее k.
+  */
+  function splitByValue(k, arr) {
+    let indexK = arr.indexOf(k);
+
+    return indexK === -1
+      ? arr
+      : [...arr.slice(0, indexK), ...arr.slice(indexK).filter(el => el < k), ...arr.slice(indexK).filter(el => el >= k)];
+
+  }
+
+  console.log(splitByValue(5, [1, 3, 5, 7, 6, 4, 2])); //[1,3,4,2,5,7,6]
+  console.log(splitByValue(0, [5, 2, 7, 3, 2])); //[5,2,7,3,2]
+  console.log(splitByValue(6, [6, 4, 10, 10, 6])); //[4, 6, 10, 10, 6]
+
+</script>
