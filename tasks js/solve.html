@@ -1,0 +1,20 @@
+<script>
+
+  /*
+  Возвращает массив отсортированный по количеству цифр в массиве, а потом по номиналу.
+  */
+  function solve(arr) {
+    const objNum = {};
+    let result = [];
+
+    arr.map(el => objNum[el] ? objNum[el].push(el) : objNum[el] = [el]);
+
+    result = Object.values(objNum).sort((a, b) => b.length - a.length).flat();
+
+    return result
+  }
+
+  console.log(solve([2, 3, 5, 3, 7, 9, 5, 3, 7])); //[3,3,3,5,5,7,7,2,9]
+  console.log(solve([4, 9, 5, 0, 7, 3, 8, 4, 9, 0])); //[0,0,4,4,9,9,3,5,7,8]
+
+</script>
