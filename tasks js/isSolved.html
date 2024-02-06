@@ -1,0 +1,62 @@
+<script>
+
+
+  /*
+  Если есть линия из 3 1, возвращает 1 - победили 'x'.
+  Если есть линия из 3 2, возвращает 2 - победили '0'.
+  Если есть поле заполнено и никто не победил, возвращает 0.
+  Если есть поле не заполнено и никто не победил, возвращает -1.
+  */
+  function isSolved(arr) {
+    let hasZero = false;
+    let arrTmp = [...arr, [arr[0][1], arr[1][1], arr[2][2]], [arr[0][2], arr[1][1], arr[2][0]]];
+    let winX = false;
+    let win0 = false;
+
+    arrTmp.map((row, idx) => {
+      let rowStr = row.join('');
+
+      if ('111' === rowStr) {
+        winX = true;
+        return
+      }
+
+      console.log('без return');
+
+      if ('222' === rowStr) {
+        win0 = true;
+        return
+      }
+
+      if (row.includes(0)) {
+        hasZero = true;
+      }
+    });
+
+    if (winX) {
+      return 1
+    }
+
+    if (win0) {
+      return 2
+    }
+
+    return hasZero ? -1 : 0
+  }
+
+  console.log(isSolved([
+    [0, 0, 1],
+    [0, 1, 2],
+    [2, 1, 0]
+  ]
+  )); //-1
+
+  console.log(isSolved([
+    [0, 2, 1],
+    [0, 1, 2],
+    [1, 1, 2]
+  ]
+  )); //1
+
+
+</script>
