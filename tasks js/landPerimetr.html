@@ -6,15 +6,48 @@
   function landPerimetr(arr) {
 
     let perimetr = 0;
+    let lengthArr = arr.length;
+    let lastIdxArr = lengthArr - 1;
 
-    for (let row = 0; row < arr.length; row++) {
-      for (let col = 0; col < arr[row].length; col++) {
-        if (arr[row][col]) {
-          
+    for (let row = 0, lengthRow = arr[row].length, lastIdxRow = lengthRow - 1, prevRow; row < lengthArr; row++) {
+      prevRow = row - 1;
+      nextRow = row + 1;
+
+      for (let col = 0, prevCol, nextCol; col < lengthRow; col++) {
+        prevCol = col - 1;
+        nextCol = col + 1;
+
+        if (row === 0 && arr[row][col] === 'X' || row === lastIdxArr && arr[row][col] === 'X') {
+          perimetr++;
         }
+
+        if (col === 0 && arr[row][col] === 'X' || col === lastIdxRow && arr[row][col] === 'X') {
+          perimetr++;
+        }
+
+        if (col > 0 && col < lastIdxRow && arr[row][col] === 'X' && arr[row][prevCol] === '0'
+        ) {
+          perimetr++;
+        }
+
+        if (col > 0 && col < lastIdxRow && arr[row][col] === 'X' && arr[row][nextCol] === '0'
+        ) {
+          perimetr++;
+        }
+
+        if (row > 0 && row < lastIdxArr && arr[row][col] === 'X' && arr[prevRow][col] === '0') {
+          perimetr++;
+        }
+
+        if (row > 0 && row < lastIdxArr && arr[row][col] === 'X' && arr[nextRow][col] === '0') {
+          perimetr++;
+        }
+
       }
     }
 
+
+    return perimetr;
   }
 
   console.log(landPerimetr([
