@@ -1,0 +1,21 @@
+<script>
+
+
+  /*
+  Возвращает массив в 100 элементов, заполненый натуральными числами от 1 до 200 без повторений
+  */
+  function getRandomArr() {
+    let result = [];
+
+    while (result.length < 100) {
+
+      let numRandom = Math.floor(Math.random() * 200);
+
+      result.includes(numRandom) ? '' : result.push(numRandom);
+    }
+
+    return result;
+  }
+
+  console.log(getRandomArr());
+</script>
