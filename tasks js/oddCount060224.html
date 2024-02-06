@@ -4,12 +4,7 @@
   Возвращает количество нечётных чисел меньше n
   */
   function oddCount(n) {
-    let count = 0;
-    for (let i = 1; i < n; i++) {
-      i % 2 ? count++ : '';
-    }
-
-    return count
+    return parseInt(n / 2)
   }
 
   console.log(oddCount(7)); //3
