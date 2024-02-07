@@ -1,0 +1,17 @@
+<script>
+
+  const array = ['a', 'b', 'c', 'd', 'e'];
+
+  Array.prototype.except = function (conditionFilter) {
+
+    if (Array.isArray(conditionFilter)) {
+      return this.filter((el, idx) => !conditionFilter.includes(idx));
+    } else if (Number.isInteger(conditionFilter)) {
+      return [...this.filter((el, idx) => idx !== conditionFilter)];
+    }
+
+  }
+
+  console.log(array.except([1, 3])); //['a', 'c', 'e']
+  console.log(array.except(1)); //['a', 'c', 'd', 'e']
+</script>
