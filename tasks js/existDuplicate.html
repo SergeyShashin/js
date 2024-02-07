@@ -4,7 +4,7 @@
   /*
   Возвращает true если в массиве более 2 одинаковых элементов
   */
-  function existDuplicate(arr) {
+  function existsDuplicate(arr) {
     let result = false;
 
     arr.map((el, idx) => arr.slice(idx + 1).includes(el) ? result = true : '');
@@ -12,8 +12,8 @@
     return result
   }
 
-  console.log(existDuplicate([4, 6, 7, 7, 1])); true
-  console.log(existDuplicate([1, 1, 5, 4, 4, 10])); true
-  console.log(existDuplicate([1, 5, 8, 21, 45])); false
+  console.log(existsDuplicate([4, 6, 7, 7, 1])); true
+  console.log(existsDuplicate([1, 1, 5, 4, 4, 10])); true
+  console.log(existsDuplicate([1, 5, 8, 21, 45])); false
 
 </script>
