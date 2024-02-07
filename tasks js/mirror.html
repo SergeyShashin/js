@@ -1,0 +1,16 @@
+<script>
+
+  /*
+  Вовращает объект в котором свойства - перевёрнутый ключ
+  */
+  function mirror(obj) {
+    Object.keys(obj).map(el => obj[el] = el.split('').reverse().join(''));
+    return obj
+  }
+
+  console.log(mirror({
+    abc: undefined,
+    hello: undefined
+  }));
+
+</script>
