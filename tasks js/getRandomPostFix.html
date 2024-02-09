@@ -4,29 +4,48 @@
   Возвращает строку _prefix_postfix. postfix генерирует, если был передан новый. 
   Длина postfix равна num. postfix может содеражать буквы латинского алфавита в малом регистре и цифры. 
   */
-  function getRandomPostfix(_prefix_, num) {
-    let prefix = _prefix_;
+  function getRandomPostfix(prefix, num) {
     const historyPrefixAndPostfix = {};
+    let historyNum;
 
     if (num) {
-      let historyNum = num;
+      historyNum = num;
     }
 
-    if (historyPrefixAndPostfix.hasOwn(_prefix_)) {
-      return historyPrefixAndPostfix[_prefix_];
-    } else {
-      historyPrefixAndPostfix[_prefix_] = createRandomPostfix(historyNum);
-      return historyPrefixAndPostfix[_prefix_]
-    }
+    return create();
 
-    function createRandomPostfix(historyNum){
-      let postfix='';
-      
-      while(postfix.length<historyNum){
+    function create() {
 
+      if (historyPrefixAndPostfix[prefix]) {
+        return historyPrefixAndPostfix[prefix];
+      } else {
+        historyPrefixAndPostfix[prefix] = createRandomPostfix(historyNum);
+        return historyPrefixAndPostfix[prefix];
       }
 
+      function createRandomPostfix(historyNum) {
+        let postfix = '';
+        while (postfix.length < historyNum) {
+          let numRandom = Math.floor(Math.random() * 10);
+          let charRandom = String.fromCharCode(Math.floor(Math.random() * 25 + 97));
+          const randomArr = [];
+
+          for (let i = 0; i < 10; i++) {
+            randomArr.push(numRandom);
+            randomArr.push(charRandom);
+          }
+
+          postfix += randomArr[numRandom];
+        }
+
+        return postfix
+      }
+
+
     }
 
+
   }
+
+  console.log(getRandomPostfix('_prefix_', 4));
 </script>
