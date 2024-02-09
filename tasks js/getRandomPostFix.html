@@ -6,17 +6,13 @@
   */
   function getRandomPostfix(prefix, num) {
     let historyPrefixAndPostfix = {};
-    let historyNum;
-
-    if (num) {
-      historyNum = num;
-    }
+    let historyNum=num;
 
     return create();
 
     function create() {
 
-      console.log('?'+historyPrefixAndPostfix[prefix]);
+      console.log('?' + historyPrefixAndPostfix[prefix]);
       if (historyPrefixAndPostfix[prefix]) {
         return historyPrefixAndPostfix[prefix];
       } else {
@@ -45,8 +41,10 @@
     }
   }
 
-  // console.log(getRandomPostfix('_prefix_', 4));
-  console.log(getRandomPostfix('5689u', 4));
-  // console.log(getRandomPostfix('1iuo', 4));
-  console.log(getRandomPostfix('5689u', 4));
+  const getRandomString = getRandomPostfix('_prefix_', 4);
+  console.log(getRandomString);
+
+  console.log(getRandomPostfix('5689u'));
+  console.log(getRandomPostfix('1iuo'));
+  console.log(getRandomPostfix('5689u'));
 </script>
