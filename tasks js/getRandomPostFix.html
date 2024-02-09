@@ -5,40 +5,7 @@
   Длина postfix равна num. postfix может содеражать буквы латинского алфавита в малом регистре и цифры. 
   */
   function getRandomPostfix(prefix, num) {
-    let historyPrefixAndPostfix = {};
-    let historyNum=num;
-
-    return create();
-
-    function create() {
-
-      console.log('?' + historyPrefixAndPostfix[prefix]);
-      if (historyPrefixAndPostfix[prefix]) {
-        return historyPrefixAndPostfix[prefix];
-      } else {
-        historyPrefixAndPostfix[prefix] = createRandomPostfix(historyNum);
-        return historyPrefixAndPostfix[prefix];
-      }
-
-      function createRandomPostfix(historyNum) {
-        let postfix = '';
-        while (postfix.length < historyNum) {
-          let numRandom = Math.floor(Math.random() * 10);
-          let charRandom = String.fromCharCode(Math.floor(Math.random() * 25 + 97));
-          const randomArr = [];
-
-          for (let i = 0; i < 10; i++) {
-            randomArr.push(numRandom);
-            randomArr.push(charRandom);
-          }
-
-          postfix += randomArr[numRandom];
-        }
-
-        return postfix
-      }
-
-    }
+    
   }
 
   const getRandomString = getRandomPostfix('_prefix_', 4);
