@@ -1,0 +1,32 @@
+<script>
+
+  /*
+  Возвращает строку _prefix_postfix. postfix генерирует, если был передан новый. 
+  Длина postfix равна num. postfix может содеражать буквы латинского алфавита в малом регистре и цифры. 
+  */
+  function getRandomPostfix(_prefix_, num) {
+    let prefix = _prefix_;
+    const historyPrefixAndPostfix = {};
+
+    if (num) {
+      let historyNum = num;
+    }
+
+    if (historyPrefixAndPostfix.hasOwn(_prefix_)) {
+      return historyPrefixAndPostfix[_prefix_];
+    } else {
+      historyPrefixAndPostfix[_prefix_] = createRandomPostfix(historyNum);
+      return historyPrefixAndPostfix[_prefix_]
+    }
+
+    function createRandomPostfix(historyNum){
+      let postfix='';
+      
+      while(postfix.length<historyNum){
+
+      }
+
+    }
+
+  }
+</script>
