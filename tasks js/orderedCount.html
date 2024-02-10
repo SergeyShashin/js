@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<script>
+  /*
+  Возвращает массив, который содержит массив с сиволом и его количеством в строке
+  */
+  function ordredCount(str) {
+    let result = [];
+    let counter = 1;
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-
-<body>
-  <script>
-    'use strict';
-
-    function orderedCount(text) {
-      let res = [];
-      let tmp = [];
-      for (let val of text) {
-        if (!tmp.includes(val)) {
-          res.push(getLetterAndQuantity(val));
-
-          function getLetterAndQuantity(val) {
-            let arr = text.split('').filter(e => e == val);
-            return [arr[0], arr.length];
-          }
-        }
-
-        tmp.push(val);
-      }
-
-      return res;
+    let tmpArr = str.split('').sort().map((el, idx, arr) => {
+      if (arr[idx + 1] && arr[idx + 1] === el) {
+        counter++;
+      } else if (arr[idx + 1] !== el) {
+        result.push([el, counter]);
+        counter = 1;
+      };
     }
+    );
 
-    console.log(orderedCount('abracadabra'));
-    //[['a', 5], ['b', 2], ['r', 2], ['c', 1], ['d',1]]
+    return result;
+  }
 
-    console.log(orderedCount('233312'));
-    //[['2', 2], ['3', 3], ['1', 1]]
+  console.log(ordredCount('abracadabra'));
+  console.log(ordredCount('233312'));
 
-  </script>
-</body>
-
-</html>
+</script>
