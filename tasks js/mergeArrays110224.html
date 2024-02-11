@@ -1,0 +1,28 @@
+<script>
+
+  /*
+  Возвращает объединённый массив из arr1 и arr2. Объединяет поэлементно. 
+  */
+  function mergeArrays(arr1, arr2) {
+    let result = [];
+    let counter = 0;
+    let bigerArr;
+    
+    while (counter < arr1.length && counter < arr2.length) {
+      result.push(arr1[counter]);
+      result.push(arr2[counter]);
+      counter++;
+    }
+
+    bigerArr = arr1.length > counter ? arr1 : arr2;
+    result = [...result, ...bigerArr.splice(counter)];
+
+    return result
+  }
+
+  console.log(mergeArrays([1, 2, 3, 4, 5, 6, 7, 8], ['a', 'b', 'c', 'd', 'e']));
+  //[1, 'a', 2, 'b', 3, 'c', 4, 'd', 5, 'e', 6, 7, 8]
+  console.log(mergeArrays([1, 2, 3], ['a', 'b', 'c', 'd', 'e', 'f']));
+    //[1, 'a', 2, 'b', 3, 'c', 'd', 'e', 'f']
+
+</script>
