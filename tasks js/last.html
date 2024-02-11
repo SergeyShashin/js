@@ -5,36 +5,40 @@
   Если буквы одинаковые, сохраняет очередность.
   */
   function last(str) {
-    let obj = {};
-    let result = '';
-    let sortObjKeys = [];
-
-    str.split(' ').map(el => {
-      let lastChar = el[el.length - 1];
-      if (lastChar === 'ё') {
-        lastChar = 'ее';
-      }
-
-      if (obj[lastChar]) {
-        obj[lastChar] += el + ' ';
-      } else {
-        obj[lastChar] = el + ' ';
-      }
-    });
-
-    sortObjKeys = Object.keys(obj).sort();
-
-    for (const key of sortObjKeys) {
-      result += obj[key];
-    }
-
-
-    result = result.trimEnd();
-
-    result = result.split(' ');
-
-    return result
+    return str.split(' ').sort((a, b) => a[a.length - 1].localeCompare(b[b.length - 1]))
   }
+
+  // function last(str) {
+  //   let obj = {};
+  //   let result = '';
+  //   let sortObjKeys = [];
+
+  //   str.split(' ').map(el => {
+  //     let lastChar = el[el.length - 1];
+  //     if (lastChar === 'ё') {
+  //       lastChar = 'ее';
+  //     }
+
+  //     if (obj[lastChar]) {
+  //       obj[lastChar] += el + ' ';
+  //     } else {
+  //       obj[lastChar] = el + ' ';
+  //     }
+  //   });
+
+  //   sortObjKeys = Object.keys(obj).sort();
+
+  //   for (const key of sortObjKeys) {
+  //     result += obj[key];
+  //   }
+
+
+  //   result = result.trimEnd();
+
+  //   result = result.split(' ');
+
+  //   return result
+  // }
 
   console.log(last('держите меня семеро')); //['держите', 'семеро', 'меня']
   console.log(last('её код сводит меня с ума')); //['ума', 'код', 'её' 'с', 'сводит', 'меня']
