@@ -1,0 +1,43 @@
+<script>
+
+  /*
+  Возвращает массив слов отсортированных по последней букве в алфавитном порядке.
+  Если буквы одинаковые, сохраняет очередность.
+  */
+  function last(str) {
+    let obj = {};
+    let result = '';
+    let sortObjKeys = [];
+
+    str.split(' ').map(el => {
+      let lastChar = el[el.length - 1];
+      if (lastChar === 'ё') {
+        lastChar = 'ее';
+      }
+
+      if (obj[lastChar]) {
+        obj[lastChar] += el + ' ';
+      } else {
+        obj[lastChar] = el + ' ';
+      }
+    });
+
+    sortObjKeys = Object.keys(obj).sort();
+
+    for (const key of sortObjKeys) {
+      result += obj[key];
+    }
+
+
+    result = result.trimEnd();
+
+    result = result.split(' ');
+
+    return result
+  }
+
+  console.log(last('держите меня семеро')); //['держите', 'семеро', 'меня']
+  console.log(last('её код сводит меня с ума')); //['ума', 'код', 'её' 'с', 'сводит', 'меня']
+  console.log(last('мама ама криминал')); //['мама', 'ама', 'криминал']
+
+</script>
