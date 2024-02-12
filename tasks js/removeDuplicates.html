@@ -1,19 +1,18 @@
 <script>
 
   /*
-  Возвращает массив без дупликатов с сохранением порядка слов в оригинале. Set и Map не использовать.
+  Возвращает массив без дубликатов с сохранением порядка слов в оригинале. Set и Map не использовать.
   */
   function removeDuplicates(arr) {
-
     let result = [];
 
-    for (const val of arr) {
-      result.includes(val)? '' : result.push(val);      
+    for (const key of arr) {     
+      result.includes(key) ? '' : result.push(key);
     }
 
     return result;
   }
-
+ 
   console.log(removeDuplicates(['string', '3', '0', 'string', 'number', 'number', '3', 'constructor', '0']));
   // ['string', '3', '0', 'number', 'constructor']
 
