@@ -1,0 +1,12 @@
+<script>
+
+  /*
+  Возвращает строку со всеми переданными строками через div
+  */
+  function createString(div) {
+
+    return [...arguments].splice(1).join(div);
+  }
+
+  console.log(createString('*', '55', 'привет', 'убубубу')); //55*привет*Убубубу
+</script>
