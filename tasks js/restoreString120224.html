@@ -1,0 +1,21 @@
+<script>
+
+  /*
+  Возвращает строку, собранную из str в последовательности arr
+  */
+  function restoreString(str, arr) {
+    let result = [];
+
+    for (const val of arr) {
+      result.push(str[val]);
+    }
+
+    return result.join('');
+
+  }
+
+
+  console.log(restoreString('домик', [4, 1, 0, 3, 2])) //кодим
+  console.log(restoreString('украл', [1, 4, 3, 2, 0])) //карл
+  
+</script>
