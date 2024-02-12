@@ -1,0 +1,13 @@
+<script>
+
+  /*
+  Возвращает массив без дупликатов с сохранением порядка слов в оригинале.
+  */
+  function removeDuplicates(arr) {
+    return [...new Set(arr)]
+  }
+
+  console.log(removeDuplicates(['string', '3', '0', 'string', 'number', 'number', '3', 'constructor', '0']));
+  // ['string', '3', '0', 'number', 'constructor']
+
+</script>
