@@ -1,0 +1,40 @@
+<script>
+
+  function cakes(recipe, ingridients) {
+    let canMadeCakes = 0;
+
+    let keys = Object.keys(recipe);
+
+    if (ingridients[keys[0]] && ingridients[keys[0]] / recipe[keys[0]] > canMadeCakes) {
+      canMadeCakes = ingridients[keys[0]] / recipe[keys[0]];
+    }
+
+    for (const key in recipe) {
+      if (ingridients[key] && ingridients[key] / recipe[key] < canMadeCakes) {
+        canMadeCakes = ingridients[key] / recipe[key]
+      }
+    }
+
+    if (canMadeCakes >= 1) {
+      return parseInt(canMadeCakes)
+    } else if (canMadeCakes < 1 && canMadeCakes > 0) {
+      return 1
+    } else {
+      return 0
+    }
+
+  }
+
+
+
+  console.log(cakes(
+    { flour: 500, sugar: 200, eggs: 1 },
+    { flour: 1200, sugar: 1200, eggs: 5, milk: 200 },
+  )); //2
+
+  console.log(cakes(
+    { apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100 },
+    { sugar: 500, flour: 2000, milk: 2000 },
+  )); //0
+  
+</script>
