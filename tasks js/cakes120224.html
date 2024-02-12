@@ -15,16 +15,8 @@
       }
     }
 
-    if (canMadeCakes >= 1) {
-      return parseInt(canMadeCakes)
-    } else if (canMadeCakes < 1 && canMadeCakes > 0) {
-      return 1
-    } else {
-      return 0
-    }
-
+    return canMadeCakes >= 1 ? parseInt(canMadeCakes) : 0
   }
-
 
 
   console.log(cakes(
@@ -36,5 +28,5 @@
     { apples: 3, flour: 300, sugar: 150, milk: 100, oil: 100 },
     { sugar: 500, flour: 2000, milk: 2000 },
   )); //0
-  
+
 </script>
