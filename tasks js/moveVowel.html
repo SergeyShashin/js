@@ -1,0 +1,21 @@
+<script>
+
+  /*
+  Возвращает строку с перемещенным гласными в конец с сохранением последовательсности.
+  */
+  function moveVowel(input) {
+    const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
+    let result = '';
+    let vowelsFromInput = '';
+    
+    input.split('').map((char) => vowels.includes(char) ? vowelsFromInput += char : result += char);
+    result += vowelsFromInput;
+
+    return result
+  }
+
+  console.log(moveVowel('day')); //'day'
+  console.log(moveVowel('apple')); //'pplae'
+  console.log(moveVowel('peace')); //'pceae'
+
+</script>
