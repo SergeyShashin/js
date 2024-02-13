@@ -1,12 +1,11 @@
 <script>
 
-
   /*
   Возращает ключ объекта suspectInfo, в котором есть все элементы массива dead.
   */
   function killer(suspectInfo, dead) {
     let deadLength = dead.length;
-    
+
     for (const suspectsName in suspectInfo) {
       let counter = 0;
 
@@ -21,14 +20,22 @@
 
   }
 
-  const suspectInfo = {
-    'James': ['Jacob', 'Bill', 'Lucas'],
-    'Johnny': ['David', 'Kyle', 'Lucas'],
-    'Peter': ['Lucy', 'Kyle'],
 
-  }
+  console.log(killer(
+    {
+      'James': ['Jacob', 'Bill', 'Lucas'],
+      'Johnny': ['David', 'Kyle', 'Lucas'],
+      'Peter': ['Lucy', 'Kyle'],
 
-  console.log(killer(suspectInfo, ['Lucas', 'Bill']));
+    }, ['Lucas', 'Bill'])); //James
+
+  console.log(killer(
+    {
+      'Brad': [],
+      'Magan': ['Ben', 'Kevin'],
+      'Finn': [],
+
+    }, ['Ben'])); //Megan
 
 
 </script>
