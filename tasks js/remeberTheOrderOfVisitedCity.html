@@ -1,0 +1,42 @@
+<script>
+
+  function rememberTheOrderOfVisitedCity(arr) {
+    let result = [];
+
+    let arrFlat0 = [...arr.flat()];
+    let startPointAndIdxPoint = getStartPoint(arrFlat0);
+    let nextPointAndIDxPoint = { point: arrFlat0[startPointAndIdxPoint.idx + 1], idx: startPointAndIdxPoint.idx + 1 };
+    console.log(startPointAndIdxPoint);
+    console.log(nextPointAndIDxPoint);
+    arrFlat0.splice(startPointAndIdxPoint.idx, 2);
+    console.log(arrFlat0);
+
+    function getStartPoint(arrFlat0) {
+      // let arrFlat0FilterDeparture = arrFlat0.filter((el, idx) => idx % 2 === 0);
+      let arrFlat0FilterArival = arrFlat0.filter((el, idx) => idx % 2 !== 0);
+
+      for (let idx = 0; idx < arrFlat0.length; idx++) {
+        if (!arrFlat0FilterArival.includes(arrFlat0[idx])) {
+          let point = arrFlat0[idx];
+          return { point, idx };
+        }
+      }
+
+    }
+  }
+
+  console.log(rememberTheOrderOfVisitedCity([
+    ['MHL', 'TAG'], //1
+    ['CEB', 'TAC'], //3
+    ['TAG', 'CEB'], //2
+    ['TAC', 'BOR'], //4
+  ])); //'MHL, TAG, CEB, TAC, BOR'
+
+  // console.log(rememberTheOrderOfVisitedCity([
+  // ['Chikago', 'Winnipeg'], //4
+  // ['CEB', 'TAC'], //3
+  // ['TAG', 'CEB'], //2
+  // ['TAC', 'BOR'], //4
+  // ])); //'MHL, TAG, CEB, TAC, BOR'
+
+</script>
