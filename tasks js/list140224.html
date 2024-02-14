@@ -1,0 +1,33 @@
+<script>
+
+  /*
+  Возвращает строку с именами через запятую.
+  Перед последним элементом вместо запятой амперсанд.
+  */
+  function list(arr) {
+    if (arr.length === 0) {
+      return ''
+    } else if (arr.length === 1) {
+      return arr[0].name
+    } else {
+      let lastIdx = arr.length - 1;
+      let prevLastIdx = arr.length - 2;
+      let result = '';
+      for (let idx = 0; idx <= prevLastIdx; idx++) {
+        if (idx === prevLastIdx) {
+          result += arr[prevLastIdx].name + ' & ' + arr[lastIdx].name
+        } else {
+          result += arr[idx].name + ', '
+        }
+      }
+      return result
+    }
+
+  }
+
+  console.log(list([{ name: 'Bart' }, { name: 'Lisa' }, { name: 'Maggie' }]));// 'Bart, Lisa & Maggie'
+  console.log(list([{ name: 'Bart' }, { name: 'Lisa' }])); //'Bart & Lisa'
+  console.log(list([{ name: 'Bart' }])); //'Bart'  
+  console.log(list([])); //''  
+
+</script>
