@@ -6,14 +6,18 @@
   function signsOfDivisibility() {
     let result = [];
 
-    for (let i = 10000, isNumDiv2, isAvgNumDiv2NotEven, isSumAllNumDiv4; i < 100000; i++) {
+    for (let i = 10102, isNumDiv2, isAvgNumDiv2NotEven, isSumAllNumDiv4; i < 99999; i += 2) {
 
-      isNumDiv2 = i % 2 === 0;
-      isAvgNumDiv2NotEven = Number(String(i)[2]) % 2 !== 0;
+      if (parseInt(i / 100) % 2===0) {
+        i += 98;
+        continue
+      }
+
+      // isNumDiv2 = i % 2 === 0;
+      // isAvgNumDiv2NotEven = Number(String(i)[2]) % 2 !== 0;
       isSumAllNumDiv4 = String(i).split('').reduce((acc, el) => acc += Number(el), 0) % 4 === 0;
 
-      isNumDiv2 && isAvgNumDiv2NotEven && isSumAllNumDiv4 ? result.push(i) : '';
-
+      isSumAllNumDiv4 ? result.push(i) : '';
     }
 
     return result
