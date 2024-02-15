@@ -1,0 +1,28 @@
+<script>
+  /*
+  Переписать на ES6
+  Вернуть значение из метода через 2 секунды
+  
+  var john = {
+    name: 'John Doe',
+    balance: 1500,
+    deduct: function(amount){
+      this.balance=this.balance-amount;
+      return this.name+' has a balance of ' + this.balance;
+    },
+  };
+  
+  console.log(john.deduct(200));
+  */
+
+  const john = {
+    name: 'John Doe',
+    balance: 1500,
+    deduct(amount) {
+      this.balance -= amount;
+      return `${this.name} has a balance of ${this.balance}`;
+    },
+  };
+
+  setTimeout(() => console.log(john.deduct(200)), 2000);
+</script>
