@@ -1,0 +1,16 @@
+<script>
+
+/*
+Заполняет текущую строку другой строкой (несколько раз, если нужно) так,
+что итоговая строка достигает заданной длины.
+Заполнение осуществляется в начале (слева) текущей строки.
+*/
+  function leftPad(symbolsCount, str) {
+    return str.padStart(symbolsCount);
+  }
+
+  console.log(leftPad(6, 'test')); // '  test'
+  console.log(leftPad(3, 'test')); //'test'
+  
+
+</script>
