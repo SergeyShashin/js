@@ -1,0 +1,17 @@
+<script>
+
+  function solution(str) {
+    let result = [];
+    str.length % 2 == 0 ? '' : str += '_';
+
+    for (let i = 0; i + 1 < str.length; i++) {
+      result.push(str[i] + str[i + 1]);
+    };
+
+    return result
+  }
+
+  console.log(solution('abc')); //
+  console.log(solution('abcdef')); //
+  
+</script>
