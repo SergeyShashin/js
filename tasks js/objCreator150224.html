@@ -4,11 +4,20 @@
   Возвращает объект собранный из массива строк
   */
   function objCreator(arr) {
+    let lastIdx = arr.length - 1;
 
+    arr[lastIdx] = { [arr[lastIdx]]: {} };
 
+    for (let i = lastIdx - 1; i >= 0; i--) {
+      arr[i] = { [arr[i]]: arr[i + 1] }
+
+    }
+
+    return arr[0] ? arr[0] : {}
   }
 
-  // console.log(objCreator(['a', 'b', 'c'])); //{a:{b:{c:{}}}}
+  console.log(objCreator(['a', 'b', 'c'])); //{a:{b:{c:{}}}}
   console.log(objCreator(['a', 'b', 'c', 'd'])); //{a:{b:{c:{d:{}}}}}
-  // console.log(objCreator([])); 
+  console.log(objCreator([]));
+   
 </script>
