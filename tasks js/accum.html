@@ -4,18 +4,16 @@
     let result = '';
 
     for (let i = 0; i < str.length; i++) {
-      result += str[i].toUpperCase() + str[i].repeat(i).toLowerCase() + '-';
-      if (i === str.length - 1) {
-        result += str[i].toUpperCase() + str[i].repeat(i).toLowerCase();
-      }
+      i === str.length - 1
+        ? result += str[i].toUpperCase() + str[i].repeat(i).toLowerCase()
+        : result += str[i].toUpperCase() + str[i].repeat(i).toLowerCase() + '-';
     }
-
 
     return result;
   }
 
   console.log(accum('abcd')); //'A-Bb-Ccc-Dddd'
-  console.log(accum('RqaEzty')); //RQqAaaEeeeZzzzzTtttttYyyyyyy
-  console.log(accum('cwAt'));
+  console.log(accum('RqaEzty')); //R-Qq-Aaa-Eeee-Zzzzz-Tttttt-Yyyyyyy
+  console.log(accum('cwAt')); //C-Ww-Aaa-Tttt
 
 </script>
