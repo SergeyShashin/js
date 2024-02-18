@@ -1,0 +1,41 @@
+<script>
+  
+  /*
+  Вызывает функция f только через промежуток ms. 
+  */
+  function debounce(f, ms) {
+    let flag = false;
+
+    return function () {
+
+      if (flag) {
+        return
+      }
+
+      flag = true
+      f.call(this, ...arguments);
+      setInterval(() => flag = false, ms);
+
+      // console.log(str);
+    }
+
+  }
+
+  let debounceFunc = debounce(console.log, 1000);
+
+  //Выполнится
+  debounceFunc('MockInterview 1');
+
+  //Не выполнится
+  debounceFunc('MockInterview 2');
+
+  //Не выполнится
+  setTimeout(() => debounceFunc('MockInterview 500'), 500);
+
+  //Выполнится через 1000 мс.
+  setTimeout(() => debounceFunc('MockInterview 1200'), 1200);
+
+  //Не выполнится
+  setTimeout(() => debounceFunc('MockInterview 1500'), 1500);
+
+</script>
