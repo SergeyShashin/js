@@ -1,0 +1,14 @@
+<script>
+
+  function getAnagrams(str) {
+    let sortArr = str.split(' ').map(word => word.split('').sort().join(''));
+    console.log(sortArr.includes(sortArr.shift()));
+    console.log(sortArr.includes(sortArr.shift()));
+
+  }
+
+  const str = 'адрес карп кума мир мука парк рим среда стук рост сорт трос';
+
+  console.log(getAnagrams(str));
+
+</script>
