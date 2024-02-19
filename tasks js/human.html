@@ -28,16 +28,23 @@
 
   let man = new Man('Somename')
 
-  console.log(man.name);
+  console.log(man);
+  console.log(man.getName());
   console.log(Man.getHeadNumber());
   console.log(man.getGender());
 
   function Human2(name) {
     this.name = name;
 
-    return function getHeadNumber(){
+    function getName() {
+      return this.name;
+    }
+
+    function getHeadNumber() {
       return 1;
     }
+
+    return getName()
   }
 
   function Man2(name) {
@@ -51,7 +58,8 @@
 
   let man2 = new Man2('AnotherSomename')
 
-  console.log(man2.name);
+  console.log(man2);
+  console.log(man2.getName());
   console.log(Man2.getHeadNumber());
   console.log(man2.getGender());
 
