@@ -28,10 +28,10 @@
 
   let man = new Man('Somename')
 
-  // console.log(man);
-  // console.log(man.getName());
-  // console.log(Man.getHeadNumber());
-  // console.log(man.getGender());
+  console.log(man);
+  console.log(man.getName());
+  console.log(Man.getHeadNumber());
+  console.log(man.getGender());
 
 
   function Human2(name) {
@@ -41,7 +41,7 @@
       return this.name;
     }
 
-    this.getHeadNumber = function () {
+    Human2.getHeadNumber = function () {
       return 1;
     }
 
@@ -58,10 +58,10 @@
 
   let man2 = new Man2('AnotherSomename')
 
-  // console.log(man2);
-  // console.log(man2.getName());
+  console.log(man2);
+  console.log(man2.getName());
   // console.log(Man2.getHeadNumber());
-  // console.log(man2.getGender());
+  console.log(man2.getGender());
 
 console.dir(Human);
 console.dir(Human2);
