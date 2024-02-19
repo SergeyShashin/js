@@ -1,0 +1,60 @@
+<script>
+
+  class Human {
+    constructor(name) {
+      this.name = name;
+    }
+
+    static getHeadNumber() {
+      return 1;
+    }
+
+    getName() {
+      return this.name;
+    }
+
+  }
+
+  class Man extends Human {
+    constructor(name) {
+      super(name);
+      this.gender = 'M';
+    }
+
+    getGender() {
+      return this.gender;
+    }
+  }
+
+  let man = new Man('Somename')
+
+  console.log(man.name);
+  console.log(Man.getHeadNumber());
+  console.log(man.getGender());
+
+  function Human2(name) {
+    this.name = name;
+
+    return function getHeadNumber(){
+      return 1;
+    }
+  }
+
+  function Man2(name) {
+    Human2.call(this, name);
+    this.gender = 'M';
+  }
+
+  Man2.prototype.getGender = function () {
+    return this.gender;
+  }
+
+  let man2 = new Man2('AnotherSomename')
+
+  console.log(man2.name);
+  console.log(Man2.getHeadNumber());
+  console.log(man2.getGender());
+
+
+
+</script>
