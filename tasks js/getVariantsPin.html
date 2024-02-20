@@ -1,0 +1,34 @@
+<script>
+
+  /*
+  Возвращает возможные варинты из str
+  */
+  function getVariantsPin(str) {
+    const obj = {
+      0: [0, 1],
+      1: [1, 2, 4],
+      2: [1, 2, 3, 5],
+      3: [2, 3, 6],
+      4: [1, 4, 5, 7],
+      5: [2, 4, 5, 6, 8],
+      6: [3, 5, 6, 9],
+      7: [4, 7, 8],
+      8: [5, 7, 8, 9, 0],
+      9: [6, 8, 9]
+    }
+    let dataForGenCombinations = [...new Set(str.split('').map(el => obj[el]).flat())];
+    let variants = [];
+
+    for (; variants.length < dataForGenCombinations.length;) {
+      let lastEl = dataForGenCombinations.pop();
+      dataForGenCombinations.unshift(lastEl);
+      variants.push([...dataForGenCombinations].join(''));
+    }
+
+    console.log(variants);
+
+  }
+  // console.log(getVariantsPin('0')); //['01','10']
+  console.log(getVariantsPin('01')); //
+
+</script>
