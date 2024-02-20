@@ -5,14 +5,18 @@
   */
 
   function halvingSum(num) {
-    let sum = 0;
-
-    for (; num >= 1; num = parseInt(num / 2)) {
-      sum += num;
-    }
-
-    return sum
+    return num >= 1 ? num + halvingSum(parseInt(num / 2)) : num;
   }
+
+  // function halvingSum(num) {
+  //   let sum = 0;
+
+  //   for (; num >= 1; num = parseInt(num / 2)) {
+  //     sum += num;
+  //   }
+
+  //   return sum
+  // }
 
   console.log(halvingSum(25))//47
 
