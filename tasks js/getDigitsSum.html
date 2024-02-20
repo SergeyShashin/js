@@ -1,0 +1,27 @@
+<script>
+
+  //Возвращает сумму всех чисел до тех пор пока разрядность больше 1  
+
+  function getDigitsSum(num) {
+    if (String(num).length > 1) {
+      return getDigitsSum(String(num).split('').reduce((acc, el) => acc += Number(el), 0));
+    } else {
+      return num;
+    }
+
+  }
+
+  // function getDigitsSum(num) {
+
+  //   while (String(num).length > 1) {
+  //     num = String(num).split('').reduce((acc, el) => acc += Number(el), 0);
+  //   }
+
+  //   return num
+
+  // }
+
+  // console.log(getDigitsSum(5)); //5
+  console.log(getDigitsSum(57)); //3
+  console.log(getDigitsSum(87653)); //2
+</script>
