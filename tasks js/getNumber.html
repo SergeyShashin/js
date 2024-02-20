@@ -1,0 +1,34 @@
+<script>
+
+  /*
+  Возвращает число после фильтрации массива от [1 до num] поочередно оставляя нечётные индексы слева и справа.
+  */
+  function getNumber(num) {
+    let arr = [];
+
+    for (let i = 1; i < num; i++) {
+      arr.push(i);
+    }
+
+    for (let i = 0; arr.length > 1; i++) {
+      if (i % 2 === 0) {
+        arr = filterNotEvenIdxInArr(arr);
+      } else {
+        arr.reverse();
+        arr = filterNotEvenIdxInArr(arr);
+        arr.reverse();
+      }
+    }
+
+    function filterNotEvenIdxInArr(arr) {
+      return arr.filter((el, idx) => idx % 2 !== 0);
+    }
+
+    return arr[0]
+
+  }
+
+  console.log(getNumber(9))//6
+  console.log(getNumber(15))//8
+
+</script>
