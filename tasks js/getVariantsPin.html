@@ -17,6 +17,7 @@
       9: [6, 8, 9]
     }
     let dataForGenCombinations = [...new Set(str.split('').map(el => obj[el]).flat())];
+    let numberVariants= dataForGenCombinations.length*dataForGenCombinations.length //?
     let variants = [];
 
     for (; variants.length < dataForGenCombinations.length;) {
@@ -29,6 +30,42 @@
 
   }
   // console.log(getVariantsPin('0')); //['01','10']
-  console.log(getVariantsPin('01')); //
+  console.log(getVariantsPin('01'));   /*
+  0124
+0142
+
+0412
+0421
+
+0241
+0214
+
+1024
+1042
+
+1204
+1240
+
+1402
+1420
+
+2014
+2041
+
+2140
+2104
+
+2410
+2401
+
+4012
+4021
+
+4201
+4210
+
+4120
+4102
+  /
 
 </script>
