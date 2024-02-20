@@ -4,11 +4,7 @@
   Возвращает число после фильтрации массива от [1 до num] поочередно оставляя нечётные индексы слева и справа.
   */
   function getNumber(num) {
-    let arr = [];
-
-    for (let i = 1; i < num; i++) {
-      arr.push(i);
-    }
+    let arr = Array.from({length:num}, (_,i)=>i+1);   
 
     for (let i = 0; arr.length > 1; i++) {
       if (i % 2 === 0) {
