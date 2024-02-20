@@ -1,0 +1,19 @@
+<script>
+
+  /*
+  Возвращает сумму всех целых чисел при делении на 2
+  */
+
+  function halvingSum(num) {
+    let sum = 0;
+
+    for (; num >= 1; num = parseInt(num / 2)) {
+      sum += num;
+    }
+
+    return sum
+  }
+
+  console.log(halvingSum(25))//47
+
+</script>
