@@ -1,7 +1,7 @@
 <script>
 
   /*
-  Возвращает возможные варинты из str
+  Возвращает возможные варианты из str
   */
   function getVariantsPin(str) {
     const obj = {
@@ -17,17 +17,21 @@
       9: ['6', '8', '9']
     }
 
-    let result = [];
+    let arrVariants = [];
 
-    function factorial(num) {
-      return num === 2 ? num : num * factorial(num - 1);
+    for(let i of str){
+      arrVariants.push(obj[i]);
     }
 
+    console.log(arrVariants);
+
+    arrVariants.map(el=>)
   }
+
   // console.log(getVariantsPin('0')); //['0, 8']
-  console.log(getVariantsPin('01')); //['0', '8'] + ['1', '2', '4']=['01', '02', '04', '81', '82', '84']
+  // console.log(getVariantsPin('01')); //['0', '8'] + ['1', '2', '4']=['01', '02', '04', '81', '82', '84']
   
-  // console.log(getVariantsPin('010')); 
+  console.log(getVariantsPin('010')); 
   //['0', '8'] + ['1', '2', '4']+['0', '8']=['010', '020', '040', '810', '820', '840', '018', '028', '048', '818', '828', '848']
   
   // console.log(getVariantsPin('0101'))
