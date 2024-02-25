@@ -1,20 +1,27 @@
 <script>
 
+  /*
+  Возвращает массив с максимальными элементами
+  */
   function solve(arr) {
-    let result = [];
-    let tmpArr = arr.slice(0);
-    let maxEl;
-    let maxIdx;
-
-    while (tmpArr.length > 0) {
-      maxEl = Math.max(...tmpArr);
-      maxIdx = tmpArr.indexOf(maxEl);
-      result.push(maxEl);
-      tmpArr = tmpArr.slice(maxIdx + 1);
-    }
-
-    return Array.from(new Set(result));
+    return arr.filter((el, idx, arrSlice)=>arrSlice.slice(idx+1).every(item=>el>item));
   }
+
+  // function solve(arr) {
+  //   let result = [];
+  //   let tmpArr = arr.slice(0);
+  //   let maxEl;
+  //   let maxIdx;
+
+  //   while (tmpArr.length > 0) {
+  //     maxEl = Math.max(...tmpArr);
+  //     maxIdx = tmpArr.indexOf(maxEl);
+  //     result.push(maxEl);
+  //     tmpArr = tmpArr.slice(maxIdx + 1);
+  //   }
+
+  //   return Array.from(new Set(result));
+  // }
 
   console.log(solve([16, 17, 14, 3, 14, 5, 2])); //[17,14,5,2] 
   console.log(solve([92, 52, 93, 31, 89, 77, 105])); //[105]
