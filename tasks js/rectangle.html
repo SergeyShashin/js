@@ -1,0 +1,23 @@
+<script>
+
+  /**
+  *Возвращает объект с шириной, высотой и методом getArea()
+  *@param {number} width
+  *@param {number} height
+  *@return {Object}
+  */
+  function Rectangle(width, height) {
+    this.width = width;
+    this.height = height;
+  }
+
+  Rectangle.prototype.getArea = function () {
+    return this.width * this.height
+  }
+
+  const r = new Rectangle(10, 20);
+  console.log(r.width);
+  console.log(r.height);
+  console.log(r.getArea());
+
+</script>
