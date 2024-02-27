@@ -1,0 +1,43 @@
+<script>
+
+
+  // const printSeconds = (number, callback) => {
+  //   setTimeout(() => {
+  //     console.log(`Прошло секунд: ${number} `);
+  //     callback();
+  //   },
+  //     1000);
+  // };
+
+  // printSeconds(1, () => {
+  //   printSeconds(2, () => {
+  //     printSeconds(3, () => { });
+  //   });
+  // });
+
+  const printSeconds = (number) =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log(`Прошло секунд: ${number} `);
+        resolve();
+      },
+        1000);
+
+    });
+
+  // printSeconds(1).then(() => printSeconds(2)).then(() => printSeconds(3));
+  
+  (async function () {
+    await printSeconds(1);
+    await printSeconds(2);
+    await printSeconds(3);
+  }
+  )()
+
+
+
+
+
+
+
+</script>
