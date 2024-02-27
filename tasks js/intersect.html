@@ -4,45 +4,7 @@
   Возвращает массив строк со склеенными и пересекающимися интервалами
   */
   function intersect(arr) {
-    if (arr.length === 0) {
-      return [];
-    }
-
-    let copyArr = [...arr];
-    let result = [];
-
-    copyArr.sort((a, b) => a.split('-')[1] - b.split('-')[1]);
-    console.log(copyArr);
-
-    let copyArrLength = copyArr.length;
-
-    for (let i = copyArrLength - 1, el, prevEl; i > 0; i--) {
-      el = copyArr[i].split('-');
-      elFirst = Number(el[0]);
-      elSecond = Number(el[1]);
-      prevEl = copyArr[i - 1].split('-');
-      prevElFirst = Number(prevEl[0]);
-      prevElSecond = Number(prevEl[1]);
-
-     
-      if (elFirst < prevElFirst) {
-        result.push(`${elFirst}-${elSecond}`);
-        while (elFirst < prevElFirst && i > 0) {
-          i--;
-        }
-      }
-
-      if (elFirst > prevElSecond) {
-        result.push(el.join('-'));
-      }
-
-      if (elFirst >= prevElFirst && elFirst <= prevElSecond) {
-        result.push(`${prevElFirst}-${elSecond}`);
-      }
-
-    }
-
-    return result.sort((a, b) => a.split('-')[0] - b.split('-')[0]);
+    
   }
 
   // console.log(intersect(['1-7', '7-9', '2-6'])); //
