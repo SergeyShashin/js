@@ -4,20 +4,21 @@
   Возвращает сумму двух индексов, значения которых дают в сумме num
   */
   function findIndexSum(num, arr) {
-    let result = -1;
-    for (let idx in arr) {
-      let index = Number(idx);
-      if (arr[index] + arr[index + 1] === num) {
-        result = index * 2 + 1;
-        break
+    let counter = 0;
+    for (let i = 0; arr[i] < num; i++) {
+      for (let j = i + 1; arr[j] < num; j++) {
+        counter++;
+        if (arr[i] + arr[j] === num) {
+          return i + j;
+        }
       }
     }
-    return result
+    return -1;
   }
 
   arr = [2, 5, 8, 9, 22, 57, 94, 100, 127, 198, 345, 451];
-  console.log(findIndexSum(79, arr)); // 4+5=9
-  console.log(findIndexSum(71, arr)); //-1
-
+  // console.log(findIndexSum(79, arr)); // 4+5=9
+  // console.log(findIndexSum(71, arr)); //-1
+  console.log(findIndexSum(102, arr)); // 0+7=7
 
 </script>
