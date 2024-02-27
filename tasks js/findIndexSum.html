@@ -6,20 +6,17 @@
   function findIndexSum(num, arr) {
     let right = arr[arr.length / 2] > num ? arr.length / 2 : arr.length - 1;
     let left = 0;
+    let sum;
 
     while (left < right) {
-      if (arr[left] + arr[right] > num) {
+      sum = arr[left] + arr[right];
+      if (sum > num) {
         right--;
-      }
-
-      if (arr[left] + arr[right] < num) {
+      } else if (sum < num) {
         left++;
-      }
-
-      if (arr[left] + arr[right] === num) {
+      } else {
         return left + right
       }
-
     }
 
     return -1
