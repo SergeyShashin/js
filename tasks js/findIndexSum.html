@@ -1,0 +1,23 @@
+<script>
+
+  /*
+  Возвращает сумму двух индексов, значения которых дают в сумме num
+  */
+  function findIndexSum(num, arr) {
+    let result = -1;
+    for (let idx in arr) {
+      let index = Number(idx);
+      if (arr[index] + arr[index + 1] === num) {
+        result = index * 2 + 1;
+        break
+      }
+    }
+    return result
+  }
+
+  arr = [2, 5, 8, 9, 22, 57, 94, 100, 127, 198, 345, 451];
+  console.log(findIndexSum(79, arr)); // 4+5=9
+  console.log(findIndexSum(71, arr)); //-1
+
+
+</script>
