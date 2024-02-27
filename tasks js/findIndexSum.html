@@ -4,12 +4,10 @@
   Возвращает сумму двух индексов, значения которых дают в сумме num
   */
   function findIndexSum(num, arr) {
+    let right = arr[arr.length / 2] > num ? arr.length / 2 : arr.length - 1;
     let left = 0;
-    let right = arr.length - 1;
-    let counter = 0;
 
     while (left < right) {
-      counter++;
       if (arr[left] + arr[right] > num) {
         right--;
       }
@@ -26,6 +24,29 @@
 
     return -1
   }
+  // function findIndexSum(num, arr) {
+  //   let left = 0;
+  //   let right = arr.length - 1;
+  //   let counter = 0;
+
+  //   while (left < right) {
+  //     counter++;
+  //     if (arr[left] + arr[right] > num) {
+  //       right--;
+  //     }
+
+  //     if (arr[left] + arr[right] < num) {
+  //       left++;
+  //     }
+
+  //     if (arr[left] + arr[right] === num) {
+  //       return left + right
+  //     }
+
+  //   }
+
+  //   return -1
+  // }
 
   // function findIndexSum(num, arr) {
   //   let counter = 0;
@@ -41,8 +62,8 @@
   // }
 
   arr = [2, 5, 8, 9, 22, 57, 94, 100, 127, 198, 345, 451];
-  console.log(findIndexSum(79, arr)); // 4+5=9
+  // console.log(findIndexSum(79, arr)); // 4+5=9
   console.log(findIndexSum(71, arr)); //-1
-  console.log(findIndexSum(102, arr)); // 0+7=7
+  // console.log(findIndexSum(102, arr)); // 0+7=7
 
 </script>
