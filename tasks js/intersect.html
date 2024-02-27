@@ -4,13 +4,34 @@
   Возвращает массив строк со склеенными и пересекающимися интервалами
   */
   function intersect(arr) {
+    if(arr.length===0){
+      return [];
+    }
+
+    let t = arr.map(el => el.split('-').map(Number)).sort((a, b) => a[0] - b[0]);
     
+    let result = t.slice(0, 1);
+
+    t.slice(1).forEach(el => {
+      let lastElresult = result[result.length - 1];
+
+      if (lastElresult[1] >= el[0]) {
+        if (lastElresult[1] <= el[1]) {
+          lastElresult[1] = el[1];
+        }
+      } else {
+        result.push(el);
+      }
+    }
+    );
+
+    return result.map(el => el.join('-'));
   }
 
-  // console.log(intersect(['1-7', '7-9', '2-6'])); //
-  // console.log(intersect(['1-5', '7-9', '2-6'])); // ['1-6', '7-9']
+  console.log(intersect(['2-40', '5-5', '5-15'])); // ['2-40']
+  console.log(intersect(['1-7', '7-9', '2-6'])); //'1-9'
+  console.log(intersect(['1-5', '7-9', '2-6'])); // ['1-6', '7-9']
   console.log(intersect(['2-4', '5-5', '5-15'])); // ['2-4', '5-15']
-  // console.log(intersect(['2-40', '5-5', '5-15'])); // ['2-40']
-  // console.log(intersect([])); // []
+  console.log(intersect([])); // []
 
 </script>
