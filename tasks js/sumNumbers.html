@@ -1,0 +1,36 @@
+<script>
+
+
+  function sumNumbers(arr) {
+    let counterNum = 0;
+    return arr.reduce((acc, el) => {
+      try {
+        el = Number(el);
+        if (!isNaN(el)) {
+          acc += el;
+          counterNum++;
+        }
+      } catch (e) {
+        console.error(el);
+        console.error(e);
+      }
+      return acc
+    }, 0) / counterNum;
+  }
+
+  console.log(sumNumbers([
+    1,
+    '9',
+    NaN,
+    9.5,
+    true,
+    'WebInterview',
+    Symbol('5'),
+    null,
+    5n,
+    undefined,
+    { a: 5 },
+    () => 100,
+  ])); //4.25
+
+</script>
