@@ -7,7 +7,15 @@
     for (const el of bracketConfig) {
       left = el[0];
       right = el[1];
-      console.log(left+right);
+      // console.log(left + right);
+      let filterStr = str.split(`${left + right}`);
+      console.log(filterStr);
+      filterStr = filterStr.join('');
+      console.log(filterStr);
+      let rgp = new RegExp(left + right);
+      console.log(rgp);
+      filterStr = filterStr.replace(rgp, '');
+      console.log(filterStr);
     }
   }
 
