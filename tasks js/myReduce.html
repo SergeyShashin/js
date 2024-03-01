@@ -5,6 +5,10 @@
       throw TypeError(`${callback} is not a function.`);
     }
 
+    if (this.length===0||arguments.length===0) {
+      throw TypeError(`Reduce of empty array with no initial value`);
+    }
+
     let result = initialValue === undefined ? this[0] : initialValue;
 
     for (const idx in this) {
@@ -23,6 +27,7 @@
 
   }, 0)); //6
 
-  // console.log([1, 2, 3, 4, 5].myReduce('adasd',0)); //6
+  // console.log([].myReduce(()=>{}));
+  // console.log([1, 2, 3, 4, 5].myReduce('adasd',0));
 
 </script>
