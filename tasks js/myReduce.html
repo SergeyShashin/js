@@ -1,0 +1,23 @@
+<script>
+
+  Array.prototype.myReduce = function (callback, initialValue) {
+
+    for (let i = 0; i < this.length; i++) {
+      initialValue += this[i];
+      console.log(initialValue);
+    
+      return callback(initialValue, this[i], i, this);
+    }
+
+  };
+
+  console.log([1, 2, 3, 4, 5].myReduce((acc, elem, index, arr) => {
+    if (index % 2) {
+      return acc + elem;
+    }
+
+    return acc;
+
+  }, 0)); //6
+
+</script>
