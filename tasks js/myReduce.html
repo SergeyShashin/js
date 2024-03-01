@@ -1,8 +1,8 @@
 <script>
 
   Array.prototype.myReduce = function (callback, initialValue) {
-    if(typeof callback !=='function'){
-      return arguments[0]+' is not a function.'
+    if (typeof callback !== 'function') {
+      throw TypeError(`${callback} is not a function.`);
     }
 
     let result = initialValue === undefined ? this[0] : initialValue;
@@ -18,11 +18,11 @@
     if (index % 2) {
       return acc + elem;
     }
-    
+
     return acc;
-    
-  },0)); //6
-  
+
+  }, 0)); //6
+
   // console.log([1, 2, 3, 4, 5].myReduce('adasd',0)); //6
 
 </script>
