@@ -1,0 +1,12 @@
+<script>
+
+  /*
+  Возвращает число из сконкатенированных чисел, возведённых в квадрат
+  */
+  function squareDigits(num) {
+    return Number(String(num).split('').reduce((acc, el) => acc + el ** 2, ''))
+  }
+
+  console.log(squareDigits(9119));
+
+</script>
