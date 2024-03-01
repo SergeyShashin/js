@@ -18,14 +18,17 @@
     return result;
   };
 
+
   console.log([1, 2, 3, 4, 5].myReduce((acc, elem, index, arr) => {
     if (index % 2) {
       return acc + elem;
+      arr.push(-1);
     }
 
     return acc;
 
   }, 0)); //6
+
 
   // console.log([].myReduce(()=>{}));
   // console.log([1, 2, 3, 4, 5].myReduce('adasd',0));
