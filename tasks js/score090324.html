@@ -1,0 +1,46 @@
+<script>
+
+  function Score() {
+    let firstPlayerScore = 0;
+    let secondPlayerScore = 0;
+    this.history = [];
+
+    Object.defineProperty(this, 'firstPlayerScore', {
+      set(val) {
+        firstPlayerScore = val;
+        this.history.push({ 'firstPlayerScore': val, 'secondPlayerScore': secondPlayerScore });
+      },
+      get(val) {
+       return firstPlayerScore
+      }
+
+    });
+
+    Object.defineProperty(this, 'secondPlayerScore', {
+      set(val) {
+        secondPlayerScore = val;
+        this.history.push({ 'firstPlayerScore': firstPlayerScore, 'secondPlayerScore': val });
+      },
+      get() {
+        return secondPlayerScore
+
+      }
+
+    });
+  }
+
+  Score.prototype.getHistory = function () {
+    return this.history;
+  }
+
+  let score = new Score();
+  score.firstPlayerScore = 1;
+  // score.firstPlayerScore = 2;
+  // score.secondPlayerScore = 1;
+
+  console.log(score.firstPlayerScore);
+  console.log(score.secondPlayerScore);
+  console.log(score.getHistory());
+
+
+</script>
