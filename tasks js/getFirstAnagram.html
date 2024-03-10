@@ -1,15 +1,15 @@
 <script>
 
-  const arr = ['asfd', 'asd', 'dsa', '1knil', 'asd', 'fhk', 'lfd', 'link', 'link1'];
+  const arr = ['asfd', 'asd', 'dsa', '1nkil', 'asd', 'fhk', 'lfd', 'link', 'link1'];
 
   const getFirstAnagram = str => {
-    let anagram = str.split('').reverse().join('');
-    let result = arr.filter(el => el===str||el===anagram);
-    return result.length >= 2 ? result[0] : null;
+    let rgxp = new RegExp(`[${str}]`);
+    let filteredArr = arr.filter(el => rgxp.test(el) && el.length === str.length);
+    return filteredArr.length >= 2 ? filteredArr[0] : null
   }
 
   console.log(getFirstAnagram('asd'))// 'asd';
   console.log(getFirstAnagram('link'))// null;
-  console.log(getFirstAnagram('link1'))// '1knil';
+  console.log(getFirstAnagram('link1'))// '1nkil';
 
 </script>
