@@ -3,13 +3,22 @@
   //Развернуть массив без использования метода reverse и не создавая новый массив.
 
   const arr = [1, 2, 3, 4, 5];
-  let arrLength = arr.length;
 
-  for (let i = arrLength - 2; i >= 0; i--) {
-    arr.push(arr[i]);
+  for (let i = 0; i < Math.floor(arr.length / 2); i++) {
+    [arr[i], arr[arr.length - i-1]] = [arr[arr.length - i-1], arr[i]];
   }
   
-  arr.splice(0, arrLength - 1);
+  // let arrLength = arr.length;
+
+  // for (let i = arrLength - 2; i >= 0; i--) {
+  //   arr.push(arr[i]);
+  // }
+
+  // arr.splice(0, arrLength - 1);
+
+
+
+  console.log(arr);
 
 
 </script>
