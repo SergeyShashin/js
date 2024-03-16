@@ -1,0 +1,17 @@
+<script>
+
+  /*
+  Возвращает true если n делится на n1 и n2 без остатка.
+  */
+  function check(n, n1, n2) {
+
+    return n % n1 === 0 && n % n2 === 0
+
+  }
+
+  console.log(check(3, 1, 3)); //true
+  console.log(check(12, 2, 6)); //true
+  console.log(check(100, 5, 3)); //false
+  console.log(check(12, 7, 5)); //true
+
+</script>
