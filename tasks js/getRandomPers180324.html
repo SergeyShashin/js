@@ -1,0 +1,105 @@
+<script>
+
+  const ManIM = ['Андрей', 'Борис', 'Егор', 'Валерий', 'Пётр'];
+  const WomanIM = ['Алла', 'Виктория', 'Татьяна', 'Марина', 'Яна'];
+
+  const ManFM = ['Князев', 'Самойлов', 'Кипелов', 'Васильев', 'Шевчук'];
+  const WomanFM = ['Звягинцева', 'Волкова', 'Гусева', 'Наливкина', 'Дроздова'];
+
+  const ManOT = ['Анатольевич', 'Иванович', 'Петрович', 'Григорьевич', 'Дмитриевич'];
+  const WomanOT = ['Анатольевна', 'Ивановна', 'Петровна', 'Григорьевна', 'Дмитриевна'];
+
+
+  /*
+  Возвращает рандомные ФИО и дату рождения
+  */
+  function getRandomPers() {
+    let pers;
+    let gender = getRandomNum(0, 1);
+    let curDate = new Date();
+    let month = getRandomNum(curDate.getMonth() + 1, 12);
+    let day;
+    let year = curDate.getFullYear() - getRandomNum(18, 50);
+
+    switch (month) {
+      case 1: {
+      }
+      case 3: {
+      }
+      case 5: {
+      }
+      case 5: {
+      }
+      case 7: {
+      }
+      case 8: {
+      }
+      case 10: {
+      }
+
+      case 12: {
+        day = 31;
+        break;
+      }
+
+      case 4: {
+      }
+      case 6: {
+      }
+      case 9: {
+      }
+      case 11: {
+        day = 30
+        break;
+      }
+
+      case 2: {
+        year % 4 === 0 ? day = 29 : day = 28
+        break;
+      }
+
+    }
+
+
+    let randomDate = `${getRandomNum(1, day)}:${month}:${curDate.getFullYear() - getRandomNum(18, 50)}`
+
+    if (gender) {
+      return {
+        FM: ManFM[getRandomNum(0, ManFM.length - 1)],
+        IM: ManIM[getRandomNum(0, ManIM.length - 1)],
+        OT: ManOT[getRandomNum(0, ManOT.length - 1)],
+        DR: randomDate
+      }
+    } else {
+      return {
+        FM: WomanFM[getRandomNum(0, WomanFM.length - 1)],
+        IM: WomanIM[getRandomNum(0, WomanIM.length - 1)],
+        OT: WomanOT[getRandomNum(0, WomanOT.length - 1)],
+        DR: randomDate
+      }
+    }
+  }
+
+  function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+
+  /*
+  Возвращает n рандомных ФИО и дат рождения
+  */
+  function getNRandomPers(n) {
+    let people = [];
+    let counter = n + 1;
+    while (counter) {
+      people.push(getRandomPers());
+      counter--;
+    }
+
+    return { count: n, pers: people }
+
+  }
+
+  // console.log(getRandomPers());
+  console.log(getNRandomPers(5));
+</script>
