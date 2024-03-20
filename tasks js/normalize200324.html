@@ -1,0 +1,13 @@
+<script>
+
+  const normalize = (value, n) => {
+    return value.toFixed(n);
+  }
+
+  console.log(normalize(3.145, 2)); //3.14
+  console.log(normalize(0.5, 2)); //0.50
+  console.log(normalize(2021, 0)); //2021
+  console.log(normalize(0, 3)); //0.000
+  console.log(normalize(1.1, 1)); //1.1
+
+</script>
