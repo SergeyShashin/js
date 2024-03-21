@@ -1,0 +1,59 @@
+<script>
+
+  /*
+  Возвращает YES, если сможет поменять билет на купюру каждому в people и NO если нет.
+  В people номинал купюры у человека в очереди. 
+  У меняющего при старте 0 купюр.
+  Менять билеты на купюры можно только последовательно.
+  */
+  function tickets(people) {
+    let result = 'YES';
+
+    const bank = {
+      25: 0,
+      50: 0,
+      100: 0
+    };
+
+    for (const el of people) {
+      switch (el) {
+        case 25:
+          bank[25] += 1;
+          break;
+        case 50:
+          if (bank[25] >= 1) {
+            bank[25] -= 1;
+            bank[50] += 1;
+          } else {
+            return 'NO'
+          }
+          break;
+        case 100:
+          if (bank[50] >= 1 && bank[25] >= 1) {
+            bank[25] -= 1;
+            bank[50] -= 1;
+            bank[100] += 1;
+          } else if (bank[25] >= 3) {
+            bank[25] -= 3;
+            bank[100] += 1;
+          }
+          else {
+            return 'NO'
+          }
+          break;
+      }
+
+    };
+
+    return result
+  }
+
+  console.log(tickets([25, 25, 50])); // YES
+  console.log(tickets([25, 100])); // NO
+  console.log(tickets([25, 25, 50, 50, 100])); // NO
+  console.log(tickets([25, 25, 25, 25, 25, 100, 100])); // NO
+  console.log(tickets([25, 25, 50, 100, 25, 50, 25, 100, 25, 25, 25, 100])); // YES
+  console.log(tickets([25, 25, 25, 100, 25, 25, 50, 100, 25, 25, 25, 100])); // YES
+  console.log(tickets([25, 25, 25, 25, 25, 25, 25, 50, 50, 50, 100, 100, 100, 100])); // NO
+
+</script>
