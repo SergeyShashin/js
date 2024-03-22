@@ -1,16 +1,7 @@
 <script>
 
   function descendingOrder(n) {
-    const arr = [];
-    let result;
-
-    for (const el of String(n)) {
-      arr.push(Number(el));
-    }
-
-    result = Number(arr.sort((a, b) => b - a).join(''));
-
-    return result
+    return Number(String(n).split('').sort((a, b) => b - a).join(''))
   }
 
   console.log(descendingOrder(42145)); //54421
