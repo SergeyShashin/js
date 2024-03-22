@@ -1,0 +1,20 @@
+<script>
+
+  function descendingOrder(n) {
+    const arr = [];
+    let result;
+
+    for (const el of String(n)) {
+      arr.push(Number(el));
+    }
+
+    result = Number(arr.sort((a, b) => b - a).join(''));
+
+    return result
+  }
+
+  console.log(descendingOrder(42145)); //54421
+  console.log(descendingOrder(145263)); //654321
+  console.log(descendingOrder(123456789)); //987654321
+
+</script>
