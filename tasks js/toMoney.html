@@ -1,0 +1,17 @@
+<script>
+
+  /*
+  Возвращает форматированную строку, как в примерах.
+  */
+  function toMoney(num, thousandsDelimiter = " ", decimalDelimiter = '.') {
+
+  }
+
+  console.log(toMoney(33)); //33.00
+  console.log(toMoney(33.3)); //33.30
+  console.log(toMoney(-33.3)); //-33.30
+  console.log(toMoney(111)); //111.00
+  console.log(toMoney(1111)); //1 111.00
+  console.log(toMoney(-1111.11)); //-1 111.11
+  console.log(toMoney(-11111111.1)); //-11 111 111.10
+</script>
