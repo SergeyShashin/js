@@ -4,7 +4,21 @@
   Возвращает форматированную строку, как в примерах.
   */
   function toMoney(num, thousandsDelimiter = " ", decimalDelimiter = '.') {
+    num = num.toFixed(2);
+    let numToArr = String(num).split('');
+    let lengthNumToArr = numToArr.length;
 
+    if (lengthNumToArr >= 6 && numToArr[lengthNumToArr - 6] !== '-') {
+      numToArr.splice(-6, 0, ' ');
+      for (let i = lengthNumToArr - 6, counter = 0; i > 0; i-- , counter++) {
+        if (counter === 3) {
+          numToArr.splice(i, 0, ' ');
+          counter = -1;
+        }
+      }
+    }
+
+    return numToArr.join('').trimStart();
   }
 
   console.log(toMoney(33)); //33.00
