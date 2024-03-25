@@ -1,0 +1,33 @@
+<script>
+
+  /*
+  Leopard в методе sayMeow должен рычать
+  */
+  function Cat() { }
+
+  Cat.prototype.sayMeow = () => 'Mewow! Mewow! Mewow!';
+  Cat.prototype.getPet = () => 'Purrrrrr';
+
+  let cat = new Cat();
+
+  function Leopard() {
+    this.mood = null;
+  }
+
+  Leopard.prototype = Object.create(Cat.prototype);
+
+  Leopard.prototype.sayMeow = function () {
+    this.mood='счастлив';
+    return 'Roarr!'
+  };
+
+  let leopard = new Leopard();
+
+  console.log(leopard.sayMeow());
+  console.log(leopard.getPet());
+  console.log(leopard);
+
+
+
+
+</script>
