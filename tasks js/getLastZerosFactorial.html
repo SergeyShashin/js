@@ -1,0 +1,26 @@
+<script>
+
+  function getLastZerosFactorial(n) {
+
+    let numFactorial = factorial(BigInt(n));
+    let strFactorial = String(numFactorial);
+    let result = 0;
+
+    for (let i = strFactorial.length - 1; strFactorial[i] === '0'; i--) {
+      result++;
+    }
+
+    return result;
+
+    function factorial(n) {
+      return n === BigInt(1) ? n : factorial(n - BigInt(1)) * n;
+    }
+
+  }
+
+  console.log(getLastZerosFactorial(8)); //1
+  console.log(getLastZerosFactorial(9)); //1
+  console.log(getLastZerosFactorial(10)); //2
+  console.log(getLastZerosFactorial(33)); //7
+
+</script>
