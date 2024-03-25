@@ -1,0 +1,16 @@
+<script>
+
+
+  /*
+  Функция возвращает перевернутое число
+  */
+  function reverse(num) {
+    let result = Number(String(Math.abs(num)).split('').reverse().join(''));
+    return num < 0 ? result * -1 : result;
+  }
+
+  console.log(reverse(123)); //321
+  console.log(reverse(-123)); //-321
+  console.log(reverse(120)); // 21
+  console.log(reverse(0)); //0
+</script>
