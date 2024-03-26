@@ -20,17 +20,24 @@
       !arr.includes(val) ? absent.push(val) : '';
     }
 
-    if (absent.length === n) {
-      return absent[absent.length - 1];
+    if (absent[n-1]) {
+      return absent[n-1];
     }
 
     needAdd = n - absent.length;
     result = arr[arr.length - 1];
 
+    while (needAdd) {
+      result++;
+      needAdd--;
+    }
+
+    return result;
+
   }
   //Пропущены [5,6, ...]
   console.log(findMissingNumber([1, 2, 3, 4], 2)); //6
   //Пропущены [1,5,6,8,9, ...]
-  // console.log(findMissingNumber([2, 3, 4, 7], 5));//9
+  console.log(findMissingNumber([2, 3, 4, 7], 5));//9
 
 </script>
