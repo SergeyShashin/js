@@ -1,0 +1,38 @@
+<script>
+
+  /*
+  Правильная последовательность от 1 до бесконечности в порядке возрастания с шагом 1.
+  arr массив с текущей последовательностью чисел.
+  Возвращает из пропущенных чисел n-ое. 
+  */
+  function findMissingNumber(arr, n) {
+
+    let secuence = [];
+    let absent = [];
+    let result;
+    let needAdd;
+
+    for (let i = 1; i - 1 < arr[arr.length - 1]; i++) {
+      secuence.push(i);
+    }
+
+    for (const val of secuence) {
+      !arr.includes(val) ? absent.push(val) : '';
+    }
+
+    if (absent.length === n) {
+      return absent[absent.length - 1];
+    }
+
+    needAdd = n - absent.length;
+    result = arr[arr.length - 1];
+
+
+
+  }
+  //Пропущены [5,6, ...]
+  console.log(findMissingNumber([1, 2, 3, 4], 2)); //6
+  //Пропущены [1,5,6,8,9, ...]
+  // console.log(findMissingNumber([2, 3, 4, 7], 5));//9
+
+</script>
