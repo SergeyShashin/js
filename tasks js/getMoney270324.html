@@ -10,9 +10,11 @@
     for (const nominal of keysLimit) {
       let tmp = parseInt(sum / nominal);
 
-      if (tmp) {
+      if (tmp <= limit[nominal]) {
         tmp ? result += ` ${tmp}x${nominal} ` : '';
         sum -= tmp * nominal;
+      } else {
+        return 'Сорян. Столько нет)'
       }
 
       if (sum === 0) {
@@ -20,6 +22,7 @@
       }
 
     }
+
 
   }
 
@@ -33,5 +36,7 @@
 
   console.log(getMoney(3600, limitsObj)); //3x1000 1x500 1x100
   console.log(getMoney(6650, limitsObj)); //1x5000 1x1000 1x500 1x100 1x50
+  console.log(getMoney(22000, limitsObj)); //4x5000  2x1000 
+  console.log(getMoney(100000, limitsObj)); //'Сорян. Столько нет)'
 
 </script>
