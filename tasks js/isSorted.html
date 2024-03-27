@@ -1,19 +1,18 @@
 <script>
 
   function isSorted(arr) {
-    let arrLength = arr.length;
-    let result = true;
 
-    if (arrLength < 2) {
-      return result;
+    if (arr.length < 2) {
+      return true;
     }
 
-    for (let i = 0; arr[i + 1] < arrLength; i++) {
+    for (let i = 0; i + 1 < arr.length; i++) {
       if (arr[i] > arr[i + 1]) {
-        return result;
+        return false;
       }
     }
-    return result;
+
+    return true;
   }
 
   console.log(isSorted([])); //true
