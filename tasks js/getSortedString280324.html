@@ -14,22 +14,25 @@
       let isIdxSum = amounts.indexOf(result[idx].sum);
       if (isIdxSum === -1) {
         amounts.push(result[idx].sum);
-      }else{
-        amounts[isIdxSum]=result[isIdxSum].str;
+      } else {
+        amounts[isIdxSum] = result[isIdxSum].str;
         amounts.push(el);
       }
     }
     );
 
+    amounts.sort((a, b) => (a - b));
 
-    console.log(result);
-    console.log(amounts);
-    amounts.sort();
-    console.log(amounts);
+    result.forEach(el => {
+      let idxInAmounts = amounts.indexOf(el.sum);
+      idxInAmounts !== -1 ? amounts[idxInAmounts] = el.str : '';
+    })
+
+    return amounts
 
   }
 
-  console.log(getSortedString('280 456 1111 99 1000 082'));
-  // console.log(getSortedString('74 56 65 100 99 180 68 86 90'));
+  console.log(getSortedString('280 456 1111 99 1000')); //[ "1000", "1111", "280", "456", "99" ]
+  console.log(getSortedString('74 56 65 100 99 180 68 86 90'));
 
 </script>
