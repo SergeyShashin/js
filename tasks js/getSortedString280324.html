@@ -1,0 +1,35 @@
+<script>
+
+  /*
+  Складывает суммы каждого элемента и возвращает отсортированную строку в порядке возростания.
+  Если суммы равны, то сортируются, как строки.  
+  */
+  function getSortedString(str) {
+
+    let result = [];
+    let amounts = [];
+
+    str.split(' ').forEach((el, idx) => {
+      result.push({ str: el, sum: el.split('').reduce((acc, el) => acc + Number(el), 0) });
+      let isIdxSum = amounts.indexOf(result[idx].sum);
+      if (isIdxSum === -1) {
+        amounts.push(result[idx].sum);
+      }else{
+        amounts[isIdxSum]=result[isIdxSum].str;
+        amounts.push(el);
+      }
+    }
+    );
+
+
+    console.log(result);
+    console.log(amounts);
+    amounts.sort();
+    console.log(amounts);
+
+  }
+
+  console.log(getSortedString('280 456 1111 99 1000 082'));
+  // console.log(getSortedString('74 56 65 100 99 180 68 86 90'));
+
+</script>
