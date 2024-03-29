@@ -8,6 +8,7 @@
 
     let result = [];
     let amounts = [];
+    let amountsOrStr = [];
 
     str.split(' ').forEach((el, idx) => {
       result.push({ str: el, sum: el.split('').reduce((acc, el) => acc + Number(el), 0) });
@@ -17,7 +18,6 @@
 
     console.log(result);
     console.log(amounts);
-
 
   }
 
