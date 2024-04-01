@@ -6,17 +6,31 @@
   function minRowsAndMaxColumnElInMatrix(arr) {
 
     let minElementsInRows = [];
+    let arrTransformToColumns = [];
     let maxElementsInColumns = [];
 
     arr.forEach((row, idxRow) => {
       minElementsInRows.push({ minEl: Math.min(...row), idxRow: idxRow });
     });
 
+    for (let row = 0; row < arr.length; row++) {
+      arrTransformToColumns.push([]);
+      for (let col = 0; col < arr[row].length; col++) {
+        arrTransformToColumns[row].push(arr[col][row]);
+      }
+    }
 
+    arrTransformToColumns.forEach((col, idxCol) => {
+      maxElementsInColumns.push({ maxEl: Math.max(...col), idxCol: idxCol });
+    });
 
-
-    console.log(minElementsInRows);
-
+    for (const elMin of minElementsInRows) {
+      for (const elMax of maxElementsInColumns) {
+        if (elMin.minEl === elMax.maxEl) {
+          return elMax.maxEl
+        }
+      }
+    }
   }
 
   console.log(minRowsAndMaxColumnElInMatrix([
