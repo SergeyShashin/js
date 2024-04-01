@@ -1,0 +1,28 @@
+<script>
+
+  /*
+  Возвращает элемент из матрицы минимальный в строке и максимальный в столбце
+  */
+  function minRowsAndMaxColumnElInMatrix(arr) {
+
+    let minElementsInRows = [];
+    let maxElementsInColumns = [];
+
+    arr.forEach((row, idxRow) => {
+      minElementsInRows.push({ minEl: Math.min(...row), idxRow: idxRow });
+    });
+
+
+
+
+    console.log(minElementsInRows);
+
+  }
+
+  console.log(minRowsAndMaxColumnElInMatrix([
+    [150, 200, 300, 140],
+    [15, 20, 3, 2],
+    [111, 222, 333, 130],
+    [15, 2, 43, 16],
+  ])); //140
+</script>
