@@ -1,0 +1,38 @@
+<script>
+
+  /*
+  Возвращает удаленное число из последовательности arr
+  */
+  function getMissingNumber(arr) {
+    if (arr.length < 4) {
+      return 'Нужна последовательность из 4 цифр.'
+    }
+
+    let newArr = [...arr].sort((a, b) => a - b);
+    let step1 = newArr[1] - newArr[0];
+    let step2 = newArr[2] - newArr[1];
+    let step3 = newArr[newArr.length - 1] - newArr[newArr.length - 2];
+    let result = null;
+
+    if (step1 === step2) {
+      for (let i = 2; newArr[i] - newArr[i - 1] === step1; i++) {
+        result = newArr[i] + step1;
+      }
+    } else if (step1 === step3) {
+      result = newArr[1] + step1;
+    } else {
+      result = newArr[0] + step3;
+    }
+
+    return result;
+
+  }
+
+  // console.log(getMissingNumber([6, 8, 2, 4, 3, 5, 7, 10, 1]));//9
+  // console.log(getMissingNumber([9, 8, 1, 7, 3, 5, 11, 2, 10, 6]));//4
+  // console.log(getMissingNumber([9, 8, 1, 7, 4, 5, 11, 2, 10, 6]));//3
+  // console.log(getMissingNumber([1, 2, 4]));//'Нужна последовательность из 4 цифр.'
+  // console.log(getMissingNumber([1, 3, 4, 5]));//2
+  console.log(getMissingNumber([1, 2, 5, 6]));//'Какой-то рандом'
+
+</script>
