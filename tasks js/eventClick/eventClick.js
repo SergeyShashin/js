@@ -34,40 +34,49 @@
 
 main();
 let panel;
+let counters;
 
 function main() {
 
   const elements = document.querySelector('.wrapper');
 
   for (const el of elements.children) {
-    el.addEventListener('click', () => clickHandler(el));
+    el.addEventListener('click', (event) => clickHandler(event));
   }
 
 }
 
-function clickHandler(el) {
-  console.log(el.dataset.clicks);
-  console.log(el);
+function clickHandler(event) {
 
   if (!panel) {
     panel = new Panel();
     counters = new Counters();
   }
 
-  switch (el.className) {
+  switch (event.target.className) {
     case 'red':
-      if (counters.getRedCounter() <= el.el.dataset.clicks) {
+      if (counters.getRedCounter() <= event.target.dataset.clicks) {
         counters.increaseRedCounter();
-      }else{
-        el.removeEventListener('click');
+      } else {
+        event.target.removeEventListener('click', clickHandler);
+        return
       }
-      console.log('red!');
       break;
     case 'green':
-      console.log('green!');
+      if (counters.getGreenCounter() <= event.target.dataset.clicks) {
+        counters.increaseGreenCounter();
+      } else {
+        event.target.removeEventListener('click', clickHandler);
+        return
+      }
       break;
     case 'blue':
-      console.log('blue!');
+      if (counters.getBlueCounter() <= event.target.dataset.clicks) {
+        counters.increaseBlueCounter();
+      } else {
+        event.target.removeEventListener('click', clickHandler);
+        return
+      }
       break;
   }
 
@@ -77,17 +86,19 @@ function Panel() {
 
 }
 
-Panel.prototype.init = function () {
-
-}
 
 function Counters() {
-  this.redCounter = 0;
-  this.greenCounter = 0;
-  this.blueCounter = 0;
+  this.redCounter = 1;
+  this.greenCounter = 1;
+  this.blueCounter = 1;
+  this.elementRedCounter = document.getElementsByClassName('red-counter');
+  this.elementGreenCounter = document.getElementsByClassName('green-counter');
+  this.elementBlueCounter = document.getElementsByClassName('blue-counter');
+
 }
 
 Counters.prototype.increaseRedCounter = function () {
+  this.elementRedCounter[0].innerText = this.redCounter;
   this.redCounter++;
 };
 
@@ -96,17 +107,20 @@ Counters.prototype.getRedCounter = function () {
 };
 
 Counters.prototype.increaseGreenCounter = function () {
+  this.elementGreenCounter[0].innerText = this.greenCounter;
   this.greenCounter++;
+
 };
 
 Counters.prototype.getGreenCounter = function () {
-  return this.greenCounter++;
+  return this.greenCounter;
 };
 
 Counters.prototype.increaseBlueCounter = function () {
+  this.elementBlueCounter[0].innerText = this.blueCounter;
   this.blueCounter++;
 };
 
 Counters.prototype.getBlueCounter = function () {
-  return this.blueCounter++;
+  return this.blueCounter;
 };
