@@ -21,9 +21,15 @@
 
 */
 
+main();
+
+
 function main() {
-  
+
   var elements = document.querySelectorAll(".wrapper")[0];
+
+  console.log(elements);
+  console.log(elements.children);
 
   [].slice.apply(elements.children).forEach(function (panelElement) {
     var panel = new Panel(panelElement, 10);

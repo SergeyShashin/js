@@ -1,6 +1,8 @@
 .wrapper {
-  display: flex;
-  box-sizing: content-box;
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(2, 1fr) ;
+  grid-template-rows: 150px 150px ;
 }
 
 .wrapper:hover {
@@ -9,27 +11,17 @@
 
 .red {
   background: #900;
+  grid-row: 1;
 }
 
 .green {
   background: #090;
+  grid-row: 2;
 }
 
 .blue {
   background: #009;
-}
-
-.red,
-.green,
-.blue {
-  width: 300px;
-}
-
-.red,
-.green {
-  height: 150px;
-}
-
-.blue {
-  height: 300px;
+  grid-column: 2;
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
