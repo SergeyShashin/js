@@ -22,6 +22,5 @@
 .blue {
   background: #009;
   grid-column: 2;
-  grid-row-start: 1;
-  grid-row-end: 3;
+  grid-row: 1/3
 }
