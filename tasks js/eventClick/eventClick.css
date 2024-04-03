@@ -1,3 +1,12 @@
+.wrapper {
+  display: flex;
+  box-sizing: content-box;
+}
+
+.wrapper:hover {
+  cursor: pointer;
+}
+
 .red {
   background: #900;
 }
@@ -8,4 +17,19 @@
 
 .blue {
   background: #009;
+}
+
+.red,
+.green,
+.blue {
+  width: 300px;
+}
+
+.red,
+.green {
+  height: 150px;
+}
+
+.blue {
+  height: 300px;
 }
