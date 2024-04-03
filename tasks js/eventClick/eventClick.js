@@ -19,21 +19,30 @@
 При достижении максимального числа кликов по элементу, которое прописано в data-clicks каждого элемента,
 необходимо отменить событие, событие отслеживающее клики по элементу.
 
+
+// function main() {
+
+//   var elements = document.querySelectorAll(".wrapper")[0];
+
+//   [].slice.apply(elements.children).forEach(function (panelElement) {
+//     var panel = new Panel(panelElement, 10);
+//     panel.init();
+//   });
+
+// }
 */
 
 main();
 
-
 function main() {
 
-  var elements = document.querySelectorAll(".wrapper")[0];
+  const elements = document.querySelector('.wrapper');
 
-  console.log(elements);
-  console.log(elements.children);
+  console.dir(elements.children);
 
-  [].slice.apply(elements.children).forEach(function (panelElement) {
-    var panel = new Panel(panelElement, 10);
-    panel.init();
-  });
+  for (const el of elements.children) {
+    console.log(el);
+    el.addEventListener('click', ()=>console.log(el.dataset.clicks));
+  }
 
 }
