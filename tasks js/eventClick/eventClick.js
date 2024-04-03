@@ -51,10 +51,16 @@ function clickHandler(el) {
 
   if (!panel) {
     panel = new Panel();
+    counters = new Counters();
   }
 
   switch (el.className) {
     case 'red':
+      if (counters.getRedCounter() <= el.el.dataset.clicks) {
+        counters.increaseRedCounter();
+      }else{
+        el.removeEventListener('click');
+      }
       console.log('red!');
       break;
     case 'green':
@@ -64,9 +70,6 @@ function clickHandler(el) {
       console.log('blue!');
       break;
   }
-
-
-  console.log(panel);
 
 }
 
@@ -86,11 +89,24 @@ function Counters() {
 
 Counters.prototype.increaseRedCounter = function () {
   this.redCounter++;
-}
+};
+
+Counters.prototype.getRedCounter = function () {
+  return this.redCounter;
+};
 
 Counters.prototype.increaseGreenCounter = function () {
   this.greenCounter++;
-}
+};
+
+Counters.prototype.getGreenCounter = function () {
+  return this.greenCounter++;
+};
+
 Counters.prototype.increaseBlueCounter = function () {
   this.blueCounter++;
-}
+};
+
+Counters.prototype.getBlueCounter = function () {
+  return this.blueCounter++;
+};
