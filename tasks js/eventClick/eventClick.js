@@ -33,16 +33,64 @@
 */
 
 main();
+let panel;
 
 function main() {
 
   const elements = document.querySelector('.wrapper');
 
-  console.dir(elements.children);
-
   for (const el of elements.children) {
-    console.log(el);
-    el.addEventListener('click', ()=>console.log(el.dataset.clicks));
+    el.addEventListener('click', () => clickHandler(el));
   }
 
+}
+
+function clickHandler(el) {
+  console.log(el.dataset.clicks);
+  console.log(el);
+
+  if (!panel) {
+    panel = new Panel();
+  }
+
+  switch (el.className) {
+    case 'red':
+      console.log('red!');
+      break;
+    case 'green':
+      console.log('green!');
+      break;
+    case 'blue':
+      console.log('blue!');
+      break;
+  }
+
+
+  console.log(panel);
+
+}
+
+function Panel() {
+
+}
+
+Panel.prototype.init = function () {
+
+}
+
+function Counters() {
+  this.redCounter = 0;
+  this.greenCounter = 0;
+  this.blueCounter = 0;
+}
+
+Counters.prototype.increaseRedCounter = function () {
+  this.redCounter++;
+}
+
+Counters.prototype.increaseGreenCounter = function () {
+  this.greenCounter++;
+}
+Counters.prototype.increaseBlueCounter = function () {
+  this.blueCounter++;
 }
