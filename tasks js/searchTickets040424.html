@@ -7,23 +7,48 @@
   */
 
   function searchTickets(data) {
-    let result = {};
+    let result = [];
+    let sameSum = [];
 
     data.forEach((row, idxRow) => {
       for (let onePlaceIdx = 0, twoPlaceIdx = 1; twoPlaceIdx < row.length; onePlaceIdx++, twoPlaceIdx++) {
         if (row[onePlaceIdx] > 0 && row[twoPlaceIdx] > 0) {
-          console.log(`сумма: ${row[onePlaceIdx] + row[twoPlaceIdx]}, ряд: ${idxRow}, места (${idxRow}, ${onePlaceIdx}) (${idxRow}, ${twoPlaceIdx})`);
+          result.push(
+            `${row[onePlaceIdx] + row[twoPlaceIdx]}_${idxRow}_(${idxRow}, ${onePlaceIdx}) (${idxRow}, ${twoPlaceIdx}) ${row[onePlaceIdx] + row[twoPlaceIdx]}`);
         }
       }
     });
 
+    // console.log(result);
+    result.sort();
+
+    sameSum.push(result[0]);
+
+    for (let idx = 1; idx < result.length; idx++) {
+      Number(sameSum[0].split('_')[0]) === Number(result[idx].split('_')[0]) && Number(sameSum[0].split('_')[1]) === Number(result[idx].split('_')[1])
+        ? sameSum.push(result[idx])
+        : '';
+    }
+
+    console.log(sameSum);
+
+    //Если одинаковых минимальных сумм в ряду несколько, вернуть ближайшие места к центру.
+
 
   }
 
+  // console.log(searchTickets([
+  //   [3, 2, 1],
+  //   [-1, -1, 4],
+  //   [-1, 3, 5]
+  //   //экран
+  // ])); // '(0, 1) (0, 2) 3'
+
   console.log(searchTickets([
-    [3, 2, 1],
-    [-1, -1, 4],
-    [-1, 3, 5]
+    [3, 2, 1, 2],
+    [3, 2, 1, 2],
+    [-1, -1, 4, -1],
+    [-1, 3, 5, -1]
     //экран
   ])); // '(0, 1) (0, 2) 3'
 
