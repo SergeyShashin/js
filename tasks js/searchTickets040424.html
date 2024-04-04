@@ -1,0 +1,31 @@
+<script>
+
+  /*
+  Возвращает строку с индексами двух соседних цифр в скобках и их суммой.
+  Приоритеты выбора: наименьшая сумма, центр, начало data
+  -1 в data не использовать. 
+  */
+
+  function searchTickets(data) {
+    let result = {};
+
+    data.forEach((row, idxRow) => {
+      for (let onePlaceIdx = 0, twoPlaceIdx = 1; twoPlaceIdx < row.length; onePlaceIdx++, twoPlaceIdx++) {
+        if (row[onePlaceIdx] > 0 && row[twoPlaceIdx] > 0) {
+          console.log(`сумма: ${row[onePlaceIdx] + row[twoPlaceIdx]}, ряд: ${idxRow}, места (${idxRow}, ${onePlaceIdx}) (${idxRow}, ${twoPlaceIdx})`);
+        }
+      }
+    });
+
+
+  }
+
+  console.log(searchTickets([
+    [3, 2, 1],
+    [-1, -1, 4],
+    [-1, 3, 5]
+    //экран
+  ])); // '(0, 1) (0, 2) 3'
+
+
+</script>
