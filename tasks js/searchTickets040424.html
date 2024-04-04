@@ -8,7 +8,7 @@
 
   function searchTickets(data) {
     let result = [];
-    let sameSum = [];
+    let resultContainSameSum = [];
 
     data.forEach((row, idxRow) => {
       for (let onePlaceIdx = 0, twoPlaceIdx = 1; twoPlaceIdx < row.length; onePlaceIdx++, twoPlaceIdx++) {
@@ -19,33 +19,49 @@
       }
     });
 
-    // console.log(result);
+    if(result.length<1){
+      return 'В другой раз.'
+    }
+
     result.sort();
 
-    sameSum.push(result[0]);
+    resultContainSameSum.push(result[0]);
 
+    //Если одинаковых сумм несколько, увеличиваем массив resultContainSameSum
     for (let idx = 1; idx < result.length; idx++) {
-      Number(sameSum[0].split('_')[0]) === Number(result[idx].split('_')[0]) && Number(sameSum[0].split('_')[1]) === Number(result[idx].split('_')[1])
-        ? sameSum.push(result[idx])
+      Number(resultContainSameSum[0].split('_')[0]) === Number(result[idx].split('_')[0]) && Number(resultContainSameSum[0].split('_')[1]) === Number(result[idx].split('_')[1])
+        ? resultContainSameSum.push(result[idx])
         : '';
     }
 
-    // console.log(sameSum);
-
-    //Если минимальных сумм в ряду несколько, вернуть ближайшие места к центру.
-    if (sameSum.length > 1) {
+    //Если минимальных сумм в ряду несколько, возвращаем ближайшие места к центру.
+    if (resultContainSameSum.length > 1) {
       let center = Math.round(data[0].length / 2);
-      let targetOffer = parseInt(sameSum[0].split('_')[2].split(' ')[1]);
+      let idxPlace = 0;
+      let place = parseInt(resultContainSameSum[idxPlace].split('_')[2].split(' ')[1]);
+      let distanceFromCenter = place <= center ? center - place : place - center;
+
+      for (let idx = 1; idx < resultContainSameSum.length; idx++) {
+        let currentPlace = parseInt(resultContainSameSum[idx].split('_')[2].split(' ')[1]);
+        let currentDistanceFromCenter = currentPlace <= center ? center - currentPlace : currentPlace - center;
+        if (currentDistanceFromCenter < distanceFromCenter) {
+          idxPlace = idx;
+          distanceFromCenter = currentDistanceFromCenter;
+        }
+      }
+      return resultContainSameSum[idxPlace].split('_')[2];
     }
+
+    return result[0].split('_')[2]
 
   }
 
-  // console.log(searchTickets([
-  //   [3, 2, 1],
-  //   [-1, -1, 4],
-  //   [-1, 3, 5]
-  //   //экран
-  // ])); // '(0, 1) (0, 2) 3'
+  console.log(searchTickets([
+    [3, 2, 1],
+    [-1, -1, 4],
+    [-1, 3, 5]
+    //экран
+  ])); // '(0, 1) (0, 2) 3'
 
   console.log(searchTickets([
     [3, 2, 1, 2],
@@ -53,7 +69,7 @@
     [-1, -1, 4, -1],
     [-1, 3, 5, -1]
     //экран
-  ])); // '(0, 1) (0, 2) 3'
+  ])); // '(0, 2) (0, 3) 3'
 
 
 </script>
