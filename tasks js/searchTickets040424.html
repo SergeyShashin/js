@@ -30,9 +30,13 @@
         : '';
     }
 
-    console.log(sameSum);
+    // console.log(sameSum);
 
     //Если минимальных сумм в ряду несколько, вернуть ближайшие места к центру.
+    if (sameSum.length > 1) {
+      let center = Math.round(data[0].length / 2);
+      let targetOffer = parseInt(sameSum[0].split('_')[2].split(' ')[1]);
+    }
 
   }
 
