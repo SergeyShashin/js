@@ -1,0 +1,15 @@
+<script>
+
+  /*
+  Возвращает массив соответсвующий условию functionCondition
+  */
+  function filter(arr, functionCondition) {
+    let result = [];
+
+    arr.map(el => functionCondition(el) ? result.push(el) : '');
+
+    return result
+  }
+
+  console.log(filter([1, 2, 3, 4], n => n < 3));// [1,2]
+</script>
