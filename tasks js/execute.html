@@ -1,0 +1,40 @@
+<script>
+
+  function execute(a, op, b) {
+    switch (op) {
+      case '+':
+        return a + b
+      case '*':
+        return a * b
+      case '-':
+        return a - b
+      case '/':
+        return a / b
+      case '=':
+        return a = b
+      case '==':
+        return a == b
+      case '===':
+        return a === b
+      case '!=':
+        return a != b
+      case '!==':
+        return a !== b
+      case '>':
+        return a > b
+      case '>=':
+        return a >= b
+      case '<':
+        return a < b
+      case '<=':
+        return a <= b
+      case '%':
+        return a % b
+    }
+  }
+
+  console.log(execute(6, '-', 3));
+  console.log(execute(6, '=', 3));
+  console.log(execute(6, '%', 3));
+
+</script>
