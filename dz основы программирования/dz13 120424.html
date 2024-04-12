@@ -2,6 +2,7 @@
 
   let dealer = [getCard()];
   let player = [getCard(), getCard()];
+  
   getStatus();
   
   while (getSum(player) < 21 && confirm('Ещё карту?')) {
