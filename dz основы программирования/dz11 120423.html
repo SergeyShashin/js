@@ -1,0 +1,22 @@
+<script>
+
+  let roulette = ['zero'];
+  let arrRandom = [];
+  let counterDropZero = 0;
+  let rounds = 1000000;
+
+  for (let i = 1; i < 37; i++) {
+    i % 2 === 0 ? roulette.push('black') : roulette.push('red');
+  }
+
+  for (let i = 0; i < rounds + 1; i++) {
+    let randomNumber = Math.floor(Math.random() * 36);
+    roulette[randomNumber] === 'zero' ? counterDropZero++ : '';
+    arrRandom.push(roulette[randomNumber]);
+  }
+
+  console.log(arrRandom);
+  console.log(counterDropZero);
+  alert(`Частота выпадения zero ${counterDropZero / rounds*100} %. Количество раундов ${rounds}`);
+
+</script>
