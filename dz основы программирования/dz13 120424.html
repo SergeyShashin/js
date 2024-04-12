@@ -1,13 +1,38 @@
 <script>
 
-  let dealer = [getCard()];
   let player = [getCard(), getCard()];
-  
+  let sumPlayer;
+  let dealer = [getCard()];
+  let sumDealer;
+
   getStatus();
-  
+
   while (getSum(player) < 21 && confirm('Ещё карту?')) {
     player.push(getCard());
     getStatus();
+  }
+
+  if (getSum(player) === 21) {
+    alert('Игроку повезло!');
+  } else if (getSum(player) <= 21) {
+
+    while (getSum(dealer) < 17) {
+      dealer.push(getCard());
+    }
+
+    sumPlayer = getSum(player);
+    sumDealer = getSum(dealer);
+
+    if (sumDealer > 21 || sumDealer < sumPlayer) {
+      alert('Игроку повезло!');
+    } else if (sumDealer === sumPlayer) {
+      alert('Ничья)');
+    } else {
+      alert('Дилеру повезло!')
+    }
+
+    getStatus();
+
   }
 
   function getStatus() {
