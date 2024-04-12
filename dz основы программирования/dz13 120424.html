@@ -1,0 +1,42 @@
+<script>
+
+  let dealer = [getCard()];
+  let player = [getCard(), getCard()];
+  getStatus();
+  
+  while (getSum(player) < 21 && confirm('Ещё карту?')) {
+    player.push(getCard());
+    getStatus();
+  }
+
+  function getStatus() {
+    alert(`Карты игрока: [${player}]. Сумма игрока: ${getSum(player)}.\nКарты дилера [${dealer}]. Сумма дилера: ${getSum(dealer)}.`);
+  }
+
+  function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getCard() {
+    let arr = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+    return arr[getRandomNum(0, arr.length - 1)];
+  }
+
+  function getSum(arr) {
+    let sum = 0;
+
+    arr.forEach(element => {
+      if (typeof element === 'number') {
+        sum += element;
+      } else if (element !== 'A') {
+        sum += 10;
+      } else {
+        sum += sum > 10 ? 1 : 11
+      }
+
+    });
+
+    return sum;
+  }
+
+</script>
