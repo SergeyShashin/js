@@ -19,6 +19,10 @@ console.log('Две переменные a и b равны.');
 
 let ticket = prompt('Номер билета из 6 цифр?', 999999);
 
-console.log(Number(ticket[0] + ticket[1] + ticket[2]) % Number(ticket[3] + ticket[4] + ticket[5]) === 0 ? 'счастливый' : 'иной');
+console.log(
+  Number(ticket[0]) + Number(ticket[1]) + Number(ticket[2]) === Number(ticket[3]) + Number(ticket[4]) + Number(ticket[5])
+    ? 'счастливый'
+    : 'иной'
+);
 
 
