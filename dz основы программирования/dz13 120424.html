@@ -1,0 +1,68 @@
+<script>
+
+  let player = [getCard(), getCard()];
+  let sumPlayer;
+  let dealer = [getCard()];
+  let sumDealer;
+
+  getStatus();
+
+  while (getSum(player) < 21 && confirm('Ещё карту?')) {
+    player.push(getCard());
+    getStatus();
+  }
+
+  if (getSum(player) === 21) {
+    alert('Игроку повезло!');
+  } else if (getSum(player) <= 21) {
+
+    while (getSum(dealer) < 17) {
+      dealer.push(getCard());
+    }
+
+    sumPlayer = getSum(player);
+    sumDealer = getSum(dealer);
+
+    if (sumDealer > 21 || sumDealer < sumPlayer) {
+      alert('Игроку повезло!');
+    } else if (sumDealer === sumPlayer) {
+      alert('Ничья)');
+    } else {
+      alert('Дилеру повезло!');
+    }
+
+    getStatus();
+
+  }
+
+  function getStatus() {
+    alert(`Карты игрока: [${player}]. Сумма игрока: ${getSum(player)}.\nКарты дилера [${dealer}]. Сумма дилера: ${getSum(dealer)}.`);
+  }
+
+  function getRandomNum(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getCard() {
+    let arr = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
+    return arr[getRandomNum(0, arr.length - 1)];
+  }
+
+  function getSum(arr) {
+    let sum = 0;
+
+    arr.forEach(element => {
+      if (typeof element === 'number') {
+        sum += element;
+      } else if (element !== 'A') {
+        sum += 10;
+      } else {
+        sum += sum > 10 ? 1 : 11
+      }
+
+    });
+
+    return sum;
+  }
+
+</script>

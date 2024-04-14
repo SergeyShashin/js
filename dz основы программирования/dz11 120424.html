@@ -1,0 +1,39 @@
+<script>
+
+  let roulette = ['zero'];
+  let arrRandom = [];
+  let counterDropZero = 0;
+  let rounds = 10;
+  let redContinuity = 0;
+  let redMaxContinuity = 0;
+
+  for (let i = 1; i < 37; i++) {
+    i % 2 === 0 ? roulette.push('black') : roulette.push('red');
+  }
+
+  for (let i = 0; i < rounds + 1; i++) {
+    let randomNumber = Math.floor(Math.random() * 36);
+
+    roulette[randomNumber] === 'zero' ? counterDropZero++ : '';
+
+    if (i > 0 && roulette[randomNumber] === 'red' && arrRandom[i - 1] === 'red') {
+      redContinuity++;
+    } else if (roulette[randomNumber] === 'red' && arrRandom[i - 1] !== 'red') {
+      redContinuity = 1;
+    } else {
+      redContinuity = 0;
+    }
+
+    if (redContinuity > redMaxContinuity) {
+      redMaxContinuity = redContinuity;
+    }
+
+    arrRandom.push(roulette[randomNumber]);
+  }
+
+  console.log(arrRandom);
+
+  alert(`Частота выпадения zero ${counterDropZero / rounds * 100} %. Количество раундов ${rounds}`);
+  alert(`Максимальная последовательность выпадения red ${redMaxContinuity}. Количество раундов ${rounds}`);
+
+</script>

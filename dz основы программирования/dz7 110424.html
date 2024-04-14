@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+
+<script>
+
+  var correctAnswer1 = 'да';
+  var correctAnswer2 = 'да';
+  var correctAnswer3 = 'да';
+
+  var userAnswer1 = prompt('Это первый вопрос?');
+  var userAnswer2 = prompt('Это второй вопрос?');
+  var userAnswer3 = prompt('Это третий вопрос?');
+
+  var result = 0;
+
+  if (userAnswer1 === correctAnswer1) {
+    result++;
+  }
+
+  if (userAnswer2 === correctAnswer2) {
+    result++;
+  }
+
+  if (userAnswer3 === correctAnswer3) {
+    result++;
+  }
+
+  alert(`Правильно ${result}`);
+
+</script>

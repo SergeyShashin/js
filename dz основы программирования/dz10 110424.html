@@ -1,0 +1,15 @@
+<meta charset="UTF-8">
+
+<script>
+
+  var startDeposit = Number(prompt('Сумма вклада?'));
+  var deposit = startDeposit;
+  var years = Number(prompt('Сколько лет?'));
+  var perсent = 1.1;
+
+  for (let i = 1; i < years+1; i++) {
+    deposit *= perсent;
+    alert(`Сумма вклада ${parseInt(deposit)}. Количество лет ${i}.`);
+  }
+
+</script>

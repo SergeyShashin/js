@@ -1,0 +1,17 @@
+<meta charset="UTF-8">
+
+<script>
+  var counterRounds = 0;
+
+  while (confirm('Играем')) {
+
+    if (Math.floor(Math.random() * 7) === 1) {
+      alert('Есть попадание.');
+      counterRounds = 0;
+    }
+    counterRounds++;
+    alert(`Уровень везения = ${counterRounds}.`);
+  }
+
+
+</script>
