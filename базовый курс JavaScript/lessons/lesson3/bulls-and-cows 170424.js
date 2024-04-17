@@ -1,6 +1,6 @@
 'use strict';
 
-let randomNumber;
+let randomNumber = [];
 let attemps;
 
 resetGame();
@@ -11,13 +11,19 @@ guessNumber();
  */
 function resetGame() {
   attemps = 0;
-  randomNumber = Math.floor(Math.random() * (9999 - 1000) + 1000);
+  let number;
+
+  while (randomNumber.length < 4) {
+    number = Math.floor(Math.random() * 10);
+    randomNumber.includes(number) ? '' : randomNumber.push(number);
+  }
 }
 
 /**
  * Принимает число от пользователя. Проверяет наличие быков и коров. Вывводит результат.
 */
 function guessNumber() {
+  let result = [0, 0];
 
   while (true) {
     console.log(randomNumber);
@@ -29,20 +35,28 @@ function guessNumber() {
     }
 
     if (guessNumber < 1000 || guessNumber > 9999 || !Number.isInteger(guessNumber)) {
-      console.log('Нужно 4-х значное число.');
       continue;
     }
 
     attemps++;
 
-    if (guessNumber === randomNumber) {
+    if (guessNumber === Number(randomNumber.join(''))) {
       sayWin();
       return
     }
 
-    let arGuessNumber= String(guessNumber).split();
-    let arrRandomNumber= String(randomNumber).split();
+    let arrGuessNumber = String(guessNumber).split('');
 
+    arrGuessNumber.forEach((el, idx) => {
+      if (Number(el) === randomNumber[idx]) {
+        result[0]++;
+      } else if (randomNumber.includes(Number(el))) {
+        result[1]++;
+      }
+    });
+
+    alert(`Быков: ${result[0]}. Коров: ${result[1]}.`);
+    result = [0, 0];
   }
 
 }
