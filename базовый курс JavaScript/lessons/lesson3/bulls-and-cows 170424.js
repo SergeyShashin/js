@@ -40,7 +40,7 @@ function guessNumber() {
       return
     }
 
-    let arrGuessNumber= String(guessNumber).split();
+    let arGuessNumber= String(guessNumber).split();
     let arrRandomNumber= String(randomNumber).split();
 
   }
