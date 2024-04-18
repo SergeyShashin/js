@@ -7,15 +7,16 @@
 let i = 2;
 
 while (i < 101) {
-  let div = i - 1;
+  let div = 2;
   let flag = true;
 
-  while (div > 1) {
+  while (div < Math.sqrt(i)) {
+    console.log(div);
     if (i % div === 0) {
       flag = false;
       break;
     }
-    div--;
+    div++;
   }
 
   flag ? console.log(i) : '';
