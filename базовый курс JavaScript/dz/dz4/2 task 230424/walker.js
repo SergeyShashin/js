@@ -128,7 +128,6 @@ const game = {
   },
 
   canMove(nextPosition) {
-    alert(typeof nextPosition.x);
     return nextPosition.x >= 0 &&
       nextPosition.y >= 0 &&
       nextPosition.y < this.settings.colsCount &&
