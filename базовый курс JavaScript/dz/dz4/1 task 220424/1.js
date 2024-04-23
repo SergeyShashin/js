@@ -25,28 +25,42 @@ console.log(transformNumberToObject(45));
 console.log(transformNumberToObject(888));
 
 function transformNumberToObject(number) {
-  let prevResult = String(number);
-  let result = {
-    firstDigit: 0,
-    secondDigit: 0,
-    thirdDigit: 0,
+
+  if (number % 1 !== 0 || number < 0 || number > 999) {
+    return {}
   }
 
-  if (prevResult.length === 1) {
-    result.firstDigit = number
-  }
-
-  if (prevResult.length === 2) {
-    result.firstDigit = Number(prevResult[1]);
-    result.secondDigit = Number(prevResult[0]);
-  }
-
-  if (prevResult.length === 3) {
-    result.firstDigit = Number(prevResult[2]);
-    result.secondDigit = Number(prevResult[1]);
-    result.thirdDigit = Number(prevResult[0]);
-  }
-
-  return result
+  return {
+    firstDigit: number % 10,
+    secondDigit: parseInt(number / 10) % 10,
+    thirdDigit: parseInt(number / 100) % 10,
+  };
 
 }
+
+// function transformNumberToObject(number) {
+//   let prevResult = String(number);
+//   let result = {
+//     firstDigit: 0,
+//     secondDigit: 0,
+//     thirdDigit: 0,
+//   }
+
+//   if (prevResult.length === 1) {
+//     result.firstDigit = number
+//   }
+
+//   if (prevResult.length === 2) {
+//     result.firstDigit = Number(prevResult[1]);
+//     result.secondDigit = Number(prevResult[0]);
+//   }
+
+//   if (prevResult.length === 3) {
+//     result.firstDigit = Number(prevResult[2]);
+//     result.secondDigit = Number(prevResult[1]);
+//     result.thirdDigit = Number(prevResult[0]);
+//   }
+
+//   return result
+
+// }
