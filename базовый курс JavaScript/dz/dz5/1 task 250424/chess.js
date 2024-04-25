@@ -7,9 +7,9 @@
 // Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F,
 // G, H.
 
-chessBoarGen()
+chessBoardGen()
 
-function chessBoarGen() {
+function chessBoardGen() {
   let chessElement = document.getElementById('chess');
   let chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'].join('').toUpperCase().split('');
   let numbers = ['1', '2', '3', '4', '5', '6', '7', '8'].reverse();
