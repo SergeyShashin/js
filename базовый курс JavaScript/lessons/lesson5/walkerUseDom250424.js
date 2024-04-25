@@ -28,29 +28,33 @@ const player = {
 
   setDirection(direction) {
     this.direction = direction;
-    console.log(direction);
   },
 
-  move() {
+  getNextStepPoint() {
+    let point = { x: this.x, y: this.y };
+
     switch (this.direction) {
       case 'up':
-        this.x--;
+        point.x--;
         break;
       case 'down':
-        this.x++;
+        point.x++;
         break;
       case 'left':
-        this.y--;
+        point.y--;
         break;
       case 'right':
-        this.y++;
+        point.y++;
         break;
     }
+
+    return point;
   },
 
-  canMove(){
-    
-  }
+  move(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
 
 };
 
@@ -63,10 +67,12 @@ const game = {
   run() {
     this.init();
     setInterval(() => {
-      if(this.player.canMove()){
-        this.player.move();
+      let nexStepPoint = this.player.getNextStepPoint();
+      if (this.canMove(nexStepPoint)) {
+        this.player.move(nexStepPoint);
         this.render();
       }
+
     }, 1000 / this.settings.stepInSecond);
   },
 
@@ -87,7 +93,6 @@ const game = {
         tr.appendChild(td);
         td.id = `x${row}_y${col}`;
         this.cels.push(td);
-        console.log(this.cels);
         if (row === this.settings.startPositionPlayerX && col === this.settings.startPositionPlayerY) {
           td.className = 'player';
         }
@@ -123,6 +128,10 @@ const game = {
 
     document.getElementById(`x${this.player.x}_y${this.player.y}`).className = 'player';
 
+  },
+
+  canMove(point) {
+    return point.x >= 0 && point.y >= 0 && point.x < this.settings.rowsCount && point.y < this.settings.colsCount
   }
 
 };
