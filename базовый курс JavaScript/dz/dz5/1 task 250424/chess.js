@@ -7,7 +7,7 @@
 // Строки должны нумероваться числами от 1 до 8, столбцы – латинскими буквами A, B, C, D, E, F,
 // G, H.
 
-chessBoardGen()
+chessBoardGen();
 
 function chessBoardGen() {
   let chessElement = document.getElementById('chess');
