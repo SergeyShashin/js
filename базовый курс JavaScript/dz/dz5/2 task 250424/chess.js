@@ -7,6 +7,54 @@
 */
 const figures = [
   {
+    nameFigure: 'king',
+    color: 'white',
+    startPosition: 'E8',
+    code: '&#9812;',
+  },
+  {
+    nameFigure: 'king',
+    color: 'black',
+    startPosition: 'E1',
+    code: '&#9818;',
+  },
+  {
+    nameFigure: 'queen',
+    color: 'black',
+    startPosition: 'D1',
+    code: '&#9819;',
+  },
+  {
+    nameFigure: 'queen',
+    color: 'white',
+    startPosition: 'D8',
+    code: '&#9813;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'white',
+    startPosition: 'C8',
+    code: '&#9815;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'white',
+    startPosition: 'F8',
+    code: '&#9815;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'black',
+    startPosition: 'C1',
+    code: '	&#9821;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'black',
+    startPosition: 'F1',
+    code: '	&#9821;',
+  },
+  {
     nameFigure: 'horse',
     color: 'black',
     startPosition: 'B1',
