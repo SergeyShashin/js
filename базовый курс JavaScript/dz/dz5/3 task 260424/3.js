@@ -23,5 +23,30 @@
 javascript.
 */
 
+const validationRules = {
+  name: [
+    { method: 'length', args: [1, 50] },
+  ]
+}
+
+let formContactsEl = document.getElementById('formContats');
+
+formContactsEl.addEventListener('submit', (e) => handlerContacts(e));
+
+function handlerContacts(e) {
+  e.preventDefault();
+  let inputs = document.querySelectorAll('input');
+
+  for (let element of inputs) {
+    console.log(element.id);
+    console.log(element.value);
+    for (let item of validationRules[element.id]) {
+      item.method(...item.args, element.value);
+    }
+  }
+}
+
+
+
 
 
