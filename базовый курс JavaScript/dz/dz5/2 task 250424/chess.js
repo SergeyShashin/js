@@ -12,18 +12,7 @@ const figures = [
     startPosition: 'E8',
     code: '&#9812;',
   },
-  {
-    nameFigure: 'king',
-    color: 'black',
-    startPosition: 'E1',
-    code: '&#9818;',
-  },
-  {
-    nameFigure: 'queen',
-    color: 'black',
-    startPosition: 'D1',
-    code: '&#9819;',
-  },
+
   {
     nameFigure: 'queen',
     color: 'white',
@@ -41,30 +30,6 @@ const figures = [
     color: 'white',
     startPosition: 'F8',
     code: '&#9815;',
-  },
-  {
-    nameFigure: 'elephant',
-    color: 'black',
-    startPosition: 'C1',
-    code: '	&#9821;',
-  },
-  {
-    nameFigure: 'elephant',
-    color: 'black',
-    startPosition: 'F1',
-    code: '	&#9821;',
-  },
-  {
-    nameFigure: 'horse',
-    color: 'black',
-    startPosition: 'B1',
-    code: '&#9822;',
-  },
-  {
-    nameFigure: 'horse',
-    color: 'black',
-    startPosition: 'G1',
-    code: '&#9822;',
   },
   {
     nameFigure: 'horse',
@@ -89,18 +54,6 @@ const figures = [
     color: 'white',
     startPosition: 'H8',
     code: '&#9814;',
-  },
-  {
-    nameFigure: 'rook',
-    color: 'black',
-    startPosition: 'A1',
-    code: '&#9820;',
-  },
-  {
-    nameFigure: 'rook',
-    color: 'black',
-    startPosition: 'H1',
-    code: '&#9820;',
   },
   {
     nameFigure: 'pawn',
@@ -149,6 +102,54 @@ const figures = [
     color: 'white',
     startPosition: 'H7',
     code: '&#9817;',
+  },
+  {
+    nameFigure: 'king',
+    color: 'black',
+    startPosition: 'E1',
+    code: '&#9818;',
+  },
+  {
+    nameFigure: 'queen',
+    color: 'black',
+    startPosition: 'D1',
+    code: '&#9819;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'black',
+    startPosition: 'C1',
+    code: '	&#9821;',
+  },
+  {
+    nameFigure: 'elephant',
+    color: 'black',
+    startPosition: 'F1',
+    code: '	&#9821;',
+  },
+  {
+    nameFigure: 'horse',
+    color: 'black',
+    startPosition: 'B1',
+    code: '&#9822;',
+  },
+  {
+    nameFigure: 'horse',
+    color: 'black',
+    startPosition: 'G1',
+    code: '&#9822;',
+  },
+  {
+    nameFigure: 'rook',
+    color: 'black',
+    startPosition: 'A1',
+    code: '&#9820;',
+  },
+  {
+    nameFigure: 'rook',
+    color: 'black',
+    startPosition: 'H1',
+    code: '&#9820;',
   },
   {
     nameFigure: 'pawn',
@@ -238,9 +239,8 @@ function chessBoardGen() {
   }
 
   for (const figure of figures) {
-    console.log(document.getElementById(figure.startPosition));
     let cell = document.getElementById(figure.startPosition);
-    cell.innerHTML=figure.code; 
+    cell.innerHTML = figure.code;
   }
 
 }
