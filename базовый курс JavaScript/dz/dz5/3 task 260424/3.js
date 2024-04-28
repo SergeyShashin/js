@@ -41,12 +41,22 @@ const verificationMethods = {
         }
         break;
       case '<':
-        if (!lengthContent === number) {
+        if (lengthContent !== number) {
           return `Поле должно быть равно ${number}`;
         }
         break;
     }
 
+  },
+  mustContainedNumber(content) {
+    if (typeof content !== 'number') {
+      return `Нужно напечатать только 11 цифр.`;
+    }
+  },
+  fieldsCompare(content, args){
+    if(content!==document.getElementById(args[0]).value){
+      return `Пароли не совпадают.`
+    }
   }
 
 };
@@ -66,26 +76,26 @@ const validationForm = {
           { name: 'length', args: [50, '<'] }
         ]
       },
-      // {
-      //   selector: 'input[name = "phone"]',
-      //   methods: [
-      //     { name: 'length', args: [11, '==='] },
-      //     { name: 'mustContainedNumber', args: [] }
-      //   ]
-      // },
-      // {
-      //   selector: 'input[name = "password"]',
-      //   methods: [
-      //     { name: 'length', args: [5, '>'] },
-      //     { name: 'length', args: [50, '<'] },
-      //   ]
-      // },
-      // {
-      //   selector: 'input[name = "repeatPassword"]',
-      //   methods: [
-      //     { name: 'fieldsCompare', args: ['repeatPassword'] },
-      //   ]
-      // }
+      {
+        selector: 'input[name = "phone"]',
+        methods: [
+          { name: 'length', args: [11, '==='] },
+          { name: 'mustContainedNumber', args: [] }
+        ]
+      },
+      {
+        selector: 'input[name = "passwrod"]',
+        methods: [
+          { name: 'length', args: [5, '>'] },
+          { name: 'length', args: [50, '<'] },
+        ]
+      },
+      {
+        selector: 'input[name = "repeatPassword"]',
+        methods: [
+          { name: 'fieldsCompare', args: ['repeatPassword'] },
+        ]
+      }
     ];
 
   },
@@ -105,6 +115,7 @@ const validationForm = {
         if (resultCheking) {
           errors.push(resultCheking);
           this.setError(inputEl, resultCheking);
+          // return
         }
         //  else {
         //   this.clearError(inputEl);
