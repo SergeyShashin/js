@@ -28,37 +28,66 @@ const verificationMethods = {
     let lengthContent = content.length;
     let number = args[0];
     let sign = args[1];
-    let errors = [];
 
     switch (sign) {
       case '>':
-        if (!lengthContent > number) {
-          errors.push(`Поле должно быть больше ${null}`);
+        if (lengthContent < number) {
+          return `Поле должно быть больше ${number}`;
         }
         break;
       case '<':
-        if (!lengthContent < number) {
-          errors.push(`Поле должно быть меньше ${null}`);
+        if (lengthContent > number) {
+          return `Поле должно быть меньше ${number}`;
+        }
+        break;
+      case '<':
+        if (!lengthContent === number) {
+          return `Поле должно быть равно ${number}`;
         }
         break;
     }
 
-    return errors.length > 0 ? errors : null
   }
 
 };
 
 const validationForm = {
   formEl: null,
-  rules: [
-    'length',
-    'mustContainedNumbe',
-    'mustIdentical'
-  ],
+  rules: null,
 
   init() {
     this.formEl = document.getElementById('formContats');
-    this.formEl.addEventListener('submit', (e) => this.handlerSubmitForm(e))
+    this.formEl.addEventListener('submit', (e) => this.handlerSubmitForm(e));
+    this.rules = [
+      {
+        selector: 'input[name = "name"]',
+        methods: [
+          { name: 'length', args: [1, '>'] },
+          { name: 'length', args: [50, '<'] }
+        ]
+      },
+      // {
+      //   selector: 'input[name = "phone"]',
+      //   methods: [
+      //     { name: 'length', args: [11, '==='] },
+      //     { name: 'mustContainedNumber', args: [] }
+      //   ]
+      // },
+      // {
+      //   selector: 'input[name = "password"]',
+      //   methods: [
+      //     { name: 'length', args: [5, '>'] },
+      //     { name: 'length', args: [50, '<'] },
+      //   ]
+      // },
+      // {
+      //   selector: 'input[name = "repeatPassword"]',
+      //   methods: [
+      //     { name: 'fieldsCompare', args: ['repeatPassword'] },
+      //   ]
+      // }
+    ];
+
   },
 
   handlerSubmitForm(e) {
@@ -68,7 +97,27 @@ const validationForm = {
   },
 
   formIsvalid(e) {
-    console.log(e.target);
+    let errors = [];
+    this.rules.forEach(rule => {
+      let inputEl = document.querySelector(rule.selector);
+      rule.methods.forEach(method => {
+        let resultCheking = verificationMethods[method.name](inputEl.value, method.args);
+        console.log(resultCheking);
+        if (resultCheking) {
+          errors.push(resultCheking);
+        }
+
+      })
+    });
+
+    if (errors.length > 0) {
+      console.error(errors);
+      return false
+    } else {
+      console.log('Форма отправлена.');
+      return true
+    }
+
   }
 
 };
