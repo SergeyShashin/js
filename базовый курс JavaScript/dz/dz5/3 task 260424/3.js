@@ -40,7 +40,7 @@ const verificationMethods = {
           return `Поле должно быть меньше ${number}`;
         }
         break;
-      case '<':
+      case '===':
         if (lengthContent !== number) {
           return `Поле должно быть равно ${number}`;
         }
@@ -49,12 +49,15 @@ const verificationMethods = {
 
   },
   mustContainedNumber(content) {
-    if (typeof content !== 'number') {
+    if (typeof Number(content) !== 'number') {
       return `Нужно напечатать только 11 цифр.`;
     }
   },
-  fieldsCompare(content, args){
-    if(content!==document.getElementById(args[0]).value){
+  fieldsCompare(content, args) {
+    alert(content);
+    alert(document.getElementById(args[0]).value);
+    if (content !== document.getElementById(args[0]).value) {
+      console.log('пароли то проверяем?');
       return `Пароли не совпадают.`
     }
   }
@@ -84,7 +87,7 @@ const validationForm = {
         ]
       },
       {
-        selector: 'input[name = "passwrod"]',
+        selector: 'input[name = "password"]',
         methods: [
           { name: 'length', args: [5, '>'] },
           { name: 'length', args: [50, '<'] },
@@ -108,21 +111,20 @@ const validationForm = {
 
   formIsvalid(e) {
     let errors = [];
-    this.rules.forEach(rule => {
+    for (const rule of this.rules) {
+      console.log(rule);
       let inputEl = document.querySelector(rule.selector);
-      rule.methods.forEach(method => {
+      for (const method of rule.methods) {
         let resultCheking = verificationMethods[method.name](inputEl.value, method.args);
         if (resultCheking) {
           errors.push(resultCheking);
-          this.setError(inputEl, resultCheking);
-          // return
+          this.setError(inputEl);
+          return
+        } else {
+          this.clearError(inputEl);
         }
-        //  else {
-        //   this.clearError(inputEl);
-        // }
-
-      })
-    });
+      }
+    };
 
     if (errors.length > 0) {
       console.error(errors);
@@ -133,12 +135,12 @@ const validationForm = {
     }
 
   },
-  setError(inputEl, resultCheking) {
+  setError(inputEl) {
     inputEl.classList.add('error');
     inputEl.nextElementSibling.className = 'invalid';
 
   },
-  clearError(inputEl, resultCheking) {
+  clearError(inputEl) {
     inputEl.classList.remove('error');
     inputEl.nextElementSibling.className = 'invalid-feedback';
   }
