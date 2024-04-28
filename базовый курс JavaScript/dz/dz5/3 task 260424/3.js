@@ -23,6 +23,57 @@
 javascript.
 */
 
+const verificationMethods = {
+  length(content, args) {
+    let lengthContent = content.length;
+    let number = args[0];
+    let sign = args[1];
+    let errors = [];
+
+    switch (sign) {
+      case '>':
+        if (!lengthContent > number) {
+          errors.push(`Поле должно быть больше ${null}`);
+        }
+        break;
+      case '<':
+        if (!lengthContent < number) {
+          errors.push(`Поле должно быть меньше ${null}`);
+        }
+        break;
+    }
+
+    return errors.length > 0 ? errors : null
+  }
+
+};
+
+const validationForm = {
+  formEl: null,
+  rules: [
+    'length',
+    'mustContainedNumbe',
+    'mustIdentical'
+  ],
+
+  init() {
+    this.formEl = document.getElementById('formContats');
+    this.formEl.addEventListener('submit', (e) => this.handlerSubmitForm(e))
+  },
+
+  handlerSubmitForm(e) {
+    if (!this.formIsvalid(e)) {
+      e.preventDefault();
+    }
+  },
+
+  formIsvalid(e) {
+    console.log(e.target);
+  }
+
+};
+
+validationForm.init();
 
 
 
