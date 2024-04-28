@@ -54,9 +54,9 @@ const verificationMethods = {
     }
   },
   fieldsCompare(content, args) {
-    alert(content);
-    alert(document.getElementById(args[0]).value);
-    if (content !== document.getElementById(args[0]).value) {
+    // console.log(content);
+    console.log(document.getElementById(args[0]));
+    if (content.length > 5 && content !== document.getElementById(args[0]).value) {
       console.log('пароли то проверяем?');
       return `Пароли не совпадают.`
     }
@@ -96,7 +96,7 @@ const validationForm = {
       {
         selector: 'input[name = "repeatPassword"]',
         methods: [
-          { name: 'fieldsCompare', args: ['repeatPassword'] },
+          { name: 'fieldsCompare', args: ['password'] },
         ]
       }
     ];
@@ -112,10 +112,10 @@ const validationForm = {
   formIsvalid(e) {
     let errors = [];
     for (const rule of this.rules) {
-      console.log(rule);
       let inputEl = document.querySelector(rule.selector);
       for (const method of rule.methods) {
         let resultCheking = verificationMethods[method.name](inputEl.value, method.args);
+        console.log(resultCheking);
         if (resultCheking) {
           errors.push(resultCheking);
           this.setError(inputEl);
