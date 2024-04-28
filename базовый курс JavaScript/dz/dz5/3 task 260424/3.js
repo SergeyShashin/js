@@ -102,10 +102,13 @@ const validationForm = {
       let inputEl = document.querySelector(rule.selector);
       rule.methods.forEach(method => {
         let resultCheking = verificationMethods[method.name](inputEl.value, method.args);
-        console.log(resultCheking);
         if (resultCheking) {
           errors.push(resultCheking);
+          this.setError(inputEl, resultCheking);
         }
+        //  else {
+        //   this.clearError(inputEl);
+        // }
 
       })
     });
@@ -118,6 +121,15 @@ const validationForm = {
       return true
     }
 
+  },
+  setError(inputEl, resultCheking) {
+    inputEl.classList.add('error');
+    inputEl.nextElementSibling.className = 'invalid';
+
+  },
+  clearError(inputEl, resultCheking) {
+    inputEl.classList.remove('error');
+    inputEl.nextElementSibling.className = 'invalid-feedback';
   }
 
 };
