@@ -54,10 +54,7 @@ const verificationMethods = {
     }
   },
   fieldsCompare(content, args) {
-    // console.log(content);
-    console.log(document.getElementById(args[0]));
-    if (content.length > 5 && content !== document.getElementById(args[0]).value) {
-      console.log('пароли то проверяем?');
+    if (content !== document.getElementById(args[0]).value) {
       return `Пароли не совпадают.`
     }
   }
