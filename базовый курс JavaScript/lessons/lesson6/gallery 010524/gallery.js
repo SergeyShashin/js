@@ -18,21 +18,18 @@ const gallery = {
     this.openImg(e.target.dataset.fullImageUrl);
   },
   openImg(src) {
-    let monitorEl = this.getMonitor();
-    let img = new Image();
-    img.src = src;
-    img.className = 'img-max';
-    monitorEl.appendChild(img);
-  },
-  getMonitor() {
     let monitorEl = document.getElementById('monitor');
+    console.log(monitorEl);
     if (monitorEl) {
-      return monitorEl
+      let img = new Image();
+      img.src = src;
+      img.className = 'img-max';
+      monitorEl.appendChild(img);
     } else {
       this.createMonitor();
     }
-
   },
+
   createMonitor() {
     let div = document.createElement('div');
     let btnClose = new Image();
