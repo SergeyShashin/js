@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    body {
+      position: relative;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .gallery {
+      text-align: center;
+    }
+
+    #monitor {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 75vh;
+      width: 100%;
+      opacity: 0.5;
+      background: darkcyan;
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: none;
+      border: none;
+      margin-left: 10px;
+      width: 30px;
+    }
+
+    .img-max {
+      width: 500px;
+    }
+  </style>
+  <title>Gallery</title>
+</head>
+
+<body>
+  <div id='gallery' class="gallery">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
+  </div>
+
+
+  <script src="gallery.js"></script>
+</body>
+
+</html>
