@@ -18,22 +18,24 @@ const gallery = {
     this.openImg(e.target.dataset.fullImageUrl);
   },
   openImg(src) {
-    let monitorEl = document.getElementById('monitor');
-    console.log(monitorEl);
-    if (monitorEl) {
-      let img = new Image();
-      img.src = src;
-      img.className = 'img-max';
-      monitorEl.appendChild(img);
+    if (document.getElementById('monitor')) {
+      console.log('Монитор создан. Изображение открыто.');
     } else {
-      this.createMonitor();
+      this.createMonitorAndImg(src);
     }
   },
 
-  createMonitor() {
+  createMonitorAndImg(src) {
     let div = document.createElement('div');
     let btnClose = new Image();
     div.id = 'monitor';
+    let img = new Image();
+    img.src = src;
+    img.className = 'img-max';
+    let wrap = document.createElement('div');
+    wrap.id='wrap';
+    wrap.appendChild(img);
+    div.appendChild(wrap);
     document.body.appendChild(div);
     btnClose.src = this.settings.pathBtnClose;
     btnClose.className = 'btn-close';
