@@ -11,6 +11,7 @@ const gallery = {
   settings: {
     idGallery: 'gallery',
     pathBtnClose: 'img/gallery/close.png',
+    pathNothingImg: 'img/gallery/nothing.png',
   },
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
@@ -21,7 +22,9 @@ const gallery = {
     if (!(e.target.tagName === 'IMG')) {
       return
     }
-    this.openImg(e.target.dataset.fullImageUrl);
+    let src = e.target.dataset.fullImageUrl;
+
+    this.openImg(src);
   },
   openImg(src) {
     if (document.getElementById('monitor')) {
@@ -34,12 +37,13 @@ const gallery = {
   createMonitorAndImg(src) {
     let div = document.createElement('div');
     let btnClose = new Image();
-    div.id = 'monitor';
     let img = new Image();
-    img.src = src;
-    img.className = 'img-max';
     let wrap = document.createElement('div');
-    wrap.id='wrap';
+    div.id = 'monitor';
+    img.src = src;
+    img.onerror = () => img.src = this.settings.pathNothingImg;
+    img.className = 'img-max';
+    wrap.id = 'wrap';
     wrap.appendChild(img);
     div.appendChild(wrap);
     document.body.appendChild(div);
@@ -47,7 +51,7 @@ const gallery = {
     btnClose.className = 'btn-close';
     btnClose.addEventListener('click', () => div.remove());
     div.appendChild(btnClose);
-  }
+  },
 
 };
 
