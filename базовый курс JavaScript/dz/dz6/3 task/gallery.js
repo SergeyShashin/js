@@ -83,7 +83,7 @@ const gallery = {
   },
 
   /**
-   * Создаёт блок для большого изображения и кнопки закрытью
+   * Создаёт блок для большого изображения и кнопки закрыть
    */
   createImgBtnWrapElement() {
     this.imgBtnWrapElement = document.createElement('div');
