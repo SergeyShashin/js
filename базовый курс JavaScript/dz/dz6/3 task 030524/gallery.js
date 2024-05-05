@@ -7,6 +7,9 @@
 
 const gallery = {
   galleryElement: null,
+  prevImg: null,
+  currentImg: null,
+  nextImg: null,
   settings: {
     idGallery: 'gallery',
     pathBtnClose: 'img/gallery/close.png',
@@ -22,6 +25,20 @@ const gallery = {
       return
     }
     let src = e.target.dataset.fullImageUrl;
+    this.currentImg = src;
+
+    if (e.target.nextElementSibling) {
+      this.nextImg = e.target.nextElementSibling.dataset.fullImageUrl;
+    } else {
+      this.nextImg = e.target.parentElement.firstElementChild.dataset.fullImageUrl;
+    }
+
+    if (e.target.previousElementSibling) {
+      this.prevImg = e.target.previousElementSibling.dataset.fullImageUrl;
+    } else {
+      this.prevImg = e.target.parentElement.lastElementChild.dataset.fullImageUrl;
+    }
+
     this.openImg(src);
   },
   openImg(src) {
@@ -41,6 +58,7 @@ const gallery = {
     let btnRight = document.createElement('div');
     div.id = 'monitor';
     img.src = src;
+    img.dataset.current = src;
     img.onerror = () => img.src = this.settings.pathNothingImg;
     img.className = 'img-max';
     wrap.id = 'wrap';
@@ -62,17 +80,40 @@ const gallery = {
     btnRight.addEventListener('click', (e) => this.hadlerClickRight(e));
     div.appendChild(btnClose);
   },
-  hadlerClickLeft(e) {
-    console.log(e.target.parentElement);
-    let parentElement = e.target.parentElement;
-    console.dir(parentElement.children[0].src);
-
-
+  hadlerClickLeft() {
+    this.openImg(this.prevImg);
+    let currentElement = document.querySelector(`[data-current="${this.currentImg}"]`);
+    currentElement.src = this.prevImg;
+    currentElement.dataset.current = this.prevImg;
+    this.currentImg = this.prevImg;
+    this.setPrevImg();
+    this.setNextImg();
   },
-  hadlerClickRight(e) {
-
+  hadlerClickRight() {
+    this.openImg(this.nextImg);
+    let currentElement = document.querySelector(`[data-current="${this.currentImg}"]`);
+    currentElement.src = this.nextImg;
+    currentElement.dataset.current = this.nextImg;
+    this.currentImg = this.nextImg;
+    this.setPrevImg();
+    this.setNextImg();
+  },
+  setPrevImg() {
+    let currentElement = document.querySelector(`[data-full-image-url="${this.currentImg}"]`);
+    if (currentElement.previousElementSibling) {
+      this.prevImg = currentElement.previousElementSibling.dataset.fullImageUrl;
+    } else {
+      this.prevImg = currentElement.parentElement.lastElementChild.dataset.fullImageUrl;
+    }
+  },
+  setNextImg() {
+    let currentElement = document.querySelector(`[data-full-image-url="${this.currentImg}"]`);
+    if (currentElement.nextElementSibling) {
+      this.nextImg = currentElement.nextElementSibling.dataset.fullImageUrl;
+    } else {
+      this.nextImg = currentElement.parentElement.firstElementChild.dataset.fullImageUrl;
+    }
   }
-
 };
 
 window.onload = () => gallery.init();
