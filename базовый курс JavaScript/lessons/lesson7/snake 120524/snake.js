@@ -23,15 +23,19 @@ const config = {
   init(userSettings) {
     Object.assign(this.settings, userSettings);
   },
+
   getRowsCount() {
     return this.settings.rowsCount
   },
+
   getColsCount() {
     return this.settings.colsCount
   },
+
   getSpeed() {
     return this.settings.speed
   },
+
   getQuantityForWin() {
     return this.settings.quantityFoodForWin
   }
@@ -44,7 +48,21 @@ const config = {
  */
 const map = {
   cels: null,
-  usedCels: null
+  usedCels: null,
+  init(gameElement, rows, cols) {
+    this.cels = {};
+    this.usedCels = [];
+    for (let row = 0; row < rows; row++) {
+      let tr = document.createElement('tr');
+      gameElement.appendChild(tr);
+      for (let col = 0; col < cols; col++) {
+        let td = document.createElement('td');
+        tr.appendChild(td);
+        this.cels[`x${col}_y${row}`] = td;
+      }
+    }
+    console.log(this.cels);
+  }
 };
 
 /**
@@ -81,6 +99,7 @@ const game = {
   food,
   gameElement: null,
   tickInterval: null,
+
   init(userSettings = {}) {
     let validateUserSettings = this.validation(userSettings);
 
@@ -90,8 +109,12 @@ const game = {
       }
       return
     }
+
     this.config.init(userSettings);
+    this.gameElement = document.getElementById('snake-game');
+    this.map.init(this.gameElement, this.config.getRowsCount(), this.config.getColsCount());
   },
+
   validation(userSettings) {
     const result = {
       isCorrect: true,
