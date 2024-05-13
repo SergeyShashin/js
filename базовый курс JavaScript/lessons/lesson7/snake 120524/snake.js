@@ -20,6 +20,9 @@ const settings = {
  */
 const config = {
   settings,
+  init(userSettings) {
+    Object.assign(this.settings, userSettings);
+  },
   getRowsCount() {
     return this.settings.rowsCount
   },
@@ -31,7 +34,7 @@ const config = {
   },
   getQuantityForWin() {
     return this.settings.quantityFoodForWin
-  },
+  }
 };
 
 /**
@@ -79,9 +82,53 @@ const game = {
   gameElement: null,
   tickInterval: null,
   init(userSettings = {}) {
-    console.log('Старт игры.');
+    let validateUserSettings = this.validation(userSettings);
+
+    if (!validateUserSettings.isCorrect) {
+      for (let error of validateUserSettings.errors) {
+        console.error(error);
+      }
+      return
+    }
+    this.config.init(userSettings);
+  },
+  validation(userSettings) {
+    const result = {
+      isCorrect: true,
+      errors: []
+    }
+
+    for (let parametr in userSettings) {
+      switch (parametr) {
+        case 'speed':
+          if (userSettings[parametr] > 10 || userSettings[parametr] < 1) {
+            result.isCorrect = false;
+            result.errors.push('Скорость должна быть в дипазоне [от 2 до 9].');
+          }
+          break;
+        case 'rowsCount':
+          if (userSettings[parametr] > 5 || userSettings[parametr] < 30) {
+            result.isCorrect = false;
+            result.errors.push('Количество строк должно быть в дипазоне [от 5 до 30].');
+          }
+          break;
+        case 'colsCount':
+          if (userSettings[parametr] > 5 || userSettings[parametr] < 30) {
+            result.isCorrect = false;
+            result.errors.push('Количество колонок должно быть в дипазоне [от 5 до 30].');
+          }
+          break;
+        case 'quantityFoodForWin':
+          if (userSettings[parametr] > 2 || userSettings[parametr] < 10) {
+            result.isCorrect = false;
+            result.errors.push('Количество еды для победы должно быть в дипазоне [от 5 до 30].');
+          }
+          break;
+      }
+    }
+    return result
 
   }
 }
 
-window.onload = () => game.init();
+window.onload = () => game.init({ speed: 7 });
