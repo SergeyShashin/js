@@ -20,22 +20,38 @@ const settings = {
  */
 const config = {
   settings,
+  /**
+   * Меняет настройки на пользовательские.
+   * @param {Object} userSettings Настройки
+   */
   init(userSettings) {
     Object.assign(this.settings, userSettings);
   },
 
+  /**
+   * @returns {Number} Возвращает количество строк
+   */
   getRowsCount() {
     return this.settings.rowsCount
   },
 
+  /**
+   * @returns {Number} Возвращает количество колонок
+   */
   getColsCount() {
     return this.settings.colsCount
   },
 
+  /**
+   * @returns {Number} Возвращает скорость
+   */
   getSpeed() {
     return this.settings.speed
   },
 
+  /**
+   * @returns {Number} Возвращает количество еды для победы
+   */
   getQuantityForWin() {
     return this.settings.quantityFoodForWin
   }
@@ -49,6 +65,13 @@ const config = {
 const map = {
   cels: null,
   usedCels: null,
+
+  /**
+   * Создаёт карту
+   * @param {HTMLElement} gameElement Table 
+   * @param {Number} rows Количество строк
+   * @param {Number} cols Количество колонок
+   */
   init(gameElement, rows, cols) {
     this.cels = {};
     this.usedCels = [];
@@ -61,7 +84,24 @@ const map = {
         this.cels[`x${col}_y${row}`] = td;
       }
     }
-    console.log(this.cels);
+  },
+
+  render(snakePoints, foodPoint) {
+    for (let element of this.usedCels) {
+      element.className = '';
+    }
+
+    this.usedCels = [];
+
+    snakePoints.forEach((snakePoint, idx) => {
+      let snakePointElement = this.cels[`x${snakePoint.x}_y${snakePoint.y}`];
+      snakePointElement.className = idx === 0 ? 'snake-head' : 'snake-body';
+      this.usedCels.push(snakePointElement);
+    });
+
+    let foodPointElement = this.cels[`x${foodPoint.x}_y${foodPoint.y}`];
+    foodPointElement.className = 'food';
+    this.usedCels.push(foodPointElement);
   }
 };
 
@@ -74,7 +114,16 @@ const map = {
 const snake = {
   body: null,
   direction: null,
-  lastDirection: null
+  lastDirection: null,
+
+  init(startPosition) {
+    this.body = [startPosition];
+  },
+
+  getBody() {
+    return this.body
+  },
+
 };
 
 /**
@@ -84,7 +133,14 @@ const snake = {
  */
 const food = {
   x: null,
-  y: null
+  y: null,
+  setCoordinate(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
+  getCoordinate() {
+    return { x: this.x, y: this.y }
+  }
 };
 
 /**
@@ -100,6 +156,10 @@ const game = {
   gameElement: null,
   tickInterval: null,
 
+  /**
+   * Инициализация игры
+   * @param {*} userSettings 
+   */
   init(userSettings = {}) {
     let validateUserSettings = this.validation(userSettings);
 
@@ -113,8 +173,37 @@ const game = {
     this.config.init(userSettings);
     this.gameElement = document.getElementById('snake-game');
     this.map.init(this.gameElement, this.config.getRowsCount(), this.config.getColsCount());
+    this.reset();
   },
 
+  reset() {
+    this.snake.init(this.getStartPositionSnake());
+    this.food.setCoordinate(this.getRandomFreeCoordinates());
+    this.map.render(this.snake.getBody(), this.food.getCoordinate());
+  },
+
+  getRandomFreeCoordinates() {
+    let exclude = [...this.snake.getBody(), this.food.getCoordinate()];
+    while (true) {
+      let randomPoint = {
+        x: Math.floor(Math.random() * this.config.getColsCount()),
+        y: Math.floor(Math.random() * this.config.getRowsCount())
+      }
+      if (!exclude.some(item => item.x === randomPoint.x && item.y === randomPoint.y)) {
+        return randomPoint
+      }
+    }
+  },
+
+  getStartPositionSnake() {
+    return { x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }
+  },
+
+  /**
+   * Проверяет пользовательские настройки на корректность
+   * @param {Object} userSettings пользовательские настройки
+   * @returns {Object} Флаг корректности настроек и ошибки
+   */
   validation(userSettings) {
     const result = {
       isCorrect: true,
