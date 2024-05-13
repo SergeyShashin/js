@@ -116,13 +116,30 @@ const snake = {
   direction: null,
   lastDirection: null,
 
-  init(startPosition) {
+  init(startPosition, direction) {
     this.body = [startPosition];
+    this.direction = direction;
+    this.lastDirection = direction;
   },
 
   getBody() {
     return this.body
   },
+  setDirection(direction) {
+    if (this.canSetDirection(direction)) {
+      this.direction = direction;
+      this.lastDirection = direction;
+    }
+  },
+  getDirection() {
+    return this.direction;
+  },
+  canSetDirection(direction) {
+    return direction === 'up' && this.lastDirection !== 'down' ||
+      direction === 'down' && this.lastDirection !== 'up' ||
+      direction === 'right' && this.lastDirection !== 'left' ||
+      direction === 'left' && this.lastDirection !== 'right'
+  }
 
 };
 
@@ -143,6 +160,28 @@ const food = {
   }
 };
 
+const status = {
+  currentStatus: null,
+  setPlay() {
+    this.currentStatus = 'play';
+  },
+  isPlay() {
+    return this.currentStatus === 'play';
+  },
+  setStop() {
+    this.currentStatus = 'stop';
+  },
+  isStop() {
+    return this.currentStatus === 'stop';
+  },
+  setFinish() {
+    this.currentStatus = 'finish';
+  },
+  isFinish() {
+    return this.currentStatus === 'finish';
+  },
+}
+
 /**
  * @type {Object} Игра
  * @property {HTMLelement} gameElement элемент игры
@@ -153,6 +192,7 @@ const game = {
   map,
   snake,
   food,
+  status,
   gameElement: null,
   tickInterval: null,
 
@@ -177,9 +217,56 @@ const game = {
   },
 
   reset() {
-    this.snake.init(this.getStartPositionSnake());
+    this.snake.init(this.getStartPositionSnake(), 'up');
     this.food.setCoordinate(this.getRandomFreeCoordinates());
     this.map.render(this.snake.getBody(), this.food.getCoordinate());
+    this.setEventHandlers();
+    this.play();
+  },
+  play() {
+    this.status.setPlay();
+  },
+  stop() {
+    this.status.setStop();
+  },
+  finish() {
+    this.status.setFinish();
+  },
+
+  setEventHandlers() {
+    document.getElementById('playOrStopButton').addEventListener('click', (e) => this.handlerClickBtnPlayOrStop(e));
+    document.getElementById('newGameButton').addEventListener('click', () => this.handlerClickBtnNewGame());
+    document.addEventListener('keydown', (e) => this.handlerKeyDown(e));
+  },
+  
+  handlerClickBtnPlayOrStop(e) {
+    console.log(this.status);
+    if (this.status.isPlay()) {
+      this.status.setStop();
+      console.log(e.target);
+    } else if (this.status.isStop()) {
+      this.status.setPlay();
+    }
+  },
+
+  handlerClickBtnNewGame() {
+    this.reset();
+  },
+  handlerKeyDown(e) {
+    switch (e.code) {
+      case 'ArrowUp':
+        this.snake.setDirection('up');
+        break;
+      case 'ArrowDown':
+        this.snake.setDirection('down');
+        break;
+      case 'ArrowRight':
+        this.snake.setDirection('right');
+        break;
+      case 'ArrowLeft':
+        this.snake.setDirection('left');
+        break;
+    }
   },
 
   getRandomFreeCoordinates() {
