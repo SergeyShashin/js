@@ -229,13 +229,15 @@ const game = {
   play() {
     this.statusGame.setPlay();
     this.changeStateBtnPlayOrStop('stop', true);
+    this.tickInterval = setInterval(() => console.log('го'), 1000 / this.config.getSpeed());
   },
 
   stop() {
     this.statusGame.setStop();
     this.changeStateBtnPlayOrStop('play', true);
-
+    clearInterval(this.tickInterval);
   },
+
   finish() {
     this.statusGame.setFinish();
     this.changeStateBtnPlayOrStop('finish', false);
