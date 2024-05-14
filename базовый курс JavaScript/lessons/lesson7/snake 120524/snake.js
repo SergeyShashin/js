@@ -10,7 +10,7 @@
 const settings = {
   rowsCount: 10,
   colsCount: 10,
-  speed: 5,
+  speed: 2,
   quantityFoodForWin: 5
 };
 
@@ -125,15 +125,38 @@ const snake = {
   getBody() {
     return this.body
   },
+
+  makeStep(nextPoint) {
+    this.body.pop();
+    this.body.push(nextPoint);
+  },
+
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
+
+    switch (this.direction) {
+      case 'up':
+        return { x: headPoint.x, y: headPoint.y - 1 };
+      case 'down':
+        return { x: headPoint.x, y: headPoint.y + 1 };
+      case 'right':
+        return { x: headPoint.x + 1, y: headPoint.y };
+      case 'left':
+        return { x: headPoint.x - 1, y: headPoint.y };
+    }
+  },
+
   setDirection(direction) {
     if (this.canSetDirection(direction)) {
       this.direction = direction;
       this.lastDirection = direction;
     }
   },
+
   getDirection() {
     return this.direction;
   },
+
   canSetDirection(direction) {
     return direction === 'up' && this.lastDirection !== 'down' ||
       direction === 'down' && this.lastDirection !== 'up' ||
@@ -222,14 +245,18 @@ const game = {
   reset() {
     this.snake.init(this.getStartPositionSnake(), 'up');
     this.food.setCoordinate(this.getRandomFreeCoordinates());
-    this.map.render(this.snake.getBody(), this.food.getCoordinate());
+    this.render();
     this.play();
+  },
+
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getCoordinate());
   },
 
   play() {
     this.statusGame.setPlay();
     this.changeStateBtnPlayOrStop('stop', true);
-    this.tickInterval = setInterval(() => console.log('го'), 1000 / this.config.getSpeed());
+    this.tickInterval = setInterval(() => this.move(), 1000 / this.config.getSpeed());
   },
 
   stop() {
@@ -241,7 +268,14 @@ const game = {
   finish() {
     this.statusGame.setFinish();
     this.changeStateBtnPlayOrStop('finish', false);
+    clearInterval(this.tickInterval);
   },
+
+  move() {
+    this.snake.makeStep(this.snake.getNextHeadPoint());
+    this.render();
+  },
+
 
   changeStateBtnPlayOrStop(text, flag) {
     this.playOrStopBtnEl.textContent = text;
@@ -348,4 +382,4 @@ const game = {
   }
 }
 
-window.onload = () => game.init({ speed: 7 });
+window.onload = () => game.init({ speed: 5 });
