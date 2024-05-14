@@ -160,7 +160,7 @@ const food = {
   }
 };
 
-const status = {
+const statusGame = {
   currentStatus: null,
   setPlay() {
     this.currentStatus = 'play';
@@ -192,9 +192,10 @@ const game = {
   map,
   snake,
   food,
-  status,
+  statusGame,
   gameElement: null,
   tickInterval: null,
+  playOrStopBtnEl: null,
 
   /**
    * Инициализация игры
@@ -212,7 +213,9 @@ const game = {
 
     this.config.init(userSettings);
     this.gameElement = document.getElementById('snake-game');
+    this.playOrStopBtnEl = document.getElementById('playOrStopButton');
     this.map.init(this.gameElement, this.config.getRowsCount(), this.config.getColsCount());
+    this.setEventHandlers();
     this.reset();
   },
 
@@ -220,38 +223,51 @@ const game = {
     this.snake.init(this.getStartPositionSnake(), 'up');
     this.food.setCoordinate(this.getRandomFreeCoordinates());
     this.map.render(this.snake.getBody(), this.food.getCoordinate());
-    this.setEventHandlers();
     this.play();
   },
+
   play() {
-    this.status.setPlay();
+    this.statusGame.setPlay();
+    this.changeStateBtnPlayOrStop('stop', true);
   },
+
   stop() {
-    this.status.setStop();
+    this.statusGame.setStop();
+    this.changeStateBtnPlayOrStop('play', true);
+
   },
   finish() {
-    this.status.setFinish();
+    this.statusGame.setFinish();
+    this.changeStateBtnPlayOrStop('finish', false);
+  },
+
+  changeStateBtnPlayOrStop(text, flag) {
+    this.playOrStopBtnEl.textContent = text;
+    if (!flag) {
+      this.playOrStopBtnEl.classList.add('finish');
+    }
   },
 
   setEventHandlers() {
-    document.getElementById('playOrStopButton').addEventListener('click', (e) => this.handlerClickBtnPlayOrStop(e));
+    this.playOrStopBtnEl.addEventListener('click', () => this.handlerClickBtnPlayOrStop());
     document.getElementById('newGameButton').addEventListener('click', () => this.handlerClickBtnNewGame());
     document.addEventListener('keydown', (e) => this.handlerKeyDown(e));
   },
-  
-  handlerClickBtnPlayOrStop(e) {
-    console.log(this.status);
-    if (this.status.isPlay()) {
-      this.status.setStop();
-      console.log(e.target);
-    } else if (this.status.isStop()) {
-      this.status.setPlay();
+
+  handlerClickBtnPlayOrStop() {
+    console.log(this.statusGame);
+
+    if (this.statusGame.isPlay()) {
+      this.stop();
+    } else if (this.statusGame.isStop()) {
+      this.play();
     }
   },
 
   handlerClickBtnNewGame() {
     this.reset();
   },
+
   handlerKeyDown(e) {
     switch (e.code) {
       case 'ArrowUp':
