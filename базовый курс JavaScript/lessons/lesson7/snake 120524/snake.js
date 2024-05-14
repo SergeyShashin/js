@@ -8,9 +8,9 @@
  * @property {Number} quantityFoodForWin количество еды для победы
  */
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
-  speed: 2,
+  rowsCount: 15,
+  colsCount: 15,
+  speed: 3,
   quantityFoodForWin: 5
 };
 
@@ -52,7 +52,7 @@ const config = {
   /**
    * @returns {Number} Возвращает количество еды для победы
    */
-  getQuantityForWin() {
+  getQuantityFoodForWin() {
     return this.settings.quantityFoodForWin
   }
 };
@@ -93,6 +93,7 @@ const map = {
 
     this.usedCels = [];
 
+
     snakePoints.forEach((snakePoint, idx) => {
       let snakePointElement = this.cels[`x${snakePoint.x}_y${snakePoint.y}`];
       snakePointElement.className = idx === 0 ? 'snake-head' : 'snake-body';
@@ -127,8 +128,8 @@ const snake = {
   },
 
   makeStep(nextPoint) {
+    this.body.unshift(nextPoint);
     this.body.pop();
-    this.body.push(nextPoint);
   },
 
   getNextHeadPoint() {
@@ -162,6 +163,10 @@ const snake = {
       direction === 'down' && this.lastDirection !== 'up' ||
       direction === 'right' && this.lastDirection !== 'left' ||
       direction === 'left' && this.lastDirection !== 'right'
+  },
+
+  growUp(point) {
+    this.body.push(point);
   }
 
 };
@@ -275,14 +280,22 @@ const game = {
     let nextHeadPoint = this.snake.getNextHeadPoint();
     if (this.canMakeStep(nextHeadPoint)) {
       if (this.nextHeadPointOnFoodPoint(nextHeadPoint)) {
-        console.log('Подрасти.');
+        this.snake.growUp(nextHeadPoint);
         this.food.setCoordinate(this.getRandomFreeCoordinates());
       }
       this.snake.makeStep(nextHeadPoint);
       this.render();
+
     } else {
       this.finish();
     }
+  },
+
+  isWin() {
+    return this.snake.getBody().length === this.config.getQuantityFoodForWin() + 1
+  },
+  isNextStepOnBodySnake(nextHeadPoint) {
+    return this.snake.getBody().some(point => point.x === nextHeadPoint.x && point.y == nextHeadPoint.y)
   },
 
   nextHeadPointOnFoodPoint(nextHeadPoint) {
@@ -295,6 +308,8 @@ const game = {
       && nextHeadPoint.y >= 0
       && nextHeadPoint.x < this.config.getColsCount()
       && nextHeadPoint.y < this.config.getRowsCount()
+      && !this.isWin()
+      && !this.isNextStepOnBodySnake(nextHeadPoint)
   },
 
   changeStateBtnPlayOrStop(text, flag) {
