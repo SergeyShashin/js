@@ -272,13 +272,34 @@ const game = {
   },
 
   move() {
-    this.snake.makeStep(this.snake.getNextHeadPoint());
-    this.render();
+    let nextHeadPoint = this.snake.getNextHeadPoint();
+    if (this.canMakeStep(nextHeadPoint)) {
+      if (this.nextHeadPointOnFoodPoint(nextHeadPoint)) {
+        console.log('Подрасти.');
+        this.food.setCoordinate(this.getRandomFreeCoordinates());
+      }
+      this.snake.makeStep(nextHeadPoint);
+      this.render();
+    } else {
+      this.finish();
+    }
   },
 
+  nextHeadPointOnFoodPoint(nextHeadPoint) {
+    let foodPoint = this.food.getCoordinate();
+    return nextHeadPoint.x === foodPoint.x && nextHeadPoint.y === foodPoint.y;
+  },
+
+  canMakeStep(nextHeadPoint) {
+    return nextHeadPoint.x >= 0
+      && nextHeadPoint.y >= 0
+      && nextHeadPoint.x < this.config.getColsCount()
+      && nextHeadPoint.y < this.config.getRowsCount()
+  },
 
   changeStateBtnPlayOrStop(text, flag) {
     this.playOrStopBtnEl.textContent = text;
+    this.playOrStopBtnEl.className = 'button-play-or-stop';
     if (!flag) {
       this.playOrStopBtnEl.classList.add('finish');
     }
@@ -291,7 +312,6 @@ const game = {
   },
 
   handlerClickBtnPlayOrStop() {
-    console.log(this.statusGame);
 
     if (this.statusGame.isPlay()) {
       this.stop();
