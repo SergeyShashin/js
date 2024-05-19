@@ -15,15 +15,23 @@
   <script src="menu.js"></script>
 
   <script>
-    var menu = new Menu('idForMenu', 'classForMenu', [
+    var menu = new SuperMenu('idForMenu', 'classForMenu', [
       new MenuItem('Home', '/home'),
       new MenuItem('Page', '/page'),
       new MenuItem('Contacts', '/contacts'),
-    ]);
+      new SuperMenu(':)', ':)', [
+        new MenuItem('Home', '/home'),
+        new MenuItem('Page', '/page'),
+        new MenuItem('Contacts', '/contacts'),
+      ],
+        'SUB', '/sub')
+    ],
+
+    );
 
     document.body.appendChild(menu.render());
 
-    document.getElementById('del').addEventListener('click', ()=>menu.remove());
+    document.getElementById('del').addEventListener('click', () => menu.remove());
   </script>
 </body>
 

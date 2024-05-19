@@ -27,7 +27,7 @@ Menu.prototype.render = function () {
   var ul = document.createElement('ul');
   ul.id = this.someId;
   ul.className = this.someClass;
-  
+
   this.items.forEach(item => {
     if (item instanceof Container) {
       ul.appendChild(item.render());
@@ -54,4 +54,21 @@ MenuItem.prototype.render = function () {
   li.appendChild(a);
 
   return li
+};
+
+function SuperMenu(someId, someClass, items, label, href) {
+  Menu.call(this, someId, someClass, items);
+  this.label = label;
+  this.href = href;
+}
+
+SuperMenu.prototype = Object.create(Menu.prototype);
+SuperMenu.prototype.render = function () {
+  if (this.label && this.href) {
+    var subMenu = new MenuItem(this.label, this.href).render();
+    subMenu.appendChild(Menu.prototype.render.call(this));
+    return subMenu;
+  } else {
+    return Menu.prototype.render.call(this);
+  }
 }
