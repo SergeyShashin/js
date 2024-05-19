@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Menu</title>
+</head>
+
+<body>
+
+  <script src="menu.js"></script>
+
+  <script>
+    var menu = new Menu('idForMenu', 'classForMenu', [
+      new MenuItem('Home', '/home'),
+      new MenuItem('Page', '/page'),
+      new MenuItem('Contacts', '/contacts'),
+    ]);
+
+    console.log(menu.render());
+
+    document.appendChild(menu.render());
+  </script>
+</body>
+
+</html>
