@@ -12,3 +12,16 @@
 Напишите программу, рассчитывающую стоимость и калорийность гамбургера. Используйте ООП-подход 
 (подсказка: нужен класс Гамбургер, константы, методы для выбора опций и расчета нужных величин).
 */
+
+document.addEventListener('submit', (e) => handlerSubmit(e));
+
+function handlerSubmit(e) {
+  e.preventDefault();
+  var propsBurger = [];
+  var inputs = e.target.querySelectorAll('input');
+  for (var input of inputs) {
+    input.checked ? propsBurger.push(input.id) : '';
+  }
+
+  console.log(propsBurger);
+}
