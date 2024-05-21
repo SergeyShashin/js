@@ -13,20 +13,36 @@
 (подсказка: нужен класс Гамбургер, константы, методы для выбора опций и расчета нужных величин).
 */
 
+var burgers = [];
+
 document.addEventListener('submit', (e) => handlerSubmit(e));
 
 function handlerSubmit(e) {
-  e.preventDefault();
   var propsBurger = [];
   var inputs = e.target.querySelectorAll('input');
+
   for (var input of inputs) {
     input.checked ? propsBurger.push(input.id) : '';
   }
 
-  console.log(propsBurger);
+  if (!propsBurger.includes('bigSize') && !propsBurger.includes('smallSize')) {
+    return alert('Нужно выбрать размер бургера.');
+  }
+
+  if (!propsBurger.includes('cheese') && !propsBurger.includes('salad') && !propsBurger.includes('potato')) {
+    return alert('Нужно выбрать начинку.');
+  }
+
+  var burger = new Burger(propsBurger);
+  burgers.push(burger);
+  // alert(`Стоимость: ${burger.getCost()}. Калорийность: ${burger.getNumberСalories()}.`);
+  e.preventDefault();
+  document.getElementById('result').textContent = `Стоимость: ${burger.getCost()}. Калорийность: ${burger.getNumberСalories()}.`;
+  console.log(burgers);
 }
 
 function Burger(props) {
+  this.props = props;
   this.cost = 0;
   this.numberСalories = 0;
 
@@ -36,7 +52,7 @@ function Burger(props) {
         this.cost += 100;
         this.numberСalories += 40;
         break;
-      case 'smalSize':
+      case 'smallSize':
         this.cost += 50;
         this.numberСalories += 20;
         break;
@@ -62,4 +78,11 @@ function Burger(props) {
         break;
     }
   }
+}
+
+Burger.prototype.getCost = function () {
+  return this.cost
+}
+Burger.prototype.getNumberСalories = function () {
+  return this.numberСalories
 }

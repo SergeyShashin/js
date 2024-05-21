@@ -13,12 +13,12 @@
       <legend>Заказ гамбургера</legend>
       <fieldset>
         <legend>Размер</legend>
-        <label for="smalSize">
-          <input type="radio" id="smalSize">маленький (50 рублей, 20 калорий)
+        <label for="smallSize">
+          <input type="radio" name="burger" id="smallSize">маленький (50 рублей, 20 калорий)
         </label>
         <br>
         <label for="bigSize">
-          <input type="radio" id="bigSize" checked>большой (100 рублей, 40 калорий)
+          <input type="radio" name="burger" id="bigSize" checked>большой (100 рублей, 40 калорий)
         </label>
       </fieldset>
       <fieldset>
@@ -51,6 +51,9 @@
     </fieldset>
 
   </form>
+
+  <br>
+  <div id="result"></div>
 
   <script src="burger.js"></script>
 </body>
