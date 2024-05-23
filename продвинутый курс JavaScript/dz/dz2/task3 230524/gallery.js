@@ -18,6 +18,7 @@ const gallery = {
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
     this.galleryElement = document.getElementById(this.settings.idGallery);
+    
     this.galleryElement.addEventListener('click', (e) => this.handlerClickGalleryElement(e));
   },
   handlerClickGalleryElement(e) {
