@@ -1,0 +1,5 @@
+{
+  "images":[
+    {"id":1, "pathToMinIMG": "img/min/1.jpg", "pathToMaxIMG": "img/max/1.jpg"}
+  ]
+}
