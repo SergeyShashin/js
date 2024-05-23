@@ -18,7 +18,23 @@ const gallery = {
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
     this.galleryElement = document.getElementById(this.settings.idGallery);
-    
+    var galleryElement = this.galleryElement;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:3000/images');
+    xhr.send();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        var pathToimages = JSON.parse(xhr.responseText);
+        pathToimages.map(function (pathToImage) {
+          var img = new Image();
+          img.src = pathToImage.pathToMinIMG;
+          img.dataset.fullImageUrl = pathToImage.pathToMaxIMG;
+          galleryElement.appendChild(img);
+        })
+      }
+    }
+
     this.galleryElement.addEventListener('click', (e) => this.handlerClickGalleryElement(e));
   },
   handlerClickGalleryElement(e) {
