@@ -2,15 +2,18 @@
   "items": [
     {
       "id": 1,
-      "name": "item1"
+      "label": "Home",
+      "href": "/home"
     },
     {
       "id": 2,
-      "name": "item2"
+      "label": "Page",
+      "href": "/page"
     },
     {
       "id": 3,
-      "name": "item3"
+      "label": "Contacts",
+      "href": "/contacts"
     }
   ]
 }
