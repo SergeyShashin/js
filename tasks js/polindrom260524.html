@@ -1,0 +1,10 @@
+<script>
+
+  console.log(isPolindrom('A car, a man, a maraca'));
+
+  function isPolindrom(str) {
+    let t = str.toLowerCase().replace(/\W/g, '');
+    return t === t.split('').reverse().join('')
+  }
+
+</script>
