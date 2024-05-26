@@ -1,8 +1,8 @@
 <script>
 
-  console.log(isPolindrom('A car, a man, a maraca'));
+  console.log(isPalindrom('A car, a man, a maraca'));
 
-  function isPolindrom(str) {
+  function isPalindrom(str) {
     let t = str.toLowerCase().replace(/\W/g, '');
     return t === t.split('').reverse().join('')
   }
