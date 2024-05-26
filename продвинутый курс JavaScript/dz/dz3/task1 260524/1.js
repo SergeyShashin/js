@@ -5,7 +5,7 @@
 Придумать шаблон, который меняет одинарные кавычки на двойные.
 */
 
-Object.values(document.getElementsByTagName('p')).map(el => el.textContent = el.textContent.replace(/(\B'|'\B)/g, '"'));
+Object.values(document.getElementsByTagName('p')).map(el => el.textContent = el.textContent.replace(/\B'|'\B/g, '"'));
 
 
 
