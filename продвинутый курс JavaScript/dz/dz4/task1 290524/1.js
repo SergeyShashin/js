@@ -6,3 +6,9 @@
 Можно использовать любую анимацию, методы show, hide и подобные. Код примера желательно не смотреть.
 */
 
+var tabsCaptionEl = document.querySelector('.tabs__caption');
+
+tabsCaptionEl.addEventListener('click', function (e) {
+  console.log(e.target.tagName);  
+
+})
