@@ -9,6 +9,17 @@
 var tabsCaptionEl = document.querySelector('.tabs__caption');
 
 tabsCaptionEl.addEventListener('click', function (e) {
-  console.log(e.target.tagName);  
+  if (e.target.tagName === 'LI') {
+    var activeElements = document.querySelectorAll('.active');
+
+    activeElements.forEach(function (element) {
+      element.classList.remove('active');
+    });
+
+    e.target.classList.add('active');
+    var idTargetElement = e.target.id;
+    var numberIdTargetElement = idTargetElement.slice(6);
+    document.getElementById(`content${numberIdTargetElement}`).classList.add('active');
+  }
 
 })
