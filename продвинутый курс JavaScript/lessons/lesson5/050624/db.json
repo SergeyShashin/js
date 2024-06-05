@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "productName": "майка",
+      "productPrice": 3000
+    },
+    {
+      "id": 2,
+      "productName": "рубашка",
+      "productPrice": 5000
+    },
+    {
+      "id": 3,
+      "productName": "джинсы",
+      "productPrice": 5000
+    },
+    {
+      "id": 4,
+      "productName": "кросовки",
+      "productPrice": 9000
+    }
+  ],
+  "cart": []
+}
