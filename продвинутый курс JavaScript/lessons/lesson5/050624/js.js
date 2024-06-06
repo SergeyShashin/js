@@ -1,11 +1,11 @@
 'use strict';
 
 var orderListHtmlElement = document.getElementById('orderList');
-var cartHtmlElement = document.getElementById('orderList');
-var resultHtmlElement = document.getElementById('result');
+var cartHtmlElement = document.getElementById('cart');
 
 fillOrderList();
 setEventHandlers();
+buildCart();
 
 /**
  * Заполняет orderList
@@ -16,25 +16,67 @@ function fillOrderList() {
       console.log(product);
       var tr = document.createElement('tr');
       var tdForBtn = document.createElement('td');
-      // var productHtmlId = document.createElement('td');
       var productHtmlEl = document.createElement('td');
       var productHtmlPrice = document.createElement('td');
+      var currency = document.createElement('td');
       var btnBuy = document.createElement('button');
       productHtmlEl.textContent = `${product.productName}`;
-      // productHtmlId.textContent = product.id;
-      productHtmlPrice.textContent=product.productPrice;
-      btnBuy.textContent = 'Добавить';
+      productHtmlPrice.textContent = product.productPrice;
+      btnBuy.textContent = '+';
+      currency.textContent = 'руб.';
       btnBuy.dataset.productId = product.id;
       btnBuy.dataset.productName = product.productName;
       btnBuy.dataset.productPrice = product.productPrice;
       orderListHtmlElement.appendChild(tr);
-      // tr.appendChild(productHtmlId);
       tr.appendChild(productHtmlEl);
       tr.appendChild(productHtmlPrice);
+      tr.appendChild(currency);
       tr.appendChild(tdForBtn);
       tdForBtn.appendChild(btnBuy);
     });
   });
+}
+
+function buildCart() {
+  cartHtmlElement.innerHTML = '';
+  loadDataFromJson('GET', 'http://localhost:3000/cart', function (dataFromCartJson) {
+    var sumPrice = 0;
+    var sumQuantity = 0;
+    dataFromCartJson.forEach(function (product) {
+      var tr = document.createElement('tr');
+      var tdForBtn = document.createElement('td');
+      var productHtmlEl = document.createElement('td');
+      var productHtmlPrice = document.createElement('td');
+      var productQuantityHtmlEl = document.createElement('td');
+      var currency = document.createElement('td');
+      var units = document.createElement('td');
+      var btnDel = document.createElement('button');
+
+      productHtmlEl.textContent = product.productName;
+      productHtmlPrice.textContent = product.productPrice;
+      productQuantityHtmlEl.textContent = product.productQuantity;
+      btnDel.textContent = '-';
+      currency.textContent = 'руб.';
+      units.textContent = 'шт.';
+      btnDel.dataset.productId = product.id;
+      btnDel.dataset.productName = product.productName;
+      btnDel.dataset.productPrice = product.productPrice;
+      sumPrice += product.productQuantity * product.productPrice;
+      sumQuantity += product.productQuantity;
+      cartHtmlElement.appendChild(tr);
+      tr.appendChild(productHtmlEl);
+      tr.appendChild(productHtmlPrice);
+      tr.appendChild(currency);
+      tr.appendChild(productQuantityHtmlEl);
+      tr.appendChild(units);
+      tr.appendChild(tdForBtn);
+      tdForBtn.appendChild(btnDel);
+    });
+
+    document.getElementById('sumPrice').textContent = sumPrice;
+    document.getElementById('sumQuantity').textContent = sumQuantity;
+  });
+
 }
 
 /**
@@ -84,6 +126,7 @@ function handlerClickOrderList(e) {
     }
   );
   sendDataToJson('POST', 'http://localhost:3000/cart', dataToCart);
+  buildCart();
 
 }
 

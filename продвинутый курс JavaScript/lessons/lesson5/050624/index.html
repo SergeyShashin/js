@@ -4,6 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    td {
+      padding: 5px;
+    }
+  </style>
   <title>Document</title>
 </head>
 
@@ -14,8 +19,17 @@
   </section>
   <section>
     <h3>Корзина</h3>
-    <table id="cart"></ul>
-    <h4 id="result"></h4>
+    <table id="cart"> </table>
+    <table>
+      <tr>
+        <td>Итого:</td>
+        <td id="sumPrice">0</td>
+        <td>руб.</td>
+        <td></td>
+        <td id="sumQuantity">0</td>
+        <td>шт.</td>
+      </tr>
+    </table>
   </section>
   <script src="js.js"></script>
 </body>
