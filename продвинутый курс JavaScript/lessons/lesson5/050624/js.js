@@ -28,7 +28,7 @@ function fillOrderList() {
 }
 
 /**
- * Передаёт данные из файла JSON
+ * Загружает данные из файла JSON
  * @param {string} method Один из методов (GET, POST, PATCH, DELETE) получения данных.
  * @param {string} link Ссылка для получения данных.
  * @param {function} callback Функция, возвращающая данные после их получения.
@@ -48,13 +48,41 @@ function loadDataFromJson(method, link, callback) {
   };
 }
 
+
 function setEventHandlers() {
-  orderListHtmlElement.addEventListener('click', function(e) {
+  orderListHtmlElement.addEventListener('click', function (e) {
     handlerClickOrderList(e);
   });
+}
+
+function handlerClickOrderList(e) {
+
+  var target = e.target;
+
+  if (target.tagName !== 'BUTTON') {
+    return
+  }
+
+  var dataToCart = JSON.stringify(
+    {
+      id: target.dataset.productId,
+      productName: target.dataset.productName,
+      productPrice: target.dataset.productPrice,
+      productQuantity: 10000
+    }
+  );
+  sendDataToJson('POST', 'http://localhost:3000/cart', dataToCart);
 
 }
 
-function handlerClickOrderList(e){
-  console.log(e);
+function sendDataToJson(method, link, data) {
+
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, link);
+  xhr.setRequestHeader(
+    "content-Type",
+    `application/json`,
+  );
+  xhr.send(data);
+
 }
