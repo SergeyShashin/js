@@ -4,8 +4,8 @@ var orderListHtmlElement = document.getElementById('orderList');
 var cartHtmlElement = document.getElementById('cart');
 
 fillOrderList();
-setEventHandlers();
 buildCart();
+setEventHandlers();
 
 /**
  * Заполняет orderList
@@ -13,7 +13,7 @@ buildCart();
 function fillOrderList() {
   loadDataFromJson('GET', 'http://localhost:3000/products', function (data) {
     data.forEach(function (product) {
-      console.log(product);
+      // console.log(product);
       var tr = document.createElement('tr');
       var tdForBtn = document.createElement('td');
       var productHtmlEl = document.createElement('td');
@@ -38,7 +38,6 @@ function fillOrderList() {
 }
 
 function buildCart() {
-  cartHtmlElement.innerHTML = '';
   loadDataFromJson('GET', 'http://localhost:3000/cart', function (dataFromCartJson) {
     var sumPrice = 0;
     var sumQuantity = 0;
@@ -58,9 +57,16 @@ function buildCart() {
       btnDel.textContent = '-';
       currency.textContent = 'руб.';
       units.textContent = 'шт.';
+
+      productHtmlEl.dataset.productId = product.id;
+      productHtmlEl.dataset.productName = product.productName;
+      productHtmlEl.dataset.productPrice = product.productPrice;
+      productHtmlEl.dataset.productQuantity = product.productQuantity;
+
       btnDel.dataset.productId = product.id;
       btnDel.dataset.productName = product.productName;
       btnDel.dataset.productPrice = product.productPrice;
+      btnDel.dataset.productQuantity = product.productQuantity;
       sumPrice += product.productQuantity * product.productPrice;
       sumQuantity += product.productQuantity;
       cartHtmlElement.appendChild(tr);
@@ -105,6 +111,9 @@ function setEventHandlers() {
   orderListHtmlElement.addEventListener('click', function (e) {
     handlerClickOrderList(e);
   });
+  cartHtmlElement.addEventListener('click', function (e) {
+    handlerClickCart(e);
+  });
 }
 
 function handlerClickOrderList(e) {
@@ -115,17 +124,30 @@ function handlerClickOrderList(e) {
     return
   }
 
-  console.log(e.target.dataset.product);
+  var productId = target.dataset.productId;
+  var dataToCart;
 
-  var dataToCart = JSON.stringify(
-    {
-      id: target.dataset.productId,
+  var productInCart = document.querySelector(`#cart [data-product-id="${productId}"]`);
+  if (productInCart) {
+
+    dataToCart = {
+      id: productInCart.dataset.productId,
+      productName: productInCart.dataset.productName,
+      productPrice: productInCart.dataset.productPrice,
+      productQuantity: Number(productInCart.dataset.productQuantity) + 1
+    };
+    sendDataToJson('PATCH', `http://localhost:3000/cart/${productId}`, JSON.stringify(dataToCart));
+  } else {
+    dataToCart = {
+      id: productId,
       productName: target.dataset.productName,
       productPrice: target.dataset.productPrice,
-      productQuantity: 10000
-    }
-  );
-  sendDataToJson('POST', 'http://localhost:3000/cart', dataToCart);
+      productQuantity: 1
+    };
+    sendDataToJson('POST', 'http://localhost:3000/cart', JSON.stringify(dataToCart));
+
+  };
+  cartHtmlElement.innerHTML = '';
   buildCart();
 
 }
@@ -139,5 +161,23 @@ function sendDataToJson(method, link, data) {
     `application/json`,
   );
   xhr.send(data);
+
+}
+
+function handlerClickCart(e) {
+  var target= e.target;
+
+  if (target.tagName !== 'BUTTON') {
+    return
+  }
+
+  if (target.dataset.productQuantity === '1') {
+    sendDataToJson('DELETE', `http://localhost:3000/cart/${target.dataset.productId}`, null);
+
+  } else {
+    sendDataToJson('PATCH', `http://localhost:3000/cart/${target.dataset.productId}`, JSON.stringify({ productQuantity: Number(e.target.dataset.productQuantity) - 1 }));
+  }
+  cartHtmlElement.innerHTML = '';
+  buildCart();
 
 }

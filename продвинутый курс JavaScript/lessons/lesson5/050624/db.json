@@ -21,30 +21,5 @@
       "productPrice": 9000
     }
   ],
-  "cart": [
-    {
-      "id": "1",
-      "productName": "майка",
-      "productPrice": "3000",
-      "productQuantity": 10000
-    },
-    {
-      "id": "2",
-      "productName": "рубашка",
-      "productPrice": "5000",
-      "productQuantity": 10000
-    },
-    {
-      "id": "3",
-      "productName": "джинсы",
-      "productPrice": "5000",
-      "productQuantity": 10000
-    },
-    {
-      "id": "4",
-      "productName": "кроссовки",
-      "productPrice": "9000",
-      "productQuantity": 10000
-    }
-  ]
+  "cart": []
 }
