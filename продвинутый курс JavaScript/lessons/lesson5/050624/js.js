@@ -14,15 +14,25 @@ function fillOrderList() {
   loadDataFromJson('GET', 'http://localhost:3000/products', function (data) {
     data.forEach(function (product) {
       console.log(product);
-      var productHtmlEl = document.createElement('li');
+      var tr = document.createElement('tr');
+      var tdForBtn = document.createElement('td');
+      // var productHtmlId = document.createElement('td');
+      var productHtmlEl = document.createElement('td');
+      var productHtmlPrice = document.createElement('td');
       var btnBuy = document.createElement('button');
-      productHtmlEl.textContent = `${product.productName} ${product.productPrice} руб.`;
+      productHtmlEl.textContent = `${product.productName}`;
+      // productHtmlId.textContent = product.id;
+      productHtmlPrice.textContent=product.productPrice;
       btnBuy.textContent = 'Добавить';
       btnBuy.dataset.productId = product.id;
       btnBuy.dataset.productName = product.productName;
       btnBuy.dataset.productPrice = product.productPrice;
-      productHtmlEl.appendChild(btnBuy);
-      orderListHtmlElement.appendChild(productHtmlEl);
+      orderListHtmlElement.appendChild(tr);
+      // tr.appendChild(productHtmlId);
+      tr.appendChild(productHtmlEl);
+      tr.appendChild(productHtmlPrice);
+      tr.appendChild(tdForBtn);
+      tdForBtn.appendChild(btnBuy);
     });
   });
 }
@@ -62,6 +72,8 @@ function handlerClickOrderList(e) {
   if (target.tagName !== 'BUTTON') {
     return
   }
+
+  console.log(e.target.dataset.product);
 
   var dataToCart = JSON.stringify(
     {
