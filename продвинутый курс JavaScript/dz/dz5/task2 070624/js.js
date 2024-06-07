@@ -34,7 +34,6 @@ Reviews.prototype.create = function () {
 function Review(text, status) {
   this.text = text;
   this.status = status;
-  this.type = type;
 }
 
 Review.prototype.create = function () {
