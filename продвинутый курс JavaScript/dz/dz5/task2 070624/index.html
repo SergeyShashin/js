@@ -9,18 +9,36 @@
       padding: 5px;
       margin: 5px;
     }
+
+    .approve {
+      color: lightsalmon;
+    }
+
+    .decline {
+      color: lightskyblue;
+    }
   </style>
   <title>Reviews</title>
 </head>
 
 <body>
-  <table id="reviews">
-    <tr data-review="review">
+  <!-- <table id="reviews"> -->
+  <!-- <tr data-review="review">
       <td data-review="reviewText">
         Сейчас в Рязани солнечно.
       </td>
       <td> <button data-btn="reviewApprove">+</button></td>
       <td> <button data-btn="reviewDecline">-</button></td>
+    </tr>
+    <tr data-review="review" class="approve">
+      <td data-review="reviewText">
+        Сейчас в Рязани солнечно.
+      </td>
+    </tr>
+    <tr data-review="review" class="decline">
+      <td data-review="reviewText">
+        Сейчас в Рязани солнечно.
+      </td>
     </tr>
     <tr>
       <td>
@@ -31,9 +49,13 @@
       <td>
         <button type="submit">Отправить</button>
       </td>
-    </tr>
-  </table>
-
+    </tr> -->
+  <!-- </table> -->
+  <script src="js.js"></script>
+  <script>
+    var reviews = new Reviews('reviews');
+    document.body.appendChild(reviews.create());
+  </script>
 </body>
 
 </html>
