@@ -23,6 +23,9 @@ function Reviews(idReviews) {
 Reviews.prototype.create = function () {
   var reviewsHTMLel = document.createElement('table');
   reviewsHTMLel.id = this.idReviews;
+  var textAreaHTMlEl = document.createElement('textarea');
+  textAreaHTMlEl.dataset.inputReview='inputReview';
+  reviewsHTMLel.appendChild(textAreaHTMlEl);
   return reviewsHTMLel;
 };
 
@@ -42,7 +45,7 @@ Review.prototype.create = function () {
   if (this.status = 'new') {
     templateReview.dataset.review = "reviewNew";
     templateReview.innerHTML = `
-    <td data-review="reviewText"> </td>
+    <td data-review="reviewText" class="${this.status}">${this.text} </td>
     <td> <button data-btn="reviewApprove">+</button></td>
     <td> <button data-btn="reviewDecline">-</button></td>`;
   } else {
