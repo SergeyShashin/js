@@ -10,6 +10,10 @@
       margin: 5px;
     }
 
+    button {
+      margin: 0 5px;
+    }
+
     .approve {
       color: lightsalmon;
     }
@@ -56,7 +60,11 @@
     var reviews = new Reviews('reviews');
     document.body.appendChild(reviews.create());
     var review = new Review('Сейчас в Рязани грозно.', 'new');
+    var review1 = new Review('Сейчас в Рязани солнечно.', 'approve');
+    var review2 = new Review('Сейчас в Рязани пасмурно.', 'decline');
     document.getElementById('reviews').appendChild(review.create());
+    document.getElementById('reviews').appendChild(review1.create());
+    document.getElementById('reviews').appendChild(review2.create());
   </script>
 </body>
 
