@@ -21,18 +21,32 @@ function Reviews(idReviews) {
 }
 
 Reviews.prototype.create = function () {
-  var reviewsHTMLel = document.createElement('table');
-  reviewsHTMLel.id = this.idReviews;
+  var reviewsHTMLEl = document.createElement('table');
+  var trTextAreaHTMlEl = document.createElement('tr');
+  var trSendReviewBtnHTMLEl = document.createElement('tr');
+
   var textAreaHTMlEl = document.createElement('textarea');
+  var sendReviewBtnHTMLEl = document.createElement('button');
+
+  reviewsHTMLEl.id = this.idReviews;
   textAreaHTMlEl.dataset.inputReview = 'inputReview';
-  reviewsHTMLel.appendChild(textAreaHTMlEl);
-  return reviewsHTMLel;
+
+  sendReviewBtnHTMLEl.textContent = 'Отправить';
+  sendReviewBtnHTMLEl.dataset.sendReviewBtn = 'sendReview';
+
+  trTextAreaHTMlEl.appendChild(textAreaHTMlEl);
+  trSendReviewBtnHTMLEl.appendChild(sendReviewBtnHTMLEl);
+  reviewsHTMLEl.appendChild(trTextAreaHTMlEl);
+  reviewsHTMLEl.appendChild(trSendReviewBtnHTMLEl);
+
+  return reviewsHTMLEl;
 };
 
 /**
- * Отзыв
- * @param {string} text 
- * @param {string} status 
+ * Создает отзыв
+ * @param {string} text Текст отыва
+ * @param {string} status Статус отзыва. Ваиранты: new, approve, decline,
+ * @method create Возвращает <tr>
  */
 function Review(text, status) {
   this.text = text;
@@ -45,13 +59,12 @@ Review.prototype.create = function () {
 
   reviewTextHTMLEl.textContent = this.text;
 
-
   if (this.status === 'new') {
     var approveBtnHTMLEl = document.createElement('button');
     var declineBtnHTMLEl = document.createElement('button');
 
     templateReviewHTMLEl.dataset.review = "reviewNew";
-    
+
     reviewTextHTMLEl.className = this.status;
     reviewTextHTMLEl.dataset.review = "reviewText";
 
@@ -65,17 +78,11 @@ Review.prototype.create = function () {
     templateReviewHTMLEl.appendChild(approveBtnHTMLEl);
     templateReviewHTMLEl.appendChild(declineBtnHTMLEl);
 
-
-    // templateReviewHTMLEl.innerHTML = `
-    // <td> <button data-btn="reviewApprove">+</button></td>
-    // <td> <button data-btn="reviewDecline">-</button></td>`;
   } else {
     templateReviewHTMLEl.dataset.review = "review";
     templateReviewHTMLEl.className = this.status;
     templateReviewHTMLEl.appendChild(reviewTextHTMLEl);
   }
-
-
 
   return templateReviewHTMLEl
 };
