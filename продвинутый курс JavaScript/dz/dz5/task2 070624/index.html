@@ -9,7 +9,7 @@
       padding: 5px;
       margin: 5px;
     }
-    
+
     .approve {
       color: lightsalmon;
     }
@@ -53,15 +53,12 @@
   <!-- </table> -->
   <script src="js.js"></script>
   <script>
-    var reviews = new Reviews('reviews');
-    var review = new Review('Сейчас в Рязани грозно.', 'new');
-    var review1 = new Review('Сейчас в Рязани солнечно.', 'approve');
-    var review2 = new Review('Сейчас в Рязани пасмурно.', 'decline');
-
+    var reviews = new Reviews('reviews',[
+      new Review('Сейчас в Рязани солнечно', 'new'),
+      new Review('Сейчас в Рязани солнечно', 'approve'),
+      new Review('Сейчас в Рязани солнечно', 'decline'),
+    ]);
     document.body.appendChild(reviews.create());
-    document.getElementById('reviews').appendChild(review.create());
-    document.getElementById('reviews').appendChild(review1.create());
-    document.getElementById('reviews').appendChild(review2.create());
   </script>
 </body>
 

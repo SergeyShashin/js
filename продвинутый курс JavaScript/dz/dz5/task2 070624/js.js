@@ -16,19 +16,24 @@
 // <td data-review="reviewText"> </td>
 // `;
 
-function Reviews(idReviews) {
+/**
+ * Создает таблицу просмотра, добавления, принятия и отклонения отзывов
+ * @param {string} idReviews 
+ */
+function Reviews(idReviews, reviews) {
   this.idReviews = idReviews;
+  this.reviews = reviews;
+  this.reviewsHTMLEl = document.createElement('table');
 }
 
 Reviews.prototype.create = function () {
-  var reviewsHTMLEl = document.createElement('table');
   var trTextAreaHTMlEl = document.createElement('tr');
   var trSendReviewBtnHTMLEl = document.createElement('tr');
 
   var textAreaHTMlEl = document.createElement('textarea');
   var sendReviewBtnHTMLEl = document.createElement('button');
 
-  reviewsHTMLEl.id = this.idReviews;
+  this.reviewsHTMLEl.id = this.idReviews;
   textAreaHTMlEl.dataset.inputReview = 'inputReview';
 
   sendReviewBtnHTMLEl.textContent = 'Отправить';
@@ -36,10 +41,12 @@ Reviews.prototype.create = function () {
 
   trTextAreaHTMlEl.appendChild(textAreaHTMlEl);
   trSendReviewBtnHTMLEl.appendChild(sendReviewBtnHTMLEl);
-  reviewsHTMLEl.appendChild(trTextAreaHTMlEl);
-  reviewsHTMLEl.appendChild(trSendReviewBtnHTMLEl);
+  this.reviewsHTMLEl.appendChild(trTextAreaHTMlEl);
+  this.reviewsHTMLEl.appendChild(trSendReviewBtnHTMLEl);
 
-  return reviewsHTMLEl;
+  this.reviews.forEach(review => this.reviewsHTMLEl.appendChild(review.create()));
+
+  return this.reviewsHTMLEl;
 };
 
 /**
