@@ -3,7 +3,7 @@
     {
       "id": 1,
       "text": "Сейчас в Рязани солнечно.",
-      "status": "new"
+      "status": "approve"
     },
     {
       "id": 2,
@@ -17,28 +17,33 @@
     },
     {
       "text": "Новое сообщение?",
-      "status": "new",
+      "status": "approve",
       "id": 5
     },
     {
-      "text": "Новое.",
-      "status": "new",
+      "text": "",
+      "status": "approve",
       "id": 6
     },
     {
-      "text": "Новое сообщение.",
-      "status": "new",
+      "text": "",
+      "status": "approve",
       "id": 7
     },
     {
       "text": "",
-      "status": "new",
+      "status": "approve",
       "id": 8
     },
     {
       "text": "",
-      "status": "new",
+      "status": "decline",
       "id": 9
+    },
+    {
+      "text": "Сегодня Воскресенье.",
+      "status": "approve",
+      "id": 10
     }
   ]
 }
