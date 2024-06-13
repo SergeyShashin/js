@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "gulp": "gulp",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -12,6 +13,9 @@
     "jquery": "^3.7.1"
   },
   "devDependencies": {
-    "gulp": "^5.0.0"
+    "gulp": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^9.0.0",
+    "sass": "^1.77.5"
   }
 }
