@@ -1,0 +1,21 @@
+<script>
+
+  const correctAnswers = [
+    'да',
+    'да',
+    'да'
+  ];
+
+  const questions = [
+    'Это нулевой вопрос? (да/нет)',
+    'Это первый вопрос? (да/нет)',
+    'Это второй вопрос? (да/нет)',
+  ];
+
+  let result = 0;
+
+  questions.map((question, idx) => prompt(`${question}`, 'да') === correctAnswers[idx] ? result++ : '');
+
+  alert(`Количество верных ответов ${result}.`);
+
+</script>
