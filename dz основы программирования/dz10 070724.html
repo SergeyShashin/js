@@ -1,0 +1,14 @@
+<script>
+
+  let depositAmount = Number(prompt('Сумма вклада?', 100000));
+  let percent = Number(prompt('Процент?', 10));
+  let depositTerm = Number(prompt('Срок вклада?', 10));
+
+  while (depositTerm) {
+    depositAmount = depositAmount * Number(`1.${percent}`);
+    depositTerm--;
+    console.log(parseInt(depositAmount));
+  }
+
+
+</script>
