@@ -1,0 +1,47 @@
+<script>
+
+  let numbers = [];
+  let i = 100;
+  let zero = 0;
+  let nameZero = 'zero';
+  let nameRed = 'red';
+  let nameBlack = 'black';
+  let maximumSequenceRedDrops = 0;
+  let currentSequenceRedDrops = 0;
+
+  while (i) {
+    let rndNumber = parseInt(Math.random() * 36);
+
+    if (rndNumber === 0) {
+      numbers.push(nameZero);
+      zero++;
+    } else if (rndNumber % 2 === 0) {
+      numbers.push(nameRed);
+    } else {
+      numbers.push(nameBlack);
+    }
+
+    i--;
+  }
+
+  for (let i = 1; i < numbers.length; i++) {
+    if (numbers[i] === 'red' && numbers[i - 1] === 'red') {
+      currentSequenceRedDrops++
+    } else if (numbers[i] === 'red') {
+      currentSequenceRedDrops = 1;
+    } else {
+      currentSequenceRedDrops = 0;
+    }
+
+    if (maximumSequenceRedDrops < currentSequenceRedDrops) {
+      maximumSequenceRedDrops = currentSequenceRedDrops;
+    }
+
+  }
+
+
+  console.log(`Вероятность выпадения zero ${zero / numbers.length * 100} %`);
+  console.log(`Максимальная последовательность выпадения красного ${maximumSequenceRedDrops}`);
+  console.log(numbers);
+
+</script>
