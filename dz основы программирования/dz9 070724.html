@@ -1,0 +1,18 @@
+<script>
+
+  let attemps = 0;
+
+  while (confirm('Играем?')) {
+
+    let rndNumber = Math.round(Math.random() * 6);
+
+    if (rndNumber < 1) {
+      break;
+    }
+
+    attemps++;
+  }
+  
+  console.log(`Удачных попыток ${attemps}`);
+
+</script>
