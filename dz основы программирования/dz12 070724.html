@@ -1,0 +1,41 @@
+<script>
+
+  let cards = [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'T'];
+  let player = [];
+  let dealer = [];
+
+  player = [getCard(), getCard()];
+  dealer = [getCard(), getCard()];
+
+  console.log(player);
+  console.log(dealer);
+
+  console.log(getSum(player));
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min
+  }
+
+  function getCard() {
+    return cards[getRandomInt(0, cards.length - 1)]
+  }
+
+  function getSum(arr) {
+    return arr.reduce((acc, el) => {
+      switch (el) {
+        case 'T':
+          acc += acc > 10 ? 1 : 11
+          break;
+        case 'K':
+        case 'Q':
+        case 'J':
+          acc += 10;
+          break;
+        default: acc += el;
+      }
+      return acc
+    }, 0)
+  }
+
+
+</script>
