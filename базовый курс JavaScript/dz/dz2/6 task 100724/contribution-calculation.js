@@ -13,9 +13,38 @@
 числом) вам необходимо создать функцию.
 */
 
-console.log(declination);
+for (let i = 0; i < 200; i++) {
+  console.log(`Ваша сумма в ${i} ${declination(i, ['рубль', 'рубля', 'рублей'])} успешно зачислена.`);
+}
 
-function declination(number, variants){
 
+function declination(number, variants) {
+  let lastTwoNumbers = number % 100;
+  if (lastTwoNumbers === 0 ||
+    lastTwoNumbers > 4 && lastTwoNumbers < 21 ||
+    lastTwoNumbers > 24 && lastTwoNumbers < 31 ||
+    lastTwoNumbers > 34 && lastTwoNumbers < 41 ||
+    lastTwoNumbers > 44 && lastTwoNumbers < 51 ||
+    lastTwoNumbers > 54 && lastTwoNumbers < 61 ||
+    lastTwoNumbers > 64 && lastTwoNumbers < 71 ||
+    lastTwoNumbers > 74 && lastTwoNumbers < 81 ||
+    lastTwoNumbers > 84 && lastTwoNumbers < 91 ||
+    lastTwoNumbers > 94 && lastTwoNumbers < 101
+  ) {
+    return variants[2]
+  } else if (lastTwoNumbers === 1 ||
+    lastTwoNumbers === 21 ||
+    lastTwoNumbers === 31 ||
+    lastTwoNumbers === 41 ||
+    lastTwoNumbers === 51 ||
+    lastTwoNumbers === 61 ||
+    lastTwoNumbers === 71 ||
+    lastTwoNumbers === 81 ||
+    lastTwoNumbers === 91
+  ) {
+    return variants[0]
+  } else {
+    return variants[1]
+  }
 
 }
