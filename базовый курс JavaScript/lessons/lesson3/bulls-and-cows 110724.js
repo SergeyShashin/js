@@ -3,8 +3,14 @@
 let number;
 let attemps;
 
-resetGame();
-tryGuesNumber();
+startGame();
+
+function startGame() {
+  resetGame();
+  console.log(number);
+
+  tryGuesNumber();
+}
 
 function resetGame() {
   number = [];
@@ -16,12 +22,13 @@ function resetGame() {
   }
 }
 
+
 function tryGuesNumber() {
-  let result = [0, 0];
 
   while (true) {
     let userNumStr = prompt('Угадываем 4-х значное число.');
-    userNum = Number(userNumStr);
+    let userNum = Number(userNumStr);
+    let result = [0, 0];
 
 
     if (!Number.isInteger(userNum)) {
@@ -29,8 +36,23 @@ function tryGuesNumber() {
       continue
     }
 
-    for (let val of userNumStr) {
+    number.map((num, idx) => {
 
+      if (num === Number(userNumStr[idx])) {
+        result[0]++;
+      } else if (number.includes(Number(userNumStr[idx]))) {
+        result[1]++;
+      }
+    });
+
+    if (result[0] === 4) {
+      if (confirm('Число нашли. Ещё?)')) {
+        startGame();
+      } else {
+        return
+      }
+    } else {
+      console.log(`Быков ${result[0]}. Коров ${result[1]}`);
     }
 
   }
