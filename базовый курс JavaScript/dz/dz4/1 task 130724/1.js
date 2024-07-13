@@ -23,7 +23,7 @@ thirdDigit: 0,
 console.log(transformNumberToObj(888));
 
 function transformNumberToObj(number) {
-  if (number >= 0 && number < 1000) {
+  if (number >= 0 && number < 1000||Number.isInteger(number)) {
     return {
       firstDigit: parseInt(number % 10),
       secondDigit: parseInt(number / 10 % 10),
