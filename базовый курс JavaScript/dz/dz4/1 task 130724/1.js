@@ -20,14 +20,20 @@ thirdDigit: 0,
 необходимо выдать соответствующее сообщение с помощью console.log и вернуть пустой объект.
 */
 
-console.log(transformNumberToObj(805));
+console.log(transformNumberToObj(888));
 
 function transformNumberToObj(number) {
-  return Number.isInteger(number)
-    ? {
+  if (number >= 0 && number < 1000) {
+    return {
       firstDigit: parseInt(number % 10),
       secondDigit: parseInt(number / 10 % 10),
       thirdDigit: parseInt(number / 100),
     }
-    : {}
+  } else {
+    console.error('Ожидалось число от 0 до 999.');
+    return
+  }
+
+
+
 }
