@@ -23,8 +23,8 @@ function generateChessboard() {
       tr.appendChild(td);
 
       //вставляет цифры в 0 колонку
-      if (col === 0 && row > 0 && row < 9||col === 9 && row > 0 && row < 9) {
-        td.textContent = Math.abs(row-9);
+      if (col === 0 && row > 0 && row < 9 || col === 9 && row > 0 && row < 9) {
+        td.textContent = Math.abs(row - 9);
       }
 
       //вставляет цифры в 9 колонку
@@ -33,8 +33,15 @@ function generateChessboard() {
       }
 
       //вставляет символу в 9 строку
-      if (row === 9 && col > 0 && col < 9) {
+      if (row === 9 && col > 0 && col < 9 || row === 0 && col > 0 && col < 9) {
         td.textContent = letеers[col];
+      }
+
+      if (row !== 0 && row !== 9 && col !== 0 && col !== 9 && col % 2 == 1 && row % 2 == 0
+        ||
+        row !== 0 && row !== 9 && col !== 0 && col !== 9 && col % 2 == 0 && row % 2 == 1
+        ) {
+        td.className = 'black';
       }
 
     }
