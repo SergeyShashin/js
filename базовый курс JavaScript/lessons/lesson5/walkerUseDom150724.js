@@ -59,22 +59,23 @@ const game = {
 
   run() {
     this.init();
-    // this.numSetInterval = setInterval(() => {
-    //   this.player.move();
-    //   this.render();
-    // }, 1000 / this.settings.stepInSeconds)
+    this.numSetInterval = setInterval(() => {
+      this.player.move();
+      this.render();
+    }, 1000);
   },
 
   init() {
     this.HTMLelementGame = document.getElementById('game');
+    this.cels = [];
     this.player.init(this.settings.playerStartPositionX, this.playerStartPositionY, 'up');
     this.render();
     document.addEventListener('keydown', (e) => this.handlerKeyDown(e));
   },
 
   render() {
-    this.HTMLelementGame.innerHtml = '';
-    this.cels = [];
+    this.HTMLelementGame.innerHTML = '';
+    this.cels.map(el => el.className = '');
     for (let row = 0; row < this.settings.rowsCount; row++) {
       let tr = document.createElement('tr');
       this.HTMLelementGame.appendChild(tr);
