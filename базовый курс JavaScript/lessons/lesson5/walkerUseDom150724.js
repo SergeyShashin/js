@@ -16,14 +16,13 @@ const player = {
   init(startPositionX, startPositionY, direction) {
     this.x = startPositionX;
     this.y = startPositionY;
-    this.direction = direction
+    this.direction = direction;
   },
 
   move() {
     let nextPoint = this.getNextPoint();
     this.x = nextPoint.x;
     this.y = nextPoint.y;
-    console.log(this.x + '' + this.y);
   },
 
   getNextPoint() {
@@ -59,17 +58,17 @@ const game = {
 
   run() {
     this.init();
+    this.render();
     this.numSetInterval = setInterval(() => {
-      this.player.move();
+      this.canMove() ? this.player.move() : '';
       this.render();
-    }, 1000);
+    }, 1000 / this.settings.stepInSeconds);
   },
 
   init() {
     this.HTMLelementGame = document.getElementById('game');
     this.cels = [];
-    this.player.init(this.settings.playerStartPositionX, this.playerStartPositionY, 'up');
-    this.render();
+    this.player.init(this.settings.playerStartPositionX, this.settings.playerStartPositionY, 'up');
     document.addEventListener('keydown', (e) => this.handlerKeyDown(e));
   },
 
@@ -82,7 +81,7 @@ const game = {
       for (let col = 0; col < this.settings.colsCount; col++) {
         let td = document.createElement('td');
         td.dataset.coordinate = `y${row}_x${col}`;
-        row === this.settings.playerStartPositionY && col == this.settings.playerStartPositionX ? td.className = 'player' : '';
+        row === this.player.y && col == this.player.x ? td.className = 'player' : '';
         tr.appendChild(td);
         this.cels.push(td);
       }
@@ -90,7 +89,6 @@ const game = {
   },
 
   handlerKeyDown(e) {
-    console.log(e.code);
     switch (e.code) {
       case 'ArrowUp':
         this.player.direction = 'up';
@@ -104,8 +102,14 @@ const game = {
       case 'ArrowLeft':
         this.player.direction = 'left';
         break;
-      default: console.error('Ошибка в методе handlукKeyDown');
     }
+  },
+
+  canMove() {
+    let nexPlayerPosition = this.player.getNextPoint();
+    return nexPlayerPosition.x >= 0 && nexPlayerPosition.y >= 0
+      && nexPlayerPosition.x < this.settings.colsCount
+      && nexPlayerPosition.y < this.settings.rowsCount
   }
 };
 
