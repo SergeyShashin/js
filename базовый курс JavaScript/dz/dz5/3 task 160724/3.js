@@ -22,3 +22,28 @@
 Пользоваться аттрибутами HTML5 запрещено, необходимо проверки реализовать с помощью
 javascript.
 */
+
+
+const form = {
+  formEl: null,
+
+  init() {
+    this.formEl = document.getElementById('contactsForm');
+    this.formEl.addEventListener('submit', (e) => this.validationForm(e));
+  },
+
+  validationForm(e) {
+    if (!this.isValid()) {
+      e.preventDefault();
+      console.log(e);
+    }
+
+  },
+
+  isValid() {
+    return false;
+  }
+
+}
+
+form.init();
