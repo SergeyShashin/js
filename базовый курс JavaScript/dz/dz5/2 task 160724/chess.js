@@ -252,6 +252,7 @@ const chess = {
   setUpTheChessFigures() {
     this.figures.map(figure => {
       this.chessBoardHTMLElements[figure.startPosition].innerHTML = figure.codeHTML;
+      // this.chessBoardHTMLElements[figure.startPosition].style.color=figure.color;
     })
 
 
