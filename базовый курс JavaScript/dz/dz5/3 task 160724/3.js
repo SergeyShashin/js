@@ -23,8 +23,6 @@
 javascript.
 */
 
-
-
 const form = {
   formEl: null,
   rules: [
@@ -107,7 +105,7 @@ const form = {
     },
 
     typeNumber(field) {
-      if (typeof Number(field.value) !== 'number') {
+      if (!Number.isInteger(Number(field.value))) {
         return 'Нужно ввести только цифры.'
       } else {
         return null
@@ -133,21 +131,21 @@ const form = {
   validationForm(e) {
     if (!this.isValid()) {
       e.preventDefault();
+    } else {
+      alert('Форма отправлена.');
     }
-
   },
 
   isValid() {
     for (const rule of this.rules) {
-      // console.log(rule);
       let inputCheck = document.getElementById(rule.selector);
       for (const element of rule.methods) {
-        let resultCheck=this.valdationMethods[element.method](inputCheck, element.args);
-        if(resultCheck){
+        let resultCheck = this.valdationMethods[element.method](inputCheck, element.args);
+        if (resultCheck) {
           inputCheck.classList.add('is-invalid');
-          console.error(resultCheck);
+          inputCheck.nextElementSibling.classList.add('invalid-feedback');
           return false
-        }else{
+        } else {
           inputCheck.classList.remove('is-invalid');
         }
       }
@@ -155,6 +153,6 @@ const form = {
     return true;
   }
 
-}
+};
 
 form.init();
