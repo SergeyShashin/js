@@ -24,8 +24,106 @@ javascript.
 */
 
 
+
 const form = {
   formEl: null,
+  rules: [
+    {
+      selector: 'name',
+      methods: [
+        {
+          method: 'length',
+          args: ['>', 1],
+        },
+        {
+          method: 'length',
+          args: ['<', 51],
+        },
+      ]
+    },
+    {
+      selector: 'phone',
+      methods: [
+        {
+          method: 'length',
+          args: ['===', 11],
+        },
+        {
+          method: 'typeNumber',
+          args: [],
+        },
+      ]
+    },
+    {
+      selector: 'password',
+      methods: [
+        {
+          method: 'length',
+          args: ['>', 5],
+        },
+        {
+          method: 'length',
+          args: ['<', 51],
+        },
+      ]
+    },
+    {
+      selector: 'repeatPassword',
+      methods: [
+        {
+          method: 'mustMatch',
+          args: ['password'],
+        },
+      ]
+    },
+  ],
+  valdationMethods: {
+    length(field, param) {
+      let sign = param[0];
+      let size = param[1];
+      let contentLength = field.value.length;
+      let errorMessage = null;
+
+      switch (sign) {
+        case '>':
+          if (contentLength < size) {
+            errorMessage = `Минимальное количество символов ${size}.`;
+          }
+          break;
+        case '<':
+          if (contentLength > size) {
+            errorMessage = `Максимальное количество символов ${size}.`;
+          }
+          break;
+        case '===':
+          if (contentLength !== size) {
+            errorMessage = `Нужно ввести ${size} символов .`;
+          }
+          break;
+
+      }
+
+      return errorMessage;
+    },
+
+    typeNumber(field) {
+      if (typeof Number(field.value) !== 'number') {
+        return 'Нужно ввести только цифры.'
+      } else {
+        return null
+      }
+    },
+
+    mustMatch(field, param) {
+      if (field.value !== document.getElementById(param).value) {
+        return 'Пароли не совпадают'
+      } else {
+        return null
+      }
+
+    },
+
+  },
 
   init() {
     this.formEl = document.getElementById('contactsForm');
@@ -35,13 +133,26 @@ const form = {
   validationForm(e) {
     if (!this.isValid()) {
       e.preventDefault();
-      console.log(e);
     }
 
   },
 
   isValid() {
-    return false;
+    for (const rule of this.rules) {
+      // console.log(rule);
+      let inputCheck = document.getElementById(rule.selector);
+      for (const element of rule.methods) {
+        let resultCheck=this.valdationMethods[element.method](inputCheck, element.args);
+        if(resultCheck){
+          inputCheck.classList.add('is-invalid');
+          console.error(resultCheck);
+          return false
+        }else{
+          inputCheck.classList.remove('is-invalid');
+        }
+      }
+    }
+    return true;
   }
 
 }
