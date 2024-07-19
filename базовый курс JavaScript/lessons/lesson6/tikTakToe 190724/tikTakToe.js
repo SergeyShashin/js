@@ -55,9 +55,9 @@ const tikTakToe = {
     if (this.countClick === 9) {
       this.statusPlay = false;
       setTimeout(() => {
-        alert('Баланс.'), 1
+        alert('Баланс.');
         this.offerNewGme();
-      });
+      }, 1);
       return
     }
 
