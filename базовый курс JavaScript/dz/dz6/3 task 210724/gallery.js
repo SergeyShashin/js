@@ -75,12 +75,22 @@ const gallery = {
     container.appendChild(btnLeft);
     container.appendChild(btnRight);
     btnClose.addEventListener('click', () => this.close());
+    btnLeft.addEventListener('click', () => this.handlerClickLeft());
+    btnRight.addEventListener('click', () => this.handlerClickRight());
 
     return container
   },
 
   close() {
     document.getElementById(this.settings.nameIdWrap).remove();
+  },
+
+  handlerClickLeft() {
+    console.log('clickLeft');
+  },
+
+  handlerClickRight() {
+    console.log('clickRight');
   }
 
 }
