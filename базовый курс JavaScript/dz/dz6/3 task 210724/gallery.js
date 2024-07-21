@@ -19,6 +19,7 @@ const gallery = {
   },
 
   elementHTMLGallery: null,
+  idCurrentImg: null,
 
   init(userSetings = {}) {
     Object.assign(this.settings, userSetings);
@@ -31,13 +32,16 @@ const gallery = {
       return
     }
     let srcFullImgUrl = e.target.dataset.fullImageUrl;
+    this.idCurrentImg = e.target.id;
     // this.openImg(srcFullImgUrl);
-    let checkImg = new Image();
-    checkImg.onload = () => this.openImg(srcFullImgUrl);
-    checkImg.onerror = () => this.openImg(this.settings.pathToNothingImg);
-    checkImg.src = srcFullImgUrl;
+    this.checkFullImg(srcFullImgUrl);
   },
-
+  checkFullImg(src) {
+    let checkImg = new Image();
+    checkImg.onload = () => this.openImg(src);
+    checkImg.onerror = () => this.openImg(this.settings.pathToNothingImg);
+    checkImg.src = src;
+  },
   openImg(src) {
     let fullImg = this.getScreenContainer().querySelector('.' + this.settings.classFullImg);
     fullImg.src = src;
@@ -86,11 +90,36 @@ const gallery = {
   },
 
   handlerClickLeft() {
-    console.log('clickLeft');
+    let currentElement = document.getElementById(this.idCurrentImg);
+    let prevImg = currentElement.previousElementSibling;
+
+    if (prevImg) {
+      this.openImg(prevImg.dataset.fullImageUrl);
+      this.idCurrentImg = prevImg.id;
+      this.checkFullImg(prevImg.dataset.fullImageUrl);
+    } else {
+      let lastImg = currentElement.parentElement.lastElementChild;
+      this.openImg(lastImg.dataset.fullImageUrl);
+      this.idCurrentImg = lastImg.id;
+      this.checkFullImg(lastImg.dataset.fullImageUrl);
+    }
   },
 
   handlerClickRight() {
-    console.log('clickRight');
+    let currentElement = document.getElementById(this.idCurrentImg);
+    let nextImg = currentElement.nextElementSibling;
+
+    if (nextImg) {
+      this.openImg(nextImg.dataset.fullImageUrl);
+      this.idCurrentImg = nextImg.id;
+      this.checkFullImg(nextImg.dataset.fullImageUrl);
+
+    } else {
+      let firstImg = currentElement.parentElement.firstElementChild;
+      this.openImg(firstImg.dataset.fullImageUrl);
+      this.idCurrentImg = firstImg.id;
+      this.checkFullImg(firstImg.dataset.fullImageUrl);
+    }
   }
 
 }
