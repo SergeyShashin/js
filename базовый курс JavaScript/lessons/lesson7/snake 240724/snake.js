@@ -75,18 +75,104 @@ const config = {
 };
 
 const snake = {
+  body: null,
+  direction: null,
+  lastDirection: null,
+
+  init(startPosition, direction) {
+    this.body = [{ x: startPosition.x, y: startPosition.y }];
+    this.direction = direction;
+    this.lastDirection = direction;
+  },
+
+  getBody() {
+    return this.body
+  },
+
+  getDirection() {
+    return this.direction
+  },
 
 };
 
 const map = {
+  cell: null,
+  usedCells: null,
+  HTMLElementGame: null,
+
+  init(snakePoints, foodPoint, colsCount, rowsCount) {
+    this.HTMLElementGame = document.getElementById('snake-game');
+    this.HTMLElementGame.innerHTML = '';
+    this.cell = {};
+    this.usedCells = [];
+    this.usedCells.map(el => el.className = '');
+
+    for (let row = 0; row < rowsCount; row++) {
+      let tr = document.createElement('tr');
+      for (let col = 0; col < colsCount; col++) {
+        let td = document.createElement('td');
+        tr.appendChild(td);
+        this.cell[`x${col}_y${row}`] = td;
+        snakePoints.map((point, idx) => {
+          if (point.x === col && point.y === row) {
+            td.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
+            this.usedCells.push(td);
+          }
+        });
+        if (foodPoint.x === col && foodPoint.y === row) {
+          td.classList.add('food');
+          this.usedCells.push(td);
+
+        }
+      }
+      this.HTMLElementGame.appendChild(tr);
+    }
+
+  },
 
 };
 
 const food = {
+  x: null,
+  y: null,
+
+  init(startPosition) {
+    this.x = startPosition.x;
+    this.y = startPosition.y;
+  },
+
+  getPosition() {
+    return { x: this.x, y: this.y }
+  }
 
 };
 
 const statusGame = {
+  condition: null,
+
+  setPlay() {
+    this.condition = 'play';
+  },
+
+  setStop() {
+    this.condition = 'stop';
+  },
+
+  setFinish() {
+    this.condition = 'finish';
+  },
+
+  isPlay() {
+    return this.condition === 'play'
+  },
+
+  isStop() {
+    return this.condition === 'stop'
+  },
+
+  isFinish() {
+    return this.condition === 'finish'
+  },
 
 };
 
@@ -96,8 +182,9 @@ const game = {
   snake,
   map,
   food,
-  HTMLElementGame: null,
-  HTMLElementButtons: null,
+  HTMLElementPlayOrStopButton: null,
+  HTMLElementNewGameButton: null,
+  counterInterval: null,
 
   init(userSettings = {}) {
     let validation = this.config.validate(userSettings);
@@ -106,12 +193,72 @@ const game = {
       validation.errors.map(error => console.error(error));
     }
 
-
     this.config.init(userSettings);
-    this.HTMLElementGame = document.getElementById('snake-game');
     this.HTMLElementPlayOrStopButton = document.getElementById('playOrStopButton');
     this.HTMLElementNewGameButton = document.getElementById('newGameButton');
 
+    this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
+    this.food.init(this.getRandomFreeCoordinate());
+    this.render();
+    this.setEventHandlers();
+    this.play();
+
+  },
+
+  render() {
+    this.map.init(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
+  },
+
+  getRandomFreeCoordinate() {
+    let usedPoint = [...this.snake.getBody(), this.food.getPosition()];
+
+    while (true) {
+      let randomPoint = { x: this.getRandomNum(this.config.getColsCount()), y: this.getRandomNum(this.config.getRowsCount()) };
+      if (!usedPoint.some(point => point.x === randomPoint.x && point.y === randomPoint.y)) {
+        return randomPoint
+      }
+    }
+
+  },
+
+  getRandomNum(num) {
+    return Math.floor(Math.random() * num)
+  },
+
+  setEventHandlers() {
+    this.HTMLElementPlayOrStopButton.addEventListener('click', () => this.playOrStopHandler());
+    this.HTMLElementNewGameButton.addEventListener('click', () => this.newGameHandler());
+    window.document.addEventListener('keydown', (e) => this.keyDownHandler(e));
+  },
+
+  newGameHandler() {
+    this.render();
+  },
+
+  playOrStopHandler() {
+    this.statusGame.isPlay() ? this.stop() : this.play();
+  },
+
+  play() {
+    this.statusGame.setPlay();
+    this.changeViewButton('stop');
+    this.counterInterval = setInterval(() => console.log('го'));
+  },
+
+  stop() {
+    this.statusGame.setStop();
+    this.changeViewButton('play');
+    clearInterval(this.counterInterval);
+  },
+
+  finish() {
+    this.statusGame.setFinish();
+    this.changeViewButton('play', true);
+  },
+
+  changeViewButton(textBtn, disable = false) {
+    this.HTMLElementPlayOrStopButton.textContent = textBtn;
+    disable ? this.HTMLElementPlayOrStopButton.classList.add(finish) : '';
   }
 
 };
