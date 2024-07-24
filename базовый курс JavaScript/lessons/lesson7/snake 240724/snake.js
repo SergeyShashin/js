@@ -124,9 +124,10 @@ const snake = {
   },
 
   makestep() {
+    console.log(this.body);
     this.body.push(this.getNextHeadPoint());
     console.log(this.body);
-    this.body.pop();
+    // this.body.pop();
   }
 
 };
@@ -136,23 +137,23 @@ const map = {
   usedCells: null,
   HTMLElementGame: null,
 
-  init(snakePoints, foodPoint, colsCount, rowsCount) {
+  init() {
     this.HTMLElementGame = document.getElementById('snake-game');
     this.HTMLElementGame.innerHTML = '';
     this.cell = {};
-    if (this.usedCells) {
-      this.usedCells.map(el => el.className = '');
-      this.usedCells = [];
-    } else {
-      this.usedCells = [];
-    }
+    this.usedCells = [];
+  },
+
+  render(snakePoints, foodPoint, colsCount, rowsCount) {
+    this.HTMLElementGame.innerHTML = '';
+    this.cell = {};
+    this.usedCells.map(el => el.className = '');
+    this.usedCells = [];
 
     for (let row = 0; row < rowsCount; row++) {
       let tr = document.createElement('tr');
       for (let col = 0; col < colsCount; col++) {
         let td = document.createElement('td');
-        tr.appendChild(td);
-        this.cell[`x${col}_y${row}`] = td;
         snakePoints.map((point, idx) => {
           if (point.x === col && point.y === row) {
             td.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
@@ -162,13 +163,15 @@ const map = {
         if (foodPoint.x === col && foodPoint.y === row) {
           td.classList.add('food');
           this.usedCells.push(td);
-
         }
+        this.cell[`x${col}_y${row}`] = td;
+        tr.appendChild(td);
       }
       this.HTMLElementGame.appendChild(tr);
     }
 
   },
+
 
 };
 
@@ -241,9 +244,13 @@ const game = {
     this.food.init(this.getRandomFreeCoordinate());
     this.setEventHandlers();
     // this.reset();
-    this.map.init(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
+    this.map.init();
     this.play();
+    this.render();
+  },
 
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
   },
 
   reset() {
@@ -317,11 +324,13 @@ const game = {
   },
 
   tickInterval() {
+    console.log(this.snake.getNextHeadPoint());
     if (!this.canMakeStep()) {
       this.finish();
     }
     // console.log('го ' + this.snake.getDirection());
     this.snake.makestep();
+    this.render();
   },
 
   canMakeStep() {
