@@ -102,6 +102,31 @@ const snake = {
 
   canSetDirection(direction) {
     return this.lastDirection !== direction
+  },
+
+  getNextHeadPoint() {
+    let point = this.body[0];
+    switch (this.direction) {
+      case 'up':
+        point = { x: point.x, y: point.y - 1 };
+        break;
+      case 'down':
+        point = { x: point.x, y: point.y + 1 };
+        break;
+      case 'right':
+        point = { x: point.x + 1, y: point.y };
+        break;
+      case 'left':
+        point = { x: point.x - 1, y: point.y };
+        break;
+    }
+    return point
+  },
+
+  makestep() {
+    this.body.push(this.getNextHeadPoint());
+    console.log(this.body);
+    this.body.pop();
   }
 
 };
@@ -115,8 +140,12 @@ const map = {
     this.HTMLElementGame = document.getElementById('snake-game');
     this.HTMLElementGame.innerHTML = '';
     this.cell = {};
-    this.usedCells = [];
-    this.usedCells.map(el => el.className = '');
+    if (this.usedCells) {
+      this.usedCells.map(el => el.className = '');
+      this.usedCells = [];
+    } else {
+      this.usedCells = [];
+    }
 
     for (let row = 0; row < rowsCount; row++) {
       let tr = document.createElement('tr');
@@ -210,14 +239,16 @@ const game = {
 
     this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
     this.food.init(this.getRandomFreeCoordinate());
-    this.render();
     this.setEventHandlers();
+    // this.reset();
+    this.map.init(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
     this.play();
 
   },
 
-  render() {
-    this.map.init(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
+  reset() {
+    // this.render();
+    // this.stop();
   },
 
   getRandomFreeCoordinate() {
@@ -243,7 +274,7 @@ const game = {
   },
 
   newGameHandler() {
-    this.render();
+    this.reset();
   },
 
   playOrStopHandler() {
@@ -286,7 +317,19 @@ const game = {
   },
 
   tickInterval() {
-    console.log('го ' + this.snake.getDirection());
+    if (!this.canMakeStep()) {
+      this.finish();
+    }
+    // console.log('го ' + this.snake.getDirection());
+    this.snake.makestep();
+  },
+
+  canMakeStep() {
+    let nextSnakeHeadPoint = this.snake.getNextHeadPoint();
+    return nextSnakeHeadPoint.x >= 0 &&
+      nextSnakeHeadPoint.y >= 0 &&
+      nextSnakeHeadPoint.x < this.config.getColsCount() &&
+      nextSnakeHeadPoint.y < this.config.getRowsCount()
   },
 
   changeViewButton(textBtn, disable = false) {
