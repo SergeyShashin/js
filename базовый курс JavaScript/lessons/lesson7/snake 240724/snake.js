@@ -93,6 +93,17 @@ const snake = {
     return this.direction
   },
 
+  setDirection(direction) {
+    if (this.canSetDirection(direction)) {
+      this.direction = direction;
+      this.lastDirection = direction;
+    }
+  },
+
+  canSetDirection(direction) {
+    return this.lastDirection !== direction
+  }
+
 };
 
 const map = {
@@ -239,10 +250,28 @@ const game = {
     this.statusGame.isPlay() ? this.stop() : this.play();
   },
 
+  keyDownHandler(e) {
+    let direction = this.getDirection(e.code);
+    this.snake.setDirection(direction);
+  },
+
+  getDirection(key) {
+    switch (key) {
+      case 'ArrowUp':
+        return 'up';
+      case 'ArrowDown':
+        return 'down';
+      case 'ArrowRight':
+        return 'right';
+      case 'ArrowLeft':
+        return 'left';
+    }
+  },
+
   play() {
     this.statusGame.setPlay();
     this.changeViewButton('stop');
-    this.counterInterval = setInterval(() => console.log('го'));
+    this.counterInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSnakeSpeed());
   },
 
   stop() {
@@ -254,6 +283,10 @@ const game = {
   finish() {
     this.statusGame.setFinish();
     this.changeViewButton('play', true);
+  },
+
+  tickInterval() {
+    console.log('го ' + this.snake.getDirection());
   },
 
   changeViewButton(textBtn, disable = false) {
