@@ -101,7 +101,10 @@ const snake = {
   },
 
   canSetDirection(direction) {
-    return this.lastDirection !== direction
+    return direction === 'up' && this.lastDirection !== 'down' ||
+      direction === 'down' && this.lastDirection !== 'up' ||
+      direction === 'right' && this.lastDirection !== 'left' ||
+      direction === 'left' && this.lastDirection !== 'right'
   },
 
   getNextHeadPoint() {
@@ -126,7 +129,10 @@ const snake = {
   makestep(nextPoint) {
     this.body.push(nextPoint);
     this.body.shift();
-    console.log(this.body);
+  },
+
+  growUp() {
+    this.body.push(this.getNextHeadPoint());
   }
 
 };
@@ -184,6 +190,10 @@ const food = {
 
   getPosition() {
     return { x: this.x, y: this.y }
+  },
+
+  setPosition(point) {
+    this.init(point);
   }
 
 };
@@ -249,10 +259,26 @@ const game = {
   },
 
   tickInterval() {
-    // if (!this.canMakeStep()) {
-    //   // this.finish();
-    // }
+    if (!this.canMakeStep()) {
+      this.finish();
+    }
+
     this.snake.makestep(this.snake.getNextHeadPoint());
+
+    let headSnake = this.snake.getBody()[0];
+
+    if (this.isFoodOnPoint(headSnake)) {
+      this.snake.growUp();
+      this.food.setPosition(this.getRandomFreeCoordinate());
+    }
+
+    this.render();
+  },
+
+  isFoodOnPoint(headSnake) {
+    let foodPoint = this.food.getPosition();
+    return foodPoint.x === headSnake.x && foodPoint.y === headSnake.y
+
   },
 
   canMakeStep() {
@@ -264,6 +290,7 @@ const game = {
   },
 
   reset() {
+    this.HTMLElementPlayOrStopButton.classList.remove('finish');
     this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
     this.food.init(this.getRandomFreeCoordinate());
     this.map.init();
@@ -271,7 +298,7 @@ const game = {
     this.stop();
   },
 
-  render(){
+  render() {
     this.map.render(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
   },
 
@@ -307,6 +334,7 @@ const game = {
 
   keyDownHandler(e) {
     let direction = this.getDirection(e.code);
+
     this.snake.setDirection(direction);
   },
 
@@ -331,14 +359,14 @@ const game = {
 
   finish() {
     this.statusGame.setFinish();
-    this.changeViewButton('play', true);
+    this.changeViewButton('finish', true);
   },
 
 
 
   changeViewButton(textBtn, disable = false) {
     this.HTMLElementPlayOrStopButton.textContent = textBtn;
-    disable ? this.HTMLElementPlayOrStopButton.classList.add(finish) : '';
+    disable ? this.HTMLElementPlayOrStopButton.classList.add('finish') : '';
   }
 
 };
