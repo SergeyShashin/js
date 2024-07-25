@@ -123,9 +123,9 @@ const snake = {
     return point
   },
 
-  makestep() {
-    this.body.push(this.getNextHeadPoint());
-    // this.body.pop();
+  makestep(nextPoint) {
+    this.body.push(nextPoint);
+    this.body.shift();
   }
 
 };
@@ -143,6 +143,7 @@ const map = {
   },
 
   render(snakePoints, foodPoint, colsCount, rowsCount) {
+    this.HTMLElementGame.innerHTML = '';
     this.usedCells.map(el => el.className = '');
     this.usedCells = [];
 
@@ -237,12 +238,40 @@ const game = {
     this.HTMLElementNewGameButton = document.getElementById('newGameButton');
     this.reset();
     this.setEventHandlers();
+    this.play();
+  },
+
+  play() {
+    this.statusGame.setPlay();
+    this.changeViewButton('stop');
+    this.counterInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSnakeSpeed());
+  },
+
+  tickInterval() {
+    // if (!this.canMakeStep()) {
+    //   // this.finish();
+    // }
+    this.snake.makestep(this.snake.getNextHeadPoint());
+    console.log(this.snake.getBody());
+  },
+
+  canMakeStep() {
+    let nextSnakeHeadPoint = this.snake.getNextHeadPoint();
+    return nextSnakeHeadPoint.x >= 0 &&
+      nextSnakeHeadPoint.y >= 0 &&
+      nextSnakeHeadPoint.x < this.config.getColsCount() &&
+      nextSnakeHeadPoint.y < this.config.getRowsCount()
   },
 
   reset() {
     this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
     this.food.init(this.getRandomFreeCoordinate());
     this.map.init();
+    this.render();
+    this.stop();
+  },
+
+  render(){
     this.map.render(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
   },
 
@@ -294,12 +323,6 @@ const game = {
     }
   },
 
-  play() {
-    this.statusGame.setPlay();
-    this.changeViewButton('stop');
-    this.counterInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSnakeSpeed());
-  },
-
   stop() {
     this.statusGame.setStop();
     this.changeViewButton('play');
@@ -311,20 +334,7 @@ const game = {
     this.changeViewButton('play', true);
   },
 
-  tickInterval() {
-    if (!this.canMakeStep()) {
-      this.finish();
-    }
-    this.snake.makestep();
-  },
 
-  canMakeStep() {
-    let nextSnakeHeadPoint = this.snake.getNextHeadPoint();
-    return nextSnakeHeadPoint.x >= 0 &&
-      nextSnakeHeadPoint.y >= 0 &&
-      nextSnakeHeadPoint.x < this.config.getColsCount() &&
-      nextSnakeHeadPoint.y < this.config.getRowsCount()
-  },
 
   changeViewButton(textBtn, disable = false) {
     this.HTMLElementPlayOrStopButton.textContent = textBtn;
