@@ -124,9 +124,7 @@ const snake = {
   },
 
   makestep() {
-    console.log(this.body);
     this.body.push(this.getNextHeadPoint());
-    console.log(this.body);
     // this.body.pop();
   }
 
@@ -145,8 +143,6 @@ const map = {
   },
 
   render(snakePoints, foodPoint, colsCount, rowsCount) {
-    this.HTMLElementGame.innerHTML = '';
-    this.cell = {};
     this.usedCells.map(el => el.className = '');
     this.usedCells = [];
 
@@ -239,23 +235,15 @@ const game = {
     this.config.init(userSettings);
     this.HTMLElementPlayOrStopButton = document.getElementById('playOrStopButton');
     this.HTMLElementNewGameButton = document.getElementById('newGameButton');
-
-    this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
-    this.food.init(this.getRandomFreeCoordinate());
+    this.reset();
     this.setEventHandlers();
-    // this.reset();
-    this.map.init();
-    this.play();
-    this.render();
-  },
-
-  render() {
-    this.map.render(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
   },
 
   reset() {
-    // this.render();
-    // this.stop();
+    this.snake.init({ x: Math.floor(this.config.getColsCount() / 2), y: Math.floor(this.config.getRowsCount() / 2) }, 'up');
+    this.food.init(this.getRandomFreeCoordinate());
+    this.map.init();
+    this.map.render(this.snake.getBody(), this.food.getPosition(), this.config.getColsCount(), this.config.getRowsCount());
   },
 
   getRandomFreeCoordinate() {
@@ -324,13 +312,10 @@ const game = {
   },
 
   tickInterval() {
-    console.log(this.snake.getNextHeadPoint());
     if (!this.canMakeStep()) {
       this.finish();
     }
-    // console.log('го ' + this.snake.getDirection());
     this.snake.makestep();
-    this.render();
   },
 
   canMakeStep() {
