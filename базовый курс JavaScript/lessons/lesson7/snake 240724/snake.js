@@ -127,12 +127,12 @@ const snake = {
   },
 
   makestep(nextPoint) {
-    this.body.push(nextPoint);
-    this.body.shift();
+    this.body.unshift(nextPoint);
+    this.body.pop();
   },
 
   growUp() {
-    this.body.push(this.getNextHeadPoint());
+    this.body.unshift(this.getNextHeadPoint());
   }
 
 };
@@ -182,6 +182,7 @@ const map = {
 const food = {
   x: null,
   y: null,
+  counter: 0,
 
   init(startPosition) {
     this.x = startPosition.x;
@@ -194,6 +195,14 @@ const food = {
 
   setPosition(point) {
     this.init(point);
+  },
+
+  upCounter() {
+    this.counter++;
+  },
+
+  getCounter() {
+    return this.counter;
   }
 
 };
@@ -259,8 +268,13 @@ const game = {
   },
 
   tickInterval() {
-    if (!this.canMakeStep()) {
+
+    if (!this.canMakeStep()
+      || this.nextStepOnSnakePoint(this.snake.getNextHeadPoint())
+      || this.config.getWinFoodCount() === this.food.getCounter()) {
       this.finish();
+      clearInterval(this.counterInterval);
+      return
     }
 
     this.snake.makestep(this.snake.getNextHeadPoint());
@@ -269,10 +283,18 @@ const game = {
 
     if (this.isFoodOnPoint(headSnake)) {
       this.snake.growUp();
+      this.render();
+      this.food.upCounter();
+      console.log(this.food.getCounter());
+
       this.food.setPosition(this.getRandomFreeCoordinate());
     }
 
     this.render();
+  },
+
+  nextStepOnSnakePoint(head) {
+    return this.snake.getBody().some(point => head.x === point.x && head.y === point.y)
   },
 
   isFoodOnPoint(headSnake) {
