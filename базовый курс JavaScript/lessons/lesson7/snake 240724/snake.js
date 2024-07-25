@@ -126,6 +126,7 @@ const snake = {
   makestep(nextPoint) {
     this.body.push(nextPoint);
     this.body.shift();
+    console.log(this.body);
   }
 
 };
@@ -252,7 +253,6 @@ const game = {
     //   // this.finish();
     // }
     this.snake.makestep(this.snake.getNextHeadPoint());
-    console.log(this.snake.getBody());
   },
 
   canMakeStep() {
