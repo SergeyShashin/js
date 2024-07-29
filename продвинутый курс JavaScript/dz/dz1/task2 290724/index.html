@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="menu290724.js"></script>
+  <script>
+    var menu = new SuperMenu('idMenu', 'classMenu', [
+      new MenuItem('/home', 'HOME'),
+      new MenuItem('/page', 'PAGE'),
+      new MenuItem('/contacts', 'CONTACTS'),
+      new SuperMenu('idSuperMenu', 'classSuperMenu', [
+        new MenuItem('/home', 'HOME'),
+        new MenuItem('/page', 'PAGE'),
+        new MenuItem('/contacts', 'CONTACTS')],
+        '/subMenu', 'SUBMENU')
+    ]);
+
+    document.body.appendChild(menu.render());
+
+    setTimeout(function () {
+      confirm('Удалить меню?') ? menu.remove() : ''
+    }
+      , 1000);
+
+
+  </script>
+</body>
+
+</html>
