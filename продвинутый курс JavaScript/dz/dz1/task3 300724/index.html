@@ -40,6 +40,19 @@
   <h2 id="result"></h2>
 
   <script src="burger.js"></script>
+
+  <script>
+    var formEl = document.getElementById('burgerForm');
+
+    formEl.addEventListener('submit', function (e) {
+      console.log(e);
+      e.preventDefault();
+      
+      var burger = new Burger('big', 'cheese');
+    });
+
+
+  </script>
 </body>
 
 </html>

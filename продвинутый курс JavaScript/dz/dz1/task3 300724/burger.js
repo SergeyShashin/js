@@ -85,13 +85,3 @@ Burger.prototype.typeOrder = function () {
 
   return orderMsg
 };
-
-var burger = new Burger('big', 'cheese');
-
-console.log(burger.getPrice());
-console.log(burger.getCalories());
-burger.addSpices('spice');
-console.log(burger.getPrice());
-console.log(burger.getCalories());
-
-console.log(burger.typeOrder());
