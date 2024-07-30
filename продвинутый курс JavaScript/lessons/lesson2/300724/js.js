@@ -1,14 +1,22 @@
 
 var xhr = new XMLHttpRequest();
 
-xhr.open('GET', 'http://127.0.0.1:8080');
+xhr.open('GET', 'http://localhost:3000/items');
 xhr.send();
 
 xhr.onreadystatechange = function () {
   if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-    var result = xhr.responseText;
+    var result = JSON.parse(xhr.responseText);
 
-    console.log(result);
+    var items = [];
+
+    for (var item of result) {
+      items.push(new MenuItem(item.href, item.label));
+    }
+
+    var menu = new Menu('idMenu', 'classMenu', items);
+
+    document.body.appendChild(menu.render());
 
   }
 
