@@ -10,7 +10,6 @@ var monitor = document.getElementById('monitor');
 galleriMiniEl.addEventListener('click', function (e) {
   if (e.target.tagName === 'IMG') {
     e.preventDefault();
-    // console.dir(e.target.src);
     var imgMax = new Image();
     imgMax.src = e.target.parentElement.href;
     monitor.innerHTML = '';
