@@ -73,8 +73,6 @@
         }
       }
 
-      console.log(size);
-      console.log(stuffing);
       var burgerObj = new Burger(size, stuffing);
 
       if (spices.length > 0) {
@@ -83,9 +81,6 @@
         }
       }
 
-      console.log(spices);
-
-      console.log(burgerObj.typeOrder());
       document.getElementById('result').textContent = burgerObj.typeOrder();
 
     });
