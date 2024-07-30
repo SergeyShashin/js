@@ -49,11 +49,11 @@ function Burger(size, stuffing) {
 
 Burger.prototype.getPrice = function () {
   return this.priсe
-}
+};
 
 Burger.prototype.getCalories = function () {
   return this.calories
-}
+};
 
 Burger.prototype.addSpices = function (spice) {
   this.spices.includes(spice) ? '' : this.spices.push(spice);
@@ -70,7 +70,21 @@ Burger.prototype.addSpices = function (spice) {
         break;
     }
   }
-}
+};
+
+Burger.prototype.typeOrder = function () {
+  var orderMsg = `Вы заказали ${this.size} бургер c ${this.stuffing}`;
+
+  if (this.spices.length > 0) {
+    for (var item of this.spices) {
+      orderMsg += `, ${item}`
+    }
+  }
+
+  orderMsg += `.\n Стоимость ${burger.getPrice()}. Калорийность ${burger.getCalories()}.`;
+
+  return orderMsg
+};
 
 var burger = new Burger('big', 'cheese');
 
@@ -79,3 +93,5 @@ console.log(burger.getCalories());
 burger.addSpices('spice');
 console.log(burger.getPrice());
 console.log(burger.getCalories());
+
+console.log(burger.typeOrder());
