@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burger</title>
+</head>
+
+<body>
+
+  <form id="burgerForm" action="" method="post">
+    <h2>Заказ бургера</h2>
+    <select name="size" id="">
+      <option value="big">Большой (100 рублей, 40 калорий)</option>
+      <option value="small">Маленький (50 рублей, 20 калорий)</option>
+    </select>
+    <p>
+      <label for="cheese">сыр (+ 10 рублей, + 20 калорий)</label>
+      <input id="cheese" name="cheese" type="checkbox" checked>
+    </p>
+    <p>
+      <label for="salad">салат (+ 20 рублей, + 5 калорий)</label>
+      <input id="salad" name="salad" type="checkbox">
+    </p>
+    <p>
+      <label for="potato">картофель(+ 15 рублей, + 10 калорий)</label>
+      <input id="potato" name="potato" type="checkbox">
+    </p>
+    <p>
+      <label for="spices">приправа (+ 15 рублей, 0 калорий)</label>
+      <input id="spices" name="spices" value="spice" type="radio" checked>
+      <label for="mayo">полить майонезом (+ 20 рублей, + 5 калорий)</label>
+      <input id="mayo" name="spices" value="mayo" type="radio">
+    </p>
+    <p>
+      <input type="submit">
+    </p>
+  </form>
+  <h2 id="result"></h2>
+
+  <script src="burger.js"></script>
+</body>
+
+</html>
