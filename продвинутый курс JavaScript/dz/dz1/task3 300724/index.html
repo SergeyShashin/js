@@ -37,19 +37,59 @@
       <input type="submit">
     </p>
   </form>
-  <h2 id="result"></h2>
+  <code id="result"></code>
 
   <script src="burger.js"></script>
 
   <script>
     var formEl = document.getElementById('burgerForm');
+    var size = document.querySelector('select').value;
+    var inputs = document.querySelectorAll('input');
+    var stuffing;
+    var spices = [];
 
     formEl.addEventListener('submit', function (e) {
-      console.log(e);
       e.preventDefault();
-      
-      var burger = new Burger('big', 'cheese');
+
+      for (var input of inputs) {
+        if (input.checked) {
+          switch (input.id) {
+            case 'cheese':
+              stuffing = 'cheese';
+              break;
+            case 'salad':
+              stuffing = 'salad';
+              break;
+            case 'potato':
+              stuffing = 'potato';
+              break;
+            case 'spices':
+              spices.push('spices');
+              break;
+            case 'mayo':
+              this.spices.push('mayo');
+              break;
+          }
+        }
+      }
+
+      console.log(size);
+      console.log(stuffing);
+      var burgerObj = new Burger(size, stuffing);
+
+      if (spices.length > 0) {
+        for (var item of spices) {
+          burgerObj.addSpices(item);
+        }
+      }
+
+      console.log(spices);
+
+      console.log(burgerObj.typeOrder());
+      document.getElementById('result').textContent = burgerObj.typeOrder();
+
     });
+
 
 
   </script>

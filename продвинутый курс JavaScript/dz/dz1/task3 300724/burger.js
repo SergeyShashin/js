@@ -81,7 +81,7 @@ Burger.prototype.typeOrder = function () {
     }
   }
 
-  orderMsg += `.\n Стоимость ${burger.getPrice()}. Калорийность ${burger.getCalories()}.`;
+  orderMsg += `.\n Стоимость ${Burger.prototype.getPrice.call(this)}. Калорийность ${Burger.prototype.getCalories.call(this)}.`;
 
   return orderMsg
 };
