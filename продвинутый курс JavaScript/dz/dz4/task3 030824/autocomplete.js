@@ -37,21 +37,36 @@ function buildListTowns() {
 buildListTowns();
 
 var findTown = document.getElementById('findTown');
+var townsDiv = document.getElementById('towns');
+
+townsDiv.addEventListener('click', function (e) {
+  if (e.target.tagName === 'DIV') {
+    findTown.value = e.target.textContent;
+    townsDiv.innerHTML = '';
+  }
+})
+
 findTown.oninput = function (e) {
   if (this.value.length >= 3) {
+    townsDiv.innerHTML = '';
     var newList = getItems(this.value);
+    for (var el of newList) {
+      var div = document.createElement('div');
+      div.textContent = el;
+      townsDiv.appendChild(div);
+    }
   }
 }
 
 function getItems(content) {
   var rgxp = new RegExp('^' + content, 'ig');
   var result = [];
+
   for (let town of townsFromDivEl) {
-    if (rgxp.test(town)) {
+    while (rgxp.test(town)) {
       result.push(town);
     }
   }
-  console.log(result);
   return result
 };
 
