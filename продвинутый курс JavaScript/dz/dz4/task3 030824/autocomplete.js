@@ -6,6 +6,9 @@
 При клике на подходящий город ввести его полное название в текстовое поле.
 */
 
+var townsFromDivEl = [];
+
+
 function getData(method, link, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
@@ -18,21 +21,11 @@ function getData(method, link, callback) {
   }
 }
 
-function getListTowns() {
-  getData('GET', ' http://localhost:3000/towns', function (towns) {
-    var selectEl = document.getElementById('towns');
-    towns.forEach(function (town) {
-      var divEl = document.createElement('div');
-      divEl.textContent = town;
-      selectEl.appendChild(divEl);
-    });
-  })
-}
-
 function buildListTowns() {
   getData('GET', ' http://localhost:3000/towns', function (towns) {
     var selectEl = document.getElementById('towns');
     towns.forEach(function (town) {
+      townsFromDivEl.push(town)
       var divEl = document.createElement('div');
       divEl.textContent = town;
       selectEl.appendChild(divEl);
@@ -45,21 +38,20 @@ buildListTowns();
 
 var findTown = document.getElementById('findTown');
 findTown.oninput = function (e) {
-  var content = this.value;
-  var townsFromDivEl = [];
-  var filterTowns = [];
-  if (content.length >= 3) {
-    console.log(content);
-    var rgxp = new RegExp(`^${content}`, 'ig');
-
-    Object.values(document.getElementsByTagName('div')).map(function (el) {
-      townsFromDivEl.push(el.textContent);
-    });
-
-    townsFromDivEl.map(function (el) {
-      rgxp.test(el) ? console.log(el) : '';
-    });
+  if (this.value.length >= 3) {
+    var newList = getItems(this.value);
   }
-  console.log(filterTowns);
 }
+
+function getItems(content) {
+  var rgxp = new RegExp('^' + content, 'ig');
+  var result = [];
+  for (let town of townsFromDivEl) {
+    if (rgxp.test(town)) {
+      result.push(town);
+    }
+  }
+  console.log(result);
+  return result
+};
 
