@@ -6,9 +6,48 @@
 При клике на подходящий город ввести его полное название в текстовое поле.
 */
 
+/**Массив для списка гордов из json файлов */
 var townsFromDivEl = [];
 
+/**HTMLElement для ввода нужного города */
+var findTown = document.getElementById('findTown');
 
+/** HTMLElement в который добавляются города*/
+var townsDiv = document.getElementById('towns');
+
+setHandlers();
+buildListTowns();
+
+/**
+ * Устанавливает слушателей событий.
+ */
+function setHandlers() {
+  townsDiv.addEventListener('click', function (e) {
+    if (e.target.tagName === 'DIV') {
+      findTown.value = e.target.textContent;
+      townsDiv.innerHTML = '';
+    }
+  });
+
+  findTown.oninput = function () {
+    if (this.value.length >= 3) {
+      townsDiv.innerHTML = '';
+      var newList = getItems(this.value);
+      for (var el of newList) {
+        var div = document.createElement('div');
+        div.textContent = el;
+        townsDiv.appendChild(div);
+      }
+    }
+  };
+}
+
+/**
+ * Получает данные из db.json.
+ * @param {String} method 
+ * @param {String} link 
+ * @param {Function} callback 
+ */
 function getData(method, link, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
@@ -21,6 +60,9 @@ function getData(method, link, callback) {
   }
 }
 
+/**
+ * Создаёт список городов.
+ */
 function buildListTowns() {
   getData('GET', ' http://localhost:3000/towns', function (towns) {
     var selectEl = document.getElementById('towns');
@@ -34,30 +76,11 @@ function buildListTowns() {
   });
 }
 
-buildListTowns();
-
-var findTown = document.getElementById('findTown');
-var townsDiv = document.getElementById('towns');
-
-townsDiv.addEventListener('click', function (e) {
-  if (e.target.tagName === 'DIV') {
-    findTown.value = e.target.textContent;
-    townsDiv.innerHTML = '';
-  }
-})
-
-findTown.oninput = function (e) {
-  if (this.value.length >= 3) {
-    townsDiv.innerHTML = '';
-    var newList = getItems(this.value);
-    for (var el of newList) {
-      var div = document.createElement('div');
-      div.textContent = el;
-      townsDiv.appendChild(div);
-    }
-  }
-}
-
+/**
+ * Возвращает списк городов, подходящих под введенные данные.
+ * @param {String} content 
+ * @returns {Array} Список городов подходящих под шаблон content.
+ */
 function getItems(content) {
   var rgxp = new RegExp('^' + content, 'ig');
   var result = [];
