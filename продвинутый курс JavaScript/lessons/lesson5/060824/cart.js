@@ -1,32 +1,37 @@
 
-var cartEl = document.getElementById('cart');
 
 buildList();
 buildCart();
 
 document.getElementById('pageCatalog').addEventListener('click', function (e) {
   var target = e.target;
+  var cartEl = document.getElementById('cart');
+
   switch (target.id) {
     case "btnBuy":
-      console.log(target.dataset.id);
-
-      dataProduct = {
+      var dataProduct = {
         id: target.dataset.id,
         name: target.dataset.name,
-        price: target.dataset.price,
-        quantity: 1
+        price: Number(target.dataset.price),
       };
+      var cartHasEl = document.querySelector(`#cart [data-id="${target.dataset.id}"] `);
 
-      console.log(dataProduct);
-
-      sendData('POST', 'http://localhost:3000/cart', dataProduct);
-      // sendData('PATCH', 'http://localhost:3000/cart', dataProduct);
+      if (cartHasEl) {
+        dataProduct.quantity = Number(cartHasEl.dataset.id) + 1;
+        sendData('PATCH', `http://localhost:3000/cart/${target.dataset.id}`, dataProduct);
+      } else {
+        dataProduct.quantity = 1;
+        sendData('POST', 'http://localhost:3000/cart', dataProduct);
+      }
       break;
     case "btnDel":
-      console.log(target.dataset.id);
+      sendData('DELETE', `http://localhost:3000/cart/${target.dataset.id}`, '');
+
       break;
   }
 
+  cartEl.innerHTML = '';
+  buildCart();
 });
 
 
@@ -46,7 +51,7 @@ function buildList() {
       tdBtnBuy.textContent = 'купить';
       tdBtnBuy.dataset.id = product.id;
       tdBtnBuy.dataset.name = product.name;
-      tdBtnBuy.dataset.price = product.name;
+      tdBtnBuy.dataset.price = product.price;
       tr.appendChild(tdNameEl);
       tr.appendChild(tdPriceEl);
       tr.appendChild(tdBtnBuy);
@@ -76,6 +81,7 @@ function buildCart() {
       tdSquEl.textContent = 'шт.';
       tdBtnDel.textContent = 'x';
       tdBtnDel.dataset.id = product.id;
+      tdBtnDel.dataset.quantity = product.quantity;
 
       tr.appendChild(tdNameEl);
       tr.appendChild(tdPriceEl);
@@ -106,5 +112,32 @@ function getDataFromJson(method, link, callback) {
 }
 
 function sendData(method, link, data) {
+  sendDataToJson(method, link, data, function (answer) {
 
+  });
+
+}
+
+function sendDataToJson(method, link, data, callback) {
+  var xhr = new XMLHttpRequest();
+  if (method === "POST") {
+    xhr.open(method, link);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ id: data.id, name: data.name, price: data.price, quantity: data.quantity }));
+  }
+  if (method === "PATCH") {
+    xhr.open(method, link);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({ quantity: data.quantity }));
+  }
+  if (method === "DELETE") {
+    xhr.open(method, link);
+    xhr.send();
+  }
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      callback(XMLHttpRequest.DONE);
+    }
+  }
 }
