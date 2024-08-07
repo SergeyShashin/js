@@ -1,108 +1,69 @@
-var pageCatalog = document.getElementById('pageCatalog');
-var goodsEl = document.getElementById('goods');
-var cartEl = document.getElementById('cart');
+buildList();
+buildCart();
+setEventHandlers();
 
-getDataFromJson("GET", "http://localhost:3000/goods", function (data) {
-  buildList(data, goodsEl);
-});
 
-renderCart(cartEl);
+function buildList() {
+  getData("GET", "http://localhost:3000/goods", function (data) {
+    var goodsEl = document.getElementById('goods');
 
-pageCatalog.addEventListener('click', function (e) {
-  var target = e.target;
+    for (var product of data) {
+      var tr = document.createElement('tr');
+      var tdNameEl = document.createElement('td');
+      var tdPriceEl = document.createElement('td');
+      var tdBtnBuy = document.createElement('button');
+      tdNameEl.textContent = product.name;
+      tdPriceEl.textContent = product.price;
+      tdBtnBuy.id = 'btnBuy';
+      tdBtnBuy.textContent = 'купить';
+      tdBtnBuy.dataset.id = product.id;
+      tdBtnBuy.dataset.name = product.name;
+      tdBtnBuy.dataset.price = product.price;
+      tr.appendChild(tdNameEl);
+      tr.appendChild(tdPriceEl);
+      tr.appendChild(tdBtnBuy);
 
-  switch (target.id) {
-    case "btnBuy":
-      console.log('click btnBuy');
-      var dataProduct = {
-        id: target.dataset.id,
-        name: target.dataset.name,
-        price: Number(target.dataset.price),
-      };
+      goodsEl.appendChild(tr);
 
-      var cartHasEl = document.querySelector(`#cart [data-id="${target.dataset.id}"] `);
+    }
+  })
 
-      if (cartHasEl) {
-        dataProduct.quantity = Number(cartHasEl.dataset.id) + 1;
-        sendDataToJson('PATCH', `http://localhost:3000/cart/${target.dataset.id}`, dataProduct, function (data) {
-        });
-
-      } else {
-        dataProduct.quantity = 1;
-        sendDataToJson('POST', 'http://localhost:3000/cart', dataProduct, function (data) {
-        });
-
-      }
-      break;
-    case "btnDel":
-      console.log('click btnDel');
-      sendDataToJson('DELETE', `http://localhost:3000/cart/${target.dataset.id}`, '', function (data) {
-      });
-      break;
-  }
-
-});
-
-function renderCart(cartEl) {
-  getDataFromJson("GET", "http://localhost:3000/cart", function (data) {
-    cartEl.innerHTML = '';
-    console.log('Построй корзину.');
-    buildCart(data, cartEl);
-  });
 }
 
-function buildList(data, goodsEl) {
-  for (var product of data) {
-    var tr = document.createElement('tr');
-    var tdNameEl = document.createElement('td');
-    var tdPriceEl = document.createElement('td');
-    var tdBtnBuy = document.createElement('button');
-    tdNameEl.textContent = product.name;
-    tdPriceEl.textContent = product.price;
-    tdBtnBuy.id = 'btnBuy';
-    tdBtnBuy.textContent = 'купить';
-    tdBtnBuy.dataset.id = product.id;
-    tdBtnBuy.dataset.name = product.name;
-    tdBtnBuy.dataset.price = product.price;
-    tr.appendChild(tdNameEl);
-    tr.appendChild(tdPriceEl);
-    tr.appendChild(tdBtnBuy);
+function buildCart() {
+  getData("GET", "http://localhost:3000/cart", function (data) {
+    var cartEl = document.getElementById('cart');
 
-    goodsEl.appendChild(tr);
-  }
+    for (var product of data) {
+      var tr = document.createElement('tr');
+      var tdNameEl = document.createElement('td');
+      var tdPriceEl = document.createElement('td');
+      var tdQuantityEl = document.createElement('td');
+      var tdSquEl = document.createElement('td');
+      var tdBtnDel = document.createElement('button');
+      tdNameEl.textContent = product.name;
+      tdPriceEl.textContent = product.price;
+      tdQuantityEl.textContent = product.quantity;
+      tdBtnDel.id = 'btnDel';
+      tdSquEl.textContent = 'шт.';
+      tdBtnDel.textContent = 'x';
+      tdBtnDel.dataset.id = product.id;
+      tdBtnDel.dataset.quantity = product.quantity;
+
+      tr.appendChild(tdNameEl);
+      tr.appendChild(tdPriceEl);
+      tr.appendChild(tdQuantityEl);
+      tr.appendChild(tdSquEl);
+      tr.appendChild(tdBtnDel);
+
+      cartEl.appendChild(tr);
+
+    }
+  })
+
 }
 
-function buildCart(data, cartEl) {
-  console.log('строим корзину');
-  console.log(data);
-  console.log(cartEl);
-  for (var product of data) {
-    var tr = document.createElement('tr');
-    var tdNameEl = document.createElement('td');
-    var tdPriceEl = document.createElement('td');
-    var tdQuantityEl = document.createElement('td');
-    var tdSquEl = document.createElement('td');
-    var tdBtnDel = document.createElement('button');
-    tdNameEl.textContent = product.name;
-    tdPriceEl.textContent = product.price;
-    tdQuantityEl.textContent = product.quantity;
-    tdBtnDel.id = 'btnDel';
-    tdSquEl.textContent = 'шт.';
-    tdBtnDel.textContent = 'x';
-    tdBtnDel.dataset.id = product.id;
-    tdBtnDel.dataset.quantity = product.quantity;
-
-    tr.appendChild(tdNameEl);
-    tr.appendChild(tdPriceEl);
-    tr.appendChild(tdQuantityEl);
-    tr.appendChild(tdSquEl);
-    tr.appendChild(tdBtnDel);
-
-    cartEl.appendChild(tr);
-  }
-}
-
-function getDataFromJson(method, link, callback) {
+function getData(method, link, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
   xhr.send();
@@ -111,165 +72,30 @@ function getDataFromJson(method, link, callback) {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       var responce = JSON.parse(xhr.responseText);
       callback(responce);
-      xhr.abort();
     }
-  };
+  }
+
 }
 
-function sendDataToJson(method, link, data, callback) {
+function sendData(method, link, data) {
   var xhr = new XMLHttpRequest();
-  if (method === "POST") {
-    xhr.open(method, link);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({ id: data.id, name: data.name, price: data.price, quantity: data.quantity }));
-    console.log('Рендер корзины.');
-    renderCart(cartEl);
-  }
-  if (method === "PATCH") {
-    xhr.open(method, link);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.send(JSON.stringify({ quantity: data.quantity }));
-  }
-  if (method === "DELETE") {
-    xhr.open(method, link);
-    xhr.send();
-  }
+  xhr.open(method, link);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(data);
+}
+
+function setEventHandlers() {
+
+  document.getElementById('cart').addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') {
+      return
+    }
+    sendData('DELETE', `http://localhost:3000/cart/${e.target.dataset.id}`, null);
+
+    document.getElementById('cart').innerHTML = '';
+    buildCart();
+  });
 
 
 }
 
-// buildList();
-// buildCart();
-
-// document.getElementById('pageCatalog').addEventListener('click', function (e) {
-//   var target = e.target;
-
-//   switch (target.id) {
-//     case "btnBuy":
-//       console.log('click btnBuy');
-//       var dataProduct = {
-//         id: target.dataset.id,
-//         name: target.dataset.name,
-//         price: Number(target.dataset.price),
-//       };
-//       var cartHasEl = document.querySelector(`#cart [data-id="${target.dataset.id}"] `);
-
-//       if (cartHasEl) {
-//         dataProduct.quantity = Number(cartHasEl.dataset.id) + 1;
-//         sendData('PATCH', `http://localhost:3000/cart/${target.dataset.id}`, dataProduct);
-//       } else {
-//         dataProduct.quantity = 1;
-//         sendData('POST', 'http://localhost:3000/cart', dataProduct);
-//       }
-
-//       break;
-//     case "btnDel":
-//       console.log('click btnDel');
-//       sendData('DELETE', `http://localhost:3000/cart/${target.dataset.id}`, '');
-
-//       break;
-//   }
-
-//   document.getElementById('cart').innerHTML = '';
-//   buildCart();
-
-// });
-
-// function buildList() {
-//   getDataFromJson("GET", "http://localhost:3000/goods", function (data) {
-//     var goodsEl = document.getElementById('goods');
-
-//     for (var product of data) {
-//       var tr = document.createElement('tr');
-//       var tdNameEl = document.createElement('td');
-//       var tdPriceEl = document.createElement('td');
-//       var tdBtnBuy = document.createElement('button');
-//       tdNameEl.textContent = product.name;
-//       tdPriceEl.textContent = product.price;
-//       tdBtnBuy.id = 'btnBuy';
-//       tdBtnBuy.textContent = 'купить';
-//       tdBtnBuy.dataset.id = product.id;
-//       tdBtnBuy.dataset.name = product.name;
-//       tdBtnBuy.dataset.price = product.price;
-//       tr.appendChild(tdNameEl);
-//       tr.appendChild(tdPriceEl);
-//       tr.appendChild(tdBtnBuy);
-
-//       goodsEl.appendChild(tr);
-
-//     }
-//   })
-
-// }
-
-// function buildCart() {
-//   getDataFromJson("GET", "http://localhost:3000/cart", function (data) {
-//     var cartEl = document.getElementById('cart');
-
-//     for (var product of data) {
-//       var tr = document.createElement('tr');
-//       var tdNameEl = document.createElement('td');
-//       var tdPriceEl = document.createElement('td');
-//       var tdQuantityEl = document.createElement('td');
-//       var tdSquEl = document.createElement('td');
-//       var tdBtnDel = document.createElement('button');
-//       tdNameEl.textContent = product.name;
-//       tdPriceEl.textContent = product.price;
-//       tdQuantityEl.textContent = product.quantity;
-//       tdBtnDel.id = 'btnDel';
-//       tdSquEl.textContent = 'шт.';
-//       tdBtnDel.textContent = 'x';
-//       tdBtnDel.dataset.id = product.id;
-//       tdBtnDel.dataset.quantity = product.quantity;
-
-//       tr.appendChild(tdNameEl);
-//       tr.appendChild(tdPriceEl);
-//       tr.appendChild(tdQuantityEl);
-//       tr.appendChild(tdSquEl);
-//       tr.appendChild(tdBtnDel);
-
-//       cartEl.appendChild(tr);
-
-//     }
-//   })
-
-// }
-
-// function getDataFromJson(method, link, callback) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open(method, link);
-//   xhr.send();
-
-//   xhr.onreadystatechange = function () {
-//     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-//       var responce = JSON.parse(xhr.responseText);
-//       callback(responce);
-//     }
-//   }
-
-// }
-
-// function sendData(method, link, data) {
-//   sendDataToJson(method, link, data, function (answer) {
-//   });
-// }
-
-// function sendDataToJson(method, link, data, callback) {
-//   var xhr = new XMLHttpRequest();
-//   if (method === "POST") {
-//     xhr.open(method, link);
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//     xhr.send(JSON.stringify({ id: data.id, name: data.name, price: data.price, quantity: data.quantity }));
-//   }
-//   if (method === "PATCH") {
-//     xhr.open(method, link);
-//     xhr.setRequestHeader("Content-Type", "application/json");
-//     xhr.send(JSON.stringify({ quantity: data.quantity }));
-//   }
-//   if (method === "DELETE") {
-//     xhr.open(method, link);
-//     xhr.send();
-//   }
-
-
-// }
