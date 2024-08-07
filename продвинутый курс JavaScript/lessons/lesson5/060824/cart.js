@@ -1,7 +1,18 @@
+
 buildList();
 buildCart();
 setEventHandlers();
 
+function writeSumGoodsInHtml(sum) {
+  document.getElementById('sum').innerHTML = '';
+  document.getElementById('sum').textContent = sum;
+}
+
+
+function writeQuantityGoodsInHtml(quantity) {
+  document.getElementById('quantity').innerHTML = '';
+  document.getElementById('quantity').textContent = quantity;
+}
 
 function buildList() {
   getData("GET", "http://localhost:3000/goods", function (data) {
@@ -31,6 +42,9 @@ function buildList() {
 }
 
 function buildCart() {
+  var sumGoods = 0;
+  var quantityGoods = 0;
+
   getData("GET", "http://localhost:3000/cart", function (data) {
     var cartEl = document.getElementById('cart');
 
@@ -56,10 +70,14 @@ function buildCart() {
       tr.appendChild(tdSquEl);
       tr.appendChild(tdBtnDel);
 
-      cartEl.appendChild(tr);
+      sumGoods += product.price * product.quantity;
+      quantityGoods += product.quantity;
 
+      cartEl.appendChild(tr);
     }
-  })
+    writeSumGoodsInHtml(sumGoods);
+    writeQuantityGoodsInHtml(quantityGoods);
+  });
 
 }
 
@@ -82,7 +100,6 @@ function sendData(method, link, data, callback) {
   xhr.open(method, link);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(data);
-  console.log(xhr);
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
       callback(this.statusText);
@@ -111,7 +128,6 @@ function setEventHandlers() {
 
     if (productElInCart) {
       dataToJson.quantity = Number(productElInCart.dataset.quantity) + 1;
-      console.log(Number(productElInCart.dataset.quantity) + 1);
       sendData('PATCH', `http://localhost:3000/cart/${datasetFromElOnClick.id}`, JSON.stringify(dataToJson), function (answer) {
         if (answer === 'OK') {
           document.getElementById('cart').innerHTML = '';
@@ -134,17 +150,28 @@ function setEventHandlers() {
     if (e.target.tagName !== 'BUTTON') {
       return
     }
-    sendData('DELETE', `http://localhost:3000/cart/${e.target.dataset.id}`, null, function (answer) {
-      if (answer === 'OK') {
-        document.getElementById('cart').innerHTML = '';
-        buildCart();
-      }
-    });
-
+    if (e.target.dataset.quantity < 2) {
+      sendData('DELETE', `http://localhost:3000/cart/${e.target.dataset.id}`, null, function (answer) {
+        if (answer === 'OK') {
+          document.getElementById('cart').innerHTML = '';
+          buildCart();
+        }
+      });
+    } else {
+      sendData('PATCH', `http://localhost:3000/cart/${e.target.dataset.id}`, JSON.stringify({ quantity: Number(e.target.dataset.quantity) - 1 }), function (answer) {
+        if (answer === 'OK') {
+          document.getElementById('cart').innerHTML = '';
+          buildCart();
+        }
+      });
+    }
   });
 
-
-
-
 }
+
+
+
+
+
+
 
