@@ -5,10 +5,11 @@ buildCart();
 
 document.getElementById('pageCatalog').addEventListener('click', function (e) {
   var target = e.target;
-  var cartEl = document.getElementById('cart');
+
 
   switch (target.id) {
     case "btnBuy":
+      console.log('click btnBuy');
       var dataProduct = {
         id: target.dataset.id,
         name: target.dataset.name,
@@ -23,15 +24,18 @@ document.getElementById('pageCatalog').addEventListener('click', function (e) {
         dataProduct.quantity = 1;
         sendData('POST', 'http://localhost:3000/cart', dataProduct);
       }
+
       break;
     case "btnDel":
+      console.log('click btnDel');
       sendData('DELETE', `http://localhost:3000/cart/${target.dataset.id}`, '');
 
       break;
   }
 
-  cartEl.innerHTML = '';
+  document.getElementById('cart').innerHTML = '';
   buildCart();
+
 });
 
 
@@ -113,7 +117,6 @@ function getDataFromJson(method, link, callback) {
 
 function sendData(method, link, data) {
   sendDataToJson(method, link, data, function (answer) {
-
   });
 
 }
@@ -135,9 +138,5 @@ function sendDataToJson(method, link, data, callback) {
     xhr.send();
   }
 
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-      callback(XMLHttpRequest.DONE);
-    }
-  }
+
 }
