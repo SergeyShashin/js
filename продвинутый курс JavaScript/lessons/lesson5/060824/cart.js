@@ -82,14 +82,53 @@ function sendData(method, link, data, callback) {
   xhr.open(method, link);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(data);
+  console.log(xhr);
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
       callback(this.statusText);
     }
   }
 }
 
 function setEventHandlers() {
+
+  document.getElementById('goods').addEventListener('click', function (e) {
+    if (e.target.tagName !== 'BUTTON') {
+      return
+    }
+
+    var datasetFromElOnClick = e.target.dataset;
+    var productElInCart = document.querySelector(`#cart [data-id="${datasetFromElOnClick.id}"]`);
+
+
+
+    var dataToJson = {
+      id: datasetFromElOnClick.id,
+      name: datasetFromElOnClick.name,
+      price: datasetFromElOnClick.price,
+      quantity: 1
+    };
+
+    if (productElInCart) {
+      dataToJson.quantity = Number(productElInCart.dataset.quantity) + 1;
+      console.log(Number(productElInCart.dataset.quantity) + 1);
+      sendData('PATCH', `http://localhost:3000/cart/${datasetFromElOnClick.id}`, JSON.stringify(dataToJson), function (answer) {
+        if (answer === 'OK') {
+          document.getElementById('cart').innerHTML = '';
+          buildCart();
+        }
+      });
+    } else {
+      sendData('POST', `http://localhost:3000/cart/`, JSON.stringify(dataToJson), function (answer) {
+        if (answer === 'Created') {
+          document.getElementById('cart').innerHTML = '';
+          buildCart();
+        }
+      });
+    }
+
+
+  });
 
   document.getElementById('cart').addEventListener('click', function (e) {
     if (e.target.tagName !== 'BUTTON') {
@@ -103,6 +142,8 @@ function setEventHandlers() {
     });
 
   });
+
+
 
 
 }
