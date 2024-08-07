@@ -77,11 +77,16 @@ function getData(method, link, callback) {
 
 }
 
-function sendData(method, link, data) {
+function sendData(method, link, data, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.send(data);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      callback(this.statusText);
+    }
+  }
 }
 
 function setEventHandlers() {
@@ -90,10 +95,13 @@ function setEventHandlers() {
     if (e.target.tagName !== 'BUTTON') {
       return
     }
-    sendData('DELETE', `http://localhost:3000/cart/${e.target.dataset.id}`, null);
+    sendData('DELETE', `http://localhost:3000/cart/${e.target.dataset.id}`, null, function (answer) {
+      if (answer === 'OK') {
+        document.getElementById('cart').innerHTML = '';
+        buildCart();
+      }
+    });
 
-    document.getElementById('cart').innerHTML = '';
-    buildCart();
   });
 
 
