@@ -12,13 +12,28 @@
     },
     {
       "content": "Приятный отзыв.",
-      "class": "declined",
+      "class": "approved",
       "id": 3
     },
     {
       "content": "Приятный отзыв.",
-      "class": "declined",
+      "class": "approved",
       "id": 4
+    },
+    {
+      "content": "Приятный отзыв.",
+      "class": "approved",
+      "id": 5
+    },
+    {
+      "content": "Простой отзыв.",
+      "class": "approved",
+      "id": 6
+    },
+    {
+      "content": "Новый отзыв.",
+      "class": "approved",
+      "id": 7
     }
   ]
 }

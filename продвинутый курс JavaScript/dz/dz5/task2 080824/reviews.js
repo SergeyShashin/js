@@ -55,9 +55,11 @@ e) модуль подчиняется следующим соглашениям
         },
         success: alert('Ваш отзыв был передан на модерацию'),
       });
+      renderReviews();
     });
 
     function renderReviews() {
+      $('#containerReviews').empty();
       $.ajax({
         url: 'http://localhost:3000/reviews',
         method: 'GET',
@@ -65,13 +67,57 @@ e) модуль подчиняется следующим соглашениям
           var containerEl = document.getElementById('containerReviews');
           for (var review of result) {
             var p = document.createElement('p');
+            var btnApprove = document.createElement('button');
+            var btnDecline = document.createElement('button');
+            btnApprove.textContent = 'Approve';
+            btnApprove.dataset.id = review.id;
+            btnApprove.className = 'btnApprove';
+            btnDecline.textContent = 'Decline';
+            btnDecline.dataset.id = review.id;
+            btnDecline.className = 'btnDecline';
             p.textContent = review.content;
             p.className = review.class;
             containerEl.appendChild(p);
+            containerEl.appendChild(btnApprove);
+            containerEl.appendChild(btnDecline);
           }
         },
       });
     }
+
+    $('#containerReviews').on('click', function (e) {
+      var target = e.target;
+      var dataToJson;
+
+      if (target.tagName !== 'BUTTON') {
+        return
+      }
+
+      if (target.className === 'btnApprove') {
+        dataToJson = {
+          id: target.dataset.id,
+          class: "approved"
+        }
+      }
+
+      if (target.className === 'btnDecline') {
+        dataToJson = {
+          id: target.dataset.id,
+          class: "declined"
+        }
+      }
+
+      $.ajax({
+        method: 'PATCH',
+        url: `http://localhost:3000/reviews/${target.dataset.id}`,
+        data: dataToJson,
+        success: function (result) {
+          console.log(result);
+          renderReviews();
+        }
+      });
+
+    })
 
   })
 })(jQuery)
