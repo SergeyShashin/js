@@ -62,9 +62,12 @@ e) модуль подчиняется следующим соглашениям
         url: 'http://localhost:3000/reviews',
         method: 'GET',
         success: function (result) {
-          console.log(result);
+          var containerEl = document.getElementById('containerReviews');
           for (var review of result) {
-            $('#containerReviews').add('</p>').text(review.content);
+            var p = document.createElement('p');
+            p.textContent = review.content;
+            p.className = review.class;
+            containerEl.appendChild(p);
           }
         },
       });
