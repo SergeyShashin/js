@@ -69,17 +69,22 @@ e) модуль подчиняется следующим соглашениям
             var p = document.createElement('p');
             var btnApprove = document.createElement('button');
             var btnDecline = document.createElement('button');
+            var btnDelete = document.createElement('button');
             btnApprove.textContent = 'Approve';
             btnApprove.dataset.id = review.id;
             btnApprove.className = 'btnApprove';
             btnDecline.textContent = 'Decline';
             btnDecline.dataset.id = review.id;
             btnDecline.className = 'btnDecline';
+            btnDelete.textContent = 'Delete';
+            btnDelete.dataset.id = review.id;
+            btnDelete.className = 'btnDelete';
             p.textContent = review.content;
             p.className = review.class;
             containerEl.appendChild(p);
             containerEl.appendChild(btnApprove);
             containerEl.appendChild(btnDecline);
+            containerEl.appendChild(btnDelete);
           }
         },
       });
@@ -93,6 +98,17 @@ e) модуль подчиняется следующим соглашениям
         return
       }
 
+      if (target.className === 'btnDelete') {
+        $.ajax({
+          method: 'DELETE',
+          url: `http://localhost:3000/reviews/${target.dataset.id}`,
+          success: function (result) {
+            renderReviews();
+          }
+        });
+
+        return
+      }
       if (target.className === 'btnApprove') {
         dataToJson = {
           id: target.dataset.id,

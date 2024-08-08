@@ -29,11 +29,6 @@
       "content": "Простой отзыв.",
       "class": "approved",
       "id": 6
-    },
-    {
-      "content": "Новый отзыв.",
-      "class": "approved",
-      "id": 7
     }
   ]
 }
