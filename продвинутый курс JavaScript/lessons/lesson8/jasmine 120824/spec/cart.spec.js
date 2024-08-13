@@ -1,13 +1,31 @@
-describe('Function: sum', function () {
-  it('should return sum of 2+3=5', function () {
-    expect(sum(2, 3)).toBe(5);
+describe('Function: cart', function () {
+  var cart = new Cart();
+
+  var item = {
+    price: 8
+  };
+
+  var item2 = {
+    price: 64
+  };
+
+  var item3 = {
+    price: 192
+  };
+
+  cart.addItem(item);
+  cart.addItem(item2);
+  cart.addItem(item3);
+
+  console.log(cart.items.length);
+
+  it('item length to be equal 3', function () {
+    expect(cart.items.length).toBe(3);
   });
 
-  it('should return sum of -9+17=8', function () {
-    expect(sum(-9, 17)).toBe(8);
+  it('item total to be equal 264', function () {
+    expect(cart.total()).toBe(264);
   });
 
-  it('should return sum of -4+4=8', function () {
-    expect(sum(-4, 4, true)).toBe(8);
-  });
+  
 });
