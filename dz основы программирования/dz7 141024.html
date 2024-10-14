@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let riddles = [
+      {
+        question: 'Это 1-ый вопрос?',
+        correctAnswer: true
+      },
+      {
+        question: 'Это 2-ой вопрос?',
+        correctAnswer: true
+      },
+      {
+        question: 'Это 3-ий вопрос?',
+        correctAnswer: true
+      },
+    ];
+    let counterCorrectAnswer = 0;
+
+    for (let el of riddles) {
+      let answer = confirm(el.question);
+      answer === el.correctAnswer ? counterCorrectAnswer++ : '';
+    }
+
+    alert(`Правильных ответов ${counterCorrectAnswer}`);
+  </script>
+</body>
+
+</html>
