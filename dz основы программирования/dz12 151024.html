@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DZ12</title>
+</head>
+
+<body>
+  <script>
+    let player = [getCard(), getCard()];
+    let dealer = [getCard(), getCard()];
+
+    function getRandomNumInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getCard() {
+      return [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'T'][getRandomNumInt(0, 8)];
+    }
+
+    function getSum(arr) {
+      let sum = 0;
+      let tenPoints = [10, 'J', 'Q', 'K'];
+      for (let el of arr) {
+        if (sum > 11 && el === 'T') {
+          sum += 1;
+        } else if (tenPoints.includes(el)) {
+          sum += 10;
+        } else if (el === 'T') {
+          sum += 11;
+        } else {
+          sum += el;
+        }
+      }
+      return sum;
+    }
+
+    console.log(`Карты игрока: [${player}]. Сумма карт игрока: [${getSum(player)}]. \nКарты дилера: [${dealer}]. Сумма карт дилера: [${getSum(dealer)}].`);
+
+  </script>
+</body>
+
+</html>
