@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DZ13</title>
+</head>
+
+<body>
+  <script>
+    let player = [];
+    let dealer = [];
+
+    startGame();
+    playerMoves();
+    dealerMoves();
+
+    inTheRange(getSum(player)) ? getResult() : '';
+
+    function getResult() {
+      let resultPlayer = getSum(player);
+      let resultDealer = getSum(dealer);
+
+      if (isWin(resultDealer)) {
+        sayWin21('дилера');
+        return
+      } else if (!inTheRange(resultDealer)) {
+        sayWin('игрока');
+        return
+      } else if (resultPlayer > resultDealer) {
+        sayWin('игрока');
+        return
+      } else {
+        sayWin('дилера');
+        return
+      }
+
+    }
+
+    function sayWin(role) {
+      alert(`У ${role} результат лучше.\n${getStatus()}`);
+    }
+
+    function dealerMoves() {
+      while (getSum(dealer) < 16) {
+        dealer.push(getCard());
+      }
+    }
+
+    function playerMoves() {
+      if (isWin(getSum(player))) {
+        sayWin21('игрока');
+        return
+      }
+
+      if (isWin(getSum(dealer))) {
+        sayWin21('дилера');
+        return
+      }
+
+      while (confirm(getStatus() + '\nЕщё карту?')) {
+        player.push(getCard());
+        getStatus();
+
+        if (!inTheRange(getSum(player))) {
+          sayOutOfrange();
+          return;
+        }
+
+        if (isWin(getSum(player))) {
+          sayWin21('игрока');
+          return;
+        }
+      }
+    }
+
+    function startGame() {
+      player.push(getCard(), getCard());
+      dealer.push(getCard());
+    }
+
+    function sayOutOfrange() {
+      alert(`Перебор.\n${getStatus()}`);
+
+    }
+
+    function sayWin21(role) {
+      alert(`У ${role} 21. ${getStatus()}`);
+    }
+
+    function isWin(sum) {
+      return sum === 21;
+    }
+
+    function inTheRange(sum) {
+      return sum < 22;
+    }
+
+    function getRandomNumInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getCard() {
+      return [6, 7, 8, 9, 10, 'J', 'Q', 'K', 'T'][getRandomNumInt(0, 8)];
+    }
+
+    function getSum(arr) {
+      let sum = 0;
+      let tenPoints = [10, 'J', 'Q', 'K'];
+      for (let el of arr) {
+        if (sum > 10 && el === 'T') {
+          sum += 1;
+        } else if (tenPoints.includes(el)) {
+          sum += 10;
+        } else if (el === 'T') {
+          sum += 11;
+        } else {
+          sum += el;
+        }
+      }
+      return sum;
+    }
+
+    function getStatus() {
+      return `Карты игрока: [${player}]. Сумма карт игрока: [${getSum(player)}]. \nКарты дилера: [${dealer}]. Сумма карт дилера: [${getSum(dealer)}].`;
+    }
+
+
+  </script>
+</body>
+
+</html>
