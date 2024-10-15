@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DZ10</title>
+</head>
+
+<body>
+  <script>
+    let sum = Number(prompt('Сумма?', 100000));
+    let percent = Number(prompt('Процент?', 10)) / 100;
+    let years = Number(prompt('Сколько лет?', 10));
+
+    let result = sum;
+
+    for (let i = 0; i < years; i++) {
+      result += result * percent;
+      console.log(`Сумма: ${Math.round(result)}.`);
+    }
+
+
+
+  </script>
+
+</body>
+
+</html>
