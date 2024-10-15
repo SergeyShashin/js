@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DZ11</title>
+</head>
+
+<body>
+  <script>
+    let quantityRounds = 1000000;
+    let arrRandom = [];
+    let maxContinuosDropRed = 0;
+    let continuosRed = 0;
+
+    for (let i = 0; i < quantityRounds; i++) {
+      let randomNum = Math.round(Math.random() * 2);
+
+      if (randomNum === 2) {
+        continuosRed++;
+        continuosRed > maxContinuosDropRed ? maxContinuosDropRed = continuosRed : '';
+      } else {
+        continuosRed = 0;
+      }
+
+      arrRandom.push(randomNum);
+    }
+
+    console.log(arrRandom);
+    console.log(maxContinuosDropRed);
+
+  </script>
+</body>
+
+</html>
