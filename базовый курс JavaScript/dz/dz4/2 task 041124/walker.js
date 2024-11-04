@@ -70,7 +70,6 @@ const game = {
       }
 
       let nextPoint = this.player.getNexPoint(direction);
-      console.log(nextPoint[0] + '_' + nextPoint[1]);
 
       if (nextPoint[0] > -1 && nextPoint[1] > -1 && nextPoint[0] < this.settings.colsCount && nextPoint[1] < this.settings.rowsCount) {
         this.player.move(nextPoint[0], nextPoint[1]);
