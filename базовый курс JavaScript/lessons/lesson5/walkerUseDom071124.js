@@ -5,7 +5,8 @@ const settings = {
   rowsCount: 10,
   startPostionX: 5,
   startPostionY: 5,
-  startDirection: 'up'
+  startDirection: 'right',
+  speed: 5
 };
 
 const player = {
@@ -19,8 +20,36 @@ const player = {
     this.direction = startDirection;
   },
 
-  getNextPoint() { },
-  makeMove() { }
+  getNextPoint() {
+    const point = {
+      x: this.x,
+      y: this.y
+    };
+
+    switch (this.direction) {
+      case 'up':
+        point.y--;
+        break;
+      case 'down':
+        point.y++;
+        break;
+      case 'right':
+        point.x++;
+        break;
+      case 'left':
+        point.x--;
+        break;
+    }
+
+    return point;
+  },
+  move(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
+  setDirection(direction) {
+    this.direction = direction;
+  }
 };
 
 const game = {
@@ -28,9 +57,20 @@ const game = {
   player,
   gameEl: null,
   celsElements: null,
+  interval: null,
 
   run() {
     this.init();
+    this.setKeyDownHandler();
+    this.interval = setInterval(() => {
+      let nextPointPlayer = this.player.getNextPoint();
+
+      if (this.canMove(nextPointPlayer)) {
+        this.player.move(nextPointPlayer);
+        this.render();
+      }
+
+    }, 1000 / this.settings.speed);
   },
 
   init() {
@@ -46,13 +86,46 @@ const game = {
           td.className = 'player';
         }
         tr.appendChild(td);
+        this.celsElements[`col${col}_row${row}`] = td;
       }
       this.gameEl.appendChild(tr);
     }
+  },
 
-    console.log(this.celsElements);
+  render() {
+    let playerEl = document.querySelector('.player');
+    playerEl.className = '';
+    this.celsElements[`col${this.player.x}_row${this.player.y}`].className = 'player';
+  },
 
+  canMove(point) {
+    return point.x > -1 && point.y > -1 && point.x < this.settings.colsCount && point.y < this.settings.rowsCount;
+  },
+
+  setKeyDownHandler() {
+    document.addEventListener('keydown', (e) => {
+      switch (e.code) {
+        case 'Numpad8':
+        case 'ArrowUp':
+          this.player.setDirection('up');
+          break;
+        case 'Numpad5':
+        case 'ArrowDown':
+          this.player.setDirection('down');
+          break;
+        case 'Numpad6':
+        case 'ArrowRight':
+          this.player.setDirection('right');
+          break;
+        case 'Numpad4':
+        case 'ArrowLeft':
+          this.player.setDirection('left');
+          break;
+      }
+
+    })
   }
+
 }
 
 game.run();
