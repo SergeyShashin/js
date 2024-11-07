@@ -24,20 +24,48 @@ javascript.
 */
 
 const rules = {
-  firstName: [{ nameMethod: 'length', args: [1, 50] }],
-  phone: [{ nameMethod: 'length', args: [11, 0] }, { nameMethod: typeContent, args: ['number'] }],
-  password: [{ nameMethod: 'length', args: [5, 50] }],
-  rptPassword: [{ nameMethod: 'mustBeEqual', args: ['password'] }]
+  firstName: [{ nameMethod: 'length', args: ['>', 1] }, { nameMethod: 'length', args: ['<', 50] }],
+  // phone: [{ nameMethod: 'length', args: ['===', 11] }, { nameMethod: 'typeContent', args: ['number'] }],
+  // password: [{ nameMethod: 'length', args: ['>', 5] }, { nameMethod: 'length', args: ['<', 50] }],
+  // rptPassword: [{ nameMethod: 'mustBeEqual', args: ['password'] }],
+};
+
+const messages = {
+  firstName: 'Имя - должно содержать как минимум 1 символ, не более 50 символов.',
+  phone: 'Телефон - должен содержать 11 цифр, не больше, не меньше.',
+  password: 'Пароль - минимум 5 символов, максимум 50',
+  rptPassword: 'Повтор пароля должен совпадать с паролем.',
 };
 
 const methods = {
-  length(content, conditions){
 
+  length(content, conditions) {
+
+    let contentLength = content.length;
+    let sign = conditions[0];
+    let number = conditions[1];
+
+    switch (sign) {
+      case '>':
+        return contentLength > number;
+      case '<':
+        return contentLength < number;
+      case '>=':
+        return contentLength >= number;
+      case '<=':
+        return contentLength <= number;
+      case '===':
+        return contentLength === number;
+    }
   }
 
 };
 
 document.getElementById('sendForm').onclick = () => {
   let formEl = document.getElementById('form');
-  console.dir(formEl);
+  let inputs = formEl.querySelectorAll('input');
+
+  for (let input of inputs) {
+    console.log(input);
+  }
 }
