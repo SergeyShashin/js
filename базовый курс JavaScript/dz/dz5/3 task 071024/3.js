@@ -24,10 +24,10 @@ javascript.
 */
 
 const rules = {
-  firstName: [{ nameMethod: 'length', args: ['>', 1] }, { nameMethod: 'length', args: ['<', 50] }],
-  // phone: [{ nameMethod: 'length', args: ['===', 11] }, { nameMethod: 'typeContent', args: ['number'] }],
-  // password: [{ nameMethod: 'length', args: ['>', 5] }, { nameMethod: 'length', args: ['<', 50] }],
-  // rptPassword: [{ nameMethod: 'mustBeEqual', args: ['password'] }],
+  firstName: [{ nameMethod: 'length', args: ['>', 0] }, { nameMethod: 'length', args: ['<', 50] }],
+  phone: [{ nameMethod: 'length', args: ['===', 11] }, { nameMethod: 'typeContentNumber', args: [] }],
+  password: [{ nameMethod: 'length', args: ['>', 5] }, { nameMethod: 'length', args: ['<', 50] }],
+  rptPassword: [{ nameMethod: 'mustBeEqual', args: ['password'] }],
 };
 
 const messages = {
@@ -57,6 +57,14 @@ const methods = {
       case '===':
         return contentLength === number;
     }
+  },
+
+  typeContentNumber(content) {
+    return typeof Number(content) === 'number';
+  },
+
+  mustBeEqual(content, idEl) {
+    return content === document.getElementById(idEl).value;
   }
 
 };
@@ -66,6 +74,25 @@ document.getElementById('sendForm').onclick = () => {
   let inputs = formEl.querySelectorAll('input');
 
   for (let input of inputs) {
-    console.log(input);
+    clearError(input);
+    if (rules[input.id]) {
+      for (let rule of rules[input.id]) {
+        let resultCheck = methods[rule.nameMethod](input.value, rule.args);
+        if (!resultCheck) {
+          console.error(messages[input.id]);
+          input.className = 'error';
+          let p = document.createElement('p');
+          p.textContent = messages[input.id];
+          input.parentElement.appendChild(p);
+          return
+        }
+      }
+    }
+  }
+
+  function clearError(el) {
+    el.className = '';
+    let errorMessges = el.parentElement.querySelector('p');
+    errorMessges ? errorMessges.remove() : '';
   }
 }
