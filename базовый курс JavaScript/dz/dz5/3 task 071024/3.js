@@ -69,7 +69,9 @@ const methods = {
 
 };
 
-document.getElementById('sendForm').onclick = () => {
+document.getElementById('sendForm').onclick = (e) => {
+  e.preventDefault();
+
   let formEl = document.getElementById('form');
   let inputs = formEl.querySelectorAll('input');
 
@@ -89,6 +91,7 @@ document.getElementById('sendForm').onclick = () => {
       }
     }
   }
+  console.dir(formEl);
 
   function clearError(el) {
     el.className = '';
