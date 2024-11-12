@@ -22,35 +22,27 @@
       cursor: pointer;
     }
 
-    .gallery-wrap {
+    #gallery-wrap {
+      position: relative;
+      background: lightseagreen;
+
+    }
+
+    #btnClose {
       position: absolute;
-      top: 0;
-      height: 100vh;
+      top: 20px;
+      right: 20px;
+      width: 20px;
+    }
+
+    #monitor {
       width: 100%;
-      background: darkcyan;
-      opacity: 0.5;
-    }
-
-    .btn-close {
-      background: none;
-      border: none;
-      margin-left: 10px;
-    }
-
-    .btn-close img {
-      width: 30px;
-    }
-
-    .img-btn-wrap {
-      width: 100%;
-      position: absolute;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: center;
     }
 
-    .img-max {
-      width: 500px;
+    #openImg {
+      width: 90%;
     }
   </style>
   <title>Gallery</title>
@@ -63,13 +55,6 @@
     <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
     <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
   </div>
-  <!-- <div class="gallery-wrap"></div>
-    <div id = "imgBtnWrap" class="img-btn-wrap">
-      <img class="img-max" src="img/max/1.jpg" alt="img/max/1.jpg">
-      <button class="btn-close" type="button">
-        <img src="img/gallery/close.png" alt="img/gallery/close.png">
-      </button>
-    </div> -->
 
   <script src="gallery.js"></script>
 </body>
