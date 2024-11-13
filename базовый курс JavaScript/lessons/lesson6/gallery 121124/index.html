@@ -7,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <style>
     body {
+      text-align: center;
       position: relative;
       margin-top: 0;
       margin-bottom: 0;
@@ -15,7 +16,8 @@
     }
 
     .gallery {
-      text-align: center;
+      position: relative;
+      z-index: 0;
     }
 
     .gallery img:hover {
@@ -23,26 +25,35 @@
     }
 
     #gallery-wrap {
-      position: relative;
-      background: lightseagreen;
+      position: absolute;
+      z-index: 1;
+      top: 0px;
+      height: 100vh;
 
+      width: 100%;
+      background: rgba(161, 21, 207, 0.5);
+      display: flex;
+      align-items: end;
     }
 
     #btnClose {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 10px;
+      right: 10px;
       width: 20px;
+    }
+
+    #btnClose:hover {
+      cursor: pointer;
     }
 
     #monitor {
       width: 100%;
-      display: flex;
-      flex-direction: center;
+      text-align: center;
     }
 
     #openImg {
-      width: 90%;
+      height: 75vh;
     }
   </style>
   <title>Gallery</title>

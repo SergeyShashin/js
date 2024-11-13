@@ -55,6 +55,7 @@ const gallery = {
     imgBtnClose.src = this.settings.pathToImgBtnClose;
     imgBtnClose.id = this.settings.btnCloseEl;
     containerEl.appendChild(imgBtnClose);
+    imgBtnClose.addEventListener('click', () => this.closeScrinContainer(containerEl));
 
     let monitorEl = document.createElement('div');
     monitorEl.id = 'monitor';
@@ -63,7 +64,10 @@ const gallery = {
     let fullImg = new Image();
     fullImg.id = this.settings.openImgEl;
     monitorEl.appendChild(fullImg);
+  },
 
+  closeScrinContainer(containerEl) {
+    containerEl.remove();
   }
 
 }
