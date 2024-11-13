@@ -20,6 +20,7 @@ const gallery = {
   settings,
   imagesEls: [],
   imagesPathsToFullImg: [],
+  indexOpenImg: null,
 
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
@@ -47,11 +48,14 @@ const gallery = {
   },
 
   openImg(pathFullImg) {
-
+    this.indexOpenImg = this.imagesPathsToFullImg.indexOf(pathFullImg);
     this.getScreenContainer();
     let openImgEl = document.getElementById(this.settings.openImgEl);
     openImgEl.src = pathFullImg;
-    openImgEl.onerror = () => openImgEl.src = this.settings.pathToImgNothing;
+    openImgEl.onerror = () => {
+      openImgEl.src = this.settings.pathToImgNothing;
+      this.indexOpenImg = this.imagesPathsToFullImg.indexOf(pathFullImg);
+    };
   },
 
   getScreenContainer() {
@@ -96,6 +100,7 @@ const gallery = {
     arrowLeftEl.textContent = '<';
     arrowLeftEl.id = 'arrowLeft';
     containerEl.appendChild(arrowLeftEl);
+    arrowLeftEl.addEventListener('click', () => this.moveLeftHandler());
   },
 
   closeScrinContainer(containerEl) {
@@ -103,7 +108,17 @@ const gallery = {
   },
 
   moveRightHandler() {
+    this.indexOpenImg === this.imagesPathsToFullImg.length - 1
+      ? this.indexOpenImg = 0
+      : this.indexOpenImg++;
+    this.openImg(this.imagesPathsToFullImg[this.indexOpenImg]);
+  },
 
+  moveLeftHandler() {
+    this.indexOpenImg === 0
+      ? this.indexOpenImg = this.imagesPathsToFullImg.length - 1
+      : this.indexOpenImg--;
+    this.openImg(this.imagesPathsToFullImg[this.indexOpenImg]);
   }
 }
 
