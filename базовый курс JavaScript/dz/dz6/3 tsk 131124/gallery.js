@@ -14,14 +14,12 @@ const settings = {
   pathToImgNothing: 'img/gallery/nothing.png',
   btnCloseEl: 'btnClose',
   openImgEl: 'openImg',
-  nextPathImg: '',
-  prevPathImg: '',
-  lastPathImg: '',
-  firstPathImg: ''
 };
 
 const gallery = {
   settings,
+  imagesEls: [],
+  imagesPathsToFullImg: [],
 
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
@@ -29,7 +27,14 @@ const gallery = {
   },
 
   run() {
-    document.getElementById(this.settings.galleryEl).addEventListener('click', e => this.handlerClick(e));
+    let galleryEl = document.getElementById(this.settings.galleryEl);
+    this.imagesEls = galleryEl.querySelectorAll('img');
+
+    for (let el of this.imagesEls) {
+      this.imagesPathsToFullImg.push(el.dataset.fullImageUrl);
+    }
+
+    galleryEl.addEventListener('click', e => this.handlerClick(e));
   },
 
   handlerClick(e) {
@@ -39,10 +44,6 @@ const gallery = {
 
     this.openImg(e.target.dataset.fullImageUrl);
 
-    this.settings.prevPathImg = e.target.previousElementSibling.dataset.fullImageUrl;
-    this.settings.nextPathImg = e.target.nextElementSibling.dataset.fullImageUrl;
-    this.settings.firstPathImg = e.target.parentElement.firstElementChild.dataset.fullImageUrl;
-    this.settings.lastPathImg = e.target.parentElement.lastElementChild.dataset.fullImageUrl;
   },
 
   openImg(pathFullImg) {
@@ -102,8 +103,7 @@ const gallery = {
   },
 
   moveRightHandler() {
-    let nextImg = this.settings.nextPathImg ? this.settings.nextPathImg : this.settings.firstPathImg;
-    this.openImg(nextImg);
+
   }
 }
 
