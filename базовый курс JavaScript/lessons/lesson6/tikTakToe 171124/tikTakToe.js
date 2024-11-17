@@ -72,23 +72,35 @@ const game = {
   },
 
   isWin() {
-    return this.map[0][0] === 'X' && this.map[0][1] === 'X' && this.map[0][2] === 'X' ||
-      this.map[1][0] === 'X' && this.map[1][1] === 'X' && this.map[1][2] === 'X' ||
-      this.map[2][0] === 'X' && this.map[2][1] === 'X' && this.map[2][2] === 'X' ||
-      this.map[0][0] === 'X' && this.map[1][1] === 'X' && this.map[2][2] === 'X' ||
-      this.map[0][2] === 'X' && this.map[1][1] === 'X' && this.map[2][0] === 'X' ||
-      this.map[0][0] === 'X' && this.map[1][0] === 'X' && this.map[2][0] === 'X' ||
-      this.map[0][1] === 'X' && this.map[1][1] === 'X' && this.map[2][1] === 'X' ||
-      this.map[0][2] === 'X' && this.map[1][2] === 'X' && this.map[2][2] === 'X' ||
+    return this.isLineWin(this.map[0][0], this.map[0][1], this.map[0][2]) ||
+      this.isLineWin(this.map[1][0], this.map[1][1], this.map[1][2]) ||
+      this.isLineWin(this.map[2][0], this.map[2][1], this.map[2][2]) ||
+      this.isLineWin(this.map[0][0], this.map[1][1], this.map[2][2]) ||
+      this.isLineWin(this.map[0][2], this.map[1][1], this.map[2][0]) ||
+      this.isLineWin(this.map[0][0], this.map[1][0], this.map[2][0]) ||
+      this.isLineWin(this.map[0][1], this.map[1][1], this.map[2][1]) ||
+      this.isLineWin(this.map[0][2], this.map[1][2], this.map[2][2])
+    // this.map[0][0] === 'X' && this.map[0][1] === 'X' && this.map[0][2] === 'X' ||
+    //   this.map[1][0] === 'X' && this.map[1][1] === 'X' && this.map[1][2] === 'X' ||
+    //   this.map[2][0] === 'X' && this.map[2][1] === 'X' && this.map[2][2] === 'X' ||
+    //   this.map[0][0] === 'X' && this.map[1][1] === 'X' && this.map[2][2] === 'X' ||
+    //   this.map[0][2] === 'X' && this.map[1][1] === 'X' && this.map[2][0] === 'X' ||
+    //   this.map[0][0] === 'X' && this.map[1][0] === 'X' && this.map[2][0] === 'X' ||
+    //   this.map[0][1] === 'X' && this.map[1][1] === 'X' && this.map[2][1] === 'X' ||
+    //   this.map[0][2] === 'X' && this.map[1][2] === 'X' && this.map[2][2] === 'X' ||
 
-      this.map[0][0] === '0' && this.map[0][1] === '0' && this.map[0][2] === '0' ||
-      this.map[1][0] === '0' && this.map[1][1] === '0' && this.map[1][2] === '0' ||
-      this.map[2][0] === '0' && this.map[2][1] === '0' && this.map[2][2] === '0' ||
-      this.map[0][0] === '0' && this.map[1][1] === '0' && this.map[2][2] === '0' ||
-      this.map[0][2] === '0' && this.map[1][1] === '0' && this.map[2][0] === '0' ||
-      this.map[0][0] === '0' && this.map[1][0] === '0' && this.map[2][0] === '0' ||
-      this.map[0][1] === '0' && this.map[1][1] === '0' && this.map[2][1] === '0' ||
-      this.map[0][2] === '0' && this.map[1][2] === '0' && this.map[2][2] === '0';
+    // this.map[0][0] === '0' && this.map[0][1] === '0' && this.map[0][2] === '0' ||
+    // this.map[1][0] === '0' && this.map[1][1] === '0' && this.map[1][2] === '0' ||
+    // this.map[2][0] === '0' && this.map[2][1] === '0' && this.map[2][2] === '0' ||
+    // this.map[0][0] === '0' && this.map[1][1] === '0' && this.map[2][2] === '0' ||
+    // this.map[0][2] === '0' && this.map[1][1] === '0' && this.map[2][0] === '0' ||
+    // this.map[0][0] === '0' && this.map[1][0] === '0' && this.map[2][0] === '0' ||
+    // this.map[0][1] === '0' && this.map[1][1] === '0' && this.map[2][1] === '0' ||
+    // this.map[0][2] === '0' && this.map[1][2] === '0' && this.map[2][2] === '0';
+  },
+
+  isLineWin(a, b, c) {
+    return a + b + c === 'XXX' || a + b + c === '000'
   },
 
   sayWin() {
