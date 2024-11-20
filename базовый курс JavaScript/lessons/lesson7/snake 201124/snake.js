@@ -89,7 +89,8 @@ const game = {
       }
       return
     }
+    console.log('Можно играть.');
   }
 };
 
-window.onload = () => game.init({ speed: 500 });
+window.onload = () => game.init({ speed: 7 });
