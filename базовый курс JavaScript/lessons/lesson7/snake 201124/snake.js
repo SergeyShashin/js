@@ -55,23 +55,74 @@ const config = {
 };
 
 const map = {
+  gameEl: null,
   cells: null,
   usedCells: null,
+  init(rowsCount, colsCount) {
+    this.gameEl = document.getElementById('snake-game');
+    this.cells = {};
+    this.usedCells = [];
+
+    for (let row = 0; row < rowsCount; row++) {
+      let tr = document.createElement('tr');
+
+      for (let col = 0; col < colsCount; col++) {
+        let td = document.createElement('td');
+        this.cells[`x${col}_y${row}`] = td;
+        tr.appendChild(td);
+      }
+
+      this.gameEl.appendChild(tr);
+    }
+
+    console.log(this.cells);
+  }
 };
 
 const food = {
   x: null,
   y: null,
+  init(positon) {
+    this.x = positon.x;
+    this.y = positon.y
+  },
+  getPosition() {
+    return { x: this.x, y: this.y }
+  }
 };
 
 const snake = {
   body: null,
   direction: null,
-  lastDirection: null
+  lastDirection: null,
+
+  init(startPosition, direction) {
+    this.body = [{ x: startPosition.x, y: startPosition.y }];
+    this.direction = direction;
+    this.lastDirection = direction;
+  },
+  getBody() {
+    return this.body
+  }
 };
 
-const status = {
-  condition: null
+const statusGame = {
+  condition: null,
+  setPlay() {
+    this.condition = 'play';
+  },
+  setSop() {
+    this.condition = 'stop';
+  },
+  setFinish() {
+    this.condition = 'finish';
+  },
+  isPlay() {
+    return this.condition === 'play';
+  },
+  isStop() {
+    return this.condition === 'stop';
+  },
 };
 
 const game = {
@@ -79,18 +130,78 @@ const game = {
   map,
   food,
   snake,
-  status,
+  statusGame,
+  playOrStopBtnEl: null,
+  newGameBtnEl: null,
+  numberInterval: null,
   init(userSettings = {}) {
     this.config.init(userSettings);
     let validation = this.config.validate();
+
     if (!validation.isValid) {
       for (let error of validation.errors) {
         console.error(error);
       }
       return
     }
-    console.log('Можно играть.');
+    this.playOrStopBtnEl = document.getElementById('playOrStopButton');
+    this.newGameBtnEl = document.getElementById('newGameButton');
+
+    this.map.init(this.config.getRowsCount(), this.config.getColsCount());
+    this.snake.init(this.getStartPositionSnake(), 'right');
+    this.food.init(this.getRandomFreeCoordinate());
+    console.log(this.food.getPosition());
+    this.reset();
+  },
+
+  getStartPositionSnake() {
+    return {
+      x: Math.round(this.config.getColsCount() / 2),
+      y: Math.round(this.config.getRowsCount() / 2),
+    }
+  },
+
+  getRandomFreeCoordinate() {
+    let exclude = [this.food.getPosition(), ...this.snake.getBody()];
+
+    while (true) {
+      let random = { x: Math.floor(Math.random() * this.config.getColsCount()), y: Math.floor(Math.random() * this.config.getRowsCount()) };
+      if (!exclude.some(point => point.x === random.x && point.y === random.y)) {
+        return random
+      }
+    }
+
+  },
+
+  reset() {
+    this.play();
+
+  },
+
+  play() {
+    this.statusGame.setPlay();
+    this.setTextBtnPlayOrStop('play');
+  },
+  stop() {
+    this.statusGame.setSop();
+    this.setTextBtnPlayOrStop('stop');
+    clearInterval(this.numberInterval);
+  },
+  finish() {
+    this.statusGame.setFinish();
+    this.setTextBtnPlayOrStop('finish', true);
+    clearInterval(this.numberInterval);
+  },
+
+  setTextBtnPlayOrStop(text, isFinish = false) {
+    this.playOrStopBtnEl.textContent = text;
+    if (isFinish) {
+      this.playOrStopBtnEl.className = 'finish'
+    } else {
+      this.playOrStopBtnEl.classList.remove = 'finish';
+    }
   }
+
 };
 
 window.onload = () => game.init({ speed: 7 });
