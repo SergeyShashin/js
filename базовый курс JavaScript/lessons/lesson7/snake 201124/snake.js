@@ -30,24 +30,24 @@ const config = {
       errors: []
     };
 
-    if (this.getRowsCount() < 5 || this.getRowsCount() > 20) {
+    if (this.getRowsCount() < 5 || this.getRowsCount() > 20 || !Number.isInteger(this.getRowsCount())) {
       result.isValid = false;
-      errors.push(`RowsCount= ${this.getRowsCount()}, a может быть в диапазоне [5-20]`);
+      errors.push(`RowsCount= ${this.getRowsCount()}, a может быть в диапазоне целых чисел [5-20]`);
     };
 
-    if (this.getColsCount() < 5 || this.getColsCount() > 20) {
+    if (this.getColsCount() < 5 || this.getColsCount() > 20 || !Number.isInteger(this.getColsCount())) {
       result.isValid = false;
-      errors.push(`ColsCount = ${this.getColsCount()}, а может быть в диапазоне [5-20]`);
+      errors.push(`ColsCount = ${this.getColsCount()}, а может быть в диапазоне целых чисел [5-20]`);
     };
 
-    if (this.getSpeed() < 3 || this.getSpeed() > 10) {
+    if (this.getSpeed() < 3 || this.getSpeed() > 10 || !Number.isInteger(this.getSpeed())) {
       result.isValid = false;
-      result.errors.push(`Speed = ${this.getSpeed()}, а может быть в диапазоне [3-10]`);
+      result.errors.push(`Speed = ${this.getSpeed()}, а может быть в диапазоне целых чисел [3-10]`);
     };
 
-    if (this.getWinFoodCount() < 1 || this.getWinFoodCount() > 20) {
+    if (this.getWinFoodCount() < 1 || this.getWinFoodCount() > 20 || !Number.isInteger(this.getWinFoodCount())) {
       result.isValid = false;
-      errors.push(`WinFoodCount=${this.getWinFoodCount()}, а может быть в диапазоне [1-20]`);
+      errors.push(`WinFoodCount=${this.getWinFoodCount()}, а может быть в диапазоне целых чисел [1-20]`);
     };
 
     return result
@@ -199,7 +199,7 @@ const game = {
   },
 
   reset() {
-    this.play();
+    this.stop();
     this.food.setPosition(this.getRandomFreeCoordinate());
     this.render();
   },
@@ -210,12 +210,13 @@ const game = {
 
   play() {
     this.statusGame.setPlay();
-    this.setTextBtnPlayOrStop('play');
+    this.setTextBtnPlayOrStop('stop');
+    this.tickInterval();
   },
 
   stop() {
     this.statusGame.setSop();
-    this.setTextBtnPlayOrStop('stop');
+    this.setTextBtnPlayOrStop('play');
     clearInterval(this.numberInterval);
   },
 
@@ -236,12 +237,23 @@ const game = {
 
   setEventHandlers() {
     this.newGameBtnEl.addEventListener('click', () => this.startNewGame());
+    this.playOrStopBtnEl.addEventListener('click', (e) => this.playOrStop(e));
+
   },
 
   startNewGame() {
     this.reset();
-    console.log('newGame');
+  },
+
+  playOrStop() {
+    this.statusGame.isPlay() ? this.stop() : this.play();
+  },
+
+  tickInterval() {
+    this.numberInterval = setInterval(() => console.log('го'), 1000 / this.config.getSpeed());
   }
+
+
 
 };
 
