@@ -99,10 +99,14 @@ const food = {
   y: null,
   init(positon) {
     this.x = positon.x;
-    this.y = positon.y
+    this.y = positon.y;
   },
   getPosition() {
     return { x: this.x, y: this.y }
+  },
+  setPosition(positon) {
+    this.x = positon.x;
+    this.y = positon.y;
   }
 };
 
@@ -159,6 +163,7 @@ const game = {
       }
       return
     }
+
     this.playOrStopBtnEl = document.getElementById('playOrStopButton');
     this.newGameBtnEl = document.getElementById('newGameButton');
 
@@ -166,6 +171,8 @@ const game = {
     this.snake.init(this.getStartPositionSnake(), 'right');
     this.food.init(this.getRandomFreeCoordinate());
     this.reset();
+    this.setEventHandlers();
+
   },
 
   getStartPositionSnake() {
@@ -200,11 +207,13 @@ const game = {
     this.statusGame.setPlay();
     this.setTextBtnPlayOrStop('play');
   },
+
   stop() {
     this.statusGame.setSop();
     this.setTextBtnPlayOrStop('stop');
     clearInterval(this.numberInterval);
   },
+
   finish() {
     this.statusGame.setFinish();
     this.setTextBtnPlayOrStop('finish', true);
@@ -218,6 +227,15 @@ const game = {
     } else {
       this.playOrStopBtnEl.classList.remove = 'finish';
     }
+  },
+
+  setEventHandlers() {
+    this.newGameBtnEl.addEventListener('click', () => this.startNewGame());
+  },
+
+  startNewGame() {
+    this.reset();
+    console.log('newGame');
   }
 
 };
