@@ -99,13 +99,16 @@ const map = {
 const food = {
   x: null,
   y: null,
+
   init(positon) {
     this.x = positon.x;
     this.y = positon.y;
   },
+
   getPosition() {
     return { x: this.x, y: this.y }
   },
+
   setPosition(positon) {
     this.x = positon.x;
     this.y = positon.y;
@@ -122,8 +125,48 @@ const snake = {
     this.direction = direction;
     this.lastDirection = direction;
   },
+
   getBody() {
     return this.body
+  },
+
+  setDirection(direction) {
+    if (this.canSetDirection(direction)) {
+      this.direction = direction;
+    }
+  },
+
+  canSetDirection(direction) {
+    switch (direction) {
+      case 'up':
+        return this.lastDirection !== 'down';
+      case 'right':
+        return this.lastDirection !== 'left';
+      case 'left':
+        return this.lastDirection !== 'right';
+      case 'down':
+        return this.lastDirection !== 'up';
+    }
+  },
+
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
+    console.log(headPoint);
+    switch (this.direction) {
+      case 'up':
+        headPoint.y--;
+        break;
+      case 'down':
+        headPoint.y++;
+        break;
+      case 'right':
+        headPoint.x++;
+        break;
+      case 'left':
+        headPoint.y--;
+        break;
+    }
+    return headPoint;
   }
 };
 
@@ -211,7 +254,8 @@ const game = {
   play() {
     this.statusGame.setPlay();
     this.setTextBtnPlayOrStop('stop');
-    this.tickInterval();
+    this.numberInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSpeed());
+
   },
 
   stop() {
@@ -237,8 +281,8 @@ const game = {
 
   setEventHandlers() {
     this.newGameBtnEl.addEventListener('click', () => this.startNewGame());
-    this.playOrStopBtnEl.addEventListener('click', (e) => this.playOrStop(e));
-
+    this.playOrStopBtnEl.addEventListener('click', () => this.playOrStop());
+    document.addEventListener('keydown', e => this.keyHandler(e));
   },
 
   startNewGame() {
@@ -250,7 +294,29 @@ const game = {
   },
 
   tickInterval() {
-    this.numberInterval = setInterval(() => console.log('го'), 1000 / this.config.getSpeed());
+    console.log(this.snake.getNextHeadPoint());
+
+  },
+
+  keyHandler(e) {
+    switch (e.code) {
+      case 'ArrowUp':
+      case 'Numpad8':
+        this.snake.setDirection('up');
+        break;
+      case 'ArrowDown':
+      case 'Numpad5':
+        this.snake.setDirection('down');
+        break;
+      case 'ArrowRight':
+      case 'Numpad6':
+        this.snake.setDirection('right');
+        break;
+      case 'ArrowLeft':
+      case 'Numpad4':
+        this.snake.setDirection('left');
+        break;
+    }
   }
 
 
