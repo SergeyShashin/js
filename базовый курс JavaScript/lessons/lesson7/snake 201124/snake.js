@@ -294,8 +294,14 @@ const game = {
   },
 
   tickInterval() {
-    console.log(this.snake.getNextHeadPoint());
-
+    let nextHeadPoint = this.snake.getNextHeadPoint();
+    console.log(nextHeadPoint);
+    if (!this.canStep(nextHeadPoint)) {
+      this.finish();
+      return
+    }
+    this.snake.makeStep();
+    this.render();
   },
 
   keyHandler(e) {
@@ -317,6 +323,14 @@ const game = {
         this.snake.setDirection('left');
         break;
     }
+  },
+
+  canStep(nextHeadPoint) {
+    return nextHeadPoint.x > -1
+      && nextHeadPoint.x < this.config.getColsCount()
+      && nextHeadPoint.y > -1
+      && nextHeadPoint.y < this.config.getRowsCount()
+
   }
 
 
