@@ -133,6 +133,7 @@ const snake = {
   setDirection(direction) {
     if (this.canSetDirection(direction)) {
       this.direction = direction;
+      this.lastDirection = direction;
     }
   },
 
@@ -167,6 +168,11 @@ const snake = {
         break;
     }
     return headPoint;
+  },
+
+  makeStep(point) {
+    this.body.unshift(point);
+    this.body.pop();
   }
 };
 
@@ -300,7 +306,7 @@ const game = {
       this.finish();
       return
     }
-    this.snake.makeStep();
+    this.snake.makeStep(nextHeadPoint);
     this.render();
   },
 
@@ -330,7 +336,6 @@ const game = {
       && nextHeadPoint.x < this.config.getColsCount()
       && nextHeadPoint.y > -1
       && nextHeadPoint.y < this.config.getRowsCount()
-
   }
 
 
