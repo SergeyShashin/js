@@ -75,7 +75,22 @@ const map = {
       this.gameEl.appendChild(tr);
     }
 
-    console.log(this.cells);
+  },
+  render(snakePoints, foodPoint) {
+    for (let cell of this.usedCells) {
+      cell.className = '';
+    }
+    this.usedCells = [];
+
+    snakePoints.forEach((point, idx) => {
+      let snakePointEl = this.cells[`x${point.x}_y${point.y}`];
+      snakePointEl.className = idx === 0 ? 'snake-head' : 'snake-body';
+      this.usedCells.push(point);
+    });
+
+    let foodPointEl = this.cells[`x${foodPoint.x}_y${foodPoint.y}`];
+    foodPointEl.className = 'food';
+    this.usedCells.push(foodPoint);
   }
 };
 
@@ -150,7 +165,6 @@ const game = {
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
     this.snake.init(this.getStartPositionSnake(), 'right');
     this.food.init(this.getRandomFreeCoordinate());
-    console.log(this.food.getPosition());
     this.reset();
   },
 
@@ -175,7 +189,11 @@ const game = {
 
   reset() {
     this.play();
+    this.render();
+  },
 
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getPosition());
   },
 
   play() {
