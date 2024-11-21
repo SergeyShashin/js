@@ -1,9 +1,9 @@
 'use strict';
 
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
-  speed: 5,
+  rowsCount: 20,
+  colsCount: 20,
+  speed: 3,
   winFoodCount: 5
 };
 
@@ -152,7 +152,6 @@ const snake = {
 
   getNextHeadPoint() {
     let headPoint = this.body[0];
-    console.log(headPoint);
     switch (this.direction) {
       case 'up':
         headPoint.y--;
@@ -164,7 +163,7 @@ const snake = {
         headPoint.x++;
         break;
       case 'left':
-        headPoint.y--;
+        headPoint.x--;
         break;
     }
     return headPoint;
@@ -249,6 +248,7 @@ const game = {
 
   reset() {
     this.stop();
+    this.snake.init(this.getStartPositionSnake(), 'right');
     this.food.setPosition(this.getRandomFreeCoordinate());
     this.render();
   },
@@ -279,7 +279,7 @@ const game = {
   setTextBtnPlayOrStop(text, isFinish = false) {
     this.playOrStopBtnEl.textContent = text;
     if (isFinish) {
-      this.playOrStopBtnEl.className = 'finish'
+      this.playOrStopBtnEl.classList.add = 'finish';
     } else {
       this.playOrStopBtnEl.classList.remove = 'finish';
     }
@@ -301,7 +301,6 @@ const game = {
 
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
-    console.log(nextHeadPoint);
     if (!this.canStep(nextHeadPoint)) {
       this.finish();
       return
@@ -342,4 +341,4 @@ const game = {
 
 };
 
-window.onload = () => game.init({ speed: 7 });
+window.onload = () => game.init({ speed: 5 });
