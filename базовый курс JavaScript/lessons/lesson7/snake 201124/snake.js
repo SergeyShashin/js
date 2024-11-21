@@ -86,7 +86,13 @@ const map = {
 
     snakePoints.forEach((point, idx) => {
       let snakePointEl = this.cells[`x${point.x}_y${point.y}`];
-      snakePointEl.className = idx === 0 ? 'snake-head' : 'snake-body';
+
+      if (idx === 0) {
+        snakePointEl.classList.add('snake-head');
+      } else {
+        snakePointEl.classList.add('snake-body');
+      }
+
       this.usedCells.push(snakePointEl);
     });
 
@@ -112,6 +118,10 @@ const food = {
   setPosition(positon) {
     this.x = positon.x;
     this.y = positon.y;
+  },
+
+  onPoint(point) {
+    return this.x === point.x && this.y === point.y
   }
 };
 
@@ -151,7 +161,10 @@ const snake = {
   },
 
   getNextHeadPoint() {
-    let headPoint = this.body[0];
+    let headPoint = {
+      x: this.body[0].x,
+      y: this.body[0].y
+    };
     switch (this.direction) {
       case 'up':
         headPoint.y--;
@@ -172,6 +185,10 @@ const snake = {
   makeStep(point) {
     this.body.unshift(point);
     this.body.pop();
+  },
+
+  growUp(nextHeadPoint) {
+    this.body.unshift(nextHeadPoint);
   }
 };
 
@@ -301,12 +318,21 @@ const game = {
 
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
-    if (!this.canStep(nextHeadPoint)) {
+
+    if (!this.canStep(nextHeadPoint) || this.isWin()) {
       this.finish();
       return
     }
-    this.snake.makeStep(nextHeadPoint);
+
+    if (this.food.onPoint(nextHeadPoint)) {
+      this.snake.growUp(nextHeadPoint);
+      this.food.setPosition(this.getRandomFreeCoordinate());
+    } else {
+      this.snake.makeStep(nextHeadPoint);
+    }
+
     this.render();
+
   },
 
   keyHandler(e) {
@@ -335,10 +361,18 @@ const game = {
       && nextHeadPoint.x < this.config.getColsCount()
       && nextHeadPoint.y > -1
       && nextHeadPoint.y < this.config.getRowsCount()
+      && this.nextStepOnSnake(nextHeadPoint);
+  },
+
+  nextStepOnSnake(nextHeadPoint) {
+    let body = this.snake.getBody();
+    return body.length < 3 ? true : !body.slice(1).some(point => point.x === nextHeadPoint.x && point.y === nextHeadPoint.y)
+  },
+
+  isWin() {
+    return this.snake.getBody().length === this.config.getWinFoodCount();
   }
-
-
 
 };
 
-window.onload = () => game.init({ speed: 5 });
+window.onload = () => game.init({ speed: 5, winFoodCount: 10 });
