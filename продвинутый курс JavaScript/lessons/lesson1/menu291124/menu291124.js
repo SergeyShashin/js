@@ -29,7 +29,7 @@ Menu.prototype.render = function () {
   this.items.forEach(function (item) {
 
     if (item instanceof Container) {
-      ul.appendChild(item);
+      ul.appendChild(item.render());
     }
 
   });
@@ -43,5 +43,13 @@ function MenuItems(href, label) {
   this.label = label;
 }
 
-MenuItems.prototype = Object.create();
+MenuItems.prototype = Object.create(Container.prototype);
+MenuItems.prototype.render = function () {
+  var li = document.createElement('li');
+  var a = document.createElement('a');
+  a.href = this.href;
+  a.textContent = this.label;
+  li.appendChild(a);
 
+  return li
+}

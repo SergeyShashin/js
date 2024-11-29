@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menu 291124</title>
 </head>
+
 <body>
 
   <script src='menu291124.js'></script>
+  <script>
+    let menu = new Menu('idMenu', 'classMenu', [
+      new MenuItems('/Home', 'Home'),
+      new MenuItems('/Main', 'Main'),
+      new MenuItems('/Contacts', 'Contacts'),
+    ]);
+
+    document.body.appendChild(menu.render());
+  </script>
 </body>
+
 </html>
