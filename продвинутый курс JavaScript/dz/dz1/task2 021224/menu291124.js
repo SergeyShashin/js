@@ -67,11 +67,14 @@ function SuperMenu(myId, myClass, items, href, label) {
   this.label = label;
 }
 
+SuperMenu.prototype = Object.create(Menu.prototype);
+
 SuperMenu.prototype.render = function () {
   if (this.href && this.label) {
     var liEl = MenuItems.prototype.render.call(this);
     liEl.appendChild(Menu.prototype.render.call(this));
-    return liEl;
+    return liEl
+
   } else {
     return Menu.prototype.render.call(this);
   }

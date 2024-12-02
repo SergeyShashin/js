@@ -15,18 +15,17 @@
       new MenuItems('/Home', 'Home'),
       new MenuItems('/Main', 'Main'),
       new MenuItems('/Contacts', 'Contacts'),
-      new SuperMenu('idMenu', 'classMenu', [
+      new SuperMenu('idSub', 'classSub', [
         new MenuItems('/Home', 'Home'),
         new MenuItems('/Main', 'Main'),
-        new MenuItems('/Contacts', 'Contacts')],
-        '/SUB2', 'SUB2'
-      ),
-    ], '/SUB1', 'SUB1'
+        new MenuItems('/Contacts', 'Contacts')
+      ], '/SUB', 'SUB'),
+    ]
     );
 
     document.body.appendChild(menu.render());
 
-    // document.getElementById('idMenu').addEventListener('click', removeEl);
+    document.getElementById('idMenu').addEventListener('click', removeEl);
 
     function removeEl() {
       menu.remove();
