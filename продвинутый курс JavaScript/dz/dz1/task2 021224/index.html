@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu 291124</title>
+</head>
+
+<body>
+
+  <script src='menu291124.js'></script>
+  <script>
+    let menu = new SuperMenu('idMenu', 'classMenu', [
+      new MenuItems('/Home', 'Home'),
+      new MenuItems('/Main', 'Main'),
+      new MenuItems('/Contacts', 'Contacts'),
+      new SuperMenu('idMenu', 'classMenu', [
+        new MenuItems('/Home', 'Home'),
+        new MenuItems('/Main', 'Main'),
+        new MenuItems('/Contacts', 'Contacts')],
+        '/SUB2', 'SUB2'
+      ),
+    ], '/SUB1', 'SUB1'
+    );
+
+    document.body.appendChild(menu.render());
+
+    // document.getElementById('idMenu').addEventListener('click', removeEl);
+
+    function removeEl() {
+      menu.remove();
+    }
+  </script>
+</body>
+
+</html>
