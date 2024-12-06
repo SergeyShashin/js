@@ -14,8 +14,8 @@
     <p>
     <h3>Размер</h3>
     <select name="size" id="size">
-      <option value="big">Большой</option>
-      <option value="small">Маленький</option>
+      <option value="1">Большой</option>
+      <option value="2">Маленький</option>
     </select>
     </p>
     <p>
@@ -23,26 +23,26 @@
     <h3>Начинки</h3>
     <label for="cheese">
       <span>Сыр</span>
-      <input type="radio" name="stuffing" id="cheese" checked>
+      <input type="radio" name="stuffings" id="cheese" value="1" checked>
     </label>
     <label for="salad">
       <span>Салат</span>
-      <input type="radio" name="stuffing" id="salad">
+      <input type="radio" name="stuffings" id="salad" value="2">
     </label>
     <label for="potato">
       <span>Картошка</span>
-      <input type="radio" name="stuffing" id="potato">
+      <input type="radio" name="stuffings" id="potato" value="3">
     </label>
     </p>
 
     <h3>Добавки</h3>
     <label for="spice">
       <span>Посыпать приправой</span>
-      <input type="checkbox" name="topping" id="spice" checked>
+      <input type="checkbox" name="toppings" id="spice" value="1" checked>
     </label>
     <label for="mayo">
       <span>Полить майонезом</span>
-      <input type="checkbox" name="topping" id="mayo">
+      <input type="checkbox" name="toppings" id="mayo" value="2">
     </label>
     </p>
 
@@ -52,10 +52,23 @@
     </p>
 
   </form>
+
+  <div class="monitor"></div>
+
   <script src='burger.js'></script>
   <script>
-    document.getElementById('orderBurger').onsubmit = function () {
-      console.log(this.size);
+    document.getElementById('orderBurger').onsubmit = function (e) {
+      e.preventDefault();
+
+      var burger = new Burger(Number(this.size.value), Number(this.stuffings.value));
+
+
+      for (let topping of this.toppings) {
+        if (topping.checked) {
+          burger.addTopping(Number(topping.value));
+        }
+      }
+
     }
   </script>
 </body>
