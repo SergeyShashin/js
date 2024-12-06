@@ -53,7 +53,7 @@
 
   </form>
 
-  <div class="monitor"></div>
+  <pre id="monitor"></pre>
 
   <script src='burger.js'></script>
   <script>
@@ -62,13 +62,19 @@
 
       var burger = new Burger(Number(this.size.value), Number(this.stuffings.value));
 
-
       for (let topping of this.toppings) {
         if (topping.checked) {
           burger.addTopping(Number(topping.value));
         }
       }
 
+      document.getElementById('monitor').textContent = `
+Стоимость: ${burger.getPrice()}
+Калорийность: ${burger.getCalories()}
+Размер: ${burger.getSize()}
+Начинка: ${burger.getStuffing()}
+Добавки: ${burger.getToppings()}
+`
     }
   </script>
 </body>
