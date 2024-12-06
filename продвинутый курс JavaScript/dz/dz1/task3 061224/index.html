@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burger</title>
+</head>
+
+<body>
+  <form action="#" id='orderBurger'>
+
+    <h2>Заказ бургера</h2>
+    <p>
+    <h3>Размер</h3>
+    <select name="size" id="size">
+      <option value="big">Большой</option>
+      <option value="small">Маленький</option>
+    </select>
+    </p>
+    <p>
+
+    <h3>Начинки</h3>
+    <label for="cheese">
+      <span>Сыр</span>
+      <input type="radio" name="stuffing" id="cheese" checked>
+    </label>
+    <label for="salad">
+      <span>Салат</span>
+      <input type="radio" name="stuffing" id="salad">
+    </label>
+    <label for="potato">
+      <span>Картошка</span>
+      <input type="radio" name="stuffing" id="potato">
+    </label>
+    </p>
+
+    <h3>Добавки</h3>
+    <label for="spice">
+      <span>Посыпать приправой</span>
+      <input type="checkbox" name="topping" id="spice" checked>
+    </label>
+    <label for="mayo">
+      <span>Полить майонезом</span>
+      <input type="checkbox" name="topping" id="mayo">
+    </label>
+    </p>
+
+    <p>
+      <input type="reset">
+      <input type="submit">
+    </p>
+
+  </form>
+  <script src='burger.js'></script>
+  <script>
+    document.getElementById('orderBurger').onsubmit = function () {
+      console.log(this.size);
+    }
+  </script>
+</body>
+
+</html>
