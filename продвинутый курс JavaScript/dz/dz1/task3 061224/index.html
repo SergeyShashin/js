@@ -15,7 +15,7 @@
     <h3>Размер</h3>
     <select name="size" id="size">
       <option value="1">Большой</option>
-      <option value="2">Маленький</option>
+      <option value="20000000000">Маленький</option>
     </select>
     </p>
     <p>
@@ -60,21 +60,28 @@
     document.getElementById('orderBurger').onsubmit = function (e) {
       e.preventDefault();
 
-      var burger = new Burger(Number(this.size.value), Number(this.stuffings.value));
+      try {
 
-      for (let topping of this.toppings) {
-        if (topping.checked) {
-          burger.addTopping(Number(topping.value));
+        var burger = new Burger(Number(this.size.value), Number(this.stuffings.value));
+
+        for (let topping of this.toppings) {
+          if (topping.checked) {
+            burger.addTopping(Number(topping.value));
+          }
         }
+
+        document.getElementById('monitor').textContent = `
+      Стоимость: ${burger.getPrice()}
+      Калорийность: ${burger.getCalories()}
+      Размер: ${burger.getSize()}
+      Начинка: ${burger.getStuffing()}
+      Добавки: ${burger.getToppings()}
+      `
+      } catch (error) {
+        console.error(error);
       }
 
-      document.getElementById('monitor').textContent = `
-Стоимость: ${burger.getPrice()}
-Калорийность: ${burger.getCalories()}
-Размер: ${burger.getSize()}
-Начинка: ${burger.getStuffing()}
-Добавки: ${burger.getToppings()}
-`
+
     }
   </script>
 </body>

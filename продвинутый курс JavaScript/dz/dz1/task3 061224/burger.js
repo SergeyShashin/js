@@ -31,6 +31,7 @@ function Burger(size, stuffing) {
       this.calories += 20;
       this.size = 'маленький';
       break;
+    default: throw new BurgerError('Что-то с размером бургера.');
   }
 
   switch (stuffing) {
@@ -49,6 +50,8 @@ function Burger(size, stuffing) {
       this.calories += 10;
       this.stuffing = 'картофель';
       break;
+    default: throw new BurgerError('Что-то с начинкой бургера.');
+
   }
 
 }
@@ -72,6 +75,8 @@ Burger.prototype.addTopping = function (topping) {
         this.price += 20;
         this.calories += 5;
         break;
+      default: throw new BurgerError('Что-то с добавкой бургера.');
+
     }
   }
 };
@@ -89,8 +94,13 @@ Burger.prototype.getToppings = function () {
   for (let topping of this.toppings) {
     topping === BURGER_TOPPINGS_SPICE ? result.push('приправа') : result.push('майонез');
   }
-  return result;
+  return result.join(', ');
 };
+
+function BurgerError(msg) {
+  this.msg = msg;
+  return this.msg;
+}
 
 var BURGER_SIZE_BIG = 1;
 var BURGER_SIZE_SMALL = 2;
