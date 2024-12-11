@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Home",
+      "link": "/home"
+    },
+    {
+      "id": 2,
+      "name": "Page",
+      "link": "/page"
+    },
+    {
+      "id": 3,
+      "name": "Contacts",
+      "link": "/contacts"
+    }
+  ]
+}
