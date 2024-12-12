@@ -6,41 +6,29 @@
 */
 
 const gallery = {
-  galleryEl: null,
+  galleryMiniEl: null,
   monitorEl: null,
 
   init() {
-    this.galleryEl = document.getElementById('galleryMini');
+    this.galleryMiniEl = document.getElementById('galleryMini');
     this.monitorEl = document.getElementById('monitor');
-    this.appendMinImgToGalleryEl();
-    this.setEventHandlers();
+    this.addMinImgToGalleryEl('GET', 'http://localhost:3000/images', this.createElements);
+    this.setEventHandlers(this.monitorEl);
   },
 
-  setEventHandlers() {
-    this.monitorEl.addEventListener('click', function (e) {
-      this.handlerClickImg(e);
-    })
-  },
-
-  handlerClickImg(e) {
-    var target = e.target;
-    if (target.tagName === 'IMG') {
-      var bigImgEl = new Image();
-      bigImgEl.src = target.dataset.pathToBigImg;
-      this.monitorEl.appendChild(bigImgEl);
-    }
-  },
-
-  appendMinImgToGalleryEl() {
-    var data;
-    this.getDataImages('GET', 'http://localhost:3000/images', function (data) {
-      console.log(data);
-
-      return data
+  setEventHandlers(monitorEl) {
+    this.galleryMiniEl.addEventListener('click', function (e) {
+      var target = e.target;
+      if (target.tagName === 'IMG') {
+        var bigImgEl = document.createElement('img');
+        bigImgEl.src = target.dataset.pathToMaxImg;
+        monitorEl.innerHTML = '';
+        monitorEl.appendChild(bigImgEl);
+      }
     });
   },
 
-  appendMinImgToGalleryEl(method, link, callback) {
+  addMinImgToGalleryEl(method, link, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, link);
     xhr.send();
@@ -48,6 +36,19 @@ const gallery = {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
         callback(JSON.parse(xhr.responseText));
       }
+    }
+  },
+
+  createElements(data) {
+    for (let item of data) {
+      var liEl = document.createElement('li');
+      var aEl = document.createElement('a');
+      var imgEl = document.createElement('img');
+      imgEl.src = item.pathToMinImg;
+      imgEl.dataset.pathToMaxImg = item.pathToMaxImg;
+      aEl.appendChild(imgEl);
+      liEl.appendChild(aEl);
+      document.getElementById('galleryMini').appendChild(liEl);
     }
   }
 
