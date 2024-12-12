@@ -1,0 +1,24 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "pathToMinImg": "img/min/1.jpg",
+      "pathToMaxImg": "img/max/1.jpg"
+    },
+    {
+      "id": 2,
+      "pathToMinImg": "img/min/2.jpg",
+      "pathToMaxImg": "img/max/2.jpg"
+    },
+    {
+      "id": 3,
+      "pathToMinImg": "img/min/3.jpg",
+      "pathToMaxImg": "img/max/3.jpg"
+    },
+    {
+      "id": 4,
+      "pathToMinImg": "img/min/4.jpg",
+      "pathToMaxImg": "img/max/4.jpg"
+    }
+  ]
+}

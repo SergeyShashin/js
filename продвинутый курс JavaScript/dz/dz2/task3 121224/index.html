@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+    }
+
+    #galleryMini {
+      position: absolute;
+      z-index: 1;
+      width: 97%;
+      padding: 10px;
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #galleryMini img{
+      border-radius: 16px;
+    }
+
+    #galleryMini li {
+      text-decoration: none;
+      list-style-type: none;
+    }
+
+    #monitor {
+      width: 95%;
+      padding: 20px;
+      height: 60vh;
+      display: flex;
+      justify-content: center;
+
+    }
+
+    #monitor img {
+      display: block;
+      border-radius: 16px;
+    }
+
+    .bg {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+    }
+  </style>
+  <title>Gallery</title>
+</head>
+
+<body>
+  <div id='monitor' class='bg'></div>
+  <ul id='galleryMini' class='bg'>
+  </ul>
+  <script src='gallery.js'></script>
+</body>
+
+</html>
