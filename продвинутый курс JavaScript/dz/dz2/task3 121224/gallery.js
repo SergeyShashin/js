@@ -32,21 +32,20 @@ const gallery = {
   },
 
   appendMinImgToGalleryEl() {
-    let dataImages = this.getDataImages('GET', 'http://localhost:3000/images', function (data) {
+    var data;
+    this.getDataImages('GET', 'http://localhost:3000/images', function (data) {
+      console.log(data);
+
       return data
     });
-
-    console.log(dataImages);
   },
 
-  getDataImages(method, link, callback) {
+  appendMinImgToGalleryEl(method, link, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, link);
     xhr.send();
-    console.log(xhr);
     xhr.onreadystatechange = function () {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-        console.log('+');
         callback(JSON.parse(xhr.responseText));
       }
     }
