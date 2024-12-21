@@ -31,6 +31,9 @@ var validationForm = {
 
       for (let inputEl of document.querySelectorAll('input')) {
         let content = inputEl.value;
+        let errorEl = inputEl.parentElement.querySelector('.error');
+        errorEl ? errorEl.remove() : '';
+
         switch (inputEl.id) {
           case 'name':
             /^[\wа-яё]{1,}$/ig.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'Имя. Только буквы.');
@@ -39,18 +42,26 @@ var validationForm = {
             /^\+\d{1}\(\d{3}\)\d{3}\-\d{4}$/.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'Телефон. +7(000)000-0000');
             break;
           case 'email':
-            /^[\wа-яё]{1,}[\wа-яё\.\_]{0,}@[\wа-яё]{1,}\.[\wа-яё]{2,}$/ig.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'my-mail@mail.ru или my.mail@mail.ru');
+            /^[\wа-яё]{1,}[\wа-яё\-\.\_]{0,}@[\wа-яё]{1,}\.[\wа-яё]{2,}$/ig.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'my-mail@mail.ru или my.mail@mail.ru');
             break;
         };
       };
 
       function setClassIsValid(inputEl) {
-        inputEl.classList.remove('is-invalid');
+        if (inputEl.classList.contains('is-invalid')) {
+          inputEl.classList.remove('is-invalid');
+        }
         inputEl.classList.add('is-valid');
       }
 
       function setClassIsInvalid(inputEl, errorMsg) {
-        inputEl.classList.remove('is-valid');
+        if (inputEl.classList.contains('is-valid')) {
+          inputEl.classList.remove('is-valid');
+        }
+        let errorEl = document.createElement('p');
+        errorEl.textContent = errorMsg;
+        errorEl.classList.add('error');
+        inputEl.parentElement.appendChild(errorEl);
         inputEl.classList.add('is-invalid');
       }
     });
