@@ -16,14 +16,10 @@
 
 var validationForm = {
   formEl: null,
-  isValid: null,
-  inputEls: null,
   btnSendEl: null,
 
   init() {
     this.formEl = document.getElementById('contacts');
-    this.isValid = true;
-    this.inputEls = this.formEl.querySelectorAll('input');
     this.btnSendEl = document.getElementById('button-send');
 
     this.setEventsHandler();
@@ -31,9 +27,34 @@ var validationForm = {
 
   setEventsHandler() {
     this.btnSendEl.addEventListener('click', function (e) {
-      handleClickBtnSendEl();
+      e.preventDefault();
+
+      for (let inputEl of document.querySelectorAll('input')) {
+        let content = inputEl.value;
+        switch (inputEl.id) {
+          case 'name':
+            /^[\wа-яё]{1,}$/ig.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'Имя. Только буквы.');
+            break;
+          case 'phone':
+            /^\+\d{1}\(\d{3}\)\d{3}\-\d{4}$/.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'Телефон. +7(000)000-0000');
+            break;
+          case 'email':
+            /^[\wа-яё]{1,}[\wа-яё\.\_]{0,}@[\wа-яё]{1,}\.[\wа-яё]{2,}$/ig.test(content) ? setClassIsValid(inputEl) : setClassIsInvalid(inputEl, 'my-mail@mail.ru или my.mail@mail.ru');
+            break;
+        };
+      };
+
+      function setClassIsValid(inputEl) {
+        inputEl.classList.remove('is-invalid');
+        inputEl.classList.add('is-valid');
+      }
+
+      function setClassIsInvalid(inputEl, errorMsg) {
+        inputEl.classList.remove('is-valid');
+        inputEl.classList.add('is-invalid');
+      }
     });
-  }
+  },
 
 }
 
