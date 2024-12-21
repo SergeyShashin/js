@@ -5,7 +5,6 @@
 Придумать шаблон, который меняет одинарные кавычки на двойные.
 */
 
-
 var pEls = document.querySelectorAll('p');
 
 for (var pEl of pEls) {
