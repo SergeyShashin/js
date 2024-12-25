@@ -10,14 +10,16 @@
   <style>
     * {
       margin: 0 auto;
+      padding: 0;
       text-align: center;
     }
-
+    
     #plusMinus {
+      width: 300px;
+      margin-bottom: 20px;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      width: 300px;
     }
 
     #plusMinus button,
@@ -33,8 +35,18 @@
       cursor: pointer;
     }
 
-    #minus{
+    #minus {
       padding-bottom: 5px;
+    }
+
+    #animation{
+      text-align: left;
+    }
+
+    #box {
+      width: 1px;
+      height: 1px;
+      background: lightseagreen;
     }
   </style>
 
@@ -47,6 +59,11 @@
     <span id='monitor'>8</span>
     <button id='minus' data-value='-1'>-</button>
   </section>
+
+  <section id='animation'>
+    <div id="box"></div>
+  </section>
+
 
   <script src="jquery-3.6.0.min.js"></script>
   <script src="1.js"></script>
