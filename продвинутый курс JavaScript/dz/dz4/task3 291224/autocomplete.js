@@ -7,7 +7,7 @@
 */
 
 
-loadListFromAJAX("GET", "http://localhost:3000/towns", handleRequest);
+autocomplete("GET", "http://localhost:3000/towns", handleRequest);
 
 /**
  * Передает в handleRequest объект, полученные по link
@@ -15,7 +15,7 @@ loadListFromAJAX("GET", "http://localhost:3000/towns", handleRequest);
  * @param {string} link 
  * @param {function} handleRequest 
  */
-function loadListFromAJAX(method, link, handleRequest) {
+function autocomplete(method, link, handleRequest) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
   xhr.send();
@@ -32,23 +32,21 @@ function loadListFromAJAX(method, link, handleRequest) {
  * @param {object} towns 
  */
 function handleRequest(towns) {
-  var dataListEl = document.getElementById('dataTowns');
   var inputEl = document.getElementById('towns');
 
-  for (let town of towns) {
-    var optionEl = document.createElement('option');
-    optionEl.value = town;
-    dataListEl.appendChild(optionEl);
-  }
-
   inputEl.addEventListener('input', function (e) {
+    var monitorEl = document.getElementById('monitor');
+
+    if (monitorEl) {
+      monitorEl.remove();
+    }
 
     if (checkLength(e.target.value, 2)) {
       var filterList = getFilterList(inputEl.value, towns);
+
       addMonitorEl(document.getElementById('autocomplete'), 'monitor', filterList, inputEl)
     }
 
-  
   });
 
 }
@@ -70,9 +68,16 @@ function checkLength(content, length) {
  * @returns {array}
  */
 function getFilterList(filter, listArr) {
-  var rgxp = new RegExp(`^${filter}`, 'ig');
+  var rgxp = new RegExp(`^(${filter})`, 'ig');
+  var result = [];
+  var tracer = [];
 
-  return listArr.filter(el => rgxp.test(el))
+  for (let el of listArr) {
+    rgxp.test(el) ? result.push(el) : '';
+    tracer.push(`Элемент ${el} проверка ${rgxp.test(el)}`);
+  }
+
+  return result
 }
 
 /**
@@ -98,3 +103,5 @@ function addMonitorEl(targetEl, idMonitor, dataForOutput, outputInputEl) {
     monitorEl.remove();
   });
 }
+
+
