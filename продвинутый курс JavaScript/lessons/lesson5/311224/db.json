@@ -32,6 +32,11 @@
     }
   ],
   "goodsIncart": [
-    
+    {
+      "id": "1",
+      "name": "куртка",
+      "price": "15000",
+      "quantity": 7
+    }
   ]
 }
