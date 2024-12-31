@@ -5,6 +5,7 @@
     init() {
       this.goodsInCartEl = $('#goodsInCartEl');
       this.buildGoodsList();
+      this.setEventHandlers();
       this.buildCart();
     },
 
@@ -73,6 +74,56 @@
       });
 
     },
+
+    setEventHandlers() {
+      $('#cart').on('click', function (e) {
+        var target = e.target;
+        if (target.tagName !== 'BUTTON') {
+          return
+        }
+
+        if (target.textContent === 'Заказать') {
+          addGoodInCart(e.target);
+        }
+
+        function addGoodInCart(goodEl) {
+          var goodId = goodEl.dataset.id;
+
+          if ($(`#goodsInCart [data-id="${goodId}"]`)[0]) {
+            $.ajax({
+              url: `http://localhost:3000/goodsIncart/${goodId}`,
+              method: 'PATCH',
+              success() {
+                buildCart();
+              }
+            });
+          } else {
+            $.ajax({
+              url: 'http://localhost:3000/goodsIncart',
+              type: 'POST',
+              headers: {
+                'content-type': 'application/json'
+              },
+              data: JSON.stringify({
+                id: goodId,
+                name: goodEl.dataset.name,
+                price: goodEl.dataset.price,
+                quantity: 1,
+              }),
+
+              success() {
+                cart.buildCart();
+              }
+            });
+
+          }
+        }
+      });
+
+
+    },
+
+
 
   };
 
