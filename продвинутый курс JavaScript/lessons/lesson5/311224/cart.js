@@ -113,7 +113,7 @@
 
             totalSum += Number(tdSumEl.textContent);
 
-            btnDeleteEl.textContent = 'x';
+            btnDeleteEl.textContent = '-';
             btnDeleteEl.dataset.id = el.id;
             btnDeleteEl.dataset.name = el.name;
             btnDeleteEl.dataset.price = el.price;
@@ -155,6 +155,10 @@
           addGoodInCart(e.target);
         }
 
+        if (target.textContent === '-') {
+          deleteGoodInCart(e.target);
+        }
+
         function addGoodInCart(goodEl) {
           var goodId = goodEl.dataset.id;
           var goodInCartEl = $(`#goodsInCart [data-id="${goodId}"]`)[0];
@@ -194,6 +198,43 @@
 
           }
         }
+
+        function deleteGoodInCart(btnDeleteEl) {
+          var goodId = btnDeleteEl.dataset.id;
+          var goodQuantity = btnDeleteEl.dataset.quantity;
+          console.log(goodQuantity);
+
+          if (goodQuantity > 1) {
+            $.ajax({
+              url: `http://localhost:3000/goodsIncart/${goodId}`,
+              method: 'PATCH',
+              headers: {
+                'content-type': 'application/json'
+              },
+              data: JSON.stringify({
+                quantity: Number(goodQuantity) - 1,
+              }),
+              success() {
+                cart.buildCart();
+              }
+            });
+          }
+          else {
+            $.ajax({
+              url: `http://localhost:3000/goodsIncart/${goodId}`,
+              type: 'DELETE',
+              headers: {
+                'content-type': 'application/json'
+              },
+
+              success() {
+                cart.buildCart();
+              }
+            });
+
+          }
+        }
+
       });
 
 

@@ -36,7 +36,19 @@
       "id": "1",
       "name": "куртка",
       "price": "15000",
-      "quantity": 7
+      "quantity": 2
+    },
+    {
+      "id": "4",
+      "name": "майка",
+      "price": "4500",
+      "quantity": 2
+    },
+    {
+      "id": "5",
+      "name": "трусы",
+      "price": "500",
+      "quantity": 1
     }
   ]
 }
