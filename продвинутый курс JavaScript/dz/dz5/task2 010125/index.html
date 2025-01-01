@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lesson 5</title>
+  <style>
+    * {
+      color: lightseagreen;
+      box-sizing: border-box;
+    }
+
+    #reviews input {
+      border: none;
+      outline: none;
+      border-bottom: 1px solid lightseagreen;
+      padding: 5px;
+      width: 50%;
+    }
+
+    #reviews table {
+      margin: 20px 0;
+    }
+
+    table td,
+    table th {
+      padding: 5px;
+      border: 1px solid lightseagreen;
+    }
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      color: crimson;
+    }
+  </style>
+</head>
+
+<body>
+  <section id='reviews'>
+    <h4>Отзывы</h4>
+    <input id='inputReview'></input>
+    <button id='btnAddReview'>Добавить</button>
+  </section>
+
+  <script src='jquery 3.7.1.js'></script>
+  <script src='reviews.js'></script>
+</body>
+
+</html>
