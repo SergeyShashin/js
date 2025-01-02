@@ -14,6 +14,11 @@
       "id": 3,
       "text": "Какой-то третий отзыв.",
       "status": "declined"
+    },
+    {
+      "text": "Свежий отзыв.",
+      "status": "approved",
+      "id": 4
     }
   ]
 }

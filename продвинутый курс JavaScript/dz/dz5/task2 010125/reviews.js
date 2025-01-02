@@ -100,13 +100,17 @@ e) модуль подчиняется следующим соглашениям
               var btnApproveEl = document.createElement('button');
               var btnDeclineEl = document.createElement('button');
 
-              btnApproveEl.textContent = 'одобрить';
-              btnDeclineEl.textContent = 'отклонить';
+              btnApproveEl.textContent = 'Одобрить';
+              btnDeclineEl.textContent = 'Отклонить';
 
               trReviewEl.appendChild(tdForBtnApproveEl);
               tdForBtnApproveEl.appendChild(btnApproveEl);
               tdForBtnDeclineEl.appendChild(btnDeclineEl);
               trReviewEl.appendChild(tdForBtnDeclineEl);
+            } else if (el.status === 'approved') {
+              tdTextEl.classList.add('approved');
+            } else if (el.status === 'declined') {
+              tdTextEl.classList.add('declined');
             }
 
             var tdForBtnDeleteEl = document.createElement('td');
@@ -135,6 +139,14 @@ e) модуль подчиняется следующим соглашениям
 
         if (target.textContent === 'Удалить') {
           deleteReview(e.target);
+        }
+
+        if (target.textContent === 'Одобрить') {
+          setApprove(e.target);
+        }
+
+        if (target.textContent === 'Отклонить') {
+          setDecline(e.target);
         }
 
         function addReview() {
@@ -171,6 +183,43 @@ e) модуль подчиняется следующим соглашениям
             }
           });
         }
+
+        function setApprove(btnApproveEl) {
+          var reviewId = btnApproveEl.parentElement.parentElement.dataset.id;
+          $.ajax({
+            url: `http://localhost:3000/reviews/${reviewId}`,
+            type: 'PATCH',
+            headers: {
+              'content-type': 'application/json'
+            },
+            data: JSON.stringify({
+              status: 'approved'
+            }),
+
+            success() {
+              review.buildReviewsList();
+            }
+          });
+        }
+
+        function setDecline(btnDeclineEl) {
+          var reviewId = btnDeclineEl.parentElement.parentElement.dataset.id;
+          $.ajax({
+            url: `http://localhost:3000/reviews/${reviewId}`,
+            type: 'PATCH',
+            headers: {
+              'content-type': 'application/json'
+            },
+            data: JSON.stringify({
+              status: 'declined'
+            }),
+
+            success() {
+              review.buildReviewsList();
+            }
+          });
+        }
+
       });
     },
   };
