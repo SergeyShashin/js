@@ -47,7 +47,7 @@ e) модуль подчиняется следующим соглашениям
     init() {
       this.reviewsEl = $('#reviews')[0];
       this.buildReviewsList();
-      // this.setEventHandlers();
+      this.setEventHandlers();
       // this.buildCart();
     },
 
@@ -56,8 +56,10 @@ e) модуль подчиняется следующим соглашениям
         url: 'http://localhost:3000/reviews',
         dataType: 'json',
         success(data) {
+          if ($('#reviews table')[0]) {
+            $('#reviews table')[0].remove();
+          }
           var tableEl = document.createElement('table');
-
           var tHeadEl = document.createElement('thead');
           var tBodyEl = document.createElement('tbody');
           var thIdEl = document.createElement('th');
@@ -110,116 +112,67 @@ e) модуль подчиняется следующим соглашениям
             var tdForBtnDeleteEl = document.createElement('td');
             var btnDeleteEl = document.createElement('button');
 
-            btnDeleteEl.textContent = 'удалить';
+            btnDeleteEl.textContent = 'Удалить';
             tdForBtnDeleteEl.appendChild(btnDeleteEl);
             trReviewEl.appendChild(tdForBtnDeleteEl);
-            
+
             tBodyEl.appendChild(trReviewEl);
           }
         }
       });
     },
 
+    setEventHandlers() {
+      $('#reviews').on('click', function (e) {
+        var target = e.target;
+        if (target.tagName !== 'BUTTON') {
+          return
+        }
 
+        if (target.textContent === 'Добавить') {
+          addReview();
+        }
 
-    // setEventHandlers() {
-    //   $('#cart').on('click', function (e) {
-    //     var target = e.target;
-    //     if (target.tagName !== 'BUTTON') {
-    //       return
-    //     }
+        if (target.textContent === 'Удалить') {
+          deleteReview(e.target);
+        }
 
-    //     if (target.textContent === 'Заказать') {
-    //       addGoodInCart(e.target);
-    //     }
+        function addReview() {
+          var textReview = $('#inputReview')[0].value;
 
-    //     if (target.textContent === '-') {
-    //       deleteGoodInCart(e.target);
-    //     }
+          $.ajax({
+            url: ` http://localhost:3000/reviews`,
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            data: JSON.stringify({
+              text: `${textReview}`,
+              status: 'standart'
+            }),
+            success() {
+              review.buildReviewsList();
+            }
+          });
 
-    //     function addGoodInCart(goodEl) {
-    //       var goodId = goodEl.dataset.id;
-    //       var goodInCartEl = $(`#goodsInCart [data-id="${goodId}"]`)[0];
+        }
 
-    //       if (goodInCartEl) {
-    //         $.ajax({
-    //           url: `http://localhost:3000/goodsIncart/${goodId}`,
-    //           method: 'PATCH',
-    //           headers: {
-    //             'content-type': 'application/json'
-    //           },
-    //           data: JSON.stringify({
-    //             quantity: Number(goodInCartEl.dataset.quantity) + 1,
-    //           }),
-    //           success() {
-    //             cart.buildCart();
-    //           }
-    //         });
-    //       } else {
-    //         $.ajax({
-    //           url: 'http://localhost:3000/goodsIncart',
-    //           type: 'POST',
-    //           headers: {
-    //             'content-type': 'application/json'
-    //           },
-    //           data: JSON.stringify({
-    //             id: goodId,
-    //             name: goodEl.dataset.name,
-    //             price: goodEl.dataset.price,
-    //             quantity: 1,
-    //           }),
+        function deleteReview(btnDeleteEl) {
+          var reviewId = btnDeleteEl.parentElement.parentElement.dataset.id;
+          $.ajax({
+            url: `http://localhost:3000/reviews/${reviewId}`,
+            type: 'DELETE',
+            headers: {
+              'content-type': 'application/json'
+            },
 
-    //           success() {
-    //             cart.buildCart();
-    //           }
-    //         });
-
-    //       }
-    //     }
-
-    //     function deleteGoodInCart(btnDeleteEl) {
-    //       var goodId = btnDeleteEl.dataset.id;
-    //       var goodQuantity = btnDeleteEl.dataset.quantity;
-    //       console.log(goodQuantity);
-
-    //       if (goodQuantity > 1) {
-    //         $.ajax({
-    //           url: `http://localhost:3000/goodsIncart/${goodId}`,
-    //           method: 'PATCH',
-    //           headers: {
-    //             'content-type': 'application/json'
-    //           },
-    //           data: JSON.stringify({
-    //             quantity: Number(goodQuantity) - 1,
-    //           }),
-    //           success() {
-    //             cart.buildCart();
-    //           }
-    //         });
-    //       }
-    //       else {
-    //         $.ajax({
-    //           url: `http://localhost:3000/goodsIncart/${goodId}`,
-    //           type: 'DELETE',
-    //           headers: {
-    //             'content-type': 'application/json'
-    //           },
-
-    //           success() {
-    //             cart.buildCart();
-    //           }
-    //         });
-
-    //       }
-    //     }
-
-    //   });
-
-
-    // },
-
-
-
+            success() {
+              review.buildReviewsList();
+            }
+          });
+        }
+      });
+    },
   };
 
   window.onload = review.init();
