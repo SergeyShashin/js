@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+  <title>DZ6. Jquery UI.</title>
+  <style>
+    * {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    section {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+
+    input {
+      margin: 20px 0;
+      outline: none;
+      width: 300px;
+      height: 300px;
+      border: 1px solid lightseagreen;
+      color: crimson;
+      padding: 20px;
+      border-radius: 300px;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <input id="bounce" type="date">
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+  <script>
+    $inputEl = $('#bounce');
+    var currentDate = new Date();
+    var month = currentDate.getMonth() + 1;
+    var date = currentDate.getDate();
+    month = month < 10 ? `0${month}` : month;
+    date = date < 10 ? `0${date}` : date;
+    $inputEl.val(`${currentDate.getFullYear()}-${month}-${date}`);
+    $inputEl.on('change', function () {
+      $inputEl.effect('bounce', 2000);
+    });
+  </script>
+</body>
+
+</html>
