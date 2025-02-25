@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DZ7</title>
+</head>
+
+<body>
+  <script>
+    let questions = ['Это первый вопрос?', 'Это второй вопрос?', 'Это третий вопрос?'];
+    let answers = [true, true, true];
+    let correctAnswer = 0;
+    questions.map((question, idx) => {
+      if (confirm(question) === answers[idx]) {
+        alert(':)');
+        correctAnswer++;
+      } else {
+        alert('Можете попробовать ещё разок.');
+      }
+    });
+
+    alert(`Количество совпавших ответов ${correctAnswer}.`);
+  </script>
+</body>
+
+</html>
