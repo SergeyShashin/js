@@ -14,15 +14,14 @@
     let acount = {
       sum: null,
       quantityYears: null,
-      persentage: null,
+      percentage: null,
       showResult() {
         this.sum = Number(prompt('Сумма вклада?', 1));
-        console.log(typeof this.sum);
         this.quantityYears = Number(prompt('Срок вклада?', 10));
-        this.persentage = Number(prompt('Процентная ставка?', 10));
+        this.percentage = Number(prompt('Процентная ставка?', 10));
         let result = this.sum;
         for (let counter = 1; counter <= this.quantityYears; counter++) {
-          result += (result / 100) * this.persentage;
+          result += (result / 100) * this.percentage;
           alert(`Размер вклада через ${counter} = ${result.toFixed(2)}`);
         }
         return result;
