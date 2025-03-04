@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DZ11</title>
+</head>
+
+<body>
+
+  <script>
+    const randomArr = [];
+    let dropZero = 0;
+    let contRed = 0;
+    let maxContRed = 0;
+    let rounds = 100;
+
+    for (let i = 0; i < rounds; i++) {
+      let randomNumber = Math.round(Math.random() * 36);
+      if (randomNumber === 0) {
+        randomArr.push('zero');
+        dropZero++;
+      } else if (randomNumber % 2 === 0) {
+        randomArr.push('black');
+      } else {
+        randomArr.push('red');
+        if (i === 0 || randomArr.length > 0 && randomArr[i - 1] === 'red') {
+          contRed++;
+          contRed > maxContRed ? maxContRed = contRed : '';
+        } else {
+          contRed = 1;
+        }
+
+      }
+
+    }
+
+    alert(`Количество выпадания zero = ${dropZero}. \n Максимальная последовательность выпадания красного = ${maxContRed}`);
+    console.log(randomArr);
+
+  </script>
+
+</body>
+
+</html>
