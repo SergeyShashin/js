@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>D12</title>
+</head>
+
+<body>
+
+  <script>
+
+    const status = {
+      condition: null,
+      setPlay() {
+        this.condition = 'play'
+      },
+      setFinish() {
+        this.condition = 'finish'
+      },
+      isPlay() {
+        return this.condition === 'play'
+      },
+      isFinish() {
+        return this.condition === 'finish'
+      }
+    };
+
+    const player = {
+      sum: null,
+      cards: [],
+      addCards(cards) {
+        this.cards.push(...cards);
+      },
+      setSum(sum) {
+        this.sum = sum
+      }
+    }
+
+    const dealer = {
+      sum: null,
+      cards: [],
+      addCards(cards) {
+        this.cards.push(...cards);
+      },
+      setSum(sum) {
+        this.sum = sum
+      }
+    }
+
+    const game = {
+      status,
+      player,
+      dealer,
+      winer: null,
+
+      run() {
+        this.init();
+        while (this.status.isPlay()) {
+          if (this.player.sum === 21) {
+            this.winer = 'Игрок';
+            this.sayWinPhrase();
+            this.status.setFinish();
+            return
+          }
+
+          while (confirm(`${this.getStateGame()}\nЕщё карту?`)) {
+            this.player.addCards(this.getCard());
+            this.player.setSum(this.getSum(this.player.cards));
+            if (this.player.sum > 21) {
+              this.winer = 'Дилер';
+              this.sayWinPhrase();
+              this.status.setFinish();
+              return
+            }
+          }
+
+          if (this.player.sum === 21) {
+            this.winer = 'Игрок';
+            this.sayWinPhrase();
+            this.status.setFinish();
+            return
+          }
+
+          while (this.dealer.sum < 15) {
+            this.dealer.addCards(this.getCard());
+            this.dealer.setSum(this.getSum(this.dealer.cards));
+          }
+
+          if (this.dealer.sum > 21) {
+            this.winer = 'Игрок';
+            this.sayWinPhrase();
+            this.status.setFinish();
+            return
+          }
+
+          if (this.dealer.sum === 21 || this.dealer.sum >= this.player.sum) {
+            this.winer = 'Дилер';
+            this.sayWinPhrase();
+            this.status.setFinish();
+            return
+          } else {
+            this.winer = 'Игрок';
+            this.sayWinPhrase();
+            this.status.setFinish();
+            return
+          }
+
+
+        }
+
+      },
+      sayWinPhrase() {
+        alert(`${this.winer} выиграл.\n ${this.getStateGame()}`);
+      },
+
+      init() {
+        this.status.setPlay();
+        this.player.addCards([this.getCard(), this.getCard()]);
+        this.player.setSum(this.getSum(this.player.cards));
+        this.dealer.addCards([this.getCard()]);
+        this.dealer.setSum(this.getSum(this.dealer.cards));
+      },
+
+      getCard() {
+        const arr = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'T'];
+        return arr[this.getRandomNum(0, arr.length - 1)];
+      },
+
+      getRandomNum(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      },
+
+      getSum(arr) {
+        let sum = 0;
+        for (let card of arr) {
+          if (card === 'T') {
+            sum += sum < 11 ? 11 : 1;
+          } else {
+            switch (card) {
+              case 'J':
+              case 'Q':
+              case 'K':
+                sum += 10;
+                break;
+              default:
+                sum += Number(card);
+            }
+          }
+        }
+        return sum
+      },
+
+      getStateGame() {
+        return `Игрок: карты [${this.player.cards}], сумма ${this.player.sum}.\nДилер: карты [${this.dealer.cards}], сумма ${this.dealer.sum}.`
+      }
+
+    }
+
+    game.run();
+
+
+  </script>
+
+
+</body>
+
+</html>
