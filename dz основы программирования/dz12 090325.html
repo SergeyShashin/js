@@ -22,11 +22,12 @@
     }
 
     function getCard() {
-      const arr = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'T']
-      return arr[getRandomNum(0, arr.length)];
+      const arr = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'T'];
+      return arr[getRandomNum(0, arr.length-1)];
     }
 
     function getSum(arr) {
+      console.log(arr);
       let sum = 0;
       for (let card of arr) {
         if (card === 'T') {
@@ -46,7 +47,6 @@
       return sum
     }
 
-    console.log(getCard(getRandomNum(0, 8)));
   </script>
 
 </body>
