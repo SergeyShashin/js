@@ -18,7 +18,7 @@
     console.log(getSum(dealer));
 
     function getRandomNum(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
     function getCard() {
@@ -31,7 +31,7 @@
       let sum = 0;
       for (let card of arr) {
         if (card === 'T') {
-          sum += sum < 11 ? 10 : 1;
+          sum += sum < 11 ? 11 : 1;
         } else {
           switch (card) {
             case 'J':
