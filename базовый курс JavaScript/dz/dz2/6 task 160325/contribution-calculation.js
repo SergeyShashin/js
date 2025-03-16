@@ -43,7 +43,6 @@ function declension(str, variants) {
     return variants[2]
   }
 
-
   if (lastChar === '1' && prevLastChar !== '1') {
     return variants[0]
   }
@@ -53,6 +52,4 @@ function declension(str, variants) {
   }
 
   return variants[1]
-
-
 }
