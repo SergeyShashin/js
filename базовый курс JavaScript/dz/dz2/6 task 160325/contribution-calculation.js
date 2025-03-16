@@ -18,15 +18,15 @@ let str1 = prompt('Какая сумма?', 101);
 let str2 = prompt('Какая сумма?', 10020);
 let str3 = prompt('Какая сумма?', 120104);
 
-console.log(` Ваша сумма в ${str1} ${declension(str1, variants)} зачислена.`);
-console.log(` Ваша сумма в ${str2} ${declension(str2, variants)} зачислена.`);
-console.log(` Ваша сумма в ${str3} ${declension(str3, variants)} зачислена.`);
+console.log(` Ваша сумма в ${str1} ${declinationOfNumber(str1, variants)} зачислена.`);
+console.log(` Ваша сумма в ${str2} ${declinationOfNumber(str2, variants)} зачислена.`);
+console.log(` Ваша сумма в ${str3} ${declinationOfNumber(str3, variants)} зачислена.`);
 
 for (let i = 0; i < 202; i++) {
-  console.log(` Ваша сумма в ${String(i)} ${declension(String(i), variants)} зачислена.`);
+  console.log(` Ваша сумма в ${String(i)} ${declinationOfNumber(String(i), variants)} зачислена.`);
 }
 
-function declension(str, variants) {
+function declinationOfNumber(str, variants) {
   let strLength = str.length;
   let lastChar = str[strLength - 1];
   let prevLastChar = str[strLength - 2];
