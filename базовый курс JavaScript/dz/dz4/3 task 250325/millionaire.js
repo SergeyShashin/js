@@ -19,5 +19,57 @@ d. Куда я попал?
 */
 
 const game = {
-  
-}
+  questions: [
+    {
+      number: 1,
+      question: 'Это первый вопрос?',
+      answer: 'да'
+    },
+    {
+      number: 2,
+      question: 'Это второй вопрос?',
+      answer: 'да'
+    },
+    {
+      number: 3,
+      question: 'Это третий вопрос?',
+      answer: 'да'
+    },
+    {
+      number: 4,
+      question: 'Это четвёртый вопрос?',
+      answer: 'да'
+    },
+    {
+      number: 5,
+      question: 'Это пятый вопрос?',
+      answer: 'да'
+    }
+  ],
+  acount: 0,
+
+  run() {
+    this.reset();
+    for (let q of this.questions) {
+      if (q.answer === prompt(`${q.question}`)) {
+        this.acount++;
+      }
+
+      if (!confirm(`Кол-во совпавших ответов ${this.acount}. Играем?`)) {
+        return alert('Спасибо)');
+      }
+
+    }
+
+    if (confirm(`Кол-во совпавших ответов ${this.acount}. Ещё разок?`)) {
+      game.run();
+    }
+  },
+
+  reset() {
+    this.acount = 0;
+  }
+
+};
+
+game.run();
