@@ -51,7 +51,7 @@ const game = {
   run() {
     this.reset();
     for (let q of this.questions) {
-      if (q.answer === prompt(`${q.question}`)) {
+      if (q.answer === prompt(`${q.question}`, 'да')) {
         this.acount++;
       }
 
