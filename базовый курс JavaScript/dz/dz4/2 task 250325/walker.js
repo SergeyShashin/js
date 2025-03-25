@@ -26,37 +26,40 @@ const player = {
     this.y = startPositionY;
   },
 
-  move(direction) {
+  move(point) {
+    this.x = point.x;
+    this.y = point.y;
+  },
+
+  getNextStepPoint(direction) {
+    let nextPoint = {};
     switch (direction) {
       case '4':
-        this.x--
+        nextPoint = { x: this.x - 1, y: this.y };
         break;
       case '6':
-        this.x++
+        nextPoint = { x: this.x + 1, y: this.y };
         break;
       case '8':
-        this.y--
+        nextPoint = { x: this.x, y: this.y - 1 };
         break;
       case '5':
-        this.y++
+        nextPoint = { x: this.x, y: this.y + 1 };
         break;
       case '1':
-        this.y++;
-        this.x--;
+        nextPoint = { x: this.x - 1, y: this.y + 1 };
         break;
       case '3':
-        this.y++;
-        this.x++;
+        nextPoint = { x: this.x + 1, y: this.y + 1 };
         break;
       case '7':
-        this.y--;
-        this.x--;
+        nextPoint = { x: this.x - 1, y: this.y - 1 };
         break;
       case '9':
-        this.y--;
-        this.x++;
+        nextPoint = { x: this.x + 1, y: this.y - 1 };
         break;
     }
+    return nextPoint
   }
 };
 
@@ -78,7 +81,12 @@ const game = {
         return
       }
 
-      this.player.move(direction);
+      let nextPoint = this.player.getNextStepPoint(direction);
+
+      if (this.canMove(nextPoint)) {
+        this.player.move(nextPoint);
+      }
+
     }
   },
 
@@ -105,6 +113,10 @@ const game = {
         return direction
       }
     }
+  },
+
+  canMove(point) {
+    return point.x >= 0 && point.y >= 0 && point.x < this.settings.colsCount && point.y < this.settings.rowsCount
   }
 };
 
