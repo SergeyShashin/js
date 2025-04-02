@@ -29,8 +29,7 @@ function validationForm(e) {
   let formEl = document.querySelector('form');
 
   const validationdRules = {
-
-
+  
   };
 
   const validationMEthods = {
