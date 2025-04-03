@@ -26,6 +26,7 @@ javascript.
 document.getElementById('contactsForm').addEventListener('submit', e => validationForm(e));
 
 function validationForm(e) {
+  e.preventDefault();
 
   if (!isValid()) {
     e.preventDefault();
@@ -40,15 +41,15 @@ function validationForm(e) {
     let result = true;
     let validationMethods = {
       length(field, args) {
-        console.log('length' + field);
+        console.log('length');
       },
 
       mustContainNumbers(field) {
-        console.log('mustContainNumbers' + field);
+        console.log('mustContainNumbers');
       },
 
       mustMatch(field, args) {
-        console.log('mustMatch' + field);
+        console.log('mustMatch');
       }
 
     };
@@ -105,10 +106,15 @@ function validationForm(e) {
     ];
 
     for (let rule of validationRules) {
+      let inputEl = document.getElementById(rule.id);
+      for (let method of rule.methods) {
+        let validationMethod = validationMethods[method.name];
+        let result = validationMethod(inputEl, method.args);
+
+        // console.log(result);
+      }
 
     }
-
-
 
     return result
   }
