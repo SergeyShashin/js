@@ -26,18 +26,19 @@ javascript.
 document.getElementById('contactsForm').addEventListener('submit', e => validationForm(e));
 
 function validationForm(e) {
-  e.preventDefault();
+
+  for (let el of document.querySelectorAll('.error')) {
+    el.remove();
+  }
 
   if (!isValid()) {
     e.preventDefault();
-    console.log('Что-то случилось.');
     return
   }
 
   console.log('Данные отправлены.');
 
   function isValid() {
-    let result = true;
     let validationMethods = {
       length(field, args) {
         let sign = args[0];
@@ -47,27 +48,27 @@ function validationForm(e) {
         switch (sign) {
           case '>':
             if (!(fieldLength > quantityChars)) {
-              msg = `Ожидмаемая длина минимум ${quantityChars}`
+              msg = `Ожидмаемая длина минимум ${quantityChars}.`
             }
             break;
           case '>=':
-            if (!(fieldLength > quantityChars)) {
-              msg = `Ожидмаемая длина минимум ${quantityChars}`
+            if (!(fieldLength >= quantityChars)) {
+              msg = `Ожидмаемая длина минимум ${quantityChars}.`
             }
             break;
           case '<':
             if (!(fieldLength < quantityChars)) {
-              msg = `Ожидмаемая длина поля не более ${quantityChars}`
+              msg = `Ожидмаемая длина поля не более ${quantityChars}.`
             }
             break;
           case '<=':
             if (!(fieldLength <= quantityChars)) {
-              msg = `Ожидмаемая длина поля более ${quantityChars}`
+              msg = `Ожидмаемая длина поля более ${quantityChars}.`
             }
             break;
           case '===':
             if (fieldLength !== quantityChars) {
-              msg = `Ожидмаемая длина поля  ${quantityChars}`
+              msg = `Ожидмаемая длина поля  ${quantityChars}.`
             }
             break;
         }
@@ -75,11 +76,12 @@ function validationForm(e) {
       },
 
       mustContainNumbers(field) {
-        console.log('mustContainNumbers');
+        return Number.isInteger(Number(field.value)) ? null : 'Ожидаются только цифры.'
       },
 
       mustMatch(field, args) {
         console.log('mustMatch');
+        return field.value === document.getElementById(args).value ? null : 'Ожидается совпадение с полем password.'
       }
 
     };
@@ -90,7 +92,7 @@ function validationForm(e) {
         methods: [
           {
             name: 'length',
-            args: ['>', 1]
+            args: ['>=', 1]
           },
           {
             name: 'length',
@@ -116,7 +118,7 @@ function validationForm(e) {
         methods: [
           {
             name: 'length',
-            args: ['>', 5]
+            args: ['>=', 5]
           },
           {
             name: 'length',
@@ -142,16 +144,29 @@ function validationForm(e) {
         let msgError = validationMethod(inputEl, method.args);
         if (msgError) {
           console.error(msgError);
-          result = false;
+          setError(inputEl, msgError);
+          return false;
         } else {
           console.log('Данные норм.');
+          clearError(inputEl);
         }
 
-        // console.log(result);
       }
 
     }
 
-    return result
+    function setError(el, msg) {
+      el.classList.add('is-invalid');
+      let errorEl = document.createElement('p');
+      errorEl.textContent = msg;
+      errorEl.classList.add('error');
+      el.parentElement.appendChild(errorEl);
+    }
+
+    function clearError(el) {
+      el.classList.remove('is-invalid');
+    }
+
+    return true
   }
 }
