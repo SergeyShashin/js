@@ -23,41 +23,93 @@
 javascript.
 */
 
-document.getElementById('button-send').addEventListener('click', e => validationForm(e));
+document.getElementById('contactsForm').addEventListener('submit', e => validationForm(e));
 
 function validationForm(e) {
-  let formEl = document.querySelector('form');
 
-  const validationdRules = {
-  
-  };
-
-  const validationMEthods = {
-    length(quantityChar, sign, data) {
-      let dataLength = data.length;
-      let result = '';
-      switch (sign) {
-        case '>':
-          dataLength > quantityChar ? '' : result = `Длина меньше ${quantityChar}`;
-          break;
-        case '>=':
-          dataLength >= quantityChar ? '' : result = `Длина меньше ${quantityChar}`;
-          break;
-        case '<':
-          dataLength < quantityChar ? '' : result = `Длина больше ${quantityChar}`;
-          break;
-        case '<=':
-          dataLength <= quantityChar ? '' : result = `Длина больше ${quantityChar}`;
-          break;
-        case '===':
-          quantityChar === dataLength ? '' : result = `Длина поля должна быть равна ${quantityChar}.`;
-          break;
-      }
-
-      return result
-    }
+  if (!isValid()) {
+    e.preventDefault();
+    console.log('Что-то случилось.');
+    return
   }
 
-  console.log(validationMEthods.length(2, '===', '+'));
+  console.log('Данные отправлены.');
 
+  function isValid() {
+    let errors = [];
+    let result = true;
+    let validationMethods = {
+      length(field, args) {
+        console.log('length' + field);
+      },
+
+      mustContainNumbers(field) {
+        console.log('mustContainNumbers' + field);
+      },
+
+      mustMatch(field, args) {
+        console.log('mustMatch' + field);
+      }
+
+    };
+
+    let validationRules = [
+      {
+        id: 'name',
+        methods: [
+          {
+            name: 'length',
+            args: ['>', 1]
+          },
+          {
+            name: 'length',
+            args: ['<', 50]
+          },
+        ]
+      },
+      {
+        id: 'phone',
+        methods: [
+          {
+            name: 'mustContainNumbers',
+            args: []
+          },
+          {
+            name: 'length',
+            args: ['===', 11]
+          },
+        ]
+      },
+      {
+        id: 'password',
+        methods: [
+          {
+            name: 'length',
+            args: ['>', 5]
+          },
+          {
+            name: 'length',
+            args: ['<', 50]
+          },
+        ]
+      },
+      {
+        id: 'repeatPassword',
+        methods: [
+          {
+            name: 'mustMatch',
+            args: ['password']
+          },
+        ]
+      },
+    ];
+
+    for (let rule of validationRules) {
+
+    }
+
+
+
+    return result
+  }
 }
