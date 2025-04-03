@@ -37,11 +37,41 @@ function validationForm(e) {
   console.log('Данные отправлены.');
 
   function isValid() {
-    let errors = [];
     let result = true;
     let validationMethods = {
       length(field, args) {
-        console.log('length');
+        let sign = args[0];
+        let quantityChars = args[1];
+        let fieldLength = field.value.length;
+        let msg = null;
+        switch (sign) {
+          case '>':
+            if (!(fieldLength > quantityChars)) {
+              msg = `Ожидмаемая длина минимум ${quantityChars}`
+            }
+            break;
+          case '>=':
+            if (!(fieldLength > quantityChars)) {
+              msg = `Ожидмаемая длина минимум ${quantityChars}`
+            }
+            break;
+          case '<':
+            if (!(fieldLength < quantityChars)) {
+              msg = `Ожидмаемая длина поля не более ${quantityChars}`
+            }
+            break;
+          case '<=':
+            if (!(fieldLength <= quantityChars)) {
+              msg = `Ожидмаемая длина поля более ${quantityChars}`
+            }
+            break;
+          case '===':
+            if (fieldLength !== quantityChars) {
+              msg = `Ожидмаемая длина поля  ${quantityChars}`
+            }
+            break;
+        }
+        return msg
       },
 
       mustContainNumbers(field) {
@@ -109,7 +139,13 @@ function validationForm(e) {
       let inputEl = document.getElementById(rule.id);
       for (let method of rule.methods) {
         let validationMethod = validationMethods[method.name];
-        let result = validationMethod(inputEl, method.args);
+        let msgError = validationMethod(inputEl, method.args);
+        if (msgError) {
+          console.error(msgError);
+          result = false;
+        } else {
+          console.log('Данные норм.');
+        }
 
         // console.log(result);
       }
