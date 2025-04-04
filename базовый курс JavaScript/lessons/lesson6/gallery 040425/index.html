@@ -13,9 +13,9 @@
     }
 
     #gallery {
+      display: grid;
       justify-content: center;
       padding: 10px;
-      display: grid;
       gap: 20px;
     }
 
@@ -23,14 +23,20 @@
       border-radius: 10px;
     }
 
-    #gallery img:hover {
+    #gallery img:hover,
+    .close img {
       cursor: pointer;
     }
 
     .monitor {}
 
-    .background {
+    .background,
+    .img,
+    .close img {
       position: fixed;
+    }
+
+    .background {
       top: 0;
       left: 0;
       width: 100%;
@@ -39,25 +45,22 @@
     }
 
     .img {
-      position: fixed;
       top: 20%;
       display: flex;
       justify-content: center;
     }
 
     .img img {
+      display: block;
       border-radius: 20px;
       width: 50%;
-      display: block;
     }
 
     .close img {
       width: 30px;
       height: 30px;
-      position: fixed;
       top: 20px;
       right: 20px;
-      cursor: pointer;
     }
   </style>
   <title>Gallery</title>
