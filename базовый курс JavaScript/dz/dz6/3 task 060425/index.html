@@ -24,17 +24,38 @@
     }
 
     #gallery img:hover,
-    .close img {
+    .close img,
+    #btnLeft:hover,
+    #btnRight:hover {
       cursor: pointer;
     }
 
-    .monitor {
-    }
+    .monitor {}
 
     .background,
     .img,
-    .close img {
+    .close img,
+    #btnLeft,
+    #btnRight {
       position: fixed;
+    }
+
+    #btnLeft,
+    #btnRight {
+      background: none;
+      border: none;
+      font-size: 50px;
+      top: 45%;
+      z-index: 2;
+      color: lightseagreen;
+    }
+
+    #btnLeft {
+      left: 20px;
+    }
+
+    #btnRight {
+      right: 20px;
     }
 
     .background {
@@ -55,14 +76,14 @@
     .img img {
       display: block;
       border-radius: 20px;
-      width: 50%;
+      width: 500px;
     }
 
     .close img {
       width: 30px;
       height: 30px;
       top: 20px;
-      right: 20px; 
+      right: 20px;
     }
   </style>
   <title>Gallery</title>
@@ -77,15 +98,15 @@
     <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
     <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
     <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
-    <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
     <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
     <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
     <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
-    <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
     <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
     <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
     <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
-    <img src="img/min/4.jpg" data-full-image-url="img/max/4.jpg" alt="img/min/4.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
   </div>
 
   <!-- <div class="monitor">

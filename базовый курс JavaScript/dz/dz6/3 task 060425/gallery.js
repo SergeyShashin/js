@@ -1,9 +1,9 @@
 'use strict';
 
 /*
-1. Доработать функцию замены картинки в галерее таким образом, чтобы она проверяла наличие большой
-картинки по указанному в src адресу. Если такой картинки не существует или она не доступна, то должна
-ставиться картинка-заглушка сообщающая об ошибке.
+3*. Добавить в галерею функцию перехода к следующему изображению. По сторонам от большой картинки
+должны быть стрелки “вперед” и “назад”, по нажатию на которые происходит замена изображения на
+следующее или предыдущее.
 */
 
 const settings = {
@@ -19,6 +19,9 @@ const settings = {
 const gallery = {
   settings,
   galleryEl: null,
+  currentImgEl: null,
+  prevImgEl: null,
+  nextImgEl: null,
 
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
@@ -34,6 +37,9 @@ const gallery = {
     if (e.target.tagName !== 'IMG') {
       return
     }
+
+    this.currentImgEl = e.target;
+    this.setPrevAndNextImgEl(this.currentImgEl);
 
     let srcImg = e.target.dataset.fullImageUrl;
     this.openImg(srcImg);
@@ -53,6 +59,7 @@ const gallery = {
   getMonitor() {
     let monitorEl = document.querySelector('.' + this.settings.monitorClass);
     if (monitorEl) {
+      monitorEl.querySelector('.img').remove();
       return monitorEl
     }
 
@@ -73,13 +80,54 @@ const gallery = {
     monitorEl.appendChild(btnCloseEl);
     document.body.appendChild(monitorEl);
 
+    let btnLeftEl = document.createElement('button');
+    let btnRightEl = document.createElement('button');
+    btnLeftEl.textContent = '<';
+    btnRightEl.textContent = '>';
+    btnLeftEl.id = 'btnLeft';
+    btnRightEl.id = 'btnRight';
+    monitorEl.appendChild(btnLeftEl);
+    monitorEl.appendChild(btnRightEl);
+
     btnCloseEl.addEventListener('click', () => this.closeMonitor(monitorEl));
+    btnLeftEl.addEventListener('click', e => this.moveLeft(e));
+    btnRightEl.addEventListener('click', e => this.moveRight(e));
 
     return monitorEl;
   },
 
   closeMonitor(monitorEl) {
     monitorEl.remove();
+  },
+
+  moveLeft() {
+    this.openImg(this.prevImgEl.dataset.fullImageUrl);
+    this.currentImgEl = this.prevImgEl;
+    this.setPrevAndNextImgEl(this.currentImgEl);
+  },
+
+  moveRight() {
+    this.openImg(this.nextImgEl.dataset.fullImageUrl);
+    this.currentImgEl = this.nextImgEl;
+    this.setPrevAndNextImgEl(this.currentImgEl);
+  },
+
+  setPrevImgEl(currentImgEl) {
+    this.prevImgEl =
+      currentImgEl.previousElementSibling
+        ? currentImgEl.previousElementSibling
+        : currentImgEl.parentElement.lastElementChild;
+  },
+
+  setNextImgEl(currentImgEl) {
+    this.nextImgEl = currentImgEl.nextElementSibling
+      ? currentImgEl.nextElementSibling
+      : currentImgEl.parentElement.firstElementChild;
+  },
+
+  setPrevAndNextImgEl(currentImgEl) {
+    this.setPrevImgEl(currentImgEl);
+    this.setNextImgEl(currentImgEl);
   }
 
 }
