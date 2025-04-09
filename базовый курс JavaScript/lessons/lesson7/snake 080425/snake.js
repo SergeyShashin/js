@@ -2,8 +2,8 @@
 const settings = {
   rowsCount: 21,
   colsCount: 21,
-  winFoodCount: 5,
-  speed: 5,
+  winFoodCount: 1,
+  speed: 1,
 };
 
 const config = {
@@ -27,10 +27,59 @@ const config = {
 
   getSpeed() {
     return this.settings.speed
+  },
+
+  validate() {
+    const result = {
+      isValid: true,
+      errors: []
+    }
+
+    if (this.settings.rowsCount > 21) {
+      result.isValid = false;
+      result.errors.push('Может быть высоту поля выбрать менее 22?');
+    }
+
+    if (this.settings.rowsCount < 5) {
+      result.isValid = false;
+      result.errors.push('Может быть высоту поля выбрать более 4?');
+    }
+
+    if (this.settings.colsCount > 21) {
+      result.isValid = false;
+      result.errors.push('Может быть ширину поля выбрать менее 22?');
+    }
+
+    if (this.settings.colsCount < 5) {
+      result.isValid = false;
+      result.errors.push('Может быть ширину поля выбрать более 4?');
+    }
+
+    if (this.settings.winFoodCount > 15) {
+      result.isValid = false;
+      result.errors.push('Может быть количество еды выбрать менее 16?');
+    }
+
+    if (this.settings.winFoodCount < 1) {
+      result.isValid = false;
+      result.errors.push('Может быть количество еды выбрать более 1?');
+    }
+
+    if (this.settings.speed > 10) {
+      result.isValid = false;
+      result.errors.push('Может быть скорость выбрать менее 11?');
+    }
+
+    if (this.settings.speed < 1) {
+      result.isValid = false;
+      result.errors.push('Может быть скорость выбрать более 1?');
+    }
+
+    return result
   }
 };
 
-const status = {
+const statusGame = {
   condition: null,
 };
 
@@ -61,7 +110,7 @@ const map = {
 
 const game = {
   config,
-  status,
+  statusGame,
   snake,
   food,
   map,
@@ -70,9 +119,17 @@ const game = {
   init(userSettings = {}) {
     this.config.init(userSettings);
     console.log('Welcome World!');
+    let validation = this.config.validate();
+
+    if (!validation.isValid) {
+      for (let errorMsg of validation.errors) {
+        console.error(errorMsg);
+      }
+      return
+    };
 
   },
 
 }
 
-window.onload = game.init();
+window.onload = game.init({ winFoodCount: 5, speed: 3 });
