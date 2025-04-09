@@ -179,7 +179,7 @@ const game = {
     this.food.init({ x: null, y: null });
     this.food.setFoodPoint(this.getFreeRandomPoint());
     this.mapRender();
-
+    this.setEventHandlers();
   },
 
   getStartPointSnake() {
@@ -202,7 +202,15 @@ const game = {
   },
 
   mapRender() {
-    this.map.render(this.snake.getBody(), this.food.getPosition());
+    this.map.render(this.snake.getBody(), this.getFreeRandomPoint());
+  },
+
+  setEventHandlers() {
+    document.getElementById('newGameButton').addEventListener('click', () => this.reset());
+  },
+
+  reset() {
+    this.mapRender();
   }
 }
 
