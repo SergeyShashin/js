@@ -211,6 +211,18 @@ const game = {
 
   reset() {
     this.mapRender();
+  },
+
+  stop() {
+
+  },
+
+  play() {
+
+  },
+
+  finish() {
+
   }
 }
 
