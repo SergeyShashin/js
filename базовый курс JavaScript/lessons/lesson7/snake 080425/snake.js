@@ -87,37 +87,70 @@ const snake = {
   body: null,
   direction: null,
   lastStepDirection: null,
+
   init(startBody) {
-    this.body = startBody;
+    this.body = [startBody];
+  },
+
+  getBody() {
+    return this.body;
   }
 };
 
 const food = {
   point: null,
+
   init(point) {
-    this.point = point
+    this.point = point;
+  },
+
+  setFoodPoint(point) {
+    this.point = point;
+  },
+
+  getPosition() {
+    return this.point;
   }
 };
 
 const map = {
-  cels: null,
-  usedCels: null,
+  cells: null,
+  usedCells: null,
   gameEl: null,
+
   init(rowsCount, colsCount) {
     this.gameEl = document.getElementById('snake-game');
-    this.cels = {};
-    this.usedCels = [];
+    this.cells = {};
+    this.usedCells = [];
 
     for (let row = 0; row < rowsCount; row++) {
       let trEl = document.createElement('tr');
-      console.log(trEl);
       for (let col = 0; col < colsCount; col++) {
         let tdEl = document.createElement('td');
         trEl.appendChild(tdEl);
-        this.cels[`x${col}_y${row}`] = tdEl;
+        this.cells[`x${col}_y${row}`] = tdEl;
       }
       this.gameEl.appendChild(trEl);
     }
+  },
+
+  render(snakeBody, foodPosition) {
+    this.gameEl.innerHTML = '';
+
+    for (let cell of this.usedCells) {
+      cell.className = '';
+    }
+
+    this.usedCells = [];
+
+    snakeBody.map((point, idx) => {
+      // let cell = this.cells[`point.x, point.y`];
+      point.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
+      this.usedCells.push(point);
+    });
+
+
+
   }
 };
 
@@ -131,7 +164,6 @@ const game = {
 
   init(userSettings = {}) {
     this.config.init(userSettings);
-    console.log('Welcome World!');
     let validation = this.config.validate();
 
     if (!validation.isValid) {
@@ -142,8 +174,31 @@ const game = {
     };
 
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
+    this.snake.init(this.getStartPointSnake());
+    this.food.init({ x: null, y: null });
+    this.food.setFoodPoint(this.getFreeRandomPoint());
+    this.map.render(this.snake.getBody(), this.food.getPosition());
+
   },
 
+  getStartPointSnake() {
+    return { x: Math.round(this.config.getColsCount() / 2), y: Math.round(this.config.getRowsCount() / 2) }
+  },
+
+  getFreeRandomPoint() {
+    let exclude = [...this.snake.getBody(), this.food.getPosition()];
+
+    while (true) {
+      const randomPoint = {
+        x: Math.floor(Math.random() * this.config.getColsCount()),
+        y: Math.floor(Math.random() * this.config.getRowsCount()),
+      };
+
+      if (!exclude.some(point => point.x === randomPoint.x && point.y === randomPoint.y)) {
+        return randomPoint;
+      }
+    }
+  }
 }
 
 window.onload = game.init({ winFoodCount: 3, speed: 3 });
