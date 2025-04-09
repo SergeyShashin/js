@@ -132,4 +132,4 @@ const game = {
 
 }
 
-window.onload = game.init({ winFoodCount: 5, speed: 3 });
+window.onload = game.init({ winFoodCount: 3, speed: 3 });
