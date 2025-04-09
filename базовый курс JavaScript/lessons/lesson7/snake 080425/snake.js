@@ -81,6 +81,26 @@ const config = {
 
 const statusGame = {
   condition: null,
+
+  setPlay() {
+    this.condition = 'play';
+  },
+
+  setStop() {
+    this.condition = 'stop';
+  },
+
+  setFinish() {
+    this.condition = 'finish';
+  },
+
+  isPlay() {
+    return this.condition === 'play';
+  },
+
+  isStop() {
+    return this.condition === 'stop';
+  }
 };
 
 const snake = {
@@ -88,8 +108,9 @@ const snake = {
   direction: null,
   lastStepDirection: null,
 
-  init(startBody) {
+  init(startBody, direction) {
     this.body = [startBody];
+    this.direction = direction;
   },
 
   getBody() {
@@ -162,6 +183,7 @@ const game = {
   food,
   map,
   numberInterval: null,
+  buttonPlayOrStopEl: null,
 
   init(userSettings = {}) {
     this.config.init(userSettings);
@@ -174,12 +196,15 @@ const game = {
       return
     };
 
+    this.buttonPlayOrStopEl = document.getElementById('playOrStopButton');
+
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
-    this.snake.init(this.getStartPointSnake());
+    this.snake.init(this.getStartPointSnake(), 'up');
     this.food.init({ x: null, y: null });
     this.food.setFoodPoint(this.getFreeRandomPoint());
     this.mapRender();
     this.setEventHandlers();
+    this.reset();
   },
 
   getStartPointSnake() {
@@ -207,22 +232,47 @@ const game = {
 
   setEventHandlers() {
     document.getElementById('newGameButton').addEventListener('click', () => this.reset());
+    this.buttonPlayOrStopEl.addEventListener('click', () => this.toggle());
   },
 
   reset() {
+    this.stop();
     this.mapRender();
   },
 
-  stop() {
-
+  play() {
+    this.statusGame.setPlay();
+    this.buttonPlayOrStopSetText('STOP');
+    this.numberInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSpeed());
   },
 
-  play() {
-
+  stop() {
+    this.statusGame.setStop();
+    this.buttonPlayOrStopSetText('PLAY');
+    clearInterval(this.numberInterval);
   },
 
   finish() {
+    this.statusGame.setFinish();
+    this.buttonPlayOrStopSetText('FINSH', true);
+    clearInterval(this.numberInterval);
+  },
 
+  tickInterval() {
+    console.log('го');
+  },
+
+  toggle() {
+    if (this.statusGame.isStop()) {
+      this.play();
+    } else if (this.statusGame.isPlay()) {
+      this.stop();
+    }
+  },
+
+  buttonPlayOrStopSetText(text, isFinish = false) {
+    this.buttonPlayOrStopEl.textContent = text;
+    isFinish ? classList.add('finish') : '';
   }
 }
 
