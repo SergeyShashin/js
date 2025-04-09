@@ -104,7 +104,20 @@ const map = {
   usedCels: null,
   gameEl: null,
   init(rowsCount, colsCount) {
+    this.gameEl = document.getElementById('snake-game');
+    this.cels = {};
+    this.usedCels = [];
 
+    for (let row = 0; row < rowsCount; row++) {
+      let trEl = document.createElement('tr');
+      console.log(trEl);
+      for (let col = 0; col < colsCount; col++) {
+        let tdEl = document.createElement('td');
+        trEl.appendChild(tdEl);
+        this.cels[`x${col}_y${row}`] = tdEl;
+      }
+      this.gameEl.appendChild(trEl);
+    }
   }
 };
 
@@ -128,6 +141,7 @@ const game = {
       return
     };
 
+    this.map.init(this.config.getRowsCount(), this.config.getColsCount());
   },
 
 }
