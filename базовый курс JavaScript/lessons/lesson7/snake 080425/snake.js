@@ -145,7 +145,7 @@ const map = {
 
     snakeBody.map((point, idx) => {
       // let cell = this.cells[`point.x, point.y`];
-      point.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
+      // point.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
       this.usedCells.push(point);
     });
 
