@@ -120,6 +120,7 @@ const map = {
 
   init(rowsCount, colsCount) {
     this.gameEl = document.getElementById('snake-game');
+    this.gameEl.innerHTML = '';
     this.cells = {};
     this.usedCells = [];
 
@@ -135,7 +136,6 @@ const map = {
   },
 
   render(snakeBody, foodPosition) {
-    this.gameEl.innerHTML = '';
 
     for (let cell of this.usedCells) {
       cell.className = '';
@@ -144,13 +144,14 @@ const map = {
     this.usedCells = [];
 
     snakeBody.map((point, idx) => {
-      // let cell = this.cells[`point.x, point.y`];
-      // point.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
-      this.usedCells.push(point);
+      let cell = this.cells[`x${point.x}_y${point.y}`];
+      cell.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
+      this.usedCells.push(cell);
     });
 
-
-
+    let foodPooint = this.cells[`x${foodPosition.x}_y${foodPosition.y}`];
+    foodPooint.classList.add('food');
+    this.usedCells.push(foodPooint);
   }
 };
 
@@ -177,7 +178,7 @@ const game = {
     this.snake.init(this.getStartPointSnake());
     this.food.init({ x: null, y: null });
     this.food.setFoodPoint(this.getFreeRandomPoint());
-    this.map.render(this.snake.getBody(), this.food.getPosition());
+    this.mapRender();
 
   },
 
@@ -198,6 +199,10 @@ const game = {
         return randomPoint;
       }
     }
+  },
+
+  mapRender() {
+    this.map.render(this.snake.getBody(), this.food.getPosition());
   }
 }
 
