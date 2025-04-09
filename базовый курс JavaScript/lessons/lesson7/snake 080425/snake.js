@@ -115,6 +115,39 @@ const snake = {
 
   getBody() {
     return this.body;
+  },
+
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
+
+    switch (this.direction) {
+      case 'up':
+        headPoint.y--;
+        break;
+      case 'down':
+        headPoint.y++;
+        break;
+      case 'right':
+        headPoint.x++;
+        break;
+      case 'left':
+        headPoint.x--;
+        break;
+    }
+    return headPoint
+  },
+
+  makeStep(nextHeadPoint) {
+    this.body.unshift(nextHeadPoint);
+    this.body.pop();
+  },
+
+  setDirection(direction) {
+    this.direction = direction;
+  },
+
+  growUp(nextHeadPoint) {
+    this.body.push(nextHeadPoint);
   }
 };
 
@@ -227,12 +260,13 @@ const game = {
   },
 
   mapRender() {
-    this.map.render(this.snake.getBody(), this.getFreeRandomPoint());
+    this.map.render(this.snake.getBody(), this.food.getPosition());
   },
 
   setEventHandlers() {
     document.getElementById('newGameButton').addEventListener('click', () => this.reset());
     this.buttonPlayOrStopEl.addEventListener('click', () => this.toggle());
+    window.addEventListener('keydown', e => this.keydownHandler(e));
   },
 
   reset() {
@@ -259,7 +293,17 @@ const game = {
   },
 
   tickInterval() {
-    console.log('го');
+    let nextHeadPoint = this.snake.getNextHeadPoint();
+    if (!this.canMakeStep(nextHeadPoint)) {
+      this.finish();
+      return
+    }
+    if (this.foodOnPoint(nextHeadPoint)) {
+      this.snake.growUp(nextHeadPoint);
+      this.food.setFoodPoint(this.getFreeRandomPoint());
+    }
+    this.snake.makeStep(nextHeadPoint);
+    this.mapRender();
   },
 
   toggle() {
@@ -272,7 +316,35 @@ const game = {
 
   buttonPlayOrStopSetText(text, isFinish = false) {
     this.buttonPlayOrStopEl.textContent = text;
-    isFinish ? classList.add('finish') : '';
+    isFinish ? this.buttonPlayOrStopEl.classList.add('finish') : '';
+  },
+
+  canMakeStep(nextHeadPoint) {
+    return nextHeadPoint.x >= 0 &&
+      nextHeadPoint.y >= 0 &&
+      nextHeadPoint.x < this.config.getColsCount() &&
+      nextHeadPoint.y < this.config.getRowsCount()
+  },
+
+  keydownHandler(e) {
+    let direction;
+    switch (e.code) {
+      case 'ArrowUp': direction = 'up';
+        break;
+      case 'ArrowDown': direction = 'down';
+        break;
+      case 'ArrowRight': direction = 'right';
+        break;
+      case 'ArrowLeft': direction = 'left';
+        break;
+    }
+
+    this.snake.setDirection(direction);
+  },
+
+  foodOnPoint(nextHeadPoint) {
+    let foodPoint = this.food.getPosition();
+    return foodPoint.x === nextHeadPoint.x && foodPoint.y === nextHeadPoint.y
   }
 }
 
