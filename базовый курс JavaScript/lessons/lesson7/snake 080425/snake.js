@@ -403,4 +403,4 @@ const game = {
   }
 }
 
-window.onload = game.init({ winFoodCount: 15, speed: 5 });
+window.onload = game.init({ winFoodCount: 15, speed: 9 });
