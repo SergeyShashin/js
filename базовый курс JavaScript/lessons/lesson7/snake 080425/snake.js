@@ -341,27 +341,15 @@ const game = {
 
   keydownHandler(e) {
     let direction;
-    let currentDirection = this.snake.getDirection();
     switch (e.code) {
       case 'ArrowUp':
-        if (currentDirection !== 'down') {
-          direction = 'up';
-        }
+        direction = 'up';
         break;
-      case 'ArrowDown':
-        if (currentDirection !== 'up') {
-          direction = 'down';
-        }
+      case 'ArrowDown': direction = 'down';
         break;
-      case 'ArrowRight':
-        if (currentDirection !== 'left') {
-          direction = 'right';
-        }
+      case 'ArrowRight': direction = 'right';
         break;
-      case 'ArrowLeft':
-        if (currentDirection !== 'right') {
-          direction = 'left';
-        }
+      case 'ArrowLeft': direction = 'left';
         break;
     }
 
