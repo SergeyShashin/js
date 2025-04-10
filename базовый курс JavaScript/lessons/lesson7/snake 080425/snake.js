@@ -163,6 +163,7 @@ const food = {
   },
 
   getPosition() {
+    console.log(this.point);
     return this.point;
   }
 };
@@ -274,7 +275,7 @@ const game = {
     this.stop();
     this.food.setFoodPoint(this.getFreeRandomPoint());
     this.snake.init(this.getStartPointSnake(), 'up');
-    this.map.render(this.snake.getBody(), this.getFreeRandomPoint());
+    this.map.render(this.snake.getBody(), this.food.getPosition());
   },
 
   play() {
