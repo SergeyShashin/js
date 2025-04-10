@@ -118,7 +118,7 @@ const snake = {
   },
 
   getNextHeadPoint() {
-    let headPoint = this.body[0];
+    let headPoint = { x: this.body[0].x, y: this.body[0].y };
 
     switch (this.direction) {
       case 'up':
@@ -288,7 +288,7 @@ const game = {
 
   finish() {
     this.statusGame.setFinish();
-    this.buttonPlayOrStopSetText('FINSH', true);
+    this.buttonPlayOrStopSetText('FINISH', true);
     clearInterval(this.numberInterval);
   },
 
@@ -299,7 +299,9 @@ const game = {
       return
     }
     if (this.foodOnPoint(nextHeadPoint)) {
-      this.snake.growUp(nextHeadPoint);
+      let snakeBody = this.snake.getBody();
+      let lastPartBody = snakeBody[snake.body.length - 1];
+      this.snake.growUp(lastPartBody);
       this.food.setFoodPoint(this.getFreeRandomPoint());
     }
     this.snake.makeStep(nextHeadPoint);
