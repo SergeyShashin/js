@@ -148,6 +148,10 @@ const snake = {
 
   growUp(nextHeadPoint) {
     this.body.push(nextHeadPoint);
+  },
+
+  getDirection() {
+    return this.direction;
   }
 };
 
@@ -337,14 +341,27 @@ const game = {
 
   keydownHandler(e) {
     let direction;
+    let currentDirection = this.snake.getDirection();
     switch (e.code) {
-      case 'ArrowUp': direction = 'up';
+      case 'ArrowUp':
+        if (currentDirection !== 'down') {
+          direction = 'up';
+        }
         break;
-      case 'ArrowDown': direction = 'down';
+      case 'ArrowDown':
+        if (currentDirection !== 'up') {
+          direction = 'down';
+        }
         break;
-      case 'ArrowRight': direction = 'right';
+      case 'ArrowRight':
+        if (currentDirection !== 'left') {
+          direction = 'right';
+        }
         break;
-      case 'ArrowLeft': direction = 'left';
+      case 'ArrowLeft':
+        if (currentDirection !== 'right') {
+          direction = 'left';
+        }
         break;
     }
 
