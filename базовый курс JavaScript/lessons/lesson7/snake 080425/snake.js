@@ -107,10 +107,20 @@ const snake = {
   body: null,
   direction: null,
   lastStepDirection: null,
+  amountFoodEaten: null,
 
   init(startBody, direction) {
     this.body = [startBody];
     this.direction = direction;
+    this.amountFoodEaten = 0;
+  },
+
+  amountFoodEatenUp() {
+    this.amountFoodEaten++;
+  },
+
+  getAmountFoodEaten() {
+    return this.amountFoodEaten;
   },
 
   getBody() {
@@ -138,12 +148,26 @@ const snake = {
   },
 
   makeStep(nextHeadPoint) {
+    this.lastStepDirection = this.direction;
     this.body.unshift(nextHeadPoint);
     this.body.pop();
   },
 
   setDirection(direction) {
     this.direction = direction;
+  },
+
+  canSetDirection(direction) {
+    switch (direction) {
+      case 'up':
+        return this.lastStepDirection !== 'down';
+      case 'down':
+        return this.lastStepDirection !== 'up';
+      case 'right':
+        return this.lastStepDirection !== 'left';
+      case 'left':
+        return this.lastStepDirection !== 'right';
+    }
   },
 
   growUp(nextHeadPoint) {
@@ -167,7 +191,6 @@ const food = {
   },
 
   getPosition() {
-    console.log(this.point);
     return this.point;
   }
 };
@@ -300,6 +323,12 @@ const game = {
     clearInterval(this.numberInterval);
   },
 
+  goalHasBeenAchieved() {
+    this.statusGame.setFinish();
+    this.buttonPlayOrStopSetText('DONE', true);
+    clearInterval(this.numberInterval);
+  },
+
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
 
@@ -312,7 +341,13 @@ const game = {
       let snakeBody = this.snake.getBody();
       let lastPartBody = snakeBody[snake.body.length - 1];
       this.snake.growUp(lastPartBody);
+      this.snake.amountFoodEatenUp();
       this.food.setFoodPoint(this.getFreeRandomPoint());
+    }
+
+    if (this.snake.getAmountFoodEaten() === this.config.getWinFoodCount()) {
+      this.finish();
+      this.goalHasBeenAchieved();
     }
 
     this.snake.makeStep(nextHeadPoint);
@@ -330,6 +365,7 @@ const game = {
   buttonPlayOrStopSetText(text, isFinish = false) {
     this.buttonPlayOrStopEl.textContent = text;
     isFinish ? this.buttonPlayOrStopEl.classList.add('finish') : '';
+    text === 'DONE' ? this.buttonPlayOrStopEl.classList.add('done') : '';
   },
 
   canMakeStep(nextHeadPoint) {
@@ -353,7 +389,9 @@ const game = {
         break;
     }
 
-    this.snake.setDirection(direction);
+    if (this.snake.canSetDirection(direction)) {
+      this.snake.setDirection(direction);
+    }
   },
 
   foodOnPoint(nextHeadPoint) {
