@@ -271,7 +271,7 @@ const game = {
 
   reset() {
     this.stop();
-    this.mapRender();
+    this.map.render(this.snake.getBody(), this.getFreeRandomPoint());
   },
 
   play() {
