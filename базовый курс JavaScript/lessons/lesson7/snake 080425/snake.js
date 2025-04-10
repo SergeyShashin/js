@@ -176,6 +176,10 @@ const snake = {
 
   getDirection() {
     return this.direction;
+  },
+
+  nextHeadPointOnBody(nextHeadPoint) {
+    return this.body.some(point => nextHeadPoint.x === point.x && nextHeadPoint.y === point.y);
   }
 };
 
@@ -332,7 +336,7 @@ const game = {
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
 
-    if (!this.canMakeStep(nextHeadPoint)) {
+    if (!this.canMakeStep(nextHeadPoint) || this.snake.nextHeadPointOnBody(nextHeadPoint)) {
       this.finish();
       return
     }
@@ -346,7 +350,6 @@ const game = {
     }
 
     if (this.snake.getAmountFoodEaten() === this.config.getWinFoodCount()) {
-      this.finish();
       this.goalHasBeenAchieved();
     }
 
@@ -400,4 +403,4 @@ const game = {
   }
 }
 
-window.onload = game.init({ winFoodCount: 3, speed: 3 });
+window.onload = game.init({ winFoodCount: 15, speed: 5 });
