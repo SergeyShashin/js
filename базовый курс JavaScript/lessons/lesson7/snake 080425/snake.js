@@ -156,16 +156,13 @@ const food = {
 
   init(point) {
     this.point = point;
-    console.log(this.point);
   },
 
   setFoodPoint(point) {
-    this.point = point;
-    console.log(this.point);
+    this.point = {x: point.x, y: point.y };
   },
-  
+
   getPosition() {
-    console.log(this.point);
     return this.point;
   }
 };
@@ -238,7 +235,6 @@ const game = {
     this.snake.init(this.getStartPointSnake(), 'up');
     this.food.init({ x: null, y: null });
     this.food.setFoodPoint(this.getFreeRandomPoint());
-    // this.mapRender();
     this.reset();
     this.setEventHandlers();
   },
