@@ -159,7 +159,7 @@ const food = {
   },
 
   setFoodPoint(point) {
-    this.point = {x: point.x, y: point.y };
+    this.point = { x: point.x, y: point.y };
   },
 
   getPosition() {
@@ -217,6 +217,7 @@ const game = {
   map,
   numberInterval: null,
   buttonPlayOrStopEl: null,
+  buttonNewGameButton: null,
 
   init(userSettings = {}) {
     this.config.init(userSettings);
@@ -230,11 +231,11 @@ const game = {
     };
 
     this.buttonPlayOrStopEl = document.getElementById('playOrStopButton');
+    this.buttonNewGameButton = document.getElementById('newGameButton');
 
     this.map.init(this.config.getRowsCount(), this.config.getColsCount());
     this.snake.init(this.getStartPointSnake(), 'up');
     this.food.init({ x: null, y: null });
-    this.food.setFoodPoint(this.getFreeRandomPoint());
     this.reset();
     this.setEventHandlers();
   },
@@ -263,13 +264,16 @@ const game = {
   },
 
   setEventHandlers() {
-    document.getElementById('newGameButton').addEventListener('click', () => this.reset());
+    this.buttonNewGameButton.addEventListener('click', () => this.reset());
     this.buttonPlayOrStopEl.addEventListener('click', () => this.toggle());
     window.addEventListener('keydown', e => this.keydownHandler(e));
   },
 
   reset() {
+    this.buttonPlayOrStopEl.className = 'button-play-or-stop';
     this.stop();
+    this.food.setFoodPoint(this.getFreeRandomPoint());
+    this.snake.init(this.getStartPointSnake(), 'up');
     this.map.render(this.snake.getBody(), this.getFreeRandomPoint());
   },
 
