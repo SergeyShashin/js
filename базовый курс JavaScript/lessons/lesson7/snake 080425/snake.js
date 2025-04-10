@@ -156,13 +156,16 @@ const food = {
 
   init(point) {
     this.point = point;
+    console.log(this.point);
   },
 
   setFoodPoint(point) {
     this.point = point;
+    console.log(this.point);
   },
-
+  
   getPosition() {
+    console.log(this.point);
     return this.point;
   }
 };
@@ -235,9 +238,9 @@ const game = {
     this.snake.init(this.getStartPointSnake(), 'up');
     this.food.init({ x: null, y: null });
     this.food.setFoodPoint(this.getFreeRandomPoint());
-    this.mapRender();
-    this.setEventHandlers();
+    // this.mapRender();
     this.reset();
+    this.setEventHandlers();
   },
 
   getStartPointSnake() {
@@ -294,16 +297,19 @@ const game = {
 
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
+
     if (!this.canMakeStep(nextHeadPoint)) {
       this.finish();
       return
     }
+
     if (this.foodOnPoint(nextHeadPoint)) {
       let snakeBody = this.snake.getBody();
       let lastPartBody = snakeBody[snake.body.length - 1];
       this.snake.growUp(lastPartBody);
       this.food.setFoodPoint(this.getFreeRandomPoint());
     }
+
     this.snake.makeStep(nextHeadPoint);
     this.mapRender();
   },
