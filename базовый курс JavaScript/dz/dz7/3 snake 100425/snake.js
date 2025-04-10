@@ -122,6 +122,11 @@ const snake = {
     this.borderRight = borderRight;
   },
 
+  reset(startBody, direction) {
+    this.body = [startBody];
+    this.direction = direction;
+  },
+
   amountFoodEatenUp() {
     this.amountFoodEaten++;
   },
@@ -139,17 +144,16 @@ const snake = {
 
     switch (this.direction) {
       case 'up':
-        console.log(headPoint);
-        headPoint.y = headPoint.y - 1 < 0 ? this.borderBottom : headPoint.y - 1;
+        headPoint.y = headPoint.y - 1 < 0 ? this.borderBottom - 1 : headPoint.y - 1;
         break;
       case 'down':
-        headPoint.y = headPoint.y + 1 > this.borderBottom ? 0 : headPoint.y + 1;
+        headPoint.y = headPoint.y + 1 > this.borderBottom - 1 ? 0 : headPoint.y + 1;
         break;
       case 'right':
-        headPoint.x = headPoint.y + 1 > this.borderRight ? 0 : headPoint.x + 1;
+        headPoint.x = headPoint.x + 1 > this.borderRight - 1 ? 0 : headPoint.x + 1;
         break;
       case 'left':
-        headPoint.x = headPoint.y - 1 < 0 ? this.borderRight : headPoint.x - 1;
+        headPoint.x = headPoint.x - 1 < 0 ? this.borderRight - 1 : headPoint.x - 1;
         break;
     }
     return headPoint
@@ -340,7 +344,7 @@ const game = {
     this.buttonPlayOrStopEl.className = 'button-play-or-stop';
     this.stop();
     this.food.setFoodPoint(this.getFreeRandomPoint());
-    this.snake.init(this.getStartPointSnake(), 'up');
+    this.snake.reset(this.getStartPointSnake(), 'up');
     this.counter.reset();
     this.map.render(this.snake.getBody(), this.food.getPosition());
   },
