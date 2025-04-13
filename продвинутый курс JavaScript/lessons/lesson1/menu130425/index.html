@@ -11,6 +11,16 @@
 <body>
 
   <script src="menu.js"></script>
+  <script>
+    var menu = new Menu('menuId', 'menuClass', [
+      new MenuItem('Home', '/Home'),
+      new MenuItem('Page', '/Page'),
+      new MenuItem('Contacts', '/Contacts'),
+    ]);
+
+    document.body.appendChild(menu.render());
+
+  </script>
 
 </body>
 

@@ -1,6 +1,6 @@
 
 function Container(idContainer, classContainer) {
-  this.id = idContainer;
+  this.idContainer = idContainer;
   this.classContainer = classContainer;
 }
 
@@ -8,35 +8,49 @@ Container.prototype.render = function () {
   let div = document.createElement('div');
   div.id = this.idContainer;
   div.className = this.classContainer;
+  return div;
 }
 
-function Menu(idMenu, classMenu, items) {
-  Container.call(this, idMenu, classMenu);
+function Menu(idContainer, classContainer, items) {
+  Container.call(this, idContainer, classContainer);
   this.items = items;
 }
 
+
 Menu.prototype = Object.create(Container.prototype);
 Menu.prototype.render = function () {
-  let ul = document.createElement('ul');
-  ul.id = this.idMenu;
-  ul.className = this.classMenu;
+  var ul = document.createElement('ul');
+  ul.id = this.idContainer;
+  ul.className = this.classContainer;
 
-  items.forEach(function (item) {
-    if (item.instanceOf(Container)) {
-      ul.appendChild(item);
+  this.items.forEach(function (item) {
+    if (item instanceof Container) {
+      ul.appendChild(item.render());
     }
   });
+  return ul;
 }
 
-function MenuItems(href, label) {
-  Container.call(this, '', 'menuItem');
+
+
+function MenuItem(label, href) {
+  Container.call(this, '', 'menuItemClass');
   this.href = href;
   this.label = label;
 }
 
-MenuItems.prototype = Object.create(Container.prototype);
-MenuItems.render = function () {
-  
+MenuItem.prototype = Object.create(Container.prototype);
+MenuItem.prototype.render = function () {
+  var li = document.createElement('li');
+  li.id = this.idContainer;
+  li.className = this.classContainer;
+  var aEl = document.createElement('a');
+  aEl.href = this.href;
+  aEl.textContent = this.label;
+  li.appendChild(aEl);
+  return li;
 }
 
+var menuItem = new MenuItem('sdf', '/sdf');
+console.log(menuItem.render());
 
