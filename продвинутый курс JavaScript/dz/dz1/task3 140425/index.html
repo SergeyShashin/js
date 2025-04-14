@@ -9,12 +9,47 @@
 
 <body>
   <form id='burgerOrder' action="#">
-    <label for="burgerSize">
-      <select name="size" id="burgerSize">
-        <option value="small">маленький (50 рублей, 20 калорий)</option>
-        <option value="big">маленький (50 рублей, 20 калорий)</option>
-      </select>
-    </label>
+    <fieldset>
+      <legend>Заказ Бургера</legend>
+      <fieldset>
+        <legend>Размер</legend>
+        <label for="burgerSize">
+          <select name="size" id="burgerSize">
+            <option value="big" selected>Большой (100 рублей, 40 калорий)</option>
+            <option value="small">Маленький (50 рублей, 20 калорий)</option>
+          </select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Начинки</legend>
+        <label for="cheese">
+          Cыр (+ 10 рублей, + 20 калорий)
+          <input type="radio" name="stuffing" id="cheese">
+        </label>
+        <label for="salad">салат (+ 20 рублей, + 5 калорий)
+          <input type="radio" name="stuffing" id="salad">
+        </label>
+        <label for="potato">картофель (+ 15 рублей, + 10 калорий)
+          <input type="radio" name="stuffing" id="potato">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Специи</legend>
+        <label for="sauce">
+          Посыпать приправой (+ 15 рублей, 0 калорий)
+          <input type="checkbox" name="spices" id="sauce">
+        </label>
+        <label for="mayo">
+          Полить майонезом (+ 20 рублей, + 5 калорий)
+          <input type="checkbox" name="spices" id="mayo">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Заказать</legend>
+        <input type="submit">
+        <input type="reset">
+      </fieldset>
+    </fieldset>
   </form>
   <script src="burger.js"></script>
 </body>
