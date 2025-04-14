@@ -23,25 +23,27 @@
       <fieldset>
         <legend>Начинки</legend>
         <label for="cheese">
+          <input type="radio" name="stuffing" id="cheese" checked>
           Cыр (+ 10 рублей, + 20 калорий)
-          <input type="radio" name="stuffing" id="cheese">
         </label>
-        <label for="salad">салат (+ 20 рублей, + 5 калорий)
+        <label for="salad">
           <input type="radio" name="stuffing" id="salad">
+          Cалат (+ 20 рублей, + 5 калорий)
         </label>
-        <label for="potato">картофель (+ 15 рублей, + 10 калорий)
+        <label for="potato">
           <input type="radio" name="stuffing" id="potato">
+          Картофель (+ 15 рублей, + 10 калорий)
         </label>
       </fieldset>
       <fieldset>
         <legend>Специи</legend>
         <label for="sauce">
-          Посыпать приправой (+ 15 рублей, 0 калорий)
           <input type="checkbox" name="spices" id="sauce">
+          Посыпать приправой (+ 15 рублей, 0 калорий)
         </label>
         <label for="mayo">
-          Полить майонезом (+ 20 рублей, + 5 калорий)
           <input type="checkbox" name="spices" id="mayo">
+          Полить майонезом (+ 20 рублей, + 5 калорий)
         </label>
       </fieldset>
       <fieldset>
@@ -51,14 +53,48 @@
       </fieldset>
     </fieldset>
   </form>
+  <pre id="result"></pre>
   <script src="burger.js"></script>
   <script>
     var burgerOrderEl = document.getElementById('burgerOrder');
 
     burgerOrderEl.onsubmit = function (e) {
-      console.dir(e.target);
+      e.preventDefault();
+      var size = document.getElementById('burgerSize').value;
+
+      var stuffings = {
+        cheese: document.getElementById('cheese').checked,
+        salad: document.getElementById('salad').checked,
+        potato: document.getElementById('potato').checked,
+      };
+
+      function getStuffing() {
+        for (let key in stuffings) {
+          if (stuffings[key]) {
+            return key;
+          }
+        }
+      }
+
+      var spices = {
+        sauce: document.getElementById('sauce').checked,
+        mayo: document.getElementById('mayo').checked,
+      };
+
+
+      var burger = new Burger(size, getStuffing());
+      for (let key in spices) {
+        if (spices[key]) {
+          burger.addSpice(key);
+        }
+      }
+
+
+      console.log(burger.getPrice());
+      console.log(burger.getCalories());
+
     }
-    
+
   </script>
 </body>
 
