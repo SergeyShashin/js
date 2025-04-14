@@ -1,4 +1,7 @@
-// 1. Улучшить базовый класс, добавив в него общий для всех метод remove(), который удаляет контейнер.
+/*
+  2. Создать наследника класса Menu – новый класс должен уметь строить меню со вложенными пунктами,
+  т.е с подменю. Подсказка: главный секрет – в обходе объекта пунктов меню и проверке типов.
+*/
 
 function Container(idContainer, classContainer) {
   this.idContainer = idContainer;
@@ -36,8 +39,6 @@ Menu.prototype.render = function () {
   return ul;
 }
 
-
-
 function MenuItem(label, href) {
   Container.call(this, '', 'menuItemClass');
   this.href = href;
@@ -55,4 +56,3 @@ MenuItem.prototype.render = function () {
   li.appendChild(aEl);
   return li;
 }
-
