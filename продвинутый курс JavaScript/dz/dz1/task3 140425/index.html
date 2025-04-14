@@ -89,10 +89,7 @@
         }
       }
 
-
-      console.log(burger.getPrice());
-      console.log(burger.getCalories());
-
+      document.getElementById('result').textContent = `Бургер \nРазмер: ${size === 'big' ? 'большой' : 'маленький'}\nНачинка: ${getStuffing()}\nСпеции: ${burger.getSpices()}\nСтоимость: ${burger.getPrice()}\nКалорийность: ${burger.getCalories()}`;
     }
 
   </script>

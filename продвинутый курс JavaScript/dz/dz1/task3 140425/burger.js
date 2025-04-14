@@ -66,6 +66,10 @@ Burger.prototype.addSpice = function (spice) {
   }
 };
 
+Burger.prototype.getSpices = function () {
+  return this.spices.join(', ');
+};
+
 Burger.prototype.getPrice = function () {
   return this.price;
 };
