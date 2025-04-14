@@ -56,3 +56,21 @@ MenuItem.prototype.render = function () {
   li.appendChild(aEl);
   return li;
 }
+
+function SuperMenu(idContainer, classContainer, items, label, href) {
+  Menu.call(this, idContainer, classContainer, items);
+  this.label = label;
+  this.href = href;
+}
+
+SuperMenu.prototype = Object.create(Menu.prototype);
+SuperMenu.prototype.render = function () {
+  if (this.label && this.href) {
+    var subMenulabel = new MenuItem(this.label, this.href).render();
+    // var subMenu = new Menu(this.idContainer, this.classContainer, this.items).render();
+    subMenulabel.appendChild(new Menu(this.idContainer, this.classContainer, this.items).render());
+    return subMenulabel;
+  } else {
+    return new Menu(this.idContainer, this.classContainer, this.items).render();
+  }
+}
