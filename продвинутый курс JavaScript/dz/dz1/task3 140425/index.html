@@ -52,6 +52,14 @@
     </fieldset>
   </form>
   <script src="burger.js"></script>
+  <script>
+    var burgerOrderEl = document.getElementById('burgerOrder');
+
+    burgerOrderEl.onsubmit = function (e) {
+      console.dir(e.target);
+    }
+    
+  </script>
 </body>
 
 </html>
