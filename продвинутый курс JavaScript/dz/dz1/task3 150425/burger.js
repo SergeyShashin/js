@@ -28,7 +28,7 @@ function Burger(size, stuffing) {
       this.price += 20;
       this.calories += 50;
       break;
-    default: new BurgerError(`Что-то с размером. ${this.size}`);
+    default: throw new BurgerError(`Что-то с размером. ${this.size}`);
   }
   this.size = size;
 
@@ -38,14 +38,14 @@ function Burger(size, stuffing) {
       this.calories += 20;
       break;
     case Burger.STUFFING_SALAD:
-      this.price += 50;
-      this.calories += 20;
+      this.price += 20;
+      this.calories += 5;
       break;
     case Burger.STUFFING_POTATO:
       this.price += 15;
       this.calories += 10;
       break;
-    default: new BurgerError(`Что-то с начинкой. ${this.stuffing}`);
+    default: throw new BurgerError(`Что-то с начинкой. ${this.stuffing}`);
   }
   this.stuffing = stuffing;
 }
@@ -70,7 +70,7 @@ Burger.prototype.addTopping = function (topping) {
         this.price += 20;
         this.calories += 5;
         break;
-      default: new BurgerError(`Что-то с добавкой.${topping}`);
+      default: throw new BurgerError(`Что-то с добавкой.${topping}`);
     }
   }
 }
@@ -96,6 +96,6 @@ Burger.prototype.getToppings = function () {
 };
 
 function BurgerError(msg) {
-  name: 'BurgerError';
-  message: msg
+  this.name = 'BurgerError';
+  this.msg = msg;
 }
