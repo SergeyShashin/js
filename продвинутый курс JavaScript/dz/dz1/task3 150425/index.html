@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Burger</title>
+  <form action="#" method="get">
+    <h2>Заказ бургера</h2>
+    <p>
+      <label for="size">Размер:</label>
+      <select name="size" id="size">
+        <option value="1" selected>Большой (100 рублей, 40 калорий)</option>
+        <option value="2">Маленький (50 рублей, 20 калорий)</option>
+      </select>
+    </p>
+    <p>
+      <label for="stuffing">Начинка:</label>
+      <label for="cheese">Cыром (+ 10 рублей, + 20 калорий)</label>
+      <input type="radio" value="1" id="cheese">
+    </p>
+
+  </form>
+  <pre id="result"></pre>
+</head>
+
+<body>
+  <script src="burger.js"></script>
+
+
+</body>
+
+</html>
