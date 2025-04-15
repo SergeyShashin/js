@@ -15,10 +15,23 @@
       </select>
     </p>
     <p>
-      <label for="stuffing">Начинка:</label>
+      <label>Начинка:</label>
       <label for="cheese">Cыром (+ 10 рублей, + 20 калорий)</label>
-      <input type="radio" value="1" id="cheese">
+      <input type="radio" name="stuffing" value="1" id="cheese" checked>
+      <label for="salad">Cалатом (+ 20 рублей, + 5 калорий)</label>
+      <input type="radio" name="stuffing" value="2" id="salad">
+      <label for="potato">Картофель (+ 15 рублей, + 10 калорий)</label>
+      <input type="radio" name="stuffing" value="3" id="potato">
     </p>
+    <p>
+      <label>Добавки:</label>
+      <label for="spices">Приправа (+ 15 рублей, 0 калорий)</label>
+      <input type="checkbox" name="toppingSpices" value="1" id="spices" checked>
+      <label for="mayo">Майонез (+ 20 рублей, + 5 калорий)</label>
+      <input type="checkbox" name="toppingMayo" value="2" id="mayo">
+    </p>
+
+    <input type="submit" value="Рассчитать">
 
   </form>
   <pre id="result"></pre>
@@ -26,6 +39,33 @@
 
 <body>
   <script src="burger.js"></script>
+  <script>
+    document.forms[0].onsubmit = function () {
+      try {
+        var burger = new Burger(Number(this.size.value), Number(this.stuffing.value));
+        var res = document.getElementById('result');
+
+        if (this.toppingSpices.checked) {
+          burger.addTopping(this.toppingSpices.value)
+        }
+
+        if (this.toppingMayo.checked) {
+          burger.addTopping(this.toppingMayo.value)
+        }
+
+        res.textContent = '';
+        res.textContent += `********************\n`;
+        res.textContent += `Бургер            \n`;
+        res.textContent += `********************\n`;
+        res.textContent += `* Стоимость: ${burger.calculate()}   *\n`;
+        res.textContent += `* Калорийность: ${burger.getCalories()} *\n`;
+
+      } catch (e) {
+        console.error(e.message);
+      }
+      return false
+    }
+  </script>
 
 
 </body>
