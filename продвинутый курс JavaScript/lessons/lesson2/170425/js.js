@@ -5,5 +5,5 @@ btnBuildMenuEl.addEventListener('click', function () {
 });
 
 function handlerClickBtnBuildMenu() {
-  console.log('Построй меню, пожалуйста.');
+  console.log('Построй меню, пожалуйста.');  
 }
