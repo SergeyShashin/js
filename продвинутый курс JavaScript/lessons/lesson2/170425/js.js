@@ -28,7 +28,7 @@ function handlerClickBtnBuildMenu() {
     var monitorEl = document.getElementById('monitor');
     console.log(monitorEl);
     console.log(itemsEls);
-    var menu = new Menu('menu', 'menu', [itemsEls]);
+    var menu = new Menu('menu', 'menu', itemsEls);
     monitorEl.appendChild(menu.render());
   })
 
