@@ -1,5 +1,19 @@
 {
   "menu": [
-    {"id":1, "label":"Home", "path":""}
+    {
+      "id": 1,
+      "label": "Home",
+      "path": "/Home"
+    },
+    {
+      "id": 2,
+      "label": "Page",
+      "path": "/Page"
+    },
+    {
+      "id": 3,
+      "label": "Contacts",
+      "path": "/Contacts"
+    }
   ]
 }
