@@ -21,13 +21,9 @@ function handlerClickBtnBuildMenu() {
   getData(function buldMenu(data) {
     var itemsEls = [];
     data.map(function (el) {
-      console.log(el.label);
-      console.log(el.path);
       itemsEls.push(new MenuItem(el.label, el.path));
     });
     var monitorEl = document.getElementById('monitor');
-    console.log(monitorEl);
-    console.log(itemsEls);
     var menu = new Menu('menu', 'menu', itemsEls);
     monitorEl.appendChild(menu.render());
   })
