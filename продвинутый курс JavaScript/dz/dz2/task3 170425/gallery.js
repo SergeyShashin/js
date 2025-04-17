@@ -1,5 +1,10 @@
 'use strict';
 
+/*
+Создать функционал фотогалереи. Имеется статичный json-набор миниатюр,
+на основании которого строится сетка изображений со ссылками на полноразмерные картинки.
+*/
+
 function getData(method, link, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
