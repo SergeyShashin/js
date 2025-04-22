@@ -21,7 +21,7 @@ formEl.addEventListener('submit', function (e) {
 });
 
 function handlerSubmitForm(e) {
-  e.preventDefault();
+  // e.preventDefault();
   var inputsEls = e.target.querySelectorAll('input');
   var errors = [];
 
@@ -35,7 +35,7 @@ function handlerSubmitForm(e) {
           if (!/^[\wа-яё]+$/i.test(content)) {
             var msgError = 'Имя может содержать только буквы';
             errors.push({ idInput: idInput, error: msgError });
-            setErrorBorder(input, msgError);
+            setErrorBorder(input, msgError, e);
             return
           } else {
             clearErrorText(input);
@@ -73,6 +73,8 @@ function handlerSubmitForm(e) {
     preEl.textContent = msg;
     preEl.classList.add('errorText');
     el.parentElement.appendChild(preEl);
+  e.preventDefault();
+
   }
 
   function clearErrorText(el) {
