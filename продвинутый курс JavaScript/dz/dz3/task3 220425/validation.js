@@ -51,10 +51,21 @@ function handlerSubmitForm(e) {
             clearErrorText(input);
           }
           break;
-
+        case 'email':
+          if (!/^[\w\.\-]+\@[\w\.\-]+\.\w{2,}$/i.test(content)) {
+            var msgError = 'E-mail может быть каким-то таким mymail@mail.ru, или my.mail@mail.ru, или my-mail@mail.ru';
+            errors.push({ idInput: idInput, error: msgError });
+            setErrorBorder(input, msgError);
+            return
+          } else {
+            clearErrorText(input);
+          }
+          break;
       }
     }
   }
+
+
 
   function setErrorBorder(el, msg) {
     el.classList.add('errorBorder');
