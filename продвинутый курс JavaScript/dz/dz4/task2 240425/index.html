@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dz4. Task2</title>
+  <style>
+    * {
+      margin: 0 auto;
+      color: crimson;
+    }
+
+    section {
+      text-align: center;
+    }
+
+    h4,
+    #towns {
+      margin: 10px 0;
+    }
+
+    #towns {
+      width: 30%;
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid lightseagreen;
+      outline: none;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <section>
+    <h4>Выбор города</h4>
+    <input type='search' id="towns" list='dataTowns'>
+    <datalist id='dataTowns'>
+      <!-- <option value='Рязань'></option> -->
+    </datalist>
+  </section>
+
+  <script src="autocomplete.js"></script>
+</body>
+
+</html>
