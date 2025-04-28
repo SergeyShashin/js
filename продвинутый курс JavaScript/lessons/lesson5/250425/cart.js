@@ -1,20 +1,13 @@
-(function ($) {
-  var cart = {
-    cartEl: null,
-    goodsEL: null,
-    goodsInCartEl: null,
-    init() {
-      this.cartEl = $('#cart')[0];
-      this.goodsEl = $('#goods')[0];
-      this.goodsInCartEl = $('#goodsInCart')[0];
-      this.reset();
-    },
-    reset() {
-      console.log(this.goodsEl);
-    }
 
+var cart = {
+  cartEl: null,
+  goodsEl: null,
+  goodsInCartEl: null,
+
+  init() {
+    console.log('Welcome WORLD!');
   }
 
-  cart.init();
+};
 
-})(jQuery);
+window.onload = cart.init();
