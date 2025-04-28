@@ -5,7 +5,6 @@ var cart = {
   goodsInCartEl: null,
 
   init() {
-    console.log('Welcome WORLD!');
     this.cartEl = document.getElementById('cart');
     this.goodsEl = document.getElementById('goods');
     this.goodsInCartEl = document.getElementById('goodsInCart');
@@ -15,12 +14,13 @@ var cart = {
   reset() {
     this.goodsEl.innerHTML = '';
     this.goodsInCartEl.innerHTML = '';
+    this.buildGoods();
     this.buildCart();
+    this.setEventHandlers();
   },
 
-  buildCart() {
+  buildGoods() {
     this.loadData('GET', 'http://localhost:3000/goods', function (data) {
-      console.log(data);
       for (let good of data) {
         var trEl = document.createElement('tr');
         var tdIdEl = document.createElement('td');
@@ -32,7 +32,9 @@ var cart = {
         tdNameEl.textContent = good.name;
         tdPriceEl.textContent = good.price;
         btnBuyEl.textContent = 'купить';
-        btnBuyEl.dataId = good.id;
+        btnBuyEl.dataset.id = good.id;
+        btnBuyEl.dataset.name = good.name;
+        btnBuyEl.dataset.price = good.price;
         trEl.appendChild(tdIdEl);
         trEl.appendChild(tdNameEl);
         trEl.appendChild(tdPriceEl);
@@ -44,8 +46,61 @@ var cart = {
     });
   },
 
-  loadData(method, link, callback) {
+  buildCart() {
+    this.loadData('GET', 'http://localhost:3000/goodsInCart', function (data) {
+      for (let good of data) {
+        var trEl = document.createElement('tr');
+        var tdIdEl = document.createElement('td');
+        var tdNameEl = document.createElement('td');
+        var tdPriceEl = document.createElement('td');
+        var tdForBtnEl = document.createElement('td');
+        var tdForBtnDelEl = document.createElement('td');
+        var btnAddEl = document.createElement('button');
+        var btnDelEl = document.createElement('button');
+        tdIdEl.textContent = good.id;
+        tdNameEl.textContent = good.name;
+        tdPriceEl.textContent = good.price;
+        btnAddEl.textContent = '+';
+        btnDelEl.textContent = '-';
+        btnAddEl.dataset.id = good.id;
+        btnAddEl.dataset.name = good.name;
+        btnAddEl.dataset.price = good.price;
+        btnDelEl.dataset.id = good.id;
+        trEl.appendChild(tdIdEl);
+        trEl.appendChild(tdNameEl);
+        trEl.appendChild(tdPriceEl);
+        tdForBtnEl.appendChild(btnAddEl);
+        tdForBtnDelEl.appendChild(btnDelEl);
+        trEl.appendChild(tdForBtnEl);
+        trEl.appendChild(tdForBtnDelEl);
+        document.getElementById('goodsInCart').appendChild(trEl);
+      }
 
+    });
+  },
+
+  setEventHandlers() {
+    this.cartEl.addEventListener('click', function (e) {
+      if (e.target.tagName !== 'BUTTON') {
+        return
+      }
+      console.log(e.target.dataset);
+      switch (e.target.textContent) {
+        case 'купить':
+          console.log('Добавить товар в корзину');
+          break;
+        case '+':
+          console.log('Увеличить количество товара в корзине');
+          break;
+        case '-':
+          console.log('Удалить или уменьшить товар в корзине.');
+          break;
+      }
+    })
+
+  },
+
+  loadData(method, link, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open(method, link);
     xhr.send();
@@ -53,11 +108,7 @@ var cart = {
       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status) {
         callback(JSON.parse(xhr.responseText));
       }
-
-    }
-
-
-
+    };
   },
 
 

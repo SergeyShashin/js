@@ -31,5 +31,11 @@
       "price": 150
     }
   ],
-  "goodsIncart": []
+  "goodsInCart": [
+    {
+      "id": 5,
+      "name": "трусы",
+      "price": 500
+    }
+  ]
 }
