@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /*
+    Записать восклицательный знак в в конец каждого массива.
+    [1, [2, 7, 8], [3, 4, [5, 6]]]
+    */
+
+    console.log(addSignInEveryElementArr([1, [2, 7, 8], [3, 4, [5, 6]]], '!'));
+
+    function addSignInEveryElementArr(arr, sign) {
+
+      for (let i = 0; i < arr.length; i++) {
+        let item = arr[i];
+        if (Array.isArray(item)) {
+          addSignInEveryElementArr(item, sign);
+        } else {
+          arr[i] += sign;
+        }
+      }
+
+      return arr
+    }
+  </script>
+</body>
+
+</html>
