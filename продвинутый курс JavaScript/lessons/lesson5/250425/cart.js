@@ -57,6 +57,8 @@ var cart = {
         var tdForBtnDelEl = document.createElement('td');
         var btnAddEl = document.createElement('button');
         var btnDelEl = document.createElement('button');
+        trEl.id = good.id;
+        trEl.dataset.quantity = good.quantity;
         tdIdEl.textContent = good.id;
         tdNameEl.textContent = good.name;
         tdPriceEl.textContent = good.price;
@@ -84,10 +86,10 @@ var cart = {
       if (e.target.tagName !== 'BUTTON') {
         return
       }
-      console.log(e.target.dataset);
+      // console.log(e.target.dataset);
       switch (e.target.textContent) {
         case 'купить':
-          console.log('Добавить товар в корзину');
+          addToCart(e.target);
           break;
         case '+':
           console.log('Увеличить количество товара в корзине');
@@ -96,9 +98,34 @@ var cart = {
           console.log('Удалить или уменьшить товар в корзине.');
           break;
       }
-    })
+
+      function addToCart(good) {
+        console.log('Добавить товар в корзину');
+        console.log(good);
+        var goodInCartEl = document.getElementById(good.dataset.id);
+        var quantity = goodInCartEl ? Number(goodInCartEl.dataset.quantity) + 1 : 1;
+
+        var dataGood = {
+          id: good.dataset.id,
+          name: good.dataset.name,
+          price: good.dataset.price,
+          quantity: quantity
+        }
+        sendData('POST', 'http://localhost:3000/goodsInCart', function () {
+
+        });
+      }
+
+      function sendData(method, link, callback) {
+        console.log('отправить товар в корзину.')
+      }
+
+
+    });
 
   },
+
+
 
   loadData(method, link, callback) {
     var xhr = new XMLHttpRequest();
