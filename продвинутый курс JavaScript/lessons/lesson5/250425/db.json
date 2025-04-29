@@ -33,10 +33,40 @@
   ],
   "goodsInCart": [
     {
-      "id": 5,
+      "id": "1",
+      "name": "куртка",
+      "price": "15000",
+      "quantity": 9
+    },
+    {
+      "id": "2",
+      "name": "джинсы",
+      "price": "4500",
+      "quantity": 8
+    },
+    {
+      "id": "3",
+      "name": "рубашка",
+      "price": "4500",
+      "quantity": 10
+    },
+    {
+      "id": "4",
+      "name": "майка",
+      "price": "4500",
+      "quantity": 6
+    },
+    {
+      "id": "5",
       "name": "трусы",
-      "price": 500,
-      "quantity": 1
+      "price": "500",
+      "quantity": 6
+    },
+    {
+      "id": "6",
+      "name": "носки",
+      "price": "150",
+      "quantity": 16
     }
   ]
 }

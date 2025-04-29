@@ -47,12 +47,14 @@ var cart = {
   },
 
   buildCart() {
+    document.getElementById('goodsInCart').innerHTML = '';
     this.loadData('GET', 'http://localhost:3000/goodsInCart', function (data) {
       for (let good of data) {
         var trEl = document.createElement('tr');
         var tdIdEl = document.createElement('td');
         var tdNameEl = document.createElement('td');
         var tdPriceEl = document.createElement('td');
+        var tdQuantityEl = document.createElement('td');
         var tdForBtnEl = document.createElement('td');
         var tdForBtnDelEl = document.createElement('td');
         var btnAddEl = document.createElement('button');
@@ -62,6 +64,7 @@ var cart = {
         tdIdEl.textContent = good.id;
         tdNameEl.textContent = good.name;
         tdPriceEl.textContent = good.price;
+        tdQuantityEl.textContent = good.quantity;
         btnAddEl.textContent = '+';
         btnDelEl.textContent = '-';
         btnAddEl.dataset.id = good.id;
@@ -71,6 +74,7 @@ var cart = {
         trEl.appendChild(tdIdEl);
         trEl.appendChild(tdNameEl);
         trEl.appendChild(tdPriceEl);
+        trEl.appendChild(tdQuantityEl);
         tdForBtnEl.appendChild(btnAddEl);
         tdForBtnDelEl.appendChild(btnDelEl);
         trEl.appendChild(tdForBtnEl);
@@ -86,13 +90,11 @@ var cart = {
       if (e.target.tagName !== 'BUTTON') {
         return
       }
-      // console.log(e.target.dataset);
+
       switch (e.target.textContent) {
         case 'купить':
-          addToCart(e.target);
-          break;
         case '+':
-          console.log('Увеличить количество товара в корзине');
+          addToCart(e.target);
           break;
         case '-':
           console.log('Удалить или уменьшить товар в корзине.');
@@ -100,24 +102,34 @@ var cart = {
       }
 
       function addToCart(good) {
-        console.log('Добавить товар в корзину');
-        console.log(good);
         var goodInCartEl = document.getElementById(good.dataset.id);
         var quantity = goodInCartEl ? Number(goodInCartEl.dataset.quantity) + 1 : 1;
 
-        var dataGood = {
+        var dataForSend = {
           id: good.dataset.id,
           name: good.dataset.name,
           price: good.dataset.price,
           quantity: quantity
         }
-        sendData('POST', 'http://localhost:3000/goodsInCart', function () {
 
-        });
+        if (quantity === 1) {
+          sendData('POST', 'http://localhost:3000/goodsInCart', dataForSend);
+        } else {
+          sendData('PATCH', 'http://localhost:3000/goodsInCart/' + good.dataset.id, { quantity: dataForSend.quantity });
+        }
+
       }
 
-      function sendData(method, link, callback) {
-        console.log('отправить товар в корзину.')
+      function sendData(method, link, dataForSend) {
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, link);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(dataForSend));
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status) {
+            cart.buildCart();
+          }
+        };
       }
 
 
