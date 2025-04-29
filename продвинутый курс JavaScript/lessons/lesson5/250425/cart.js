@@ -1,4 +1,3 @@
-
 var cart = {
   cartEl: null,
   goodsEl: null,
