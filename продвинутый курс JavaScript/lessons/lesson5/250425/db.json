@@ -36,37 +36,37 @@
       "id": "1",
       "name": "куртка",
       "price": "15000",
-      "quantity": 9
-    },
-    {
-      "id": "2",
-      "name": "джинсы",
-      "price": "4500",
-      "quantity": 8
+      "quantity": 2
     },
     {
       "id": "3",
       "name": "рубашка",
       "price": "4500",
-      "quantity": 10
+      "quantity": 2
     },
     {
       "id": "4",
       "name": "майка",
       "price": "4500",
-      "quantity": 6
+      "quantity": 2
     },
     {
       "id": "5",
       "name": "трусы",
       "price": "500",
-      "quantity": 6
+      "quantity": 2
     },
     {
       "id": "6",
       "name": "носки",
       "price": "150",
-      "quantity": 16
+      "quantity": 2
+    },
+    {
+      "id": "2",
+      "name": "джинсы",
+      "price": "4500",
+      "quantity": 2
     }
   ]
 }

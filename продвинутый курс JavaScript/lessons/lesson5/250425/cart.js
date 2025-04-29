@@ -13,7 +13,6 @@ var cart = {
 
   reset() {
     this.goodsEl.innerHTML = '';
-    this.goodsInCartEl.innerHTML = '';
     this.buildGoods();
     this.buildCart();
     this.setEventHandlers();
@@ -42,7 +41,6 @@ var cart = {
         trEl.appendChild(tdForBtnEl);
         document.getElementById('goods').appendChild(trEl);
       }
-
     });
   },
 
@@ -81,7 +79,6 @@ var cart = {
         trEl.appendChild(tdForBtnDelEl);
         document.getElementById('goodsInCart').appendChild(trEl);
       }
-
     });
   },
 
@@ -97,7 +94,7 @@ var cart = {
           addToCart(e.target);
           break;
         case '-':
-          console.log('Удалить или уменьшить товар в корзине.');
+          removeFromCart(e.target);
           break;
       }
 
@@ -117,21 +114,34 @@ var cart = {
         } else {
           sendData('PATCH', 'http://localhost:3000/goodsInCart/' + good.dataset.id, { quantity: dataForSend.quantity });
         }
+      }
 
+      function removeFromCart(good) {
+        var goodInCartEl = document.getElementById(good.dataset.id);
+        var quantity = Number(goodInCartEl.dataset.quantity);
+
+        if (quantity > 1) {
+          sendData('PATCH', 'http://localhost:3000/goodsInCart/' + good.dataset.id, { quantity: quantity - 1 });
+        } else {
+          sendData('DELETE', 'http://localhost:3000/goodsInCart/' + good.dataset.id, null);
+        }
       }
 
       function sendData(method, link, dataForSend) {
         var xhr = new XMLHttpRequest();
         xhr.open(method, link);
         xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(dataForSend));
+        if (dataForSend) {
+          xhr.send(JSON.stringify(dataForSend));
+        } else {
+          xhr.send();
+        }
         xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE && xhr.status) {
             cart.buildCart();
           }
         };
       }
-
 
     });
 
