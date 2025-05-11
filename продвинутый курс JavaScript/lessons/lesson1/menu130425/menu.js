@@ -50,7 +50,3 @@ MenuItem.prototype.render = function () {
   li.appendChild(aEl);
   return li;
 }
-
-var menuItem = new MenuItem('sdf', '/sdf');
-console.log(menuItem.render());
-
