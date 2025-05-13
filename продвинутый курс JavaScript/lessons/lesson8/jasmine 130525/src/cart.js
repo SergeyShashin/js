@@ -8,7 +8,7 @@ Cart.prototype.addItem = function (item) {
 
 Cart.prototype.total = function () {
   var sum = 0;
-  this.items.forEach(item, function (item) {
+  this.items.forEach(function (item) {
     sum += item.price * item.quantity;
   });
   return sum
