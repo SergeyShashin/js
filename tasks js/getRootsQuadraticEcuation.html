@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p id='monitor'></p>
+  <input id='a'>
+  <input id='b'>
+  <input id='c'>
+  <br>
+  <br>
+  <button id='btnGetRootsQuadraticEcuation'>Покажи корни квадратного уравнения</button>
+
+  <script>
+    /*
+    Даны 3 инпута, кнопка и абзац. В инпуты вводятся коэффициенты квадратного уравнения.
+    По нажатию на кнопку найдите корни этого уравнения и выведите их в абзац.
+    */
+
+    document.getElementById('btnGetRootsQuadraticEcuation').onclick = () =>
+      document.getElementById('monitor').textContent = getRoootsQuadraticEcuation(
+        Number(document.getElementById('a').value),
+        Number(document.getElementById('b').value),
+        Number(document.getElementById('c').value)
+      );
+
+    function getRoootsQuadraticEcuation(a, b, c) {
+      let d = b ** 2 - 4 * a * c;
+      if (a === 0 && b === 0 && c === 0) {
+        return '0';
+      } if (a === 0 && b === 0) {
+        return c;
+      } if (a === 0) {
+        return -c / b;
+      } else if (d < 0) {
+        return 'Корней нет.';
+      } else if (d > 0) {
+        let x1 = (-b - Math.sqrt(d)) / (2 * a);
+        let x2 = (-b + Math.sqrt(d)) / (2 * a);
+        return `x1=${x1}, x2=${x2}`
+      } else if (d === 0) {
+        return `x1 = ${-b / (2 * a)}`
+      }
+    }
+
+  </script>
+</body>
+
+</html>
