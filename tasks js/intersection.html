@@ -18,10 +18,10 @@
     function intersection() {
       let res = [];
       let newArr = [...arguments];
-      let lastArr = newArr.pop();
+      let lastArr = newArr.splice(getIdxArrWithMaxQuantityElements(...arguments), 1);
 
-      for (let el of lastArr) {
-        isInArs(el, newArr) ? res.push(el) : '';
+      for (let el of newArr[0]) {
+        isInArs(el, lastArr) ? res.push(el) : '';
       }
 
       return res
@@ -35,6 +35,21 @@
         }
 
         return true
+      }
+
+      function getIdxArrWithMaxQuantityElements(arr) {
+        let idxArrWithMaxLength = 0;
+        let maxLength = 0;
+
+        arr.map((el, idx) => {
+          let length = el.length;
+          if (length > maxLength) {
+            idxArrWithMaxLength = idx;
+            maxLength = length;
+          }
+        });
+        return idxArrWithMaxLength
+
       }
     }
   </script>
