@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    console.log(intersection([1, 2, 3], [101, 2, 1, 10], [2, 1]));
+
+    /*
+    Возвращает точки пересечения массивов
+    */
+    function intersection() {
+      let res = [];
+      let newArr = [...arguments];
+      let lastArr = newArr.pop();
+
+      for (let el of lastArr) {
+        isInArs(el, newArr) ? res.push(el) : '';
+      }
+
+      return res
+
+      function isInArs(el, arrs) {
+
+        for (let arr of arrs) {
+          if (!arr.includes(el)) {
+            return false
+          }
+        }
+
+        return true
+      }
+    }
+  </script>
+</body>
+
+</html>
