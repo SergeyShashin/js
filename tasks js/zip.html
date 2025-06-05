@@ -16,30 +16,40 @@
     => [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
     */
     function zip() {
-      let newArr = [];
-      iterateArr(arguments);
-
-      function iterateArr(arguments) {
-        for (let row of arguments) {
-          console.log(newArr);
-          addElRowInNewArr(row);
+      let newArr = Array.from(arguments[0], (el) => [el]);
+      for (let idxRow = 1; idxRow < arguments.length; idxRow++) {
+        for (let col = 0; col < newArr[idxRow].length; col++) {
+          newArr[col].push(arguments[idxRow][col]);
         }
       }
-
-      function addElRowInNewArr(arr) {
-        if (newArr.length === 0) {
-          for (let i = 0; i < arr.length; i++) {
-            newArr.push([]);
-          }
-        }
-
-        for (let i = 0; i < arr.length; i++) {
-          newArr[i].push(arr[i]);
-        }
-      }
-      
       return newArr
     }
+
+
+    // function zip() {
+    //   let newArr = [];
+    //   iterateArr(arguments);
+
+    //   function iterateArr(arguments) {
+    //     for (let row of arguments) {
+    //       addElRowInNewArr(row);
+    //     }
+    //   }
+
+    //   function addElRowInNewArr(arr) {
+    //     if (newArr.length === 0) {
+    //       for (let i = 0; i < arr.length; i++) {
+    //         newArr.push([]);
+    //       }
+    //     }
+
+    //     for (let i = 0; i < arr.length; i++) {
+    //       newArr[i].push(arr[i]);
+    //     }
+    //   }
+
+    //   return newArr
+    // }
 
   </script>
 </body>
