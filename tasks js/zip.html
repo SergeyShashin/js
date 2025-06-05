@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    console.log(zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]));
+    /*
+    Объединяет массивы в по номеру ключа.
+    zip(['moe', 'larry', 'curly'], [30, 40, 50], [true, false, false]);
+    => [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
+    */
+    function zip() {
+      let newArr = [];
+      iterateArr(arguments);
+
+      function iterateArr(arguments) {
+        for (let row of arguments) {
+          console.log(newArr);
+          addElRowInNewArr(row);
+        }
+      }
+
+      function addElRowInNewArr(arr) {
+        if (newArr.length === 0) {
+          for (let i = 0; i < arr.length; i++) {
+            newArr.push([]);
+          }
+        }
+
+        for (let i = 0; i < arr.length; i++) {
+          newArr[i].push(arr[i]);
+        }
+      }
+      
+      return newArr
+    }
+
+  </script>
+</body>
+
+</html>
