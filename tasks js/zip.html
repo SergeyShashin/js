@@ -16,9 +16,9 @@
     => [["moe", 30, true], ["larry", 40, false], ["curly", 50, false]]
     */
     function zip() {
-      let newArr = Array.from(arguments[0], (el) => [el]);
+      let newArr = Array.from(arguments[0], el => [el]);
       for (let idxRow = 1; idxRow < arguments.length; idxRow++) {
-        for (let col = 0; col < newArr[idxRow].length; col++) {
+        for (let col = 0; col < newArr.length; col++) {
           newArr[col].push(arguments[idxRow][col]);
         }
       }
