@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    #elem {
+      width: 300px;
+      height: 150px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #CFF5BF;
+      /* border: 25px solid #F0D7A1; */
+      /* overflow: auto; */
+      overflow-y: scroll;
+      text-align: justify;
+    }
+  </style>
+  <title>Document</title>
+
+</head>
+
+<body>
+  <div id="elem">
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+    некий длинный текст
+  </div>
+
+  <script>
+    let divEl = document.getElementById('elem');
+    console.log('Ширина в css:' + getComputedStyle(divEl).width);
+    console.log('Высота в css:' + getComputedStyle(divEl).height);
+
+    console.log('clientWidth:' + divEl.clientWidth);
+    console.log('clientHeight:' + divEl.clientHeight);
+
+    console.log('offsetWidth:' + divEl.offsetWidth);
+    console.log('offsetHeight:' + divEl.offsetHeight);
+
+    console.log('scrollWidth:' + divEl.scrollWidth);
+    console.log('scrollHeight:' + divEl.scrollHeight);
+
+    console.log('scrollLeft:' + divEl.scrollLeft);
+    console.log('scrollTop:' + divEl.scrollTop);
+
+    divEl.scrollTop = 200;
+    divEl.scrollTop = divEl.scrollTop + 100;
+    divEl.scrollTop = divEl.scrollHeight;
+
+    console.log(Math.floor(divEl.scrollTop) == divEl.scrollHeight - divEl.clientHeight);
+    console.log(divEl.scrollHeight - divEl.clientHeight);
+    divEl.style.height = divEl.scrollHeight + 'px';
+
+    console.log(divEl.offsetWidth - divEl.scrollWidth);
+
+  </script>
+</body>
+
+</html>
