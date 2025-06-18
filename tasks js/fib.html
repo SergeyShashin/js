@@ -12,8 +12,32 @@
 
   <script>
 
+    let fibIterator = fib();
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+    console.log(fibIterator.next());
+
     function* fib() {
-    
+
+      for (let prev = 0, next = 1, result = 1; ; result = prev + next, prev = next, next = result) {
+        if (prev === 0) {
+          yield prev;
+          yield next;
+        } else {
+          yield result;
+        }
+      }
+
     }
 
   </script>
