@@ -36,25 +36,35 @@
 
     let trEls = document.querySelectorAll('tr');
 
-    for (let tr of trEls) {
-      let obj = {};
-      for (let i = 0; i < tr.children.length; i++) {
-        if (i === 0) {
-          obj.surname = tr.children[i].textContent;
-        }
-
-        if (i === 1) {
-          obj.name = tr.children[i].textContent;
-        }
-
-        if (i === 2) {
-          obj.patronymic = tr.children[i].textContent;
-        }
-      }
-      users.push(obj);
+    for (let trEl of trEls) {
+      let [surname, name, patronymic] = [...trEl.children];
+      surname = surname.textContent;
+      name = name.textContent;
+      patronymic = patronymic.textContent;
+      users.push({ surname, name, patronymic });
     }
 
-    let usersJson = JSON.stringify(users);
+    let usersJson = JSON.stringify(users.slice(1));
+
+    // for (let tr of trEls) {
+    //   let obj = {};
+    //   for (let i = 0; i < tr.children.length; i++) {
+    //     if (i === 0) {
+    //       obj.surname = tr.children[i].textContent;
+    //     }
+
+    //     if (i === 1) {
+    //       obj.name = tr.children[i].textContent;
+    //     }
+
+    //     if (i === 2) {
+    //       obj.patronymic = tr.children[i].textContent;
+    //     }
+    //   }
+    //   users.push(obj);
+    // }
+
+    // let usersJson = JSON.stringify(users);
 
     console.log(usersJson);
 
