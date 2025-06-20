@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let timeEnter = localStorage.getItem('timeEnter');
+
+    console.log(timeEnter
+      ? `C предыдущего захода пользователя на сайт прошло ${(Date.now() - Date.parse(timeEnter)) / 1000 / 60}`
+      : 'Добро пожаловать. Вы тут в первый раз.'
+    );
+
+    localStorage.setItem('timeEnter', new Date());
+
+    console.log(timeEnter);
+
+  </script>
+</body>
+
+</html>
