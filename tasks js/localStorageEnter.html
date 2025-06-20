@@ -8,6 +8,9 @@
 </head>
 
 <body>
+
+  <input>
+
   <script>
     let timeEnter = localStorage.getItem('timeEnter');
 
@@ -28,13 +31,21 @@
     let dateNow = new Date();
 
     dateBirthday ? console.log(
-      dateBirthday === `${dateNow.getDate()}.${dateNow.getMonth()+1}.${dateNow.getFullYear()}`
+      dateBirthday === `${dateNow.getDate()}.${dateNow.getMonth() + 1}.${dateNow.getFullYear()}`
         ? 'С днём рождения!'
         : 'Доброго времени суток!')
       : localStorage.setItem('dateBirthday', prompt('Когда Ваш день рождения?'));
 
     // console.log(`${dateNow.getDate()}.${dateNow.getMonth()+1}.${dateNow.getFullYear()}`);
 
+  </script>
+
+  <script>
+    let contentInput = localStorage.getItem('contentInput');
+    let inputEl = document.querySelector('input');
+    console.log(contentInput);
+    inputEl.value = contentInput || contentInput !== 'undefined' ? contentInput : localStorage.setItem('contentInput', inputEl.value);
+    inputEl.onchange = () => localStorage.setItem('contentInput', inputEl.value);
   </script>
 </body>
 
