@@ -21,6 +21,21 @@
     console.log(timeEnter);
 
   </script>
+
+  <script>
+    let dateBirthday = localStorage.getItem('dateBirthday');
+
+    let dateNow = new Date();
+
+    dateBirthday ? console.log(
+      dateBirthday === `${dateNow.getDate()}.${dateNow.getMonth()+1}.${dateNow.getFullYear()}`
+        ? 'С днём рождения!'
+        : 'Доброго времени суток!')
+      : localStorage.setItem('dateBirthday', prompt('Когда Ваш день рождения?'));
+
+    // console.log(`${dateNow.getDate()}.${dateNow.getMonth()+1}.${dateNow.getFullYear()}`);
+
+  </script>
 </body>
 
 </html>
