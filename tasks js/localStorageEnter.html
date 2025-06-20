@@ -47,6 +47,12 @@
     inputEl.value = contentInput || contentInput !== 'undefined' ? contentInput : localStorage.setItem('contentInput', inputEl.value);
     inputEl.onchange = () => localStorage.setItem('contentInput', inputEl.value);
   </script>
+
+  <script>
+    let updateCounter = localStorage.getItem('updateCounter');
+    updateCounter ? localStorage.setItem('updateCounter', Number(updateCounter)+1) : localStorage.setItem('updateCounter', 0);
+    console.log(`Количество обновлений этого сайта = ${updateCounter}`);
+  </script>
 </body>
 
 </html>
