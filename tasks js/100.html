@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    td {
+      box-sizing: border-box;
+      width: 30px;
+      height: 30px;
+      padding: 5px;
+      background: lightskyblue;
+      color: crimson;
+      text-align: center;
+    }
+
+    td:hover {
+      cursor: pointer;
+    }
+
+    .click {
+      background: lightseagreen;
+    }
+
+    .fw {
+      font-size: x-large;
+    }
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    /*
+    Задача: сто программистов и повышение или увольнение для всех.
+    https://thecode.media/zadacha-sto-programmistov-i-povyshenie-ili-uvolnenie-dlya-vsekh/
+    */
+    const randomNumbers = getArrRandomNumbers(100);
+
+    let tableEl = document.createElement('table');
+    let counter = 1;
+
+    document.body.appendChild(tableEl);
+
+    for (let i = 0, counter = 0; i < 10; i++) {
+      let trEl = document.createElement('tr');
+      for (let j = 0; j < 10; j++, counter++) {
+        let tdEl = document.createElement('td');
+        tdEl.textContent = counter + 1 + '_' + randomNumbers[counter];
+        randomNumbers[counter] === 8 ? tdEl.classList.add('fw') : '';
+        trEl.appendChild(tdEl);
+      }
+      tableEl.appendChild(trEl);
+    }
+
+    function getArrRandomNumbers(length) {
+      const arr = [];
+
+      while (arr.length < 100) {
+        let randomNum = Math.floor(Math.random() * length + 1);
+        arr.includes(randomNum) ? '' : arr.push(randomNum);
+      }
+      return arr
+    }
+
+    tableEl.onclick = e => {
+
+      if (e.target.tagName === 'TD') {
+        e.target.classList.add('click');
+        console.log(counter++);
+      }
+
+    };
+
+  </script>
+</body>
+
+</html>
