@@ -30,8 +30,16 @@
     <li>9</li>
   </ol>
 
+  <button>Добавить изображение</button>
+
   <script>
     'use strict';
+
+    document.querySelector('button').onclick = () => {
+      let imgEl = new Image();
+      imgEl.src = '1.jpg';
+      imgEl.onload = () => document.body.appendChild(imgEl);
+    }
 
     function numering(arr) {
       return arr.map((el, idx) => `${idx + 1}: ${el}`);
