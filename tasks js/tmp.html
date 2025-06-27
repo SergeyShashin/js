@@ -32,7 +32,7 @@
 
   <button>Добавить изображение</button>
 
-  <script>
+  <!-- <script>
     'use strict';
 
     // document.querySelector('button').onclick = () => {
@@ -79,6 +79,31 @@
     console.log(numering(['a', 'b', 'c']));
 
     document.querySelector('ol').onclick = e => e.target.tagName === 'LI' ? e.target.classList.toggle('red') : '';
+
+  </script> -->
+
+  <!-- <script>
+    let promise = new Promise(resolve => {
+      setTimeout(() => resolve('Welcome World!'), 5000);
+    });
+
+    promise.then(result => console.log(result));
+  </script> -->
+
+  <script>
+    let promise = new Promise((resolve, reject) => {
+
+      let rndNum = Math.floor(Math.random() * 5);
+
+      if (rndNum === 0) {
+        reject('Деление на ноль.');
+      } else {
+        resolve(1/rndNum);
+      }
+
+    });
+
+    promise.then(result => console.log(result), error => console.log(error) );
 
   </script>
 </body>
