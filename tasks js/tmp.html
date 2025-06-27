@@ -35,10 +35,41 @@
   <script>
     'use strict';
 
+    // document.querySelector('button').onclick = () => {
+    //   let imgEl = new Image();
+    //   imgEl.src = '1.jpg';
+    //   imgEl.onload = () => document.body.appendChild(imgEl);
+    // }
+
     document.querySelector('button').onclick = () => {
-      let imgEl = new Image();
-      imgEl.src = '1.jpg';
-      imgEl.onload = () => document.body.appendChild(imgEl);
+
+      loadImg('0.jpg', callback);
+
+
+      function callback(imgEl, err) {
+        if (err) {
+          console.log(err);
+        } else {
+          document.body.appendChild(imgEl);
+        }
+      }
+
+      function loadImg(path, callback) {
+
+        let imgEl = new Image();
+        imgEl.src = path;
+        let errMsg;
+
+        imgEl.onload = () => {
+          callback(imgEl, errMsg);
+        }
+
+        imgEl.onerror = () => {
+          errMsg = 'Картинка не загружена.';
+          callback(imgEl, errMsg);
+        }
+      }
+
     }
 
     function numering(arr) {
