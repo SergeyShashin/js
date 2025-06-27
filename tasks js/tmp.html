@@ -90,7 +90,7 @@
     promise.then(result => console.log(result));
   </script> -->
 
-  <script>
+  <!-- <script>
     let promise = new Promise((resolve, reject) => {
 
       let rndNum = Math.floor(Math.random() * 5);
@@ -104,6 +104,24 @@
     });
 
     promise.then(result => console.log(result), error => console.log(error) );
+
+  </script> -->
+
+  <script>
+    let promise = new Promise((resolve, reject) => {
+
+      let rndNum = Math.floor(Math.random() * 5);
+
+      if (rndNum === 0) {
+        // reject(new Error('Деление на ноль.'));
+        throw new Error('Деление на ноль.');
+      } else {
+        resolve(1 / rndNum);
+      }
+
+    });
+
+    promise.then(result => console.log(result), error => console.log(error));
 
   </script>
 </body>
