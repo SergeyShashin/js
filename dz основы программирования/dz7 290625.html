@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DZ7</title>
+</head>
+
+<body>
+  <script>
+    const qa = {
+      questions: ['Какой номер этого вопроса?', 'Какой номер этого вопроса?', 'Какой номер этого вопроса?'],
+      answers: ['1', '2', '3'],
+      answersUser: [],
+      counterCA: 0,
+      counterA: 0,
+      start() {
+        this.questions.map((el, idx) => {
+          this.answersUser[idx] = prompt(`${el}`, idx+1);
+          this.answersUser[idx] === this.answers[idx] ? this.counterCA++ : '';
+        });
+
+        alert(`Количество ответов, совпавших с задуманными) = ${this.counterCA}.`);
+      }
+    }
+
+    qa.start();
+
+  </script>
+</body>
+
+</html>

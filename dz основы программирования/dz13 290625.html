@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>D12</title>
+</head>
+
+<body>
+
+  <script>
+    let player = [];
+    let dealer = [];
+    let winer = '';
+
+    dealer.push(getCard());
+    player.push(getCard(), getCard());
+
+    if (is21(player)) {
+      winer = 'player';
+      sayWin(winer);
+    } else {
+      getStatus();
+      movePlayer();
+      if (!isWiner()) {
+        moveDealer();
+      }
+    }
+
+    if (!isWiner()) {
+      if (getSum(player) > getSum(dealer)) {
+        winer = 'player';
+      } else {
+        winer = 'dealer';
+      }
+      sayWin(winer);
+    }
+
+    function isWiner() {
+      return winer !== '';
+    }
+
+    function moveDealer() {
+      while (getSum(dealer) < 16) {
+        dealer.push(getCard());
+        if (is21(dealer)) {
+          winer = 'dealer';
+          sayWin(winer);
+          return
+        }
+        if (isMore21(dealer)) {
+          winer = 'player';
+          sayWin(winer);
+          return
+        }
+      }
+    }
+
+    function movePlayer() {
+      while (confirm('Ещё карту?')) {
+        player.push(getCard());
+        if (is21(player)) {
+          winer = 'player';
+          sayWin(winer);
+          return
+        }
+        if (isMore21(player)) {
+          winer = 'dealer';
+          sayWin(winer);
+          return
+        }
+        getStatus();
+      }
+    }
+
+    function sayWin(role) {
+      getStatus();
+      alert(`Игру завершил ${role}.`);
+    }
+
+    function is21(cards) {
+      return getSum(cards) === 21;
+    }
+
+    function isMore21(cards) {
+      return getSum(cards) > 21
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getCard() {
+      let cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+      return cards[getRandomInt(0, cards.length - 1)]
+    }
+
+    function getSum(cards) {
+      let sum = 0;
+
+      for (let card of cards) {
+        switch (card) {
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+          case '10':
+            sum += Number(card);
+            break;
+          case 'J':
+          case 'Q':
+          case 'K':
+            sum += 10;
+            break;
+          case 'A':
+            sum += sum > 10 ? 1 : 11
+            break;
+        }
+
+      }
+
+      return sum;
+    }
+
+    function getStatus() {
+      alert(`Дилер: [${dealer}] = ${getSum(dealer)}.\nИгрок: [${player}] = ${getSum(player)}.`);
+    }
+
+  </script>
+
+
+</body>
+
+</html>

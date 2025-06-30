@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DZ8</title>
+</head>
+
+<body>
+  <script>
+    let point = prompt('Ввод точки.', 45);
+    console.log(
+      point > '0' && point < '60' ||
+      point > '60' && point < '120' ||
+      point > '120' && point < '180' ||
+      point > '180' && point < '240' ||
+      point > '240' && point < '300' ||
+      point > '300' && point < '360'
+      ? 'В диапазоне)'
+      : 'Вне диапазонов)'
+    );
+  </script>
+</body>
+
+</html>

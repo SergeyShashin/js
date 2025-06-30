@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DZ11</title>
+</head>
+
+<body>
+
+  <script>
+    console.log(`Максимальная последовательность red = ${getMaxLengthRed()}`);
+
+    function getMaxLengthRed() {
+      let rounds = 100;
+      let randomNumbers = [];
+      let maxLengthRed = 0;
+      let lengthRed = 0;
+      for (let i = 0; i < rounds; i++) {
+        let rndNum = Math.floor(Math.random() * 36);
+        if (rndNum === 0) {
+          randomNumbers.push('zero');
+          lengthRed = 1;
+        } else if (rndNum % 2 === 0) {
+          randomNumbers.push('red');
+          if (i === 0) {
+            lengthRed++;
+          } else if (i > 0 && randomNumbers[i - 1] === 'red') {
+            lengthRed++;
+          }
+          lengthRed > maxLengthRed ? maxLengthRed = lengthRed : '';
+        } else {
+          lengthRed = 1;
+          randomNumbers.push('black');
+        }
+      }
+
+      console.log(randomNumbers);
+      return maxLengthRed;
+    }
+
+
+  </script>
+
+</body>
+
+</html>
