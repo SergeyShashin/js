@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <ol>
+  <!-- <ol>
     <li>1</li>
     <li>2</li>
     <li>3</li>
@@ -30,7 +30,7 @@
     <li>9</li>
   </ol>
 
-  <button>Добавить изображение</button>
+  <button>Добавить изображение</button> -->
 
   <!-- <script>
     'use strict';
@@ -107,7 +107,7 @@
 
   </script> -->
 
-  <script>
+  <!-- <script>
     let promise = new Promise((resolve, reject) => {
 
       let rndNum = Math.floor(Math.random() * 5);
@@ -123,6 +123,42 @@
 
     promise.then(result => console.log(result), error => console.log(error));
 
+  </script> -->
+
+  <!-- <script>
+
+    loadImg('jsw.jpg').then(res => document.body.appendChild(res)).catch(error => console.log(error));
+
+    function loadImg(path) {
+      return new Promise((resolve, reject) => {
+        let imgEl = new Image();
+        imgEl.src = path;
+        imgEl.onload = () => resolve(imgEl);
+        imgEl.onerror = () => reject(new Error(`Ошибка при загрузке ${path}`));
+      })
+    }
+  </script> -->
+
+  <script>
+    let paths = ['jsw.jpg', 'jsw.jpg', 'jsw.jpg'];
+    let promises = [];
+
+    paths.map(path => {
+      promises.push(loadImg(path));
+    });
+
+    Promise.all(promises).then(res=>res.map(img=>document.body.appendChild(img))).catch(error => console.log(error));
+
+    loadImg('jsw.jpg').then(res => document.body.appendChild(res)).catch(error => console.log(error));
+
+    function loadImg(path) {
+      return new Promise((resolve, reject) => {
+        let imgEl = new Image(800);
+        imgEl.src = path;
+        imgEl.onload = () => resolve(imgEl);
+        imgEl.onerror = () => reject(new Error(`Ошибка при загрузке ${path}`));
+      })
+    }
   </script>
 </body>
 
