@@ -9,7 +9,7 @@
 (использовать функции из задания 4) и вернуть полученное значение.
 */
 
-let operations = ['+', '-', '*', '/',];
+let operations = ['+', '-', '/', '*'];
 
 for (let operation of operations) {
   console.log(mathOperation(8, 8, operation));
@@ -21,10 +21,10 @@ function mathOperation(arg1, arg2, operation) {
       return sum(arg1, arg2)
     case '-':
       return difference(arg1, arg2)
-    case '*':
-      return multiplication(arg1, arg2)
     case '/':
       return divide(arg1, arg2)
+    case '*':
+      return multiplication(arg1, arg2)
     default:
       return 'Что-то случилось.'
   }
