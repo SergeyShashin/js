@@ -13,8 +13,8 @@
 числом) вам необходимо создать функцию.
 */
 for (let i = 0; i < 122; i++) {
-  console.log(i, declination(i, 'рубль', 'рубля', 'рублей'));
-  // console.log(i, declination(i, 'яблоко', 'яблока', 'яблок'));
+  console.log(`Ваша сумма в ${i} ${declination(i, 'рубль', 'рубля', 'рублей')} успешно зачислена.`);
+  // console.log(`Ваша сумма в ${i} ${declination(i, 'яблоко', 'яблока', 'яблок')} успешно зачислена.`);
 }
 
 function declination(number, variant1, variant2, variant3) {
