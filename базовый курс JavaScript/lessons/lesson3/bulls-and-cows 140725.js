@@ -16,6 +16,7 @@ function reset() {
 
 function start() {
   reset();
+  console.log(numbers);
   while (true) {
     let userNum = prompt('Какое 4-х значное число загадал компьютер? Для выхода -1.');
     if (userNum === '-1') {
@@ -24,7 +25,6 @@ function start() {
     if (userNum > 999 && userNum < 10000) {
       let result = checkNumber(userNum);
       attempts++;
-      console.log(numbers);
       if (result[0] === 4) {
         if (confirm(`Отгадали c ${attempts} попытки. Ещё?`)) {
           return start()
