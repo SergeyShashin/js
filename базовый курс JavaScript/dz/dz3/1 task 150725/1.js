@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 
 /*
 С помощью цикла do…while написать алгоритм для вывода чисел от 0 до 10
@@ -13,16 +13,17 @@
 ```
 */
 
-let i = 1;
+let number = 0;
+let msg = '';
 
 do {
-
-  if (i === 1) {
-    console.log(`0 – это ноль`);
+  if (number === 0) {
+    msg = `${number} - это ноль.`;
+  } else if (number % 2 === 0) {
+    msg = `${number} - это чётное число.`;
+  } else {
+    msg = `${number} - это нечётное число.`;
   }
-
-  console.log(i % 2 === 0 ? `${i} – чётное число` : `${i} – нечётное число`);
-
-  i++;
-
-} while (i < 11)
+  console.log(msg);
+  number++;
+} while (number !== 10)
