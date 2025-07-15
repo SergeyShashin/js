@@ -13,7 +13,7 @@ while (i < 100) {
   i++;
 }
 
-console.log(simpleNumbers);
+console.log(simpleNumbers); 
 
 function isNumberPrime(number) {
   for (let i = number - 1; i > 1; i--) {
