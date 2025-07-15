@@ -26,4 +26,4 @@ do {
   }
   console.log(msg);
   number++;
-} while (number !== 10)
+} while (number < 11)
