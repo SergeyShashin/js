@@ -62,9 +62,10 @@ const player = {
   },
 
   setPosition(position) {
-    this
+    this.x = position.x;
+    this.y = position.y;
   }
-    
+
 };
 
 const game = {
@@ -80,9 +81,9 @@ const game = {
       if (direction === '-1') {
         return console.log('До встречи)');
       }
-      this.player.setPosition(direction);
-      console.log(this.player.getNextPosition(direction));
-      // this.render();
+      let nextPosition = this.player.getNextPosition(direction);
+      this.canMakeStep(nextPosition) ? this.player.setPosition(nextPosition) : '';
+      this.render();
     }
   },
 
@@ -107,6 +108,13 @@ const game = {
         return direction
       }
     }
+  },
+
+  canMakeStep(nextPosition) {
+    return nextPosition.x > -1 &&
+      nextPosition.y > -1 &&
+      nextPosition.x < this.settings.colsCount &&
+      nextPosition.y < this.settings.rowsCount
   }
 };
 
