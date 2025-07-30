@@ -23,4 +23,22 @@
 javascript.
 */
 
-console.log('создаём');
+let formEl = document.getElementById('formContacts');
+
+formEl.addEventListener('submit', e => validationForm(e));
+
+function validationForm(e) {
+
+  let inputEls = formEl.querySelectorAll('input');
+
+  for (let input of inputEls) {
+    if(isValid(input)){
+    
+    }
+  }
+
+
+
+  e.preventDefault();
+
+};
