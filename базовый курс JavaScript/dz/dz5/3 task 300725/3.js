@@ -71,7 +71,6 @@ function check() {
           input.classList.add('is-invalid');
         } else {
           input.classList.add('is-valid');
-
         }
         break;
       case 'passwordRepeat':
