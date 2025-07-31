@@ -12,10 +12,10 @@
 <body>
   <!-- если поле норм прописать класс инпуту is-valid -->
   <!-- если поле не норм прописать этот класс инпуту is-invalid -->
-  <form id="formContacts" class="row g-2 m-1">
+  <form id="formContacts" class="row g-2 m-1" method="get">
     <div class="col-md-5">
       <label for="validationServer01" class="form-label">Имя</label>
-      <input type="text" class="form-control" id="validationServer01" name="name">
+      <input type="text" class="form-control" id="validationServer01" name="name" value="8">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -23,9 +23,9 @@
         должно содержать, как минимум 1 символ, не более 50 символов
       </div>
     </div>
-    <!-- <div class="col-md-5">
+    <div class="col-md-5">
       <label for="validationServer02" class="form-label">Телефон</label>
-      <input type="number" class="form-control" id="validationServer02" name="phone">
+      <input type="number" class="form-control" id="validationServer02" name="phone" value="12345678910">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -35,7 +35,7 @@
     </div>
     <div class="col-md-5">
       <label for="validationServer03" class="form-label">Пароль</label>
-      <input type="password" class="form-control" id="validationServer03" name="password">
+      <input type="password" class="form-control" id="validationServer03" name="password" value="12345">
       <div class="valid-feedback">
         Looks good!
       </div>
@@ -52,7 +52,7 @@
       <div class="invalid-feedback">
         значение должно совпадать с полем пароль
       </div>
-    </div> -->
+    </div>
 
     <div class="col-12">
       <button class="btn btn-primary" type="submit">Submit form</button>

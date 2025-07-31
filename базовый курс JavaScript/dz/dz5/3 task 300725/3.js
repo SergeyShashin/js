@@ -26,26 +26,45 @@ javascript.
 const validationForm = {
   formEl: null,
   inputEls: null,
+  inputPasswordEl: null,
   rules: {
     name: [
       { methodName: 'length', args: ['>', 1] },
       { methodName: 'length', args: ['<', 50] },
     ],
+    phone: [
+      { methodName: 'length', args: ['=', 11] },
+      { methodName: 'typeMustNumber', args: [] },
+    ],
+    password: [
+      { methodName: 'length', args: ['>', 5] },
+      { methodName: 'length', args: ['<', 50] },
+    ],
+    passwordRepeat: [
+      { methodName: 'mustPasswordRepeat', args: [] },
+    ],
   },
   methods: {
     length(input, args) {
       let content = input.value;
+      let contentLenght = content.length;
       let sign = args[0];
       let length = args[1];
 
       switch (sign) {
         case '>':
-          return content > length - 1 ? true : `минимальное количество символов = ${length}`
+          return contentLenght > length - 1 ? true : `минимальное количество символов = ${length}`
         case '<':
-          return content < length + 1 ? true : `максимальное количество символов = ${length}`
+          return contentLenght < length + 1 ? true : `максимальное количество символов = ${length}`
         case '=':
-          return content === length ? true : `количество символов = ${length}`
+          return contentLenght === length ? true : `количество символов = ${length}`
       }
+    },
+    typeMustNumber(input) {
+      return typeof Number(input.value) === 'number' ? true : 'должно содержать 11 цифр'
+    },
+    mustPasswordRepeat(input) {
+      return validationForm.inputPasswordEl.value === input.value ? true : 'значение должно совпадать с полем пароль'
     }
 
   },
@@ -56,11 +75,11 @@ const validationForm = {
   init() {
     this.formEl = document.getElementById('formContacts');
     this.inputEls = this.formEl.querySelectorAll('input');
+    this.inputPasswordEl = this.formEl.querySelector('[name="password"]');
   },
   setEventHandlers() {
     this.formEl.addEventListener('submit', e => {
       e.preventDefault();
-      console.log('проверяем форму');
       let errors = [];
       for (let input of this.inputEls) {
         for (let rule of this.rules[input.name]) {
@@ -68,7 +87,6 @@ const validationForm = {
           let checkResult = this.methods[methodName](input, args);
           if (checkResult === true) {
             this.setValid(input);
-
           } else {
             errors.push(checkResult);
             this.setInvalid(input);
@@ -78,6 +96,8 @@ const validationForm = {
 
         }
       }
+      e.target.submit();
+      alert('Данные отправлены)');
     });
   },
   setInvalid(input) {
