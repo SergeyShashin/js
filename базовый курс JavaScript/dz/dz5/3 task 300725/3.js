@@ -22,3 +22,14 @@
 Пользоваться аттрибутами HTML5 запрещено, необходимо проверки реализовать с помощью
 javascript.
 */
+
+
+const validationForm = {
+  formEl: null,
+  rules: {
+
+  },
+  methods: {
+
+  },
+};
