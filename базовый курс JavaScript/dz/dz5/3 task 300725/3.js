@@ -23,13 +23,71 @@
 javascript.
 */
 
-
 const validationForm = {
   formEl: null,
+  inputEls: null,
   rules: {
-
+    name: [
+      { methodName: 'length', args: ['>', 1] },
+      { methodName: 'length', args: ['<', 50] },
+    ],
   },
   methods: {
+    length(input, args) {
+      let content = input.value;
+      let sign = args[0];
+      let length = args[1];
+
+      switch (sign) {
+        case '>':
+          return content > length - 1 ? true : `минимальное количество символов = ${length}`
+        case '<':
+          return content < length + 1 ? true : `максимальное количество символов = ${length}`
+        case '=':
+          return content === length ? true : `количество символов = ${length}`
+      }
+    }
 
   },
+  run() {
+    this.init();
+    this.setEventHandlers();
+  },
+  init() {
+    this.formEl = document.getElementById('formContacts');
+    this.inputEls = this.formEl.querySelectorAll('input');
+  },
+  setEventHandlers() {
+    this.formEl.addEventListener('submit', e => {
+      e.preventDefault();
+      console.log('проверяем форму');
+      let errors = [];
+      for (let input of this.inputEls) {
+        for (let rule of this.rules[input.name]) {
+          let { methodName, args } = rule;
+          let checkResult = this.methods[methodName](input, args);
+          if (checkResult === true) {
+            this.setValid(input);
+
+          } else {
+            errors.push(checkResult);
+            this.setInvalid(input);
+            alert(checkResult);
+            return
+          }
+
+        }
+      }
+    });
+  },
+  setInvalid(input) {
+    input.classList.contains('is-valid') ? input.classList.remove('is-valid') : '';
+    input.classList.add('is-invalid');
+  },
+  setValid(input) {
+    input.classList.contains('is-invalid') ? input.classList.remove('is-invalid') : '';
+    input.classList.add('is-valid');
+  }
 };
+
+validationForm.run();
