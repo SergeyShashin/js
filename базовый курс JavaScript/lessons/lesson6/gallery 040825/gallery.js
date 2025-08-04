@@ -11,7 +11,7 @@ const gallery = {
     this.setEventHandlers();
   },
   setEventHandlers() {
-    this.galleryEl.addEventListener('click', e => this.handleClickOnGalleryEl(e))
+    this.galleryEl.addEventListener('click', e => this.handleClickOnGalleryEl(e));
   },
   handleClickOnGalleryEl(e) {
     let eTarget = e.target;
@@ -24,8 +24,11 @@ const gallery = {
     console.log(srcIMG);
     let fullIMGEl = new Image();
     fullIMGEl.src = srcIMG;
+    let divEl = document.createElement('div');
+    divEl.classList.add('img');
+    divEl.appendChild(fullIMGEl);
     let containerElForFullIMG = this.getContainerElForFullIMG();
-    containerElForFullIMG.appendChild(fullIMGEl);
+    containerElForFullIMG.appendChild(divEl);
   },
   getContainerElForFullIMG() {
     let containerEl = document.querySelector('.monitor');
@@ -38,17 +41,23 @@ const gallery = {
   },
   createContainerEl() {
     let containerEl = document.createElement('div');
-    containerEl.classList.add('monitor');
-    let imgClose = new Image();
-    imgClose.src = this.settings.buttonCLosePathIMG;
-    containerEl.appendChild(imgClose);
     let backGroundEl = document.createElement('div');
+    let imgClose = new Image();
+    let wrapForIMGClose = document.createElement('div');
+    containerEl.classList.add('monitor');
+    imgClose.src = this.settings.buttonCLosePathIMG;
     backGroundEl.classList.add('background');
+    wrapForIMGClose.classList.add('close');
     containerEl.appendChild(backGroundEl);
+    containerEl.appendChild(wrapForIMGClose);
+    wrapForIMGClose.appendChild(imgClose);
     document.body.appendChild(containerEl);
+
+    imgClose.onclick = () => containerEl.remove();
+
+
     return containerEl
   }
-
 }
 
 window.onload = () => gallery.init();
