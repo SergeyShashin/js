@@ -11,6 +11,10 @@ const gallery = {
     imgNothingPathIMG: './img/gallery/nothing.png',
   },
   galleryEl: null,
+  currentImgEl: null,
+  prevImgEl: null,
+  nextImgEl: null,
+
   init(userSettings) {
     Object.assign(this.settings, userSettings);
     this.galleryEl = document.getElementById('gallery');
@@ -21,13 +25,20 @@ const gallery = {
   },
   handleClickOnGalleryEl(e) {
     let eTarget = e.target;
-    console.log(eTarget);
     if (eTarget.tagName === 'IMG') {
+      this.currentImgEl = eTarget;
+      console.dir(this.currentImgEl);
+      this.setPrevImgEl();
+
+      this.nextImgEl = this.currentImgEl.nextElementSibling
+        ? this.currentImgEl.nextElementSibling
+        : this.currentImgEl.parentElement.firstElementChild
+      console.dir(this.prevImgEl);
+      console.dir(this.nextImgEl);
       this.openImg(eTarget.dataset.fullImageUrl);
     }
   },
   openImg(srcIMG) {
-    console.log(srcIMG);
     let fullIMGEl = new Image();
     fullIMGEl.src = srcIMG;
     fullIMGEl.onerror = () => fullIMGEl.src = this.settings.imgNothingPathIMG;
@@ -51,9 +62,9 @@ const gallery = {
     let backGroundEl = document.createElement('div');
     let imgClose = new Image();
     let wrapForIMGClose = document.createElement('div');
-    let btnleft = document.createElement('button');
-    btnleft.id = 'btnLeft';
-    btnleft.textContent = '<';
+    let btnLeft = document.createElement('button');
+    btnLeft.id = 'btnLeft';
+    btnLeft.textContent = '<';
     let btnRight = document.createElement('button');
     btnRight.textContent = '>';
     btnRight.id = 'btnRight';
@@ -63,15 +74,30 @@ const gallery = {
     wrapForIMGClose.classList.add('close');
     containerEl.appendChild(backGroundEl);
     containerEl.appendChild(wrapForIMGClose);
-    containerEl.appendChild(btnleft);
+    containerEl.appendChild(btnLeft);
     containerEl.appendChild(btnRight);
     wrapForIMGClose.appendChild(imgClose);
     document.body.appendChild(containerEl);
 
     imgClose.onclick = () => containerEl.remove();
+    btnLeft.onclick = e => this.moveLeft(e);
+    btnRight.onclick = e => this.moveRight(e);
 
 
     return containerEl
+  },
+
+  setPrevImgEl() {
+    this.prevImgEl = this.currentImgEl.previousElementSibling
+      ? this.currentImgEl.previousElementSibling
+      : this.currentImgEl.parentElement.lastElementChild
+  },
+
+  moveLeft(e) {
+    console.log();
+  },
+  moveRight(e) {
+    console.log(e);
   }
 }
 
