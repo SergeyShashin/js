@@ -14,7 +14,6 @@ const gallery = {
   currentImgEl: null,
   prevImgEl: null,
   nextImgEl: null,
-
   init(userSettings) {
     Object.assign(this.settings, userSettings);
     this.galleryEl = document.getElementById('gallery');
@@ -27,14 +26,7 @@ const gallery = {
     let eTarget = e.target;
     if (eTarget.tagName === 'IMG') {
       this.currentImgEl = eTarget;
-      console.dir(this.currentImgEl);
-      this.setPrevImgEl();
-
-      this.nextImgEl = this.currentImgEl.nextElementSibling
-        ? this.currentImgEl.nextElementSibling
-        : this.currentImgEl.parentElement.firstElementChild
-      console.dir(this.prevImgEl);
-      console.dir(this.nextImgEl);
+      this.setSiblings();
       this.openImg(eTarget.dataset.fullImageUrl);
     }
   },
@@ -86,18 +78,29 @@ const gallery = {
 
     return containerEl
   },
-
   setPrevImgEl() {
     this.prevImgEl = this.currentImgEl.previousElementSibling
       ? this.currentImgEl.previousElementSibling
       : this.currentImgEl.parentElement.lastElementChild
   },
-
+  setNextImgEl() {
+    this.nextImgEl = this.currentImgEl.nextElementSibling
+      ? this.currentImgEl.nextElementSibling
+      : this.currentImgEl.parentElement.firstElementChild
+  },
   moveLeft(e) {
-    console.log();
+    this.openImg(this.prevImgEl.src);
+    this.currentImgEl = this.prevImgEl;
+    this.setSiblings();
   },
   moveRight(e) {
-    console.log(e);
+    this.openImg(this.nextImgEl.src);
+    this.currentImgEl = this.nextImgEl;
+    this.setSiblings()
+  },
+  setSiblings() {
+    this.setPrevImgEl();
+    this.setNextImgEl();
   }
 }
 
