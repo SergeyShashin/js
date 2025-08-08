@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RelativelyPrime</title>
+</head>
+
+<body>
+
+  <script>
+    console.time();
+    console.log(getRelativelyPrime(500));
+
+    function getRelativelyPrime(range) {
+      let res = [];
+      let divisors = {};
+
+      for (let i = 2; i < range + 1; i++) {
+        for (let j = 2; j < range; j++) {
+          if (!divisors[j]) {
+            divisors[j] = getDivisors(j);
+          }
+
+          if (!divisors[range]) {
+            divisors[range] = getDivisors(range);
+          }
+
+          if (!isIntersect(divisors[i], divisors[j])) {
+            if (i === 100 && j === 2) {
+              console.log(i, j);
+              console.log(divisors[i], j);
+            }
+            res.push([i, j]);
+          }
+        }
+      }
+
+      return res
+    }
+
+    function getDivisors(num) {
+      let res = [];
+      for (let i = 2; i < num + 1; i++) {
+        if (num % i === 0) {
+          res.push(i);
+        }
+      }
+      return res
+    }
+
+    function isIntersect(arr1 = [], arr2 = []) {
+      for (let num of arr1) {
+        if (arr2.includes(num)) {
+          return true
+        }
+      }
+      return false
+    }
+    console.timeEnd();
+  </script>
+</body>
+
+</html>
