@@ -94,12 +94,10 @@ const snake = {
   },
 
   setDirection(direction) {
-    console.log(direction);
     if (this.canSetDirection(direction)) {
       this.direction = direction;
       this.lastStepDirection = direction;
     }
-    console.log(direction);
 
   },
 
@@ -108,6 +106,7 @@ const snake = {
       case 'up':
         return this.lastStepDirection !== 'down';
       case 'down':
+        console.log(this.lastStepDirection !== 'up');
         return this.lastStepDirection !== 'up';
       case 'right':
         return this.lastStepDirection !== 'left';
@@ -135,15 +134,23 @@ const statusGame = {
   setPlay() {
     this.condition = 'play';
   },
+
   setStop() {
     this.condition = 'stop';
   },
+
   setFinish() {
     this.condition = 'finish';
   },
+
   isPlay() {
     return this.condition === 'play';
   },
+
+  isStop() {
+    return this.condition === 'stop';
+  },
+
   isFinish() {
     return this.condition === 'finish';
   }
@@ -158,6 +165,7 @@ const game = {
   statusGame,
   playOrStopButtonEl: null,
   newGameButtonEl: null,
+  numberInterval: null,
 
   init(userSettings = {}) {
     console.log('WELCOME WORLD!)');
@@ -206,7 +214,7 @@ const game = {
   },
 
   handlerClickPlayOrStopButtonEl() {
-
+    this.statusGame.isPlay() ? this.stop() : this.play();
   },
 
   handlerClickNewGameButtonEl() {
@@ -229,17 +237,18 @@ const game = {
         break;
     }
 
-
   },
 
   stop() {
     this.statusGame.setStop();
-
+    clearInterval(this.numberInterval);
+    console.log('Стоп.');
   },
-
+  
   play() {
+    console.log('Старт.');
     this.statusGame.setPlay();
-
+    this.interval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
   }
 
 
