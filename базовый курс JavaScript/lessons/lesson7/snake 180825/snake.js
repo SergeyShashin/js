@@ -243,12 +243,22 @@ const game = {
     this.statusGame.setStop();
     clearInterval(this.numberInterval);
     console.log('Стоп.');
+    this.changeTextBtnPlayOrStop('PLAY');
   },
-  
+
   play() {
     console.log('Старт.');
     this.statusGame.setPlay();
     this.interval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
+    this.changeTextBtnPlayOrStop('STOP');
+  },
+
+  changeTextBtnPlayOrStop(text, flag = false) {
+    this.playOrStopButtonEl.textContent = text;
+
+    if (flag) {
+      this.playOrStopButtonEl.classList.add('finish');
+    }
   }
 
 
