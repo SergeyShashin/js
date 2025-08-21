@@ -65,11 +65,13 @@ const map = {
   gameEl: null,
   cells: null,
   usedCells: null,
+  сlasses: null,
 
   init(colsCount, rowsCount) {
     this.gameEl = document.getElementById('snake-game');
     this.cells = {};
     this.usedCells = [];
+    this.classes = ['snake-body', 'snake-head', 'food'];
 
     for (let row = 0; row < rowsCount; row++) {
       let trEl = document.createElement('tr');
@@ -84,11 +86,11 @@ const map = {
   },
 
   render(snakePoints, foodPoint) {
-    // Object.values(this.cells).map(cell => cell.className = '');
+    Object.values(this.cells).map(cell => cell.classList.remove(...this.classes));
     this.usedCells = [];
 
     Object.values(snakePoints).map((point, idx) => {
-      this.cells[`x${point.x}y${point.y}`].classList.add(idx === 0 ? 'snake-head' : 'snake-head');
+      idx === 0 ? this.addClassPoint(point, 'snake-head') : this.addClassPoint(point, 'snake-body');
       this.addPointInUsedCells(point);
     });
 
