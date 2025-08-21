@@ -325,8 +325,9 @@ const game = {
     if (this.snakeCanStep(nextHeadPoint)) {
       if (this.nextHeadPointOnFood(nextHeadPoint)) {
         console.log('Увеличить змейку.');
-        this.snake.growUp(this.food.getCoordinate());
+        this.snake.growUp(nextHeadPoint);
         this.food.setCoordinate(this.getRandomFreeCoordinate());
+        this.render();
       }
       this.snake.makeStep(nextHeadPoint);
     } else {
