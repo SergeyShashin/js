@@ -142,6 +142,29 @@ const snake = {
       case 'left':
         return this.lastStepDirection !== 'right';
     }
+  },
+
+  getNextHeadPoint() {
+    let headPoint = this.body[0];
+    switch (this.direction) {
+      case 'down':
+        headPoint.y++;
+        break;
+      case 'up':
+        headPoint.y--;
+        break;
+      case 'left':
+        headPoint.x--;
+        break;
+      case 'right':
+        headPoint.x++;
+        break;
+    }
+    return headPoint;
+  },
+
+  makeStep(nextHeadPoint) {
+    this.body[0] = nextHeadPoint;
   }
 
 };
@@ -216,9 +239,10 @@ const game = {
   },
 
   reset() {
+    this.playOrStopButtonEl.classList.remove('finish');
     this.snake.init(this.getStartPosition(), 'up');
     this.food.init(this.getRandomFreeCoordinate());
-    this.map.render(this.snake.getBody(), this.food.getCoordinate());
+    this.render();
     this.stop();
   },
 
@@ -277,8 +301,38 @@ const game = {
 
   play() {
     this.statusGame.setPlay();
-    this.numberInterval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
+    this.numberInterval = setInterval(() => this.tickInterval(), 1000 / this.config.getSnakeSpeed());
     this.changeTextBtnPlayOrStop('STOP');
+  },
+
+  finish() {
+    this.statusGame.setStop();
+    clearInterval(this.numberInterval);
+    this.changeTextBtnPlayOrStop('FINISHED', true);
+  },
+
+  tickInterval() {
+    let nextHeadPoint = this.snake.getNextHeadPoint();
+
+    if (this.snakeCanStep(nextHeadPoint)) {
+      this.snake.makeStep(nextHeadPoint);
+    } else {
+      this.finish();
+      return
+    }
+
+    this.render();
+  },
+
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getCoordinate());
+  },
+
+  snakeCanStep(nextHeadPoint) {
+    return nextHeadPoint.x > -1 &&
+      nextHeadPoint.y > -1 &&
+      nextHeadPoint.x < this.config.getColsCount() &&
+      nextHeadPoint.y < this.config.getRowsCount()
   },
 
   changeTextBtnPlayOrStop(text, flag = false) {
@@ -292,4 +346,4 @@ const game = {
 
 };
 
-window.onload = () => game.init({ snakeSpeed: 7 });
+window.onload = () => game.init({ snakeSpeed: 5 });
