@@ -12,18 +12,23 @@ const config = {
   init(userSettings) {
     Object.assign(this.settings, userSettings);
   },
+
   getRowsCount() {
     return this.settings.rowsCount;
   },
+
   getColsCount() {
     return this.settings.colsCount;
   },
+
   getSnakeSpeed() {
     return this.settings.snakeSpeed;
   },
+
   getWinFoodCount() {
     return this.winFoodCount;
   },
+
   validation() {
     let result = {
       isValid: true,
@@ -60,6 +65,7 @@ const map = {
   gameEl: null,
   cells: null,
   usedCells: null,
+
   init(colsCount, rowsCount) {
     this.gameEl = document.getElementById('snake-game');
     this.cells = {};
@@ -75,6 +81,11 @@ const map = {
       this.gameEl.appendChild(trEl);
     }
 
+  },
+
+  render(snakePoints, foodPoint) {
+    Object.values(this.cells).map(cell => cell.className = '');
+    this.usedCells = [];
   }
 };
 
@@ -189,6 +200,7 @@ const game = {
   reset() {
     this.snake.init(this.getStartPosition(), 'up');
     this.food.init(this.getRandomFreeCoordinate());
+    this.map.render(this.snake.getBody(), this.food.getCoordinate());
     this.stop();
   },
 
@@ -244,7 +256,7 @@ const game = {
     clearInterval(this.numberInterval);
     this.changeTextBtnPlayOrStop('PLAY');
   },
-  
+
   play() {
     this.statusGame.setPlay();
     this.numberInterval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
