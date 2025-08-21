@@ -163,7 +163,9 @@ const snake = {
   },
 
   makeStep(nextHeadPoint) {
-    this.body[0] = nextHeadPoint;
+    let newPoint = Object.assign({}, nextHeadPoint);
+    this.body.unshift(newPoint);
+    this.body.pop();
   },
 
   growUp(nextHeadPoint) {
