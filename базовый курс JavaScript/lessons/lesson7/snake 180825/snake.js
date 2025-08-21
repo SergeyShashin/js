@@ -1,8 +1,8 @@
 'use strict';
 
 const settings = {
-  rowsCount: 10,
-  colsCount: 10,
+  rowsCount: 15,
+  colsCount: 15,
   snakeSpeed: 5,
   winFoodCount: 5,
 };
@@ -135,7 +135,6 @@ const snake = {
       case 'up':
         return this.lastStepDirection !== 'down';
       case 'down':
-        console.log(this.lastStepDirection !== 'up');
         return this.lastStepDirection !== 'up';
       case 'right':
         return this.lastStepDirection !== 'left';
@@ -165,6 +164,11 @@ const snake = {
 
   makeStep(nextHeadPoint) {
     this.body[0] = nextHeadPoint;
+  },
+
+  growUp(nextHeadPoint) {
+    this.body.push(nextHeadPoint);
+    console.log(this.body);
   }
 
 };
@@ -178,6 +182,10 @@ const food = {
 
   getCoordinate() {
     return this.coordinate ? this.coordinate : {};
+  },
+
+  setCoordinate(coordinate) {
+    this.coordinate = coordinate;
   }
 };
 
@@ -315,6 +323,11 @@ const game = {
     let nextHeadPoint = this.snake.getNextHeadPoint();
 
     if (this.snakeCanStep(nextHeadPoint)) {
+      if (this.nextHeadPointOnFood(nextHeadPoint)) {
+        console.log('Увеличить змейку.');
+        this.snake.growUp(this.food.getCoordinate());
+        this.food.setCoordinate(this.getRandomFreeCoordinate());
+      }
       this.snake.makeStep(nextHeadPoint);
     } else {
       this.finish();
@@ -322,6 +335,11 @@ const game = {
     }
 
     this.render();
+  },
+
+  nextHeadPointOnFood(nextHeadPoint) {
+    let foodPoint = this.food.getCoordinate();
+    return nextHeadPoint.x === foodPoint.x && nextHeadPoint.y === foodPoint.y
   },
 
   render() {
