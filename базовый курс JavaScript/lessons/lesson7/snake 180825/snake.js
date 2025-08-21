@@ -84,8 +84,20 @@ const map = {
   },
 
   render(snakePoints, foodPoint) {
-    Object.values(this.cells).map(cell => cell.className = '');
+    // Object.values(this.cells).map(cell => cell.className = '');
     this.usedCells = [];
+
+    Object.values(snakePoints).map((point, idx) => {
+      this.cells[`x${point.x}y${point.y}`].classList.add(idx === 0 ? 'snake-head' : 'snake-head');
+      this.addPointInUsedCells(point);
+    });
+
+    this.cells[`x${foodPoint.x}y${foodPoint.y}`].classList.add('food');
+    this.addPointInUsedCells(foodPoint);
+  },
+
+  addPointInUsedCells(point) {
+    this.usedCells.push(point);
   }
 };
 
