@@ -163,14 +163,13 @@ const snake = {
   },
 
   makeStep(nextHeadPoint) {
-    let newPoint = Object.assign({}, nextHeadPoint);
-    this.body.unshift(newPoint);
+    this.body[0] = nextHeadPoint;
   },
 
   growUp(nextHeadPoint) {
     console.log(nextHeadPoint);
-    console.log(this.body);
     this.body.push(nextHeadPoint);
+    console.log(this.body);
   }
 
 };
@@ -329,7 +328,6 @@ const game = {
         console.log('Увеличить змейку.');
         this.snake.growUp(nextHeadPoint);
         this.food.setCoordinate(this.getRandomFreeCoordinate());
-        this.render();
       }
       this.snake.makeStep(nextHeadPoint);
     } else {
