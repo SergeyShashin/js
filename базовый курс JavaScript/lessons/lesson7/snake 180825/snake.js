@@ -26,7 +26,7 @@ const config = {
   },
 
   getWinFoodCount() {
-    return this.winFoodCount;
+    return this.settings.winFoodCount;
   },
 
   validation() {
@@ -144,7 +144,7 @@ const snake = {
   },
 
   getNextHeadPoint() {
-    let headPoint = this.body[0];
+    let headPoint = Object.assign({}, this.body[0]);
     switch (this.direction) {
       case 'down':
         headPoint.y++;
@@ -169,9 +169,7 @@ const snake = {
   },
 
   growUp(nextHeadPoint) {
-    console.log(nextHeadPoint);
     this.body.push(nextHeadPoint);
-    console.log(this.body);
   }
 
 };
@@ -325,9 +323,8 @@ const game = {
   tickInterval() {
     let nextHeadPoint = this.snake.getNextHeadPoint();
 
-    if (this.snakeCanStep(nextHeadPoint)) {
+    if (this.snakeCanStep(nextHeadPoint) && !this.isWin()) {
       if (this.nextHeadPointOnFood(nextHeadPoint)) {
-        console.log('Увеличить змейку.');
         this.snake.growUp(nextHeadPoint);
         this.food.setCoordinate(this.getRandomFreeCoordinate());
       }
@@ -338,6 +335,9 @@ const game = {
     }
 
     this.render();
+  },
+  isWin() {
+    return this.snake.getBody().length > this.config.getWinFoodCount();
   },
 
   nextHeadPointOnFood(nextHeadPoint) {
