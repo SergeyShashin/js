@@ -92,8 +92,12 @@ const map = {
       this.addPointInUsedCells(point);
     });
 
-    this.cells[`x${foodPoint.x}y${foodPoint.y}`].classList.add('food');
+    this.addClassPoint(foodPoint, 'food');
     this.addPointInUsedCells(foodPoint);
+  },
+
+  addClassPoint(point, nameClass) {
+    this.cells[`x${point.x}y${point.y}`].classList.add(nameClass);
   },
 
   addPointInUsedCells(point) {
