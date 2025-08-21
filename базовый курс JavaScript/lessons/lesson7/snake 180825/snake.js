@@ -182,13 +182,13 @@ const game = {
     }
 
     this.map.init(this.config.getColsCount(), this.config.getRowsCount());
+    this.setEventHandlers();
     this.reset();
   },
 
   reset() {
     this.snake.init(this.getStartPosition(), 'up');
     this.food.init(this.getRandomFreeCoordinate());
-    this.setEventHandlers();
     this.stop();
   },
 
@@ -242,14 +242,12 @@ const game = {
   stop() {
     this.statusGame.setStop();
     clearInterval(this.numberInterval);
-    console.log('Стоп.');
     this.changeTextBtnPlayOrStop('PLAY');
   },
-
+  
   play() {
-    console.log('Старт.');
     this.statusGame.setPlay();
-    this.interval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
+    this.numberInterval = setInterval(() => console.log('го'), 1000 / this.config.getSnakeSpeed());
     this.changeTextBtnPlayOrStop('STOP');
   },
 
