@@ -59,3 +59,20 @@ MenuItem.prototype.render = function () {
   return liEl;
 }
 
+function SuperMenu(userId, userClass, items, href, label) {
+  Menu.call(this, userId, userClass, items);
+  this.href = href;
+  this.label = label;
+}
+
+SuperMenu.prototype = Object.create(Menu.prototype);
+SuperMenu.prototype.render = function () {
+  if (this.href && this.label) {
+    let subMenuEl = new MenuItem(this.href, this.label).render();
+    subMenuEl.appendChild(Menu.prototype.render.call(this));
+    return subMenuEl
+  } else {
+    return Menu.prototype.render.call(this);
+  }
+};
+

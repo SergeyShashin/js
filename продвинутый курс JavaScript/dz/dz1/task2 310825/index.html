@@ -12,10 +12,15 @@
   <script src="menu.js"></script>
   <script>
     window.onload = function () {
-      var menu = new Menu('menu', 'menu', [
+      var menu = new SuperMenu('menu', 'menu', [
         new MenuItem('index.html', 'Home'),
         new MenuItem('/Page', 'Page'),
         new MenuItem('/Contacts', 'Contacts'),
+        new SuperMenu('menu', 'menu', [
+          new MenuItem('index.html', 'Home'),
+          new MenuItem('/Page', 'Page'),
+          new MenuItem('/Contacts', 'Contacts'),
+        ], '/SumMenu', 'SubMenu')
       ]);
       document.body.appendChild(menu.render());
       var btnRemoveEl = document.createElement('button');
