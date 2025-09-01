@@ -1,19 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <style>
+    body {
+      color: crimson;
+    }
+
+    input,
+    select {
+      background: lightseagreen;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      color: white;
+    }
+
+    #btnSendBurgerForm:hover {
+      cursor: pointer;
+    }
+  </style>
   <title>Burger</title>
 </head>
 
 <body>
-  <script src="burger.js"></script>
+  <h2>Заказ Бургера</h2>
+  <form action='#' method='POST' id='burgerForm'>
+    <h3>Размер:</h3>
+    <select list='size' id='size-choice' name='sizeChoice'>
+      <datalist id='size'>
+        <option value='1'>большой (100 рублей, 40 калорий)</option>
+        <option value='2'>маленький (50 рублей, 20 калорий)</option>
+      </datalist>
+    </select>
+    <h3>Начинки:</h3>
+    <select list='stuffing' id='stuffing-choice' name='stuffingChoice'>
+      <datalist id='stuffing'>
+        <option value='1'>сыр (+ 10 рублей, + 20 калорий)</option>
+        <option value='2'>салат (+ 20 рублей, + 5 калорий)</option>
+        <option value='3'>картофель(+ 15 рублей, + 10 калорий)</option>
+      </datalist>
+    </select>
+    <br>
+    <br>
+    <h3>Приправы:</h3>
+    <label for='spice'>
+      <input type='checkbox' name='spices' id='spice' value='1' checked>
+      приправа (+ 15 рублей, 0 калорий)
+    </label>
+    <br>
+    <label for='mayo'>
+      <input type='checkbox' name='spices' id='mayo' value='2'>
+      майонез (+ 20 рублей, + 5 калорий)
+    </label>
+    <br>
+    <br>
+    <input type='submit' id='btnSendBurgerForm'>
+  </form>
+  <h2 id='monitor'></h2>
+  <script src='burger.js'></script>
   <script>
-    var burger = new Burger(1, 1);
-    console.log(burger.getPrise());
-    console.log(burger.getCalories());
+    var formEl = document.getElementById('burgerForm');
+    formEl.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var burger = new Burger(Number(formEl.sizeChoice.value), Number(formEl.stuffingChoice.value));
+      for (var input of formEl.spices) {
+        input.checked ? burger.addSpices(Number(input.value)) : '';
+      }
+
+      document.getElementById('monitor').textContent = `Стоимость: ${burger.getPrice()}. Калорийность: ${burger.getCalories()}`;
+    })
+
   </script>
 </body>
 

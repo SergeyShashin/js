@@ -55,7 +55,7 @@ Burger.STUFING_POTATO = 3;
 Burger.SPICES_SAUCE = 1;
 Burger.SPICES_MAYO = 2;
 
-Burger.prototype.getPrise = function () {
+Burger.prototype.getPrice = function () {
   return this.price;
 };
 
