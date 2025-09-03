@@ -15,7 +15,6 @@ document.getElementById('galleryMini').addEventListener('click', function (e) {
 })
 
 function loadFromJson(method, link, callback) {
-
   var xhr = new XMLHttpRequest();
   xhr.open(method, link);
   xhr.send();
