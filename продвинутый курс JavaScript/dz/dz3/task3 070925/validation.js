@@ -17,8 +17,8 @@
 var formEl = document.getElementById('formContacts');
 var rules = {
   name: '[a-zа-яё]+',
-  phone: '^\\+\d\(\d{3}\)\d{3}\-\d{4}$',
-  email: '^\w+\@\w+\.\w{2}$'
+  phone: '\\+\d\(\d{3}\)\d{3}\-\d{4}',
+  email: '\w+\@\w+\.\w{2}'
 };
 
 formEl.addEventListener('submit', function (e) {
@@ -27,12 +27,13 @@ formEl.addEventListener('submit', function (e) {
     var rgxp = new RegExp(rules[key], 'ig');
     if (!rgxp.test(this[key].value)) {
       resultValidation = false;
+      console.log(rgxp);
       e.preventDefault();
     } else {
       resultValidation = true;
     }
   }
-
+  
   if (resultValidation) {
     console.log('Форма отправлена.');
   }
