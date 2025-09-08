@@ -16,25 +16,33 @@
 
 var formEl = document.getElementById('formContacts');
 var rules = {
-  name: '[a-zа-яё]+',
-  phone: '\\+\d\(\d{3}\)\d{3}\-\d{4}',
-  email: '\w+\@\w+\.\w{2}'
+  name: /^[a-zа-яё]+$/i,
+  phone: /^\+\d\(\d{3}\)\d{3}\-\d{4}$/,
+  email: /^\w+\@\w+\.\w{2,}$/i
 };
 
 formEl.addEventListener('submit', function (e) {
   var resultValidation = true;
-  for (let key of Object.keys(rules)) {
-    var rgxp = new RegExp(rules[key], 'ig');
-    if (!rgxp.test(this[key].value)) {
-      resultValidation = false;
-      console.log(rgxp);
-      e.preventDefault();
-    } else {
-      resultValidation = true;
-    }
-  }
-  
+  e.preventDefault();
+
+  checkInputs();
+
   if (resultValidation) {
     console.log('Форма отправлена.');
+  }
+
+  function checkInputs() {
+    for (let rule of Object.keys(rules)) {
+      var inputEls = document.querySelectorAll(`[name="${rule}"]`);
+      for (let inputEl of inputEls) {
+        if (!rules[rule].test(inputEl.value)) {
+          resultValidation = false;
+          inputEl.style.borderColor = 'red';
+          return;
+        } else {
+          inputEl.style.borderColor = 'green';
+        }
+      }
+    }
   }
 })
