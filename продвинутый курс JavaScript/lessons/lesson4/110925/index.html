@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .lightSeaGreenColor {
+      color: lightseagreen;
+    }
+
+    .lightSkyBlue {
+      color: lightskyblue;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
+  <title>Lesson4. Jquery.</title>
+</head>
+
+<body>
+  <section id='control'>
+    <button id='minus' data-value='-1'>-</button>
+    <span id='monitor' class='lightSeaGreenColor'>0</span>
+    <button id='plus' data-value='1'>+</button>
+  </section>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+
+    (function ($) {
+      $(function () {
+        $('#control').on('click', '#minus, #plus', function (e) {
+          var $monitorEl = $('#monitor');
+          $monitorEl.text(Number($monitorEl.text()) + Number($(this).attr('data-value')));
+          var contentMonitorEl = Number($monitorEl.text());
+          if (contentMonitorEl > 10) {
+            $monitorEl.removeClass('lightSeaGreenColor');
+            $monitorEl.addClass('lightSkyBlue');
+          }
+          if (contentMonitorEl < 0) {
+            $monitorEl.removeClass('lightSeaGreenColor');
+            $monitorEl.removeClass('lightSkyBlue');
+            $monitorEl.addClass('red');
+          }
+          if (contentMonitorEl >= 0 && contentMonitorEl < 10) {
+            $monitorEl.removeClass('red');
+            $monitorEl.removeClass('lightSkyBlue');
+            $monitorEl.addClass('lightSeaGreenColor');
+          }
+        });
+      });
+    })(jQuery);
+  </script>
+</body>
+
+</html>
