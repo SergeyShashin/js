@@ -133,7 +133,7 @@
               $trEl.append($tdBtnDelEl);
               $cartEl.append($trEl);
             }
-          }
+          } 
         });
     }
   });
