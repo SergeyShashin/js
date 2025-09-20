@@ -2,20 +2,65 @@
   $(function () {
     buildGoods();
     buildCart();
+    setEventHandlers();
 
-    $('#goods').on('click', 'button', function (e) {
-      console.log(e.target);
-    });
-    $('#cart').on('click', 'button', function (e) {
-      console.log(e.target.dataset.id);
-      $.ajax({
-        url: `http://localhost:3000/cart/${e.target.dataset.id}`,
-        type: 'DELETE',
-        success: function () {
-          buildCart()
+    function setEventHandlers() {
+      $('#goods').on('click', 'button', function (e) {
+        $product = $(`#cart [data-id='${e.target.dataset.id}']`);
+        if ($product.length) {
+          $.ajax({
+            url: `http://localhost:3000/cart/${$product.attr('data-id')}`,
+            type: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            data: JSON.stringify({
+              quantity: Number($product.attr('data-quantity')) + 1
+            }),
+            success: function () {
+              buildCart();
+            }
+          });
+        } else {
+          $.ajax({
+            url: 'http://localhost:3000/cart',
+            type: 'POST',
+            headers: { 'content-type': 'application/json' },
+            data: JSON.stringify({
+              name: e.target.dataset.name,
+              price: e.target.dataset.price,
+              quantity: 1
+            }),
+            success: function () {
+              buildCart();
+            }
+          });
         }
       });
-    });
+
+      $('#cart').on('click', 'button', function (e) {
+        if (e.target.dataset.quantity === '1') {
+          $.ajax({
+            url: `http://localhost:3000/cart/${e.target.dataset.id}`,
+            type: 'DELETE',
+            success: function () {
+              buildCart();
+            }
+          });
+        } else {
+          $.ajax({
+            url: `http://localhost:3000/cart/${e.target.dataset.id}`,
+            type: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            data: JSON.stringify({
+              quantity: Number(e.target.dataset.quantity) - 1
+            }),
+            success: function () {
+              buildCart();
+            }
+          });
+        }
+
+      });
+    }
 
     function buildGoods() {
       $.ajax(
@@ -64,7 +109,7 @@
               var $trEl = $('<tr/>', {
               });
               var $tdNameEl = $('<td/>', {
-                text: product.productName,
+                text: product.name,
               });
               var $tdPriceEl = $('<td/>', {
                 text: product.price
@@ -77,8 +122,9 @@
               var $btnDelEl = $('<button/>', {
                 text: 'x',
                 'data-id': product.id,
-                'data-name': product.productName,
-                'data-price': product.price
+                'data-name': product.name,
+                'data-price': product.price,
+                'data-quantity': product.quantity
               });
               $tdBtnDelEl.append($btnDelEl);
               $trEl.append($tdNameEl);

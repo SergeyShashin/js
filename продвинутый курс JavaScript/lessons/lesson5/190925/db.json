@@ -28,19 +28,28 @@
   ],
   "cart": [
     {
-      "id": 2,
-      "productName": "джинсы",
-      "price": 7000
+      "name": "трусы",
+      "price": "500",
+      "quantity": 1,
+      "id": 1
     },
     {
-      "id": 3,
-      "productName": "майка",
-      "price": 3500
+      "name": "джинсы",
+      "price": "7000",
+      "quantity": 1,
+      "id": 2
     },
     {
-      "id": 5,
-      "productName": "куртка",
-      "price": 8000
+      "name": "майка",
+      "price": "3500",
+      "quantity": 1,
+      "id": 3
+    },
+    {
+      "name": "куртка",
+      "price": "8000",
+      "quantity": 1,
+      "id": 5
     }
   ]
 }
