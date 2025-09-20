@@ -23,6 +23,24 @@
       "status": "new",
       "text": "Отзыв для отклонения.",
       "author": "Человек."
+    },
+    {
+      "status": "new",
+      "text": "Fresh review). Свеженький отзыв.",
+      "author": "Человек",
+      "id": 5
+    },
+    {
+      "status": "new",
+      "text": "Fresh review). Свеженький отзыв.",
+      "author": "Человек",
+      "id": 6
+    },
+    {
+      "status": "new",
+      "text": "Fresh review). Свеженький отзыв.+",
+      "author": "Человек",
+      "id": 7
     }
   ]
 }

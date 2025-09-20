@@ -48,6 +48,9 @@ setEventHandlers();
 
 function updateReviews(url, method, data) {
   var xhr = new XMLHttpRequest();
+  var enternewRevewEl = document.getElementById('enterNewReview');
+  reviewsEl.innerHTML = '';
+  reviewsEl.appendChild(enternewRevewEl);
   switch (method) {
     case 'GET':
       xhr.open(method, url);
@@ -66,11 +69,11 @@ function updateReviews(url, method, data) {
           author: "Человек"
         })
         xhr.open(method, url);
-        xhr.setRequestHeader('content-type', 'appliction/json');
+        xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(dataForSend);
-        console.dir(xhr);
       }
       break;
+
   }
 
 
@@ -118,6 +121,7 @@ function setEventHandlers() {
       switch (e.target.textContent) {
         case 'Добавить':
           updateReviews('http://localhost:3000/reviews', 'POST', document.getElementById('textNewReview').value);
+          updateReviews('http://localhost:3000/reviews', 'GET', '');
       }
     }
   })
