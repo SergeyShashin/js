@@ -43,6 +43,7 @@ e) модуль подчиняется следующим соглашениям
 */
 
 var reviewsEl = document.getElementById('reviews');
+
 updateReviews('http://localhost:3000/reviews', 'GET', '');
 setEventHandlers();
 
@@ -51,15 +52,16 @@ function updateReviews(url, method, data) {
   var enternewRevewEl = document.getElementById('enterNewReview');
   reviewsEl.innerHTML = '';
   reviewsEl.appendChild(enternewRevewEl);
+
   switch (method) {
     case 'GET':
       xhr.open(method, url);
       xhr.send();
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
           updateHTML(JSON.parse(xhr.responseText));
         }
-      }
+      };
       break;
     case 'POST':
       if (data.length > 0) {
@@ -71,6 +73,26 @@ function updateReviews(url, method, data) {
         xhr.open(method, url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.send(dataForSend);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            updateReviews('http://localhost:3000/reviews', 'GET', '');
+          }
+        };
+      }
+      break;
+    case 'PATCH':
+      if (data.length > 0) {
+        var dataForSend = JSON.stringify({
+          status: data,
+        })
+        xhr.open(method, url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(dataForSend);
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            updateReviews('http://localhost:3000/reviews', 'GET', '')
+          }
+        }
       }
       break;
 
@@ -116,14 +138,22 @@ function createReview(id, text, addButtons) {
 
 function setEventHandlers() {
   reviewsEl.addEventListener('click', function (e) {
+
     if (e.target.tagName === 'BUTTON') {
       e.preventDefault();
       switch (e.target.textContent) {
         case 'Добавить':
           updateReviews('http://localhost:3000/reviews', 'POST', document.getElementById('textNewReview').value);
-          updateReviews('http://localhost:3000/reviews', 'GET', '');
+          break;
+        case 'Одобрить':
+          updateReviews(`http://localhost:3000/reviews/${e.target.parentElement.id}`, 'PATCH', 'approved');
+          break;
+        case 'Отклонить':
+          updateReviews(`http://localhost:3000/reviews/${e.target.parentElement.id}`, 'PATCH', 'decline');
+          break;
       }
-    }
-  })
 
+      // updateReviews('http://localhost:3000/reviews', 'GET', '');
+    }
+  });
 }
