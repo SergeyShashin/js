@@ -153,7 +153,6 @@ function setEventHandlers() {
           break;
       }
 
-      // updateReviews('http://localhost:3000/reviews', 'GET', '');
     }
   });
 }
