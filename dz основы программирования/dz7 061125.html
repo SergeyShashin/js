@@ -1,0 +1,11 @@
+<script>
+
+  let counterCorrectAnswer = 0;
+
+  for (let i = 0; i < 3; i++) {
+    confirm(`Это ${i} вопрос?`) ? counterCorrectAnswer++ : '';
+  }
+
+  alert(`Количество ответов, совпавших с задуманными = ${counterCorrectAnswer}.`);
+
+</script>
