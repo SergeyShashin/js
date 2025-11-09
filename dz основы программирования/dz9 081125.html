@@ -1,0 +1,21 @@
+<meta charset='uf-8'>
+
+<script>
+  var counterRounds = 0;
+
+  while (confirm('Играем?')) {
+
+    if (Math.random() * 6 < 1) {
+      alert(`Выпало число меньше 1. Количество попыток ${counterRounds}.`);
+      break;
+    } else {
+      alert(`Количество попыток = ${counterRounds}`);
+    }
+
+    counterRounds++;
+  }
+
+
+
+
+</script>

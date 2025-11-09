@@ -1,0 +1,14 @@
+<meta charset='utf-8'>
+
+<script>
+
+  var deposit = Number(prompt('Можете напечатать сумму вклада.', 100000));
+  var percent = 1+Number(prompt('Можете напечатать годовой процент.', 10)) / 100;
+  var years = Number(prompt('Можете напечать количество лет.', 10));
+
+  for (var i = 1; i < years + 1; i++) {
+    deposit *= percent;
+    console.log(`Количество лет = ${i}. Сумма по вкладу ${deposit.toFixed(2)}`);
+  }
+
+</script>
