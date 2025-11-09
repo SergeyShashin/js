@@ -1,0 +1,46 @@
+<meta charset='urf-8'>
+
+<script>
+  var player = [getCard(), getCard()];
+  var dealer = [getCard()];
+
+  console.log(getStatus());
+
+  function getStatus() {
+    return `Player: [${player}] = ${getSum(player)}.\nDealer: [${dealer}] = ${getSum(dealer)}.`;
+  }
+
+  function getRndomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function getCard() {
+    var cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    return cards[getRndomInt(0, cards.length - 1)];
+  }
+
+  function getSum(arr) {
+    let sum = 0;
+    for (var card of arr) {
+      switch (card) {
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+          sum += Number(card);
+          break
+        case '10':
+        case 'J':
+        case 'Q':
+        case 'K':
+          sum += 10;
+          break
+        case 'A':
+          sum > 10 ? sum += 1 : sum += 11;
+          break
+      }
+    }
+    return sum
+  }
+
+</script>
