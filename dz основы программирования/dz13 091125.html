@@ -1,0 +1,126 @@
+<meta charset='urf-8'>
+
+<script>
+
+  const game = {
+    player: null,
+    dealer: null,
+    status: null,
+    run() {
+      this.init();
+
+      if (this.is21(this.getSum(this.player))) {
+        this.sayWinPhrase('player');
+        this.status = 'stop';
+        return confirm(`Ещё разок?`) ? this.run() : this.sayGoodby();
+      }
+
+      if (this.isPlay()) {
+        this.movePlayer();
+      }
+
+      if (this.isPlay()) {
+        this.moveDealer();
+      }
+
+      if (this.isPlay()) {
+        if (this.getSum(this.dealer) >= this.getSum(this.player)) {
+          this.sayWinPhrase('dealer');
+          this.status = 'stop';
+        } else {
+          this.sayWinPhrase('player');
+          this.status = 'stop';
+        }
+      }
+
+      return confirm(`Ещё разок?`) ? this.run() : this.sayGoodby();
+
+    },
+    init() {
+      this.status = 'play';
+      this.player = [this.getCard(), this.getCard()];
+      this.dealer = [this.getCard()];
+    },
+    getStatus() {
+      return `Player: [${this.player}] = ${this.getSum(this.player)}.\nDealer: [${this.dealer}] = ${this.getSum(this.dealer)}.`;
+    },
+    getRndomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    getCard() {
+      var cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+      return cards[this.getRndomInt(0, cards.length - 1)];
+    },
+    getSum(arr) {
+      let sum = 0;
+      for (var card of arr) {
+        switch (card) {
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+            sum += Number(card);
+            break
+          case '10':
+          case 'J':
+          case 'Q':
+          case 'K':
+            sum += 10;
+            break
+          case 'A':
+            sum > 10 ? sum += 1 : sum += 11;
+            break
+        }
+      }
+      return sum
+    },
+    is21(sum) {
+      return sum === 21;
+    },
+    isMore21(sum) {
+      return sum > 21
+    },
+    sayWinPhrase(role) {
+      alert(`${this.getStatus()}\nУ ${role} всё получилось.`);
+    },
+    sayGoodby() {
+      alert(`Спасибо). До встречи!)`);
+    },
+    movePlayer() {
+      while (confirm(`${this.getStatus()}\nЕщё?`) && this.isPlay()) {
+        this.player.push(this.getCard());
+        if (this.is21(this.getSum(this.player))) {
+          this.sayWinPhrase('player');
+          this.status = 'stop';
+          return
+        } else if (this.isMore21(this.getSum(this.player))) {
+          this.sayWinPhrase('dealer');
+          this.status = 'stop';
+          return
+        }
+      }
+      return
+    },
+    moveDealer() {
+      while (this.getSum(this.dealer) < 16) {
+        this.dealer.push(this.getCard());
+      }
+      if (this.is21(this.getSum(this.dealer))) {
+        this.sayWinPhrase('dealer');
+        this.status = 'stop';
+        return
+      } else if (this.isMore21(this.getSum(this.dealer))) {
+        this.sayWinPhrase('player');
+        this.status = 'stop';
+        return
+      }
+      return
+    },
+    isPlay() {
+      return this.status === 'play'
+    }
+  }
+
+  game.run();
+
+</script>
