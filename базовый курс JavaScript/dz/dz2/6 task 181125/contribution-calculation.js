@@ -12,6 +12,13 @@
 верное окончание в слове "рубль". Для получения верного склонения слова (любого слова с
 числом) вам необходимо создать функцию.
 */
+
+/*
+  0,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20  рублей
+  1,21,31,..101 рубль
+  2,3,4 ... 22, 23, 24...102,103,104 рубля 
+*/
+
 const words = ['рубль', 'рублей', 'рубля'];
 
 for (let i = 0; i < 1012; i++) {
@@ -19,24 +26,17 @@ for (let i = 0; i < 1012; i++) {
 }
 
 function getCorrectPhrase(number, words) {
-  const third = [2, 3, 4];
-  /*
-    0,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20  рублей
-    1,21,31,..101 рубль
-    2,3,4 ... 22, 23, 24...102,103,104 рубля 
-  */
-
   let numberDiv100 = number % 100;
   let numberDiv100Div10 = numberDiv100 % 10;
+  let msg = `${number} ${words[1]}`;
 
   if (numberDiv100 > 4 && numberDiv100 < 20) {
-    return `${number} ${words[1]}`;
   } else if (numberDiv100 > 1 && numberDiv100 < 5) {
-    return `${number} ${words[2]}`;
+    msg = `${number} ${words[2]}`;
   } else if (numberDiv100Div10 === 1) {
-    return `${number} ${words[0]}`;
+    msg = `${number} ${words[0]}`;
   } else {
-    return `${number} ${words[1]}`;
   }
 
+  return msg;
 }
