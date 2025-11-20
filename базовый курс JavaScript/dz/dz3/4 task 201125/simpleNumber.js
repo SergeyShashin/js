@@ -27,7 +27,7 @@ function isSimple(n) {
 
 //вариант2
 function isSimple(n) {
-  let limitNumber = n / 2;
+  let limitNumber = Math.sqrt(n) + 1;
   for (let i = 3; i < limitNumber; i = i + 2) {
     if (n % i === 0) {
       return false
