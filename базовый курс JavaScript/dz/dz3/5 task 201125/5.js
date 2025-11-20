@@ -21,6 +21,27 @@ const arr = [
   [7, 4, 1],
 ];
 
-function getIdxArrMaxSum(arr){
-  
+let idxArrMaxSum = getIdxArrMaxSum(arr);
+
+console.log(`Индекс этого массива у которого сумма всех чисел максимальна ${idxArrMaxSum}.\n\
+Минимальное значение в массиве [${arr[idxArrMaxSum]}] = ${getMinValInArrMaxSum(arr[idxArrMaxSum])}.`);
+
+function getIdxArrMaxSum(arr) {
+  let idxArrMaxSum;
+  let sum = 0;
+  let maxSum = 0;
+
+  arr.map((el, idx) => {
+    sum = el.reduce((acc, num) => acc + num);
+    if (sum > maxSum) {
+      maxSum = sum;
+      idxArrMaxSum = idx;
+    }
+  });
+
+  return idxArrMaxSum
+}
+
+function getMinValInArrMaxSum(arr) {
+  return Math.min(...arr)
 }
