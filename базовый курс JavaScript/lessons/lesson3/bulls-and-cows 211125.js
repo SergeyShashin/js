@@ -22,7 +22,6 @@ function reset() {
 }
 
 function attemptsGuessNumber() {
-  let bulls = [];
 
   while (confirm('Пробуем?')) {
     let userNumber = prompt('Какое 4-х значное число попробуем сравнить с тем, что задумал комп?');
@@ -32,11 +31,36 @@ function attemptsGuessNumber() {
       continue;
     }
 
-    console.log(userNumber);
+    attempts++;
 
+    let result = check(userNumber);
+    if (result[0] === 4) {
+      alert(`Получилось с ${attempts} попытки.`);
+      return confirm('Ещё?') ? startGame() : alert('Спаасибо) До встреч!');
+    }
+
+    alert(`Быков ${result[0]}. Коров ${result[1]}`);
   }
 }
 
 function isValid(userNumber) {
-  return userNumber.length === 4 && Number.isInteger(Number(userNumber))&&!/ /.test(userNumber);
+  return userNumber.length === 4 && Number.isInteger(Number(userNumber)) && !/ /.test(userNumber);
+}
+
+function check(userNumber) {
+  let result = [0, 0];
+
+  if (userNumber === number.join('')) {
+    return [4, 0];
+  }
+
+  for (const key in number) {
+    if (number[key] === Number(userNumber[key])) {
+      result[0]++;
+    } else if (number.includes(Number(userNumber[key]))) {
+      result[1]++;
+    }
+  }
+
+  return result
 }
