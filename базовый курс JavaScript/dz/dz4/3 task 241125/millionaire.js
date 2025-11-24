@@ -18,46 +18,42 @@ d. Куда я попал?
 Также должна быть возможность выхода из игры заранее, если пользователю надоело играть.
 */
 
-const questions = [
-  {
-    id: 1,
-    question: `Это ${1} вопрос?`,
-  },
-  {
-    id: 2,
-    question: `Это ${2} вопрос?`,
-  },
-  {
-    id: 3,
-    question: `Это ${3} вопрос?`,
-  },
-  {
-    id: 4,
-    question: `Это ${4} вопрос?`,
-  },
-  {
-    id: 5,
-    question: `Это ${5} вопрос?`,
-  },
-];
-
 const game = {
-  questions,
   attempts: null,
   run() {
-    this.attempts = 0;
-    this.questions.map(el => {
-      if (confirm(el.question)) {
-        this.attempts++;
+    this.init();
+    for (let i = 0; i < 5; i++) {
+      let answerUser = prompt(`Это ${i} вопрос? [да/нет/выход]`, 'да');
+      switch (answerUser) {
+        case 'да':
+          this.attempts++;
+          break;
+        case 'выход':
+          this.sayCount();
+          this.sayFinalPhrase();
+          return
       }
-      if (!confirm('Продолжаем?')) {
-        return alert(`Ваши ответы совпали с задуманными ${this.attempts} раз. До встречи!)`);
-      };
-    });
-    if (!confirm(`Ваши ответы совпали с задуманными ${this.attempts} раз. Ещё разок?`)) {
-      return alert(` До встречи!)`);
-    };
-    return game.run();
+    }
+    this.sayCount();
+    
+    if (confirm('Ещё?')) {
+      game.run();
+    } else {
+      return this.sayFinalPhrase();
+    }
+
+  },
+  init() {
+    this.reset();
+  },
+  reset() {
+    this.attempts = 0;
+  },
+  sayFinalPhrase() {
+    alert(`До встречи!)`)
+  },
+  sayCount() {
+    alert(`Количество ответов, совпавших с задуманными = ${this.attempts}.`)
   }
 };
 
