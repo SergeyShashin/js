@@ -29,7 +29,17 @@ const chess = {
         startPosition: 'E1',
         code: 'U+2654',
         HTMLCode: '&#9812;'
-      }
+      },
+      'fw': {
+        startPosition: 'D1',
+        code: 'U+2655',
+        HTMLCode: '&#9813;'
+      },
+      'rw': {
+        startPosition: ['A1', 'H1'],
+        code: 'U+2656',
+        HTMLCode: '&#9814;'
+      },
     };
     this.setStartPositionFiguresOnChessHTMLEl();
   },
@@ -83,8 +93,19 @@ const chess = {
     for (let key in this.figures) {
       console.log(this.figures[key].startPosition);
       let { startPosition, HTMLCode } = this.figures[key];
-      this.chessBoard[startPosition].innerHTML = HTMLCode;
+      if (Array.isArray(startPosition)) {
+        for (let position of startPosition) {
+          this.setFigure(position, HTMLCode);
+        }
+
+      } else {
+        // this.chessBoard[startPosition].innerHTML = HTMLCode;
+        this.setFigure(startPosition, HTMLCode);
+      }
     }
+  },
+  setFigure(startPosition, HTMLCode) {
+    this.chessBoard[startPosition].innerHTML = HTMLCode;
   }
 };
 
