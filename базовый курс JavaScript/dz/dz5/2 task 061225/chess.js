@@ -91,15 +91,13 @@ const chess = {
 
   setStartPositionFiguresOnChessHTMLEl() {
     for (let key in this.figures) {
-      console.log(this.figures[key].startPosition);
       let { startPosition, HTMLCode } = this.figures[key];
+
       if (Array.isArray(startPosition)) {
         for (let position of startPosition) {
           this.setFigure(position, HTMLCode);
         }
-
       } else {
-        // this.chessBoard[startPosition].innerHTML = HTMLCode;
         this.setFigure(startPosition, HTMLCode);
       }
     }
