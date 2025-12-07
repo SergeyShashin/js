@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+  <title>DZ 5. Task 3. Form validation.</title>
+</head>
+
+<body>
+  <!-- если поле норм прописать класс инпуту is-valid -->
+  <!-- если поле не норм прописать этот класс инпуту is-invalid -->
+  <form id="formContacts" class="row g-2 m-1" method="get">
+    <div class="col-md-5">
+      <label for="validationServer01" class="form-label">Имя</label>
+      <input type="text" class="form-control" id="validationServer01" name="name" value="8">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        должно содержать, как минимум 1 символ, не более 50 символов
+      </div>
+    </div>
+    <div class="col-md-5">
+      <label for="validationServer02" class="form-label">Телефон</label>
+      <input type="number" class="form-control" id="validationServer02" name="phone" value="12345678910">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        должно содержать 11 цифр, не больше, не меньше
+      </div>
+    </div>
+    <div class="col-md-5">
+      <label for="validationServer03" class="form-label">Пароль</label>
+      <input type="password" class="form-control" id="validationServer03" name="password" value="12345">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        минимум 5 символов, максимум 50
+      </div>
+    </div>
+    <div class="col-md-5">
+      <label for="validationServer03" class="form-label">Повтор пароля</label>
+      <input type="password" class="form-control" id="validationServer03" name="passwordRepeat">
+      <div class="valid-feedback">
+        Looks good!
+      </div>
+      <div class="invalid-feedback">
+        значение должно совпадать с полем пароль
+      </div>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </form>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+    crossorigin="anonymous"></script> -->
+
+  <script src="3.js"></script>
+</body>
+
+</html>
