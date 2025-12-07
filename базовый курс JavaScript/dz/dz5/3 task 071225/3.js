@@ -28,7 +28,6 @@ const validation = {
   rules: null,
   methods: null,
   run() {
-    // console.log(document.querySelector('[name="password"]').value);
     this.init();
   },
 
