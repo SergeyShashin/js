@@ -22,6 +22,7 @@ const gallery = {
   monitorHTMLEl: null,
   imagesHTMLEls: null,
   imagesFullImageUrl: null,
+  numberCurrentOpenedImg: null,
 
 
   init(userSettings = {}) {
@@ -31,8 +32,11 @@ const gallery = {
     this.imagesHTMLEls = this.galleryHTMLEl.querySelectorAll('img');
     this.imagesFullImageUrl = [];
 
-    for (let { dataset } of this.imagesHTMLEls) {
+
+    for (let i = 0; i < this.imagesHTMLEls.length; i++) {
+      let dataset = this.imagesHTMLEls[i].dataset;
       this.imagesFullImageUrl.push(dataset.fullImageUrl);
+      dataset.number = i;
     }
 
 
@@ -45,6 +49,7 @@ const gallery = {
     if (e.target.tagName !== 'IMG') {
       return
     }
+    this.numberCurrentOpenedImg = e.target.dataset.number;
 
     let src = e.target.dataset.fullImageUrl;
     let testImg = new Image();
@@ -118,9 +123,13 @@ const gallery = {
         break;
       case this.settings.idBtnLeftHTMLEl:
         alert('Нужно показать соседа слева.');
+        this.numberCurrentOpenedImg = this.numberCurrentOpenedImg - 1 > 0 ? this.numberCurrentOpenedImg - 1 : this.imagesFullImageUrl.length;
+        this.openImage(this.imagesFullImageUrl[this.numberCurrentOpenedImg]);
         break;
       case this.settings.idBtnRightHTMLEl:
         alert('Нужно показать соседа справа.');
+        this.numberCurrentOpenedImg = this.numberCurrentOpenedImg + 1 < this.imagesFullImageUrl.length - 1 ? this.numberCurrentOpenedImg + 1 : 0;
+        this.openImage(this.imagesFullImageUrl[this.numberCurrentOpenedImg]);
         break;
     }
   }
