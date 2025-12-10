@@ -61,11 +61,13 @@ const gallery = {
     let btnCloseHTMLEl = document.createElement('button');
     btnCloseHTMLEl.id = this.settings.idBtnCloseHTMLEl;
     btnCloseHTMLEl.textContent = 'X';
-
+    
     monitorHTMLEl.appendChild(backgroundHTMLEl);
     monitorHTMLEl.appendChild(btnCloseHTMLEl);
-
+    
     document.body.appendChild(monitorHTMLEl);
+
+    btnCloseHTMLEl.addEventListener('click', () => monitorHTMLEl.remove());
 
     return monitorHTMLEl;
   }
