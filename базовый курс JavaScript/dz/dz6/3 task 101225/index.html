@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      position: relative;
+    }
+
+    #gallery {
+      display: grid;
+      justify-content: center;
+      padding: 10px;
+      gap: 20px;
+    }
+
+    #gallery img {
+      border-radius: 10px;
+    }
+
+    #gallery img:hover,
+    .close img {
+      cursor: pointer;
+    }
+
+
+    .background {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(229, 177, 34, 0.3);
+    }
+
+    #idMonitorHTMLEl {
+      position: fixed;
+      top: 0vh;
+      width: 100%;
+      height: 100%;
+    }
+
+    .classOpenedImage {
+      top: 15vh;
+      left: 15vw;
+      width: 70vw;
+      height: 70vh;
+      display: block;
+      position: absolute;
+      z-index: 2;
+    }
+
+
+
+    #idBtnCloseHTMLEl,
+    #idBtnLeftHTMLEl,
+    #idBtnRightHTMLEl {
+      top: 0;
+      z-index: 3;
+      position: absolute;
+      background: none;
+      border: none;
+      width: 30px;
+      height: 30px;
+      color: crimson;
+      cursor: pointer;
+    }
+
+    #idBtnCloseHTMLEl {
+      right: 0;
+    }
+
+    #idBtnLeftHTMLEl {
+      right: 90px;
+    }
+
+    #idBtnRightHTMLEl {
+      right: 50px;
+    }
+  </style>
+  <title>Gallery</title>
+</head>
+
+<body>
+  <div id='gallery' class="gallery">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/444.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/444.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/444.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/444.jpg" alt="img/min/4.jpg">
+  </div>
+
+
+  <script src="gallery.js"></script>
+</body>
+
+</html>
