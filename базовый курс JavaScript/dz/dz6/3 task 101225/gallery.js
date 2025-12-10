@@ -20,12 +20,22 @@ const gallery = {
   },
   galleryHTMLEl: null,
   monitorHTMLEl: null,
+  imagesHTMLEls: null,
+  imagesFullImageUrl: null,
 
 
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
 
     this.galleryHTMLEl = document.getElementById(this.settings.idGallery);
+    this.imagesHTMLEls = this.galleryHTMLEl.querySelectorAll('img');
+    this.imagesFullImageUrl = [];
+
+    for (let { dataset } of this.imagesHTMLEls) {
+      this.imagesFullImageUrl.push(dataset.fullImageUrl);
+    }
+
+
     this.galleryHTMLEl.addEventListener('click', e => this.handlerClickOnGallery(e));
   },
 
@@ -96,7 +106,6 @@ const gallery = {
 
     document.body.appendChild(this.monitorHTMLEl);
 
-    // btnCloseHTMLEl.addEventListener('click', () => monitorHTMLEl.remove());
     this.monitorHTMLEl.addEventListener('click', (e) => this.handlerClickMonitorHTMLEl(e.target));
 
     return this.monitorHTMLEl;
