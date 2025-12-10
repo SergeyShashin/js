@@ -19,6 +19,7 @@ const gallery = {
     pathToNofing: 'img/gallery/nothing.png'
   },
   galleryHTMLEl: null,
+  monitorHTMLEl: null,
 
 
   init(userSettings = {}) {
@@ -30,6 +31,7 @@ const gallery = {
 
 
   handlerClickOnGallery(e) {
+
     if (e.target.tagName !== 'IMG') {
       return
     }
@@ -69,8 +71,8 @@ const gallery = {
 
 
   createMonitorHTMLEl() {
-    let monitorHTMLEl = document.createElement('div');
-    monitorHTMLEl.id = this.settings.idMonitorHTMLEl;
+    this.monitorHTMLEl = document.createElement('div');
+    this.monitorHTMLEl.id = this.settings.idMonitorHTMLEl;
 
     let backgroundHTMLEl = document.createElement('div');
     backgroundHTMLEl.classList.add(this.settings.classBackground);
@@ -87,16 +89,31 @@ const gallery = {
     btnRightHTMLEl.id = this.settings.idBtnRightHTMLEl;
     btnRightHTMLEl.textContent = '>';
 
-    monitorHTMLEl.appendChild(backgroundHTMLEl);
-    monitorHTMLEl.appendChild(btnCloseHTMLEl);
-    monitorHTMLEl.appendChild(btnLeftHTMLEl);
-    monitorHTMLEl.appendChild(btnRightHTMLEl);
+    this.monitorHTMLEl.appendChild(backgroundHTMLEl);
+    this.monitorHTMLEl.appendChild(btnCloseHTMLEl);
+    this.monitorHTMLEl.appendChild(btnLeftHTMLEl);
+    this.monitorHTMLEl.appendChild(btnRightHTMLEl);
 
-    document.body.appendChild(monitorHTMLEl);
+    document.body.appendChild(this.monitorHTMLEl);
 
-    btnCloseHTMLEl.addEventListener('click', () => monitorHTMLEl.remove());
+    // btnCloseHTMLEl.addEventListener('click', () => monitorHTMLEl.remove());
+    this.monitorHTMLEl.addEventListener('click', (e) => this.handlerClickMonitorHTMLEl(e.target));
 
-    return monitorHTMLEl;
+    return this.monitorHTMLEl;
+  },
+
+  handlerClickMonitorHTMLEl(target) {
+    switch (target.id) {
+      case this.settings.idBtnCloseHTMLEl:
+        this.monitorHTMLEl.remove();
+        break;
+      case this.settings.idBtnLeftHTMLEl:
+        alert('Нужно показать соседа слева.');
+        break;
+      case this.settings.idBtnRightHTMLEl:
+        alert('Нужно показать соседа справа.');
+        break;
+    }
   }
 
 };
