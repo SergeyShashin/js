@@ -2,16 +2,18 @@
 
 const tikTakToe = {
   gameHTMLEl: null,
-  game: null,
+  gameData: null,
   phase: null,
+  status: null,
   run() {
     this.gameHTMLEl = document.getElementById('game');
-    this.game = [
+    this.gameData = [
       [], [], [],
       [], [], [],
       [], [], [],
     ];
     this.phase = '+';
+    this.status = 'play';
 
     this.createMap();
     this.gameHTMLEl.addEventListener('click', e => this.handlerClick(e));
@@ -28,13 +30,30 @@ const tikTakToe = {
       this.gameHTMLEl.appendChild(trEl);
     }
   },
+
   handlerClick(e) {
-    if (e.target.tagName !== 'TD') {
+    if (!this.clickOnTD(e.target.tagName) || !this.isEmpty(e.target) || !this.statusIsPlay()) {
       return
     }
     e.target.textContent = this.phase;
+    this.gameData[Number(e.target.dataset.row)][Number(e.target.dataset.col)] = this.phase;
+
     this.phase = this.phase === 0 ? '+' : 0;
-  }
+  },
+
+  clickOnTD(tag) {
+    return tag === 'TD';
+  },
+
+  isEmpty(tag) {
+    return tag.textContent === '';
+  },
+
+  statusIsPlay() {
+    return this.status === 'play';
+  },
+
+
 
 };
 
