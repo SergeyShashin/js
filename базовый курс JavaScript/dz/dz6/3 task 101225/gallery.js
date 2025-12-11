@@ -49,19 +49,21 @@ const gallery = {
     if (e.target.tagName !== 'IMG') {
       return
     }
-    this.numberCurrentOpenedImg = e.target.dataset.number;
 
-    let src = e.target.dataset.fullImageUrl;
-    let testImg = new Image();
-    testImg.src = src;
-    testImg.onload = () => this.openImage(src);
-    testImg.onerror = () => this.openImage(this.settings.pathToNofing);
+    this.numberCurrentOpenedImg = Number(e.target.dataset.number);
 
+    this.openImage(e.target.dataset.fullImageUrl);
   },
 
 
   openImage(src) {
-    this.getImageHTMLEl().src = src;
+
+    let testImg = new Image();
+    testImg.src = src;
+
+    testImg.onload = () => this.getImageHTMLEl().src = src;
+    testImg.onerror = () => this.getImageHTMLEl().src = this.settings.pathToNofing;
+
   },
 
 
@@ -122,12 +124,12 @@ const gallery = {
         this.monitorHTMLEl.remove();
         break;
       case this.settings.idBtnLeftHTMLEl:
-        alert('Нужно показать соседа слева.');
-        this.numberCurrentOpenedImg = this.numberCurrentOpenedImg - 1 > 0 ? this.numberCurrentOpenedImg - 1 : this.imagesFullImageUrl.length;
+        this.numberCurrentOpenedImg = this.numberCurrentOpenedImg - 1 > -1 ? this.numberCurrentOpenedImg - 1 : this.imagesFullImageUrl.length - 1;
+        this.monitorHTMLEl.querySelector('img').remove();
         this.openImage(this.imagesFullImageUrl[this.numberCurrentOpenedImg]);
         break;
       case this.settings.idBtnRightHTMLEl:
-        alert('Нужно показать соседа справа.');
+        this.monitorHTMLEl.querySelector('img').remove();
         this.numberCurrentOpenedImg = this.numberCurrentOpenedImg + 1 < this.imagesFullImageUrl.length - 1 ? this.numberCurrentOpenedImg + 1 : 0;
         this.openImage(this.imagesFullImageUrl[this.numberCurrentOpenedImg]);
         break;
