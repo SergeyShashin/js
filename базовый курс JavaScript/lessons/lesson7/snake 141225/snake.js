@@ -41,6 +41,10 @@ const snake = {
     this.lastDirection = direction;
   },
 
+  getBody() {
+    return this.body;
+  },
+
   getNextHeadPoint() {
 
   },
@@ -85,20 +89,27 @@ const map = {
     this.usedCels = [];
 
     snakePoints.forEach((point, idx) => {
-      point.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
-      this.usedCels.push(point);
+      let pointEl = this.cels[`x${point.x}_y${point.y}`];
+      pointEl.classList.add(idx === 0 ? 'snake-head' : 'snake-body');
+      this.usedCels.push(pointEl);
     });
 
-    foodPoint.classList.add('food');
-    this.usedCels.push(foodPoint);
+    let foodPointEl = this.cels[`x${foodPoint.x}_y${foodPoint.y}`];
+    foodPointEl.classList.add('food');
+    this.usedCels.push(foodPointEl);
+  },
+
+  getGameEl() {
+    return this.gameEl;
   }
 };
 
 const food = {
-  position: null,
+  position: { x: null, y: null },
 
   init(position) {
-    this.position = position;
+    this.position.x = position.x;
+    this.position.y = position.y;
   },
 
   getPosistion() {
@@ -113,11 +124,19 @@ const food = {
 const status = {
   state: null,
 
-  setStatus(state) {
-    this.state = state;
+  setPlay() {
+    this.state = 'play';
   },
 
-  getStatus() {
+  setStop() {
+    this.state = 'stop';
+  },
+
+  setFinish() {
+    this.state = 'finish';
+  },
+
+  get() {
     return this.state;
   },
 
@@ -141,10 +160,96 @@ const game = {
   map,
   food,
   status,
+  interval: null,
+
   init(userSettings) {
     this.config.init(userSettings);
     this.map.init(this.config.getColsCount(), this.config.getRowsCount());
+    this.reset();
+  },
 
+  reset() {
+    this.snake.init(this.getStartSnakePosition(), 'up');
+    this.food.init(this.getRandomFreeCoordinates());
+    this.render();
+    this.stop();
+    this.setEventHandlers();
+  },
+
+  setEventHandlers() {
+    window.addEventListener('click', e => this.handlerClick(e));
+    window.addEventListener('keydown', e => this.handlerKeyDown(e));
+  },
+
+  handlerKeyDown(e) {
+    console.log(e);
+  },
+
+  tickInterval() {
+    console.log('го');
+  },
+
+  handlerClick(e) {
+    switch (e.target.id) {
+      case 'playOrStopButton':
+        this.status.isPlay() ? this.stop() : this.play();
+        break;
+      case 'newGameButton':
+        this.reset();
+        break;
+    }
+  },
+
+  changeStateButton(text, isFinish = false) {
+    let playOrStopButtonEl = document.getElementById('playOrStopButton');
+    playOrStopButtonEl.textContent = text;
+
+    if (isFinish) {
+      playOrStopButtonEl.classList.add('finish');
+    }
+  },
+
+  play() {
+    this.status.setPlay();
+    this.changeStateButton('stop');
+    this.interval = setInterval(() => this.tickInterval(), 1000 / this.config.getSpeed());
+  },
+
+  stop() {
+    this.status.setStop();
+    this.changeStateButton('play');
+    clearInterval(this.interval);
+  },
+
+  finish() {
+    this.status.setFinish();
+    this.changeStateButton('finish', true);
+    clearInterval(this.interval);
+  },
+
+  render() {
+    this.map.render(this.snake.getBody(), this.food.getPosistion());
+  },
+
+  getStartSnakePosition() {
+    return {
+      x: Math.floor(this.config.getColsCount() / 2),
+      y: Math.floor(this.config.getRowsCount() / 2)
+    }
+  },
+
+  getRandomFreeCoordinates() {
+    let useCoordinates = [this.food.getPosistion(), ...this.snake.getBody()];
+    while (true) {
+      let randomPoint = {
+        x: Math.floor(Math.random() * this.config.getColsCount()),
+        y: Math.floor(Math.random() * this.config.getRowsCount()),
+      };
+
+      if (!useCoordinates.some(point => point.x === randomPoint.x && point.y === randomPoint.y)) {
+        return randomPoint
+      }
+    }
   }
 };
 
