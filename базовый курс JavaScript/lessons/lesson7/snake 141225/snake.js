@@ -21,7 +21,7 @@ const config = {
     return this.settings.speed;
   },
 
-  winFoodCount() {
+  getWinFoodCount() {
     return this.settings.speed;
   },
 
@@ -46,19 +46,52 @@ const snake = {
   },
 
   getNextHeadPoint() {
-
+    let { x, y } = this.body[0];
+    switch (this.direction) {
+      case 'up':
+        y--;
+        break;
+      case 'down':
+        y++;
+        break;
+      case 'left':
+        x--;
+        break;
+      case 'right':
+        x++;
+        break;
+    }
+    return { x: x, y: y }
   },
 
   setDirection(direction) {
-    this.direction = direction;
+    if (this.canSetDirection(direction)) {
+      this.direction = direction;
+      this.lastDirection = direction;
+    }
   },
 
-  makeStep() {
+  canSetDirection(direction) {
+    switch (direction) {
+      case 'up':
+        return this.lastDirection !== 'down';
+      case 'down':
+        return this.lastDirection !== 'up';
+      case 'left':
+        return this.lastDirection !== 'right';
+      case 'right':
+        return this.lastDirection !== 'left';
+    }
+  },
 
+  makeStep(nextPoint) {
+    this.body.unshift(nextPoint);
+    this.body.pop();
   },
 
   growUp() {
-
+    let lastPoint = Object.create(this.body[this.body.length - 1]);
+    this.body.push(lastPoint);
   },
 
 };
@@ -148,7 +181,7 @@ const status = {
     return this.state === 'stop';
   },
 
-  isfinish() {
+  isFinish() {
     return this.state === 'finish';
   }
 
@@ -165,6 +198,7 @@ const game = {
   init(userSettings) {
     this.config.init(userSettings);
     this.map.init(this.config.getColsCount(), this.config.getRowsCount());
+    this.setEventHandlers();
     this.reset();
   },
 
@@ -173,7 +207,6 @@ const game = {
     this.food.init(this.getRandomFreeCoordinates());
     this.render();
     this.stop();
-    this.setEventHandlers();
   },
 
   setEventHandlers() {
@@ -182,19 +215,65 @@ const game = {
   },
 
   handlerKeyDown(e) {
-    console.log(e);
+    switch (e.code) {
+      case 'ArrowLeft':
+        this.snake.setDirection('left');
+        break;
+      case 'ArrowRight':
+        this.snake.setDirection('right');
+        break;
+      case 'ArrowDown':
+        this.snake.setDirection('down');
+        break;
+      case 'ArrowUp':
+        this.snake.setDirection('up');
+        break;
+    }
   },
 
   tickInterval() {
-    console.log('го');
+    let nextPoint = this.snake.getNextHeadPoint();
+
+    if (!this.snakeCanMakeStep(nextPoint) || this.snakeNotHungry()) {
+      this.finish();
+      return
+    }
+
+    if (this.foodIsOnPoint(nextPoint)) {
+      this.snake.growUp();
+      this.food.setPositon(this.getRandomFreeCoordinates());
+    }
+
+    this.snake.makeStep(nextPoint);
+    this.render();
+  },
+
+  snakeNotHungry() {
+    return this.config.getWinFoodCount() === this.snake.getBody().length - 1;
+  },
+
+  foodIsOnPoint(nextPoint) {
+    let foodPosition = this.food.getPosistion();
+    return nextPoint.x === foodPosition.x && nextPoint.y === foodPosition.y;
+  },
+
+  snakeCanMakeStep(nextPoint) {
+    return nextPoint.x > -1 && nextPoint.y > -1 &&
+      nextPoint.x < this.config.getColsCount() && nextPoint.y < this.config.getRowsCount()
   },
 
   handlerClick(e) {
     switch (e.target.id) {
       case 'playOrStopButton':
+        if (this.status.isFinish()) {
+          return
+        }
         this.status.isPlay() ? this.stop() : this.play();
         break;
       case 'newGameButton':
+        if (this.status.isFinish()) {
+          document.getElementById('playOrStopButton').classList.remove('finish');
+        }
         this.reset();
         break;
     }
