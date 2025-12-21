@@ -41,7 +41,7 @@ Menu.prototype.render = function () {
 };
 
 function MenuItem(href, label) {
-  Container.call(this, 'idItem', 'classItem');
+  Container.call(this, '', '');
   this.href = href;
   this.label = label;
 }
@@ -60,3 +60,20 @@ MenuItem.prototype.render = function () {
 
   return itemHTMLEl;
 };
+
+function SuperMenu(idText, classText, items, href, label) {
+  Menu.call(this, idText, classText, items);
+  this.href = href;
+  this.label = label;
+}
+
+SuperMenu.prototype = Object.create(Menu.prototype);
+SuperMenu.prototype.render = function () {
+  if (this.href && this.label) {
+    let subMenuHTMLEl = new MenuItem(this.href, this.label).render();
+    subMenuHTMLEl.appendChild(new Menu(this.idText, this.idClass, this.items).render());
+    return subMenuHTMLEl;
+  } else {
+    return new Menu(this.idText, this.idClass, this.items).render();
+  }
+}

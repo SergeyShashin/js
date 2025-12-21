@@ -11,14 +11,17 @@
 <body>
   <script src="menu.js"></script>
   <script>
-    var menu = new Menu('idForMenu', 'classForMenu', [
+    var menu = new SuperMenu('idForMenu', 'classForMenu', [
       new MenuItem('/home', 'Home'),
-      new MenuItem('/home', 'Page'),
-      new MenuItem('/home', 'Contacts'),
+      new MenuItem('/page', 'Page'),
+      new MenuItem('/contacts', 'Contacts'),
+      new SuperMenu('idForMenu', 'classForMenu', [
+        new MenuItem('/home', 'Home'),
+        new MenuItem('/page', 'Page'),
+        new MenuItem('/contacts', 'Contacts'),
+      ], '/subMenu', 'subMenu'),
     ]);
     document.body.appendChild(menu.render());
-    document.body.appendChild(menu.render());
-    menu.remove();
   </script>
 </body>
 
