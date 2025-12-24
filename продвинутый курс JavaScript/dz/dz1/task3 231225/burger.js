@@ -16,9 +16,11 @@
 function Burger(size, stuffing) {
   this.size = size;
   this.stuffing = stuffing;
-  price = 0;
-  calories = 0;
-  toppings = [];
+  this.price = 0;
+  this.calories = 0;
+  this.toppings = [];
+
+  console.log(this.size, this.stuffing)
 
   switch (this.size) {
     case 'big':
@@ -29,9 +31,8 @@ function Burger(size, stuffing) {
       this.price += 50;
       this.calories += 20;
       break;
-
     default:
-      throw new BurgerExeption(`Что-то с размером. ${this.size}`);
+      throw BurgerExeption(`Что-то с размером. ${this.size}`);
   }
 
   switch (this.stuffing) {
@@ -49,7 +50,7 @@ function Burger(size, stuffing) {
       break;
 
     default:
-      throw new BurgerExeption(`Что-то с начинкой. ${this.stuffing}`);
+      throw BurgerExeption(`Что-то с начинкой. ${this.stuffing}`);
   }
 
 }
@@ -62,7 +63,7 @@ Burger.prototype.getCalories = function () {
   return this.calories;
 }
 
-Burger.prototype.addToppong = function (topping) {
+Burger.prototype.addTopping = function (topping) {
   if (!this.toppings.includes(topping)) {
     this.toppings.push(topping);
     this.toppings.map(el => {
@@ -76,7 +77,7 @@ Burger.prototype.addToppong = function (topping) {
           break;
 
         default:
-          throw new BurgerExeption(`Что-то с начинкой. ${this.stuffing}`);
+          throw BurgerExeption(`Что-то с начинкой. ${this.stuffing}`);
       }
     })
   }

@@ -12,6 +12,21 @@
 
 <body>
   <script src='burger.js'></script>
+  <script>
+    var burger = new Burger('big', 0);
+    try {
+      console.log(burger.getPrice());
+      console.log(burger.getCalories());
+      burger.addTopping(0);
+      console.log(burger.getPrice());
+      console.log(burger.getCalories());
+      burger.addTopping(1);
+      console.log(burger.getPrice());
+      console.log(burger.getCalories());
+    } catch (msg) {
+      console.error(msg);
+    }
+  </script>
 </body>
 
 </html>
