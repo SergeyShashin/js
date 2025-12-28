@@ -6,26 +6,116 @@
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <meta http-equiv='X-UA-Compatible' content='ie=edge'>
   <style>
+    * {
+      color: lightseagreen
+    }
+
+    select {
+      border: none;
+      outline: none;
+    }
+
+    input,
+    select,
+    label {
+      cursor: pointer;
+    }
+
+    input:hover,
+    select:hover,
+    label:hover,
+    #monitor, header {
+      color: crimson;
+    }
+
+    #btnSend {
+      background: none;
+      border: none;
+    }
   </style>
   <title>Burger</title>
 </head>
 
 <body>
+
+  <section>
+    <header>Заказ Бургера</header>
+    <form action='#' method='POST'>
+      <p>
+        <select name='size' id='size'>
+          <option value='big'>Большой (100 рублей, 40 калорий)</option>
+          <option value='small'>Маленький (50 рублей, 20 калорий)</option>
+        </select>
+      </p>
+      <p>
+        <label for='cheese'>
+          Cыр (+ 10 рублей, + 20 калорий)
+        </label>
+        <input id='cheese' type='radio' name='stuffing' value='0' checked>
+        <label for='salad'>
+          Cалат (+ 20 рублей, + 5 калорий)
+        </label>
+        <input id='salad' type='radio' name='stuffing' value='1'>
+        <label for='potato'>
+          Картофель (+ 15 рублей, + 10 калорий)
+        </label>
+        <input id='potato' type='radio' name='stuffing' value='2'>
+      </p>
+      <p>
+        <label for='spices'>Приправа (+ 15 рублей, 0 калорий)</label>
+        <input id='spices' type='checkbox' name='topping' value='0'>
+        <label for='mayou'>Майонез (+ 20 рублей, + 5 калорий)</label>
+        <input id='mayou' type='checkbox' name='topping' value='1'>
+      </p>
+      <p>
+        <input id='btnSend' type='submit'>
+      </p>
+    </form>
+    <div id="monitor"></div>
+  </section>
+
   <script src='burger.js'></script>
   <script>
-    var burger = new Burger('big', 0);
-    try {
-      console.log(burger.getPrice());
-      console.log(burger.getCalories());
-      burger.addTopping(0);
-      console.log(burger.getPrice());
-      console.log(burger.getCalories());
-      burger.addTopping(1);
-      console.log(burger.getPrice());
-      console.log(burger.getCalories());
-    } catch (msg) {
-      console.error(msg);
+    var size = 'big';
+    var stuffing = 0;
+
+    window.addEventListener('change', function (e) {
+      handlerChange(e);
+    });
+    document.getElementById('btnSend').addEventListener('click', function (e) {
+      handlerClickBtnSend(e);
+    });
+
+    function handlerChange(e) {
+      var name = e.target.name;
+      var value = e.target.value;
+      switch (name) {
+        case 'size':
+          size = value;
+          break;
+        case 'stuffing':
+          stuffing = value;
+          break;
+      }
     }
+
+    function handlerClickBtnSend(e) {
+      e.preventDefault();
+      try {
+        var burger = new Burger(size, +stuffing);
+        for (var topping of document.querySelectorAll('[name="topping"]')) {
+          if (topping.checked) {
+            burger.addTopping(+topping.value);
+          }
+        }
+
+        document.getElementById('monitor').textContent = `Стоимость: ${burger.getPrice()}. Калорийность: ${burger.getCalories()}.`;
+      } catch (msg) {
+        console.error(msg);
+      }
+    }
+
+
   </script>
 </body>
 

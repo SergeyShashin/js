@@ -20,8 +20,6 @@ function Burger(size, stuffing) {
   this.calories = 0;
   this.toppings = [];
 
-  console.log(this.size, this.stuffing)
-
   switch (this.size) {
     case 'big':
       this.price += 100;
