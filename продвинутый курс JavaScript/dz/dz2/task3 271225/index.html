@@ -6,63 +6,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      display: flex;
+      position: relative;
+    }
+
+    #gallery {
+      display: grid;
       justify-content: center;
-    }
-
-    #galleryMini {
-      position: absolute;
-      z-index: 1;
-      width: 97%;
       padding: 10px;
-      bottom: 0;
-      display: flex;
-      justify-content: space-between;
+      gap: 20px;
     }
 
-    #galleryMini img{
-      border-radius: 16px;
+    #gallery img {
+      border-radius: 10px;
+    }
+
+    #gallery img:hover,
+    .close img {
       cursor: pointer;
     }
 
-    #galleryMini li {
-      text-decoration: none;
-      list-style-type: none;
+
+    .background {
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(229, 177, 34, 0.3);
     }
 
-    #monitor {
-      width: 95%;
-      padding: 20px;
-      height: 60vh;
-      display: flex;
-      justify-content: center;
-
+    #idMonitorHTMLEl {
+      position: fixed;
+      top: 0vh;
+      width: 100%;
+      height: 100%;
     }
 
-    #monitor img {
+    .classOpenedImage {
+      top: 15vh;
+      left: 15vw;
+      width: 70vw;
+      height: 70vh;
       display: block;
-      border-radius: 16px;
+      position: absolute;
+      z-index: 2;
     }
 
-    .bg {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
 
+    #idBtnCloseHTMLEl,
+    #idBtnLeftHTMLEl,
+    #idBtnRightHTMLEl {
+      top: 0;
+      z-index: 3;
+      position: absolute;
+      background: none;
+      border: none;
+      width: 30px;
+      height: 30px;
+      color: crimson;
+      cursor: pointer;
+    }
+
+    #idBtnCloseHTMLEl {
+      right: 0;
+    }
+
+    #idBtnLeftHTMLEl {
+      right: 90px;
+    }
+
+    #idBtnRightHTMLEl {
+      right: 50px;
     }
   </style>
   <title>Gallery</title>
 </head>
 
 <body>
-  <div id='monitor' class='bg'></div>
-  <ul id='galleryMini' class='bg'>
-  </ul>
-  <script src='gallery.js'></script>
+  <div id='gallery' class="gallery">
+    <!-- <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg">
+    <img src="img/min/1.jpg" data-full-image-url="img/max/1.jpg" alt="img/min/1.jpg">
+    <img src="img/min/2.jpg" data-full-image-url="img/max/2.jpg" alt="img/min/2.jpg">
+    <img src="img/min/3.jpg" data-full-image-url="img/max/3.jpg" alt="img/min/3.jpg">
+    <img src="img/min/4.jpg" data-full-image-url="img/max/44.jpg" alt="img/min/4.jpg"> -->
+  </div>
+
+
+  <script src="gallery.js"></script>
 </body>
 
 </html>

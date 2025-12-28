@@ -1,24 +1,28 @@
 {
-  "images": [
+  "imgs": [
     {
       "id": 1,
-      "imgMiniPath": "img/min/1.jpg",
-      "imgMaxPath": "img/max/1.jpg"
+      "pathIMG": "img/min/1.jpg",
+      "fullImageUrl": "img/max/1.jpg",
+      "alt": "img/min/1.jpg"
     },
     {
       "id": 2,
-      "imgMiniPath": "img/min/2.jpg",
-      "imgMaxPath": "img/max/2.jpg"
+      "pathIMG": "img/min/2.jpg",
+      "fullImageUrl": "img/max/2.jpg",
+      "alt": "img/min/2.jpg"
     },
     {
       "id": 3,
-      "imgMiniPath": "img/min/3.jpg",
-      "imgMaxPath": "img/max/3.jpg"
+      "pathIMG": "img/min/3.jpg",
+      "fullImageUrl": "img/max/3.jpg",
+      "alt": "img/min/3.jpg"
     },
     {
       "id": 4,
-      "imgMiniPath": "img/min/4.jpg",
-      "imgMaxPath": "img/max/4.jpg"
+      "pathIMG": "img/min/4.jpg",
+      "fullImageUrl": "img/max/4.jpg",
+      "alt": "img/min/4.jpg"
     }
   ]
 }
