@@ -36,9 +36,6 @@ const gallery = {
       dataset.number = i;
     }
 
-    console.log(this.imagesHTMLEls);
-
-
     this.galleryHTMLEl.addEventListener('click', e => this.handlerClickOnGallery(e));
   },
 
