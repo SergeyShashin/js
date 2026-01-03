@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .isInvalid {
+      border: 1px solid red;
+    }
+
+    .isValid {
+      color: green;
+    }
+  </style>
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="#" method="post" id="formContacts">
+    <p>
+      <input name='name' id="name" type="text" placeholder="только буквы" value='author'>
+      <label for="name">Имя</label>
+    </p>
+    <p>
+      <input name='phone' id="phone" type="text" placeholder="+7(000)000-0000" value='+7(000)000-0000'>
+      <label for="phone">Телефон</label>
+    </p>
+    <p>
+      <input name='email' id="email" type="text" placeholder="mymail@mail.ru" value='my-mail@mail.ru'>
+      <label for="email">Емейл</label>
+    </p>
+    <p>
+      <textarea id="comment" placeholder="какой-то текст"></textarea>
+      <label for="email">Комментарий</label>
+    </p>
+    <input id="submit" type="submit">
+
+  </form>
+  <script src="validation.js"></script>
+</body>
+
+</html>
