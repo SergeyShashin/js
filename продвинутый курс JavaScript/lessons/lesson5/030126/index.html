@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    * {
+      box-sizing: border-box;
+      color: crimson;
+    }
+
+    section {
+      margin: 30px 0;
+    }
+    
+    button {
+      cursor: pointer;
+      background: lightskyblue;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+  </style>
+  <title>App</title>
+</head>
+
+<body>
+  <section>
+    <table id='goods'></table>
+  </section>
+  <section>
+    <table id='cart'></table>
+    <h4>Счёт <span id='cartAmount'>0</span> </h4>
+  </section>
+  <script></script>
+  <script src="jquery-3.6.0.min.js"></script>
+  <script src="classes/Goods/Goods.js"></script>
+  <script src="classes/Cart/Cart.js"></script>
+  <script src="js.js"></script>
+  <script>
+    var app = new App();
+    app.init();
+  </script>
+</body>
+
+</html>

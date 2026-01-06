@@ -1,0 +1,60 @@
+{
+  "goods": [
+    {
+      "id": 1,
+      "nameRu": "трусы",
+      "price": 800,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "nameRu": "майка",
+      "price": 3000,
+      "quantity": 1
+    },
+    {
+      "id": 3,
+      "nameRu": "джинсы",
+      "price": 8000,
+      "quantity": 1
+    },
+    {
+      "id": 4,
+      "nameRu": "кросовки",
+      "price": 30000,
+      "quantity": 1
+    },
+    {
+      "id": 5,
+      "nameRu": "рубашка",
+      "price": 8000,
+      "quantity": 1
+    },
+    {
+      "id": 6,
+      "nameRu": "куртка",
+      "price": 16000,
+      "quantity": 1
+    },
+    {
+      "id": 7,
+      "nameRu": "ботинки",
+      "price": 30000,
+      "quantity": 1
+    },
+    {
+      "id": 8,
+      "nameRu": "толстовка",
+      "price": 8000,
+      "quantity": 1
+    }
+  ],
+  "cart": [
+    {
+      "id": "1",
+      "nameRu": "трусы",
+      "price": "800",
+      "quantity": "5"
+    }
+  ]
+}
