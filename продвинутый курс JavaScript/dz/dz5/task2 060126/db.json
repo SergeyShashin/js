@@ -1,0 +1,24 @@
+{
+  "reviews": [
+    {
+      "id": 0,
+      "textReview": "Текст нулевого отыва.",
+      "statusReview": "approve"
+    },
+    {
+      "textReview": "Свеженький отзыв.",
+      "statusReview": "approve",
+      "id": 1
+    },
+    {
+      "textReview": "Свеженький отзыв.",
+      "statusReview": "approve",
+      "id": 2
+    },
+    {
+      "textReview": "Новенький отзыв.",
+      "statusReview": "approve",
+      "id": 3
+    }
+  ]
+}
