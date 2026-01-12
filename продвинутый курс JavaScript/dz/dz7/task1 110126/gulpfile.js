@@ -19,7 +19,13 @@ gulp.task('browserSync', function () {
 });
 
 gulp.task('watch', function () {
-  gulp.watch('src/scss/**/*.scss', gulp.series(['scss', 'browserSync']));
+  browserSync({
+    server: {
+      baseDir: 'src'
+    }
+  });
+  gulp.watch('src/scss/**/*.scss', gulp.series(['scss']));
+  gulp.watch('src/*.html', browserSync.reload);
 });
 
 
