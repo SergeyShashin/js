@@ -1,0 +1,25 @@
+<script>
+
+  var questions = {
+    correctAnswer: null,
+    run() {
+      this.init();
+      this.ask();
+      this.printResult();
+    },
+    init() {
+      this.correctAnswer = 0;
+    },
+    ask() {
+      for (let i = 0; i < 3; i++) {
+        confirm(`Это ${i} вопрос?`, true) ? this.correctAnswer++ : '';
+      }
+    },
+    printResult() {
+      alert(`Cовпавших ответов с задуманными ${this.correctAnswer})`);
+    }
+  };
+
+  questions.run();
+
+</script>
