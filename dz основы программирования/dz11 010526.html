@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    let data = [];
+    let counterNotEven = 0;
+    let counterEven = 0;
+    let counterZero = 0;
+    let counterSequenceEven = 0;
+    let counterMaxSequenceEven = 0;
+
+    for (let i = 0; i < 36; i++) {
+      let randomNum = Math.round(Math.random() * 36);
+      let flagIsEven = false;
+      data.push(randomNum);
+
+      if (randomNum === 0) {
+        counterZero++;
+      }
+
+      if (isEven(randomNum)) {
+        flagIsEven = true;
+      }
+
+      if (i > 0 && flagIsEven && isEven(data[i - 1])) {
+        counterSequenceEven++;
+      } else {
+        counterSequenceEven = 1;
+      }
+
+      counterSequenceEven > counterMaxSequenceEven ? counterMaxSequenceEven = counterSequenceEven : '';
+    }
+
+    console.log(`Процент 0 ${counterZero/Number(data.length)}`);
+    console.log(`Максимальная последовательность чётных ${counterMaxSequenceEven}`);
+
+    function isEven(number) {
+      return number !== 0 && number % 2 === 0
+    }
+
+  </script>
+</body>
+
+</html>
