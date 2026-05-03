@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    twentyOne();
+
+    function twentyOne() {
+      var dealer = [getCard()];
+      var player = [getCard(), getCard()];
+
+      while (!isMoreThenNeed(player) && !isTwentyOne(player) && confirm(`${getStatus(dealer, player)}\nЁще?`)) {
+        player.push(getCard());
+      }
+
+      alert(getStatus(dealer, player));
+
+      if (isTwentyOne(player)) {
+        return outputWinPhrase21('человека')
+      } else if (isMoreThenNeed(player)) {
+        return outputMoreThenNeed('человека');
+      }
+
+      while (getSum(dealer) < 15) {
+        dealer.push(getCard());
+        alert(getStatus(dealer, player));
+      };
+
+      if (isTwentyOne(dealer)) {
+        return outputWinPhrase21('компа')
+      } else if (isMoreThenNeed(dealer)) {
+        return outputMoreThenNeed('компа');
+      }
+
+      if (getSum(dealer) > getSum(player)) {
+        outputWinPhrase('Комп');
+      } else if (getSum(player) > getSum(dealer)) {
+        outputWinPhrase('Человек');
+      } else {
+        outputWinPhrase('Баланс');
+      }
+
+    }
+
+    function isMoreThenNeed(arr) {
+      return getSum(arr) > 21
+    }
+
+    function outputMoreThenNeed(role) {
+      alert(`У ${role} больше 21)`);
+    }
+
+    function outputWinPhrase21(role) {
+      alert(`У ${role} 21)`);
+    }
+
+    function outputWinPhrase(role) {
+      alert(`${role} молодец.`);
+    }
+
+    function isTwentyOne(arr) {
+      return getSum(arr) === 21
+    }
+
+    function getStatus(dealer, player) {
+      return `Игрок: [${player}]=${getSum(player)}.\nДилер: [${dealer}]=${getSum(dealer)}.`;
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    }
+
+    function getCard() {
+      var cards = ['6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+      return cards[getRandomInt(0, cards.length - 1)]
+    }
+
+    function getSum(cards) {
+      var sum = 0;
+      for (var card of cards) {
+        switch (card) {
+          case '6':
+            sum += 6
+            break;
+          case '7':
+            sum += 7
+            break;
+          case '8':
+            sum += 8
+            break;
+          case '9':
+            sum += 9
+            break;
+          case 'A':
+            sum += sum > 10 ? 1 : 11
+            break;
+          default: sum += 10;
+        }
+      }
+      return sum
+    }
+
+  </script>
+</body>
+
+</html>
