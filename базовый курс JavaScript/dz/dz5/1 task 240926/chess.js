@@ -33,8 +33,7 @@ const chess = {
       for (let col = 0; col < this.settings.cols; col++) {
         let td = document.createElement('td');
         tr.appendChild(td);
-        row % 2 === 0 && row > 0 && col > 0 && row < 9 && col < 9 && col % 2 === 1 ? td.classList.add(this.settings.colorBlackBG) : '';
-        row % 2 === 1 && row > 0 && col > 0 && col < 9 && row < 9 && col % 2 === 0 ? td.classList.add(this.settings.colorBlackBG) : '';
+        this.setColorTd(row, col, td);
         this.board[`row${row}_col${col}`] = td;
       }
       this.chessHTMLEl.appendChild(tr);
@@ -43,12 +42,17 @@ const chess = {
 
   },
 
+  setColorTd(row, col, td) {
+    row % 2 === 0 && row > 0 && col > 0 && row < 9 && col < 9 && col % 2 === 1 ? td.classList.add(this.settings.colorBlackBG) : '';
+    row % 2 === 1 && row > 0 && col > 0 && col < 9 && row < 9 && col % 2 === 0 ? td.classList.add(this.settings.colorBlackBG) : '';
+  },
+
   insertCharsForBoard() {
     this.settings.charsForBoard.forEach((char, idx) => {
       this.board[`row${0}_col${idx + 1}`].textContent = char;
       this.board[`row${9}_col${idx + 1}`].textContent = char;
-      this.board[`row${idx+1}_col${0}`].textContent = Math.abs(idx+1-9);
-      this.board[`row${idx+1}_col${9}`].textContent = Math.abs(idx+1-9);
+      this.board[`row${idx + 1}_col${0}`].textContent = Math.abs(idx + 1 - 9);
+      this.board[`row${idx + 1}_col${9}`].textContent = Math.abs(idx + 1 - 9);
     });
   }
 };
