@@ -7,9 +7,8 @@
   <style>
     form {
       box-sizing: border-box;
-      display: flex;
-      justify-content: space-around;
       color: lightseagreen;
+      margin: 10px;
     }
 
     input {
@@ -20,8 +19,26 @@
       color: lightseagreen;
     }
 
-    input::placeholder{
+    input::placeholder {
       color: lightseagreen;
+    }
+
+    button {
+      background: none;
+      color: lightseagreen;
+      border-radius: 10px;
+      border: 1px solid lightseagreen;
+      padding: 10px;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      color: crimson;
+      cursor: pointer;
+    }
+
+    input:hover {
+      border-bottom: 1px solid crimson;
     }
   </style>
 
@@ -31,9 +48,10 @@
 <body>
   <form action='#'>
     <div id='name'>
-      <label for='nameInput'>Имя:</label>
+      <label for='nameInput'>Имя: </label>
       <input id='nameInput' type='text' title='Имя - должно содержать как минимум 1 символ, не более 50 символов.'
         placeholder='Ivan'>
+
     </div>
     <div id='phone'>
       <label for='phoneInput'>Телефон:</label>
@@ -42,9 +60,14 @@
     </div>
     <div id='password'>
       <label for='passwordInput'>Пароль:</label>
-      <input id='passwordInput' type='password' title='Пароль - минимум 5 символов, максимум 50.'
+      <input id='passwordInput' type='password' title='Пароль - минимум 5 символов, максимум 50.' placeholder='12345'>
+    </div>
+    <div id='passwordRepeat'>
+      <label for='passwordRepeatInput'>Повтор пароля:</label>
+      <input id='passwordRepeatInput' type='password' title='Повтор пароля - значение должно совпадать с полем пароль.'
         placeholder='12345'>
     </div>
+    <button id='sendBtn' type='submit'>send</button>
   </form>
 
 
