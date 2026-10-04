@@ -124,14 +124,13 @@ const chess = {
   },
 
   insertCharsForBoard() {
-    console.log(this.board);
-    // this.settings.charsForBoard.forEach((char, idx) => {
-    //   if(idx===0||idx===9){
-    //     this.board[`${char}${idx}`].textContent = char;
-    //   }
-    //     this.board[`${this.settings.charsForBoard[idx + 1]}${0}`].textContent = Math.abs(idx + 1 - 9);
-    //     this.board[`${this.settings.charsForBoard[idx + 1]}${9}`].textContent = Math.abs(idx + 1 - 9);
-    // });
+    for (let i = 1; i < 9; i++) {
+      this.board[`${this.settings.charsForBoard[0]}${i}`].textContent = Math.abs(i - 9);
+      this.board[`${this.settings.charsForBoard[9]}${i}`].textContent = Math.abs(i - 9);
+
+      this.board[`${this.settings.charsForBoard[i]}${0}`].textContent = `${this.settings.charsForBoard[i]}`;
+      this.board[`${this.settings.charsForBoard[i]}${9}`].textContent = `${this.settings.charsForBoard[i]}`;
+    } 
   }
 };
 
