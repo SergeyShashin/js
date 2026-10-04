@@ -12,28 +12,15 @@ const chess = {
     cols: 10,
     colorBlackBG: 'black',
     charsForBoard: ['forCharsLeft', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'forCharsRight'],
-  },
-
-  chessHTMLEl: null,
-  board: null,
-  figures: null,
-
-  run() {
-    this.init();
-  },
-
-  init() {
-    this.chessHTMLEl = document.getElementById('chess');
-    this.board = {};
-    this.figures = {
+    figures: {
       'kw': {
-        startPosition: 'E1',
+        startPosition: ['E1'],
         position: '',
         code: 'U+2654',
         HTMLCode: '&#9812;',
       },
       'fw': {
-        startPosition: 'D1',
+        startPosition: ['D1'],
         position: '',
         code: 'U+2655',
         HTMLCode: '&#9813;'
@@ -57,19 +44,19 @@ const chess = {
         HTMLCode: '&#9816;'
       },
       'pw': {
-        // startPosition: this.getStartPositionPaw(2),
+        startPosition: ['A2', 'B2', 'C2', 'D2', 'E2', 'F2', 'G2', 'H2'],
         position: '',
         code: 'U+2659',
         HTMLCode: '&#9817;'
       },
       'kb': {
-        startPosition: 'E8',
+        startPosition: ['E8'],
         position: '',
         code: 'U+265A',
         HTMLCode: '&#9818;',
       },
       'fb': {
-        startPosition: 'D8',
+        startPosition: ['D8'],
         position: '',
         code: 'U+265B',
         HTMLCode: '&#9819;'
@@ -93,12 +80,24 @@ const chess = {
         HTMLCode: '&#9822;'
       },
       'pb': {
-        // startPosition: this.getStartPositionPaw(7),
+        startPosition: ['A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7'],
         position: '',
         code: 'U+265F',
         HTMLCode: '&#9823;'
       },
-    };
+    }
+  },
+
+  chessHTMLEl: null,
+  board: null,
+
+  run() {
+    this.init();
+  },
+
+  init() {
+    this.chessHTMLEl = document.getElementById('chess');
+    this.board = {};
     this.createChessBoard();
   },
 
@@ -109,13 +108,12 @@ const chess = {
         let td = document.createElement('td');
         tr.appendChild(td);
         this.setColorTd(row, col, td);
-        // this.board[`row${row}_col${col}`] = td;
         this.board[`${this.settings.charsForBoard[col]}${row}`] = td;
       }
       this.chessHTMLEl.appendChild(tr);
     }
     this.insertCharsForBoard();
-
+    this.insertFigures();
   },
 
   setColorTd(row, col, td) {
@@ -130,7 +128,15 @@ const chess = {
 
       this.board[`${this.settings.charsForBoard[i]}${0}`].textContent = `${this.settings.charsForBoard[i]}`;
       this.board[`${this.settings.charsForBoard[i]}${9}`].textContent = `${this.settings.charsForBoard[i]}`;
-    } 
+    }
+  },
+
+  insertFigures() {
+    for (let figure in this.settings.figures) {
+      for (let startPosition of this.settings.figures[figure]['startPosition']) {
+        this.board[startPosition].innerHTML = this.settings.figures[figure]['HTMLCode'];
+      }
+    }
   }
 };
 
