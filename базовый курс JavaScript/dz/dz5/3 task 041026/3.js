@@ -22,3 +22,44 @@
 Пользоваться аттрибутами HTML5 запрещено, необходимо проверки реализовать с помощью
 javascript.
 */
+
+const validationForm = {
+  formHTMLEl: null,
+  inputsHTMLEls: null,
+  run() {
+    this.init();
+  },
+  init() {
+    this.formHTMLEl = document.getElementById('contactData');
+    this.inputsHTMLEls = this.formHTMLEl.querySelectorAll('input');
+    this.setHandlers();
+  },
+  setHandlers() {
+    this.formHTMLEl.addEventListener('submit', e => this.submitHandler(e));
+  },
+  submitHandler(e) {
+    e.preventDefault();
+    let flagValid = true;
+    for (let inputEl of this.inputsHTMLEls) {
+      console.log(inputEl.name);
+      if (!this.isValid(inputEl.name)) {
+        flagValid = false;
+        this.insertMsgError(inputEl, msg);
+        return
+      } else {
+        flagValid = true;
+      }
+    }
+
+  },
+  isValid(inputName) {
+    console.log('Проверить инпут ' + inputName);
+    return false
+  },
+  insertMsgError(inputEl, msg) {
+    console.log('Добавить родителю сообщение об ошибке');
+  }
+
+};
+
+window.onload = () => validationForm.run();
