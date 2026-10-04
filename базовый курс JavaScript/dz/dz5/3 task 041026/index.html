@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <style>
+    form {
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-around;
+      color: lightseagreen;
+    }
+
+    input {
+      border: none;
+      border-bottom: 1px solid lightseagreen;
+      margin: 10px;
+      outline: none;
+      color: lightseagreen;
+    }
+
+    input::placeholder{
+      color: lightseagreen;
+    }
+  </style>
+
+  <title>DZ 5. Task 3. Form validation.</title>
+</head>
+
+<body>
+  <form action='#'>
+    <div id='name'>
+      <label for='nameInput'>Имя:</label>
+      <input id='nameInput' type='text' title='Имя - должно содержать как минимум 1 символ, не более 50 символов.'
+        placeholder='Ivan'>
+    </div>
+    <div id='phone'>
+      <label for='phoneInput'>Телефон:</label>
+      <input id='phoneInput' type='text' title='Телефон - должно содержать 11 цифр, не больше, не меньше.'
+        placeholder='89000000000'>
+    </div>
+    <div id='password'>
+      <label for='passwordInput'>Пароль:</label>
+      <input id='passwordInput' type='password' title='Пароль - минимум 5 символов, максимум 50.'
+        placeholder='12345'>
+    </div>
+  </form>
+
+
+  <script src='3.js'></script>
+</body>
+
+</html>
