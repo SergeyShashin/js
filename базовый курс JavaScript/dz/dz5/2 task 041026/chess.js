@@ -11,12 +11,12 @@ const chess = {
     rows: 10,
     cols: 10,
     colorBlackBG: 'black',
-    charsForBoard: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+    charsForBoard: ['forCharsLeft', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'forCharsRight'],
   },
-  
+
   chessHTMLEl: null,
   board: null,
-  figures:null,
+  figures: null,
 
   run() {
     this.init();
@@ -57,7 +57,7 @@ const chess = {
         HTMLCode: '&#9816;'
       },
       'pw': {
-        startPosition: this.getStartPositionPaw(2),
+        // startPosition: this.getStartPositionPaw(2),
         position: '',
         code: 'U+2659',
         HTMLCode: '&#9817;'
@@ -93,7 +93,7 @@ const chess = {
         HTMLCode: '&#9822;'
       },
       'pb': {
-        startPosition: this.getStartPositionPaw(7),
+        // startPosition: this.getStartPositionPaw(7),
         position: '',
         code: 'U+265F',
         HTMLCode: '&#9823;'
@@ -109,7 +109,8 @@ const chess = {
         let td = document.createElement('td');
         tr.appendChild(td);
         this.setColorTd(row, col, td);
-        this.board[`row${row}_col${col}`] = td;
+        // this.board[`row${row}_col${col}`] = td;
+        this.board[`${this.settings.charsForBoard[col]}${row}`] = td;
       }
       this.chessHTMLEl.appendChild(tr);
     }
@@ -123,12 +124,14 @@ const chess = {
   },
 
   insertCharsForBoard() {
-    this.settings.charsForBoard.forEach((char, idx) => {
-      this.board[`row${0}_col${idx + 1}`].textContent = char;
-      this.board[`row${9}_col${idx + 1}`].textContent = char;
-      this.board[`row${idx + 1}_col${0}`].textContent = Math.abs(idx + 1 - 9);
-      this.board[`row${idx + 1}_col${9}`].textContent = Math.abs(idx + 1 - 9);
-    });
+    console.log(this.board);
+    // this.settings.charsForBoard.forEach((char, idx) => {
+    //   if(idx===0||idx===9){
+    //     this.board[`${char}${idx}`].textContent = char;
+    //   }
+    //     this.board[`${this.settings.charsForBoard[idx + 1]}${0}`].textContent = Math.abs(idx + 1 - 9);
+    //     this.board[`${this.settings.charsForBoard[idx + 1]}${9}`].textContent = Math.abs(idx + 1 - 9);
+    // });
   }
 };
 
