@@ -101,9 +101,10 @@ const validationForm = {
     let msgEl = document.createElement('pre');
     msgEl.textContent = msg;
     msgEl.style.color = 'brown';
+    inputEl.parentElement.appendChild(msgEl);
   },
   clearErrosEls() {
-    let errorsEls = document.querySelectorAll('pre');
+    let errorsEls = this.formHTMLEl.querySelectorAll('pre');
     for (let errorEl of errorsEls) {
       errorEl.remove();
     }
