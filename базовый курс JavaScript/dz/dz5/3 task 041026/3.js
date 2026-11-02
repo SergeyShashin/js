@@ -57,11 +57,11 @@ const validationForm = {
         let contentLength = content.length;
         switch (sign) {
           case '>':
-            return contentLength > num ? '' : `Ожидается ввод более ${num + 1} символов.`;
+            return contentLength > num ? '' : `Ожидается ввод более ${num + 1} символа(ов).`;
           case '<':
-            return contentLength < num ? '' : `Ожидается ввод менее ${num} символов.`;
+            return contentLength < num ? '' : `Ожидается ввод менее ${num} символа(ов).`;
           case '===':
-            return contentLength < num ? '' : `Ожидается ввод ${num} символов.`;
+            return contentLength < num ? '' : `Ожидается ввод ${num} символа(ов).`;
         }
       },
       onlyNumber(content) {
@@ -69,7 +69,6 @@ const validationForm = {
       },
       mustMatch(content, inputId) {
         let contentForCompare = document.getElementById(inputId).value;
-        console.log(content === contentForCompare ? '' : 'Ожидается совпадение содержимого.');
         return content === contentForCompare ? '' : 'Ожидается совпадение содержимого.';
       }
     },
@@ -81,24 +80,36 @@ const validationForm = {
   submitHandler(e) {
     e.preventDefault();
     let errors = [];
+    this.clearErrosEls();
     for (let inputEl of this.inputsHTMLEls) {
-      let result = this.check(inputEl);
-      console.log(inputEl.name, result);
-      result.length > 1 ? errors.push(result) : '';
+      // console.log(inputEl.name);
+      let rules = this.rules[inputEl.name];
+      // console.log(rules);
+      for (let rule of rules) {
+        // console.log(rule);
+        // console.log(rule.method);
+        let result = this.methods[rule.method](inputEl.value, rule.arguments);
+        // console.log(result);
+        if (result.length > 0) {
+          errors.push(result);
+          this.addMsgError(inputEl, result);
+        }
+      }
     }
     console.log(errors);
   },
-  check(inputEl) {
-    for (let rule of this.rules[inputEl.name]) {
-      let result = this.methods[rule.method](inputEl.value, rule.arguments);
-      if (result.length > 1) {
-        return result
-      }
-    }
+  addMsgError(inputEl, msg) {
+    let msgEl = document.createElement('pre');
+    msgEl.textContent = msg;
+    msgEl.style.color = 'brown';
+    console.dir(inputEl.parentElement.appendChild(msgEl));
   },
-  // insertMsgError(inputEl, msg) {
-  //   console.log('Добавить родителю сообщение об ошибке');
-  // }
+  clearErrosEls() {
+    let errorsEls = document.querySelectorAll('pre');
+    for (let errorEl of errorsEls) {
+      errorEl.remove();
+    }
+  }
 
 };
 
