@@ -53,18 +53,22 @@ const validationForm = {
     };
     this.methods = {
       length(content, arrSignAndNumber) {
-        let [sign, num] = arrSignAndNumber[0];
+        let [sign, num] = arrSignAndNumber;
         let contentLength = content.length;
         switch (sign) {
           case '>':
-            return contentLength > num ? '' : `Ожидается ввод более ${num} символов.`;
+            return contentLength > num ? '' : `Ожидается ввод более ${num+1} символов.`;
           case '<':
-            return contentLength > num ? '' : `Ожидается ввод менее ${num} символов.`;
+            return contentLength < num ? '' : `Ожидается ввод менее ${num} символов.`;
         }
       },
       onlyNumber(content) {
-        return Number.isInteger(Number(content)) && content !== '' ? '' : 'Ожидаеются только цифры';
+        return Number.isInteger(Number(content)) && content !== '' ? '' : 'Ожидаются только цифры';
       },
+      mustMatch(content, inputId) {
+        let contentForCompare = document.getElementById(inputId).value;
+        return content.value === contentForCompare ? '' : 'Ожидается совпадение содержимого.';
+      }
     },
       this.setHandlers();
   },
@@ -73,26 +77,21 @@ const validationForm = {
   },
   submitHandler(e) {
     e.preventDefault();
-    let flagValid = true;
+    let errors = [];
     for (let inputEl of this.inputsHTMLEls) {
-      console.log(inputEl.name);
-      if (!this.isValid(inputEl.name)) {
-        flagValid = false;
-        // this.insertMsgError(inputEl, msg);
-        return
-      } else {
-        flagValid = true;
-      }
+      let result = this.check(inputEl);
+      result === '' ? '' : errors.push(result);
     }
-
+    console.log(errors);
   },
-  isValid(inputName) {
-    console.log('Проверить инпут ' + inputName);
-    return true;
+  check(inputEl) {
+    for (let rule of this.rules[inputEl.name]) {
+      return this.methods[rule.method](inputEl.value, rule.arguments);
+    }
   },
-  insertMsgError(inputEl, msg) {
-    console.log('Добавить родителю сообщение об ошибке');
-  }
+  // insertMsgError(inputEl, msg) {
+  //   console.log('Добавить родителю сообщение об ошибке');
+  // }
 
 };
 
