@@ -26,13 +26,44 @@ javascript.
 const validationForm = {
   formHTMLEl: null,
   inputsHTMLEls: null,
+  rules: null,
+  methods: null,
   run() {
     this.init();
   },
   init() {
     this.formHTMLEl = document.getElementById('contactData');
     this.inputsHTMLEls = this.formHTMLEl.querySelectorAll('input');
-    this.setHandlers();
+    this.rules = {
+      name: [
+        { method: 'length', arguments: ['>', 0] },
+        { method: 'length', arguments: ['<', 51] }
+      ],
+      phone: [
+        { method: 'type', arguments: ['number'] },
+        { method: 'length', arguments: ['===', 11] }
+      ],
+      password: [
+        { method: 'length', arguments: ['>', 4] },
+        { method: 'length', arguments: ['<', 51] }
+      ],
+      passwordRepeat: [
+        { method: 'mustMatch', arguments: ['password'] },
+      ],
+    };
+    this.methods = {
+      length(content, arrSignAndNumber) {
+        let [sign, num] = arrSignAndNumber[0];
+        let contentLength = content.length;
+        switch (sign) {
+          case '>':
+            return contentLength > num ? '' : `Ожидается ввод более ${num} символов.`;
+          case '<':
+            return contentLength > num ? '' : `Ожидается ввод менее ${num} символов.`;
+        }
+      },
+    },
+      this.setHandlers();
   },
   setHandlers() {
     this.formHTMLEl.addEventListener('submit', e => this.submitHandler(e));
@@ -44,7 +75,7 @@ const validationForm = {
       console.log(inputEl.name);
       if (!this.isValid(inputEl.name)) {
         flagValid = false;
-        this.insertMsgError(inputEl, msg);
+        // this.insertMsgError(inputEl, msg);
         return
       } else {
         flagValid = true;
@@ -54,7 +85,7 @@ const validationForm = {
   },
   isValid(inputName) {
     console.log('Проверить инпут ' + inputName);
-    return false
+    return true;
   },
   insertMsgError(inputEl, msg) {
     console.log('Добавить родителю сообщение об ошибке');
