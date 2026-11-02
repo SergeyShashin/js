@@ -40,7 +40,7 @@ const validationForm = {
         { method: 'length', arguments: ['<', 51] }
       ],
       phone: [
-        { method: 'type', arguments: ['number'] },
+        { method: 'onlyNumber', arguments: [] },
         { method: 'length', arguments: ['===', 11] }
       ],
       password: [
@@ -61,6 +61,9 @@ const validationForm = {
           case '<':
             return contentLength > num ? '' : `Ожидается ввод менее ${num} символов.`;
         }
+      },
+      onlyNumber(content) {
+        return Number.isInteger(Number(content)) && content !== '' ? '' : 'Ожидаеются только цифры';
       },
     },
       this.setHandlers();
