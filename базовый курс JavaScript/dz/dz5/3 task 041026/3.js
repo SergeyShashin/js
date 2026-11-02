@@ -61,7 +61,7 @@ const validationForm = {
           case '<':
             return contentLength < num ? '' : `Ожидается ввод менее ${num} символа(ов).`;
           case '===':
-            return contentLength < num ? '' : `Ожидается ввод ${num} символа(ов).`;
+            return contentLength === num ? '' : `Ожидается ввод ${num} символа(ов).`;
         }
       },
       onlyNumber(content) {
@@ -78,31 +78,29 @@ const validationForm = {
     this.formHTMLEl.addEventListener('submit', e => this.submitHandler(e));
   },
   submitHandler(e) {
-    e.preventDefault();
     let errors = [];
     this.clearErrosEls();
     for (let inputEl of this.inputsHTMLEls) {
-      // console.log(inputEl.name);
       let rules = this.rules[inputEl.name];
-      // console.log(rules);
       for (let rule of rules) {
-        // console.log(rule);
-        // console.log(rule.method);
         let result = this.methods[rule.method](inputEl.value, rule.arguments);
-        // console.log(result);
         if (result.length > 0) {
           errors.push(result);
           this.addMsgError(inputEl, result);
         }
       }
     }
-    console.log(errors);
+    if (errors.length > 0) {
+      e.preventDefault();
+      console.error(errors);
+    } else {
+      alert('Спасибо) Данные отправлены.)');
+    }
   },
   addMsgError(inputEl, msg) {
     let msgEl = document.createElement('pre');
     msgEl.textContent = msg;
     msgEl.style.color = 'brown';
-    console.dir(inputEl.parentElement.appendChild(msgEl));
   },
   clearErrosEls() {
     let errorsEls = document.querySelectorAll('pre');
