@@ -48,7 +48,7 @@ const validationForm = {
         { method: 'length', arguments: ['<', 51] }
       ],
       passwordRepeat: [
-        { method: 'mustMatch', arguments: ['password'] },
+        { method: 'mustMatch', arguments: ['passwordInput'] },
       ],
     };
     this.methods = {
@@ -57,9 +57,11 @@ const validationForm = {
         let contentLength = content.length;
         switch (sign) {
           case '>':
-            return contentLength > num ? '' : `Ожидается ввод более ${num+1} символов.`;
+            return contentLength > num ? '' : `Ожидается ввод более ${num + 1} символов.`;
           case '<':
             return contentLength < num ? '' : `Ожидается ввод менее ${num} символов.`;
+          case '===':
+            return contentLength < num ? '' : `Ожидается ввод ${num} символов.`;
         }
       },
       onlyNumber(content) {
@@ -67,7 +69,8 @@ const validationForm = {
       },
       mustMatch(content, inputId) {
         let contentForCompare = document.getElementById(inputId).value;
-        return content.value === contentForCompare ? '' : 'Ожидается совпадение содержимого.';
+        console.log(content === contentForCompare ? '' : 'Ожидается совпадение содержимого.');
+        return content === contentForCompare ? '' : 'Ожидается совпадение содержимого.';
       }
     },
       this.setHandlers();
@@ -80,13 +83,17 @@ const validationForm = {
     let errors = [];
     for (let inputEl of this.inputsHTMLEls) {
       let result = this.check(inputEl);
-      result === '' ? '' : errors.push(result);
+      console.log(inputEl.name, result);
+      result.length > 1 ? errors.push(result) : '';
     }
     console.log(errors);
   },
   check(inputEl) {
     for (let rule of this.rules[inputEl.name]) {
-      return this.methods[rule.method](inputEl.value, rule.arguments);
+      let result = this.methods[rule.method](inputEl.value, rule.arguments);
+      if (result.length > 1) {
+        return result
+      }
     }
   },
   // insertMsgError(inputEl, msg) {
