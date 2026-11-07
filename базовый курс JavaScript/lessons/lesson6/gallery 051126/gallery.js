@@ -17,7 +17,6 @@ const gallery = {
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
     this.galleryHTMLEl = document.getElementById(this.settings.galleryHTMLElID);
-    console.log(this.galleryHTMLEl);
     this.minSizeImagesHTMLEl = document.getElementById(this.settings.minSizeImagesID);
     this.minSizeImagesHTMLEl.addEventListener('click', (e) => this.handlerClickMinSizeImages(e));
   },
@@ -37,7 +36,6 @@ const gallery = {
     this.openCurrentIMG(e.target.dataset.maxSize);
   },
   openCurrentIMG(srcMaxSize) {
-    console.log(srcMaxSize);
     let imgMaxSizeHTMLEl = new Image();
     imgMaxSizeHTMLEl.src = srcMaxSize;
     let pHTMLElIDforMaxSize = this.getGalleryMaxSize();
@@ -60,13 +58,14 @@ const gallery = {
     maxSizeImagesHTMLEl.id = this.settings.maxSizeImagesID;
     pHTMLElforMaxSize.id = this.settings.pHTMLElIDforMaxSize;
     btnCloseHTMLEl.id = this.settings.btnCloseID;
-
     imgForBtnClose.src = this.settings.btnClosePath;
 
     btnCloseHTMLEl.appendChild(imgForBtnClose);
     maxSizeImagesHTMLEl.appendChild(pHTMLElforMaxSize);
     maxSizeImagesHTMLEl.appendChild(btnCloseHTMLEl);
     this.galleryHTMLEl.insertBefore(maxSizeImagesHTMLEl, this.minSizeImagesHTMLEl);
+
+    btnCloseHTMLEl.addEventListener('click', () => maxSizeImagesHTMLEl.remove());
 
     return pHTMLElforMaxSize;
   }
