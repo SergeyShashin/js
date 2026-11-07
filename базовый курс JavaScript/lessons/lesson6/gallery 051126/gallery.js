@@ -2,18 +2,22 @@
 
 const gallery = {
   settings: {
+    galleryHTMLElID: 'gallery',
     btnClosePath: 'img/gallery/close.png',
     btnCloseID: 'btnClose',
     minSizeImagesID: 'galleryMinSize',
     maxSizeImagesID: 'galleryMaxSize',
     pHTMLElIDforMaxSize: 'images'
   },
+  galleryHTMLEl: null,
   minSizeImagesHTMLEl: null,
   currentIMGHTMLEl: null,
   nextImgHTMLEl: null,
   prevImgHTMLEl: null,
   init(userSettings = {}) {
     Object.assign(this.settings, userSettings);
+    this.galleryHTMLEl = document.getElementById(this.settings.galleryHTMLElID);
+    console.log(this.galleryHTMLEl);
     this.minSizeImagesHTMLEl = document.getElementById(this.settings.minSizeImagesID);
     this.minSizeImagesHTMLEl.addEventListener('click', (e) => this.handlerClickMinSizeImages(e));
   },
@@ -36,29 +40,35 @@ const gallery = {
     console.log(srcMaxSize);
     let imgMaxSizeHTMLEl = new Image();
     imgMaxSizeHTMLEl.src = srcMaxSize;
-    let maxSizeImagesHTMLEl = this.getGalleryMaxSize();
-    maxSizeImagesHTMLEl
-      ? maxSizeImagesHTMLEl.getElementById(this.settings.pHTMLElIDforMaxSize).appendChild(imgMaxSizeHTMLEl)
-      : this.createMaxSizeImagesHTMLEl().appendChild(imgMaxSizeHTMLEl);
+    let pHTMLElIDforMaxSize = this.getGalleryMaxSize();
+    if (pHTMLElIDforMaxSize) {
+      pHTMLElIDforMaxSize.innerHTML = '';
+      pHTMLElIDforMaxSize.appendChild(imgMaxSizeHTMLEl);
+    } else {
+      this.createMaxSizeImagesHTMLEl().appendChild(imgMaxSizeHTMLEl);
+    }
   },
   getGalleryMaxSize() {
-    return document.getElementById(this.settings.maxSizeImagesID).getElementById(this.settings.pHTMLElIDforMaxSize).innerHTML = '';
+    return document.getElementById(this.settings.pHTMLElIDforMaxSize);
   },
   createMaxSizeImagesHTMLEl() {
     let maxSizeImagesHTMLEl = document.createElement('article');
-    let pHTMLElIDforMaxSize = document.createElement('p');
+    let pHTMLElforMaxSize = document.createElement('p');
     let btnCloseHTMLEl = document.createElement('p');
     let imgForBtnClose = new Image();
-    
+
     maxSizeImagesHTMLEl.id = this.settings.maxSizeImagesID;
-    pHTMLElIDforMaxSize.id = this.settings.pHTMLElIDforMaxSize;
+    pHTMLElforMaxSize.id = this.settings.pHTMLElIDforMaxSize;
     btnCloseHTMLEl.id = this.settings.btnCloseID;
-    
+
     imgForBtnClose.src = this.settings.btnClosePath;
 
     btnCloseHTMLEl.appendChild(imgForBtnClose);
-    maxSizeImagesHTMLEl.appendChild(pHTMLElIDforMaxSize);
+    maxSizeImagesHTMLEl.appendChild(pHTMLElforMaxSize);
     maxSizeImagesHTMLEl.appendChild(btnCloseHTMLEl);
+    this.galleryHTMLEl.insertBefore(maxSizeImagesHTMLEl, this.minSizeImagesHTMLEl);
+
+    return pHTMLElforMaxSize;
   }
 };
 
