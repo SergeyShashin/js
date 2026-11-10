@@ -30,27 +30,20 @@ const gallery = {
     this.galleryHTMLEl = document.getElementById(this.settings.galleryHTMLElID);
     this.minSizeImagesHTMLEl = document.getElementById(this.settings.minSizeImagesID);
     this.minSizeImagesHTMLEl.addEventListener('click', (e) => this.handlerClickMinSizeImages(e));
+    this.setEventHandlers();
   },
   handlerClickMinSizeImages(e) {
     if (e.target.tagName !== 'IMG') {
       return
     }
     this.currentIMGHTMLEl = e.target;
-    this.nextImgHTMLEl = this.currentIMGHTMLEl.nextElementSibling
-      ? this.currentIMGHTMLEl.nextElementSibling
-      : this.currentIMGHTMLEl.parentElement.firstElementChild;
-    this.prevImgHTMLEl = this.currentIMGHTMLEl.previousElementSibling
-      ? this.currentIMGHTMLEl.previousElementSibling
-      : this.currentIMGHTMLEl.parentElement.lastElementChild;
-    ;
+    this.setNextImgHTMLEl();
+    this.setPrevImgHTMLEl();
 
     let srcForOpenIMG = e.target.dataset.maxSize;
 
-    let testIMG = new Image();
-    testIMG.src = srcForOpenIMG;
+    this.chooseNormPathOrPathForInfoIMG(srcForOpenIMG);
 
-    testIMG.onload = () => this.openCurrentIMG(srcForOpenIMG);
-    testIMG.onerror = () => this.openCurrentIMG(this.settings.pathForInfoIMG);
   },
   openCurrentIMG(srcMaxSize) {
     let imgMaxSizeHTMLEl = new Image();
@@ -94,6 +87,52 @@ const gallery = {
     btnCloseHTMLEl.addEventListener('click', () => maxSizeImagesHTMLEl.remove());
 
     return pHTMLElforMaxSize;
+  },
+
+  setNextImgHTMLEl() {
+    this.nextImgHTMLEl =
+      this.currentIMGHTMLEl.nextElementSibling
+        ? this.currentIMGHTMLEl.nextElementSibling
+        : this.currentIMGHTMLEl.parentElement.firstElementChild;
+  },
+
+  setPrevImgHTMLEl() {
+    this.prevImgHTMLEl = this.currentIMGHTMLEl.previousElementSibling
+      ? this.currentIMGHTMLEl.previousElementSibling
+      : this.currentIMGHTMLEl.parentElement.lastElementChild;
+    ;
+  },
+
+  chooseNormPathOrPathForInfoIMG(srcForOpenIMG) {
+    let testIMG = new Image();
+    testIMG.src = srcForOpenIMG;
+    testIMG.onload = () => this.openCurrentIMG(srcForOpenIMG);
+    testIMG.onerror = () => this.openCurrentIMG(this.settings.pathForInfoIMG);
+  },
+
+  setEventHandlers() {
+    this.galleryHTMLEl.addEventListener('click', e => this.clickHandlersGalleryHTMLEl(e));
+  },
+  clickHandlersGalleryHTMLEl(e) {
+    switch (e.target.id) {
+      case this.settings.btnLeftId:
+        // e.target.nextElementSibling.firstElementChild.src = this.prevImgHTMLEl.dataset.maxSize;
+        this.chooseNormPathOrPathForInfoIMG(this.prevImgHTMLEl.dataset.maxSize);
+        this.currentIMGHTMLEl = this.prevImgHTMLEl;
+        this.setPrevImgHTMLEl();
+        this.setNextImgHTMLEl();
+        break;
+      case this.settings.btnRightId:
+        // e.target.previousElementSibling.firstElementChild.src = this.nextImgHTMLEl.dataset.maxSize;
+        this.chooseNormPathOrPathForInfoIMG(this.nextImgHTMLEl.dataset.maxSize);
+        this.currentIMGHTMLEl = this.nextImgHTMLEl;
+        this.setPrevImgHTMLEl();
+        this.setNextImgHTMLEl();
+        break;
+      default:
+        console.log('Можно что-нибудь сделать.');
+        break;
+    }
   }
 };
 
