@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    * {
+      margin: 0 auto;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      /* background: rgba(32, 178, 170, 0.5); */
+    }
+
+    #gallery {}
+
+    #gallery img {
+      border-radius: 20px;
+    }
+
+    #galleryMinSize {
+      z-index: 1;
+      height: 100%;
+    }
+
+    #galleryMinSize img {
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    #galleryMaxSize {
+      display: flex;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      background: rgba(32, 178, 170, 0.5);
+      width: 100%;
+      z-index: 2;
+      height: 100%;
+    }
+
+    #galleryMaxSize img {
+      width: 800px;
+      z-index: 2;
+    }
+
+    #btnClose img {
+      position: absolute;
+      cursor: pointer;
+      background: none;
+      width: 30px;
+      top: 0;
+      right: 20px;
+    }
+  </style>
+  <title>Gallery</title>
+</head>
+
+<body>
+  <section id='gallery'>
+    <!-- <article id='galleryMaxSize'>
+      <p id="images">
+        <img src='img\max\1.jpg' alt='1.jpg'>
+      </p>
+      <p id='btnClose'>
+        <img src='img\gallery\close.png' alt='close.png'>
+      </p>
+    </article> -->
+    <article id='galleryMinSize'>
+      <img src='img\min\1.jpg' alt='1.jpg' data-max-size='img\max\1.jpg'>
+      <img src='img\min\2.jpg' alt='2.jpg' data-max-size='img\max\2.jpg'>
+      <img src='img\min\3.jpg' alt='3.jpg' data-max-size='img\max\3.jpg'>
+      <img src='img\min\4.jpg' alt='4.jpg' data-max-size='img\max\n4.jpg'>
+      <img src='img\min\1.jpg' alt='1.jpg' data-max-size='img\max\1.jpg'>
+      <img src='img\min\1.jpg' alt='1.jpg' data-max-size='img\max\1.jpg'>
+    </article>
+
+  </section>
+  <script src='gallery.js'></script>
+</body>
+
+</html>
