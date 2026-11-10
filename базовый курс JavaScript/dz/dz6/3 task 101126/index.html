@@ -56,6 +56,22 @@
       top: 0;
       right: 20px;
     }
+
+    #btnLeft,
+    #btnRight {
+      background: none;
+      font-size: 50px;
+      width: 50px;
+      outline: none;
+      border: none;
+      color: crimson;
+      cursor: pointer;
+    }
+
+    #btnLeft:hover,
+    #btnRight:hover {
+      font-size: 60px;
+    }
   </style>
   <title>Gallery</title>
 </head>
@@ -63,12 +79,14 @@
 <body>
   <section id='gallery'>
     <!-- <article id='galleryMaxSize'>
-      <p id="images">
-        <img src='img\max\1.jpg' alt='1.jpg'>
-      </p>
-      <p id='btnClose'>
-        <img src='img\gallery\close.png' alt='close.png'>
-      </p>
+      <button id='btnLeft'>
+        <</button> <p id="images">
+          <img src='img\max\1.jpg' alt='1.jpg'>
+          </p>
+          <button id='btnRight'>></button>
+          <p id='btnClose'>
+            <img src='img\gallery\close.png' alt='close.png'>
+          </p>
     </article> -->
     <article id='galleryMinSize'>
       <img src='img\min\1.jpg' alt='1.jpg' data-max-size='img\max\1.jpg'>

@@ -15,6 +15,10 @@ const gallery = {
     maxSizeImagesID: 'galleryMaxSize',
     pHTMLElIDforMaxSize: 'images',
     pathForInfoIMG: 'img/gallery/nothing.png',
+    btnLeftId: 'btnLeft',
+    btnRightId: 'btnRight',
+    btnLeftCursor: '<',
+    btnRightCursor: '>',
   },
   galleryHTMLEl: null,
   minSizeImagesHTMLEl: null,
@@ -66,15 +70,24 @@ const gallery = {
     let maxSizeImagesHTMLEl = document.createElement('article');
     let pHTMLElforMaxSize = document.createElement('p');
     let btnCloseHTMLEl = document.createElement('p');
+    let btnLeftHTMLEl = document.createElement('button');
+    let btnRightHTMLEl = document.createElement('button');
     let imgForBtnClose = new Image();
 
     maxSizeImagesHTMLEl.id = this.settings.maxSizeImagesID;
     pHTMLElforMaxSize.id = this.settings.pHTMLElIDforMaxSize;
     btnCloseHTMLEl.id = this.settings.btnCloseID;
+    btnLeftHTMLEl.id = this.settings.btnLeftId;
+    btnRightHTMLEl.id = this.settings.btnRightId;
     imgForBtnClose.src = this.settings.btnClosePath;
 
+    btnLeftHTMLEl.textContent = this.settings.btnLeftCursor;
+    btnRightHTMLEl.textContent = this.settings.btnRightCursor;
+
     btnCloseHTMLEl.appendChild(imgForBtnClose);
+    maxSizeImagesHTMLEl.appendChild(btnLeftHTMLEl);
     maxSizeImagesHTMLEl.appendChild(pHTMLElforMaxSize);
+    maxSizeImagesHTMLEl.appendChild(btnRightHTMLEl);
     maxSizeImagesHTMLEl.appendChild(btnCloseHTMLEl);
     this.galleryHTMLEl.insertBefore(maxSizeImagesHTMLEl, this.minSizeImagesHTMLEl);
 
