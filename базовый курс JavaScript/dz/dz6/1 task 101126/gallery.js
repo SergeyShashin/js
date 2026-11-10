@@ -13,7 +13,8 @@ const gallery = {
     btnCloseID: 'btnClose',
     minSizeImagesID: 'galleryMinSize',
     maxSizeImagesID: 'galleryMaxSize',
-    pHTMLElIDforMaxSize: 'images'
+    pHTMLElIDforMaxSize: 'images',
+    pathForInfoIMG: 'img/gallery/nothing.png',
   },
   galleryHTMLEl: null,
   minSizeImagesHTMLEl: null,
@@ -39,7 +40,14 @@ const gallery = {
       : this.currentIMGHTMLEl.parentElement.lastElementChild;
     ;
 
-    this.openCurrentIMG(e.target.dataset.maxSize);
+    let srcForOpenIMG = e.target.dataset.maxSize;
+
+    let testIMG = new Image();
+    testIMG.src = srcForOpenIMG;
+
+    testIMG.onload = () => this.openCurrentIMG(srcForOpenIMG);
+    testIMG.onerror = () => this.openCurrentIMG(this.settings.pathForInfoIMG);
+
   },
   openCurrentIMG(srcMaxSize) {
     let imgMaxSizeHTMLEl = new Image();
