@@ -47,7 +47,6 @@ const gallery = {
 
     testIMG.onload = () => this.openCurrentIMG(srcForOpenIMG);
     testIMG.onerror = () => this.openCurrentIMG(this.settings.pathForInfoIMG);
-
   },
   openCurrentIMG(srcMaxSize) {
     let imgMaxSizeHTMLEl = new Image();
